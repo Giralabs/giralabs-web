@@ -1,11 +1,377 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Giralabs - Web in Development">
+	<div class="page-container">
+		<!-- Subtle background grid pattern -->
+		<div class="grid-background"></div>
+		
+		<!-- Ambient gradient light (soft apricot glow) -->
+		<div class="ambient-glow"></div>
+
+		<!-- Main Content -->
+		<main class="content">
+			<!-- Brand Header: Logo on the left, Title on the right -->
+			<div class="brand-header">
+				<!-- Animated Logo Wrapper with 3D Flip Effects -->
+				<div class="logo-wrapper">
+					<div class="logo-glow"></div>
+					<div class="logo-entrance-container">
+						<img src={apricotSymbol.src} alt="Giralabs Apricot Symbol" class="brand-logo" />
+					</div>
+				</div>
+
+				<!-- Brand Title with letter-by-letter reveal (UPPERCASE) -->
+				<div class="brand-title-container">
+					<h1 class="brand-title">
+						<span class="char" style="--d: 0.1s">G</span>
+						<span class="char" style="--d: 0.15s">I</span>
+						<span class="char" style="--d: 0.2s">R</span>
+						<span class="char" style="--d: 0.25s">A</span>
+						<span class="char" style="--d: 0.3s">L</span>
+						<span class="char" style="--d: 0.35s">A</span>
+						<span class="char" style="--d: 0.4s">B</span>
+						<span class="char" style="--d: 0.45s">S</span>
+					</h1>
+				</div>
+			</div>
+
+			<!-- Animated divider line -->
+			<div class="animated-line"></div>
+
+			<!-- Elegant subtext -->
+			<p class="description">
+				We are crafting a new digital experience. The main Giralabs website is currently under development.
+			</p>
+		</main>
+
+		<!-- Footer details -->
+		<footer>
+			<div class="footer-links">
+				<a href="mailto:support@giralabs.com" class="footer-link">support@giralabs.com</a>
+				<span class="bullet">•</span>
+				<span class="footer-text">© 2026 Giralabs</span>
+			</div>
+		</footer>
+	</div>
 </Layout>
+
+<style>
+	.page-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Subtle dots grid background */
+	.grid-background {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1.2px, transparent 1.2px);
+		background-size: 32px 32px;
+		pointer-events: none;
+		z-index: 1;
+		opacity: 0.8;
+	}
+
+	/* Soft background lighting */
+	.ambient-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 600px;
+		height: 600px;
+		max-width: 90vw;
+		max-height: 90vw;
+		background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(240, 239, 234, 0) 70%);
+		pointer-events: none;
+		z-index: 1;
+		filter: blur(50px);
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		z-index: 2;
+		max-width: 600px;
+		padding: 2rem;
+		margin-top: -2rem; /* visually centers content slightly higher for aesthetic balance */
+	}
+
+	/* Brand Header Container */
+	.brand-header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		margin-bottom: 2.5rem;
+		z-index: 2;
+		/* Disables hovers during entrance animation so cursor position doesn't trigger early transitions */
+		pointer-events: none;
+		animation: enablePointerEvents 0s forwards;
+		animation-delay: 2s;
+	}
+
+	/* Logo animation wrapper */
+	.logo-wrapper {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: -0.2rem; /* shifts the logo slightly up to align with uppercase caps */
+	}
+
+	/* 3D Entrance Container */
+	.logo-entrance-container {
+		perspective: 1200px;
+		transform-style: preserve-3d;
+		opacity: 0;
+		/* 3D spin and scale-up entrance */
+		animation: entryFlip3D 1.8s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+	}
+
+	.brand-logo {
+		width: 95px;
+		height: auto;
+		z-index: 2;
+		display: block;
+		cursor: pointer;
+		filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.05));
+		transform-style: preserve-3d;
+		/* Transition for hover flip */
+		transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+	}
+
+	/* Micro-interactions: 3D Flip on hover */
+	.logo-wrapper:hover .brand-logo {
+		transform: rotateY(180deg);
+		filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.08));
+	}
+
+	.logo-glow {
+		position: absolute;
+		width: 125px;
+		height: 125px;
+		background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+		filter: blur(12px);
+		z-index: 1;
+		opacity: 0;
+		animation: fadeIn 1.5s ease-out 0.4s forwards;
+	}
+
+	/* Title Text reveal (UPPERCASE) */
+	.brand-title-container {
+		overflow: hidden;
+		height: auto;
+	}
+
+	.brand-title {
+		font-size: 5rem;
+		font-weight: 700; /* Gilroy Bold fallback */
+		letter-spacing: -0.065em;
+		margin: 0;
+		padding-right: 0.5rem; /* prevents the last letter (S) from being clipped due to negative letter-spacing */
+		color: #000000;
+		line-height: 1;
+		display: flex;
+		justify-content: center;
+	}
+
+	.char {
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(100%);
+		animation: revealChar 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+		animation-delay: var(--d);
+		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), color 0.25s ease;
+		cursor: default;
+	}
+
+	/* Cool hover effect on characters */
+	.char:hover {
+		transform: translateY(-4px);
+		opacity: 0.7;
+	}
+
+	/* Divider line */
+	.animated-line {
+		width: 0px;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.18) 20%, rgba(0, 0, 0, 0.18) 80%, transparent);
+		margin-bottom: 2rem;
+		animation: expandLine 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
+	}
+
+	/* Subtitle description */
+	.description {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		color: #555555;
+		max-width: 440px;
+		margin: 0;
+		opacity: 0;
+		animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 0.9s forwards;
+	}
+
+	/* Footer styling */
+	footer {
+		position: absolute;
+		bottom: 2.5rem;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		z-index: 2;
+		opacity: 0;
+		animation: fadeIn 1.2s ease-out 1.3s forwards;
+	}
+
+	.footer-links {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 12px;
+		font-size: 13.5px;
+		color: #777777;
+	}
+
+	.footer-link {
+		color: #000000;
+		text-decoration: none;
+		font-weight: 500;
+		position: relative;
+		transition: opacity 0.25s ease;
+	}
+
+	/* Subtle hover underline effect */
+	.footer-link::after {
+		content: '';
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: #000000;
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+	}
+
+	.footer-link:hover {
+		opacity: 0.7;
+	}
+
+	.footer-link:hover::after {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+
+	.bullet {
+		color: #bbbbbb;
+		font-size: 10px;
+	}
+
+	/* Keyframe Animations */
+	@keyframes enablePointerEvents {
+		to {
+			pointer-events: auto;
+		}
+	}
+
+	@keyframes fadeInDown {
+		from {
+			opacity: 0;
+			transform: translateY(-16px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* 3D spin and scale entrance keyframes */
+	@keyframes entryFlip3D {
+		0% {
+			opacity: 0;
+			transform: rotateY(-360deg) scale(0.6);
+		}
+		100% {
+			opacity: 1;
+			transform: rotateY(0deg) scale(1);
+		}
+	}
+
+	@keyframes revealChar {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes expandLine {
+		to {
+			width: 140px;
+		}
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(16px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale(0.8);
+			opacity: 0.8;
+		}
+		100% {
+			transform: scale(2.4);
+			opacity: 0;
+		}
+	}
+
+	/* Responsive design adjustments */
+	@media (max-width: 640px) {
+		.brand-header {
+			flex-direction: column;
+			gap: 1.2rem;
+			margin-bottom: 1.5rem;
+		}
+		.brand-title {
+			font-size: 3.2rem;
+		}
+		.description {
+			font-size: 1rem;
+			padding: 0 1rem;
+		}
+		.brand-logo {
+			width: 110px;
+		}
+		.content {
+			margin-top: -1rem;
+		}
+	}
+</style>
