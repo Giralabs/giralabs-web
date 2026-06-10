@@ -49,7 +49,7 @@ const T = translations[defaultLang];
       if (T[key] !== undefined) {
         if (key === 'how_title' || key === 'sd_title') {
           el.innerHTML = T[key].replace(/\n/g, '<br/>');
-        } else if (key === 'pioneers_p1' || key === 'pioneers_p2' || key === 'statement_sub2') {
+        } else if (key === 'pioneers_p1' || key === 'pioneers_p2' || key === 'statement_sub2' || key === 'hero_tagline') {
           el.innerHTML = T[key];
         } else {
           el.textContent = T[key];

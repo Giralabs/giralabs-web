@@ -1,5 +1,19 @@
 ---
 import { translations } from '../../i18n/translations';
+import androidStudioLogo from '../../assets/tech_stack/android_studio.webp';
+import flutterLogo from '../../assets/tech_stack/flutter.webp';
+import javaLogo from '../../assets/tech_stack/java.webp';
+import kotlinLogo from '../../assets/tech_stack/kotlin.webp';
+import mongodbLogo from '../../assets/tech_stack/mongodb.webp';
+import supabaseLogo from '../../assets/tech_stack/supabase.webp';
+import swiftLogo from '../../assets/tech_stack/swift.webp';
+import xcodeLogo from '../../assets/tech_stack/xcode.webp';
+
+// Project images
+import gipsiImg from '../../assets/projects/gipsi_barber.webp';
+import nexusImg from '../../assets/projects/nexus.png';
+import pokedexImg from '../../assets/projects/lepokedex.webp';
+import auramoviesImg from '../../assets/projects/auramovies.webp';
 
 interface Props {
   lang?: string;
@@ -7,21 +21,74 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+const logos = [
+  { src: swiftLogo.src, alt: "Swift" },
+  { src: kotlinLogo.src, alt: "Kotlin" },
+  { src: flutterLogo.src, alt: "Flutter" },
+  { src: supabaseLogo.src, alt: "Supabase" },
+  { src: mongodbLogo.src, alt: "MongoDB" },
+  { src: javaLogo.src, alt: "Java" },
+  { src: androidStudioLogo.src, alt: "Android Studio" },
+  { src: xcodeLogo.src, alt: "Xcode" },
+];
+
+const marqueeLogos = [...logos, ...logos, ...logos];
+
+const projects = [
+  {
+    image: gipsiImg,
+    tagKey: "project_1_tag",
+    titleKey: "project_1_title",
+    descKey: "project_1_desc",
+    class: "project-card--wide",
+  },
+  {
+    image: nexusImg,
+    tagKey: "project_2_tag",
+    titleKey: "project_2_title",
+    descKey: "project_2_desc",
+    class: "project-card--narrow",
+  },
+  {
+    image: pokedexImg,
+    tagKey: "project_3_tag",
+    titleKey: "project_3_title",
+    descKey: "project_3_desc",
+    class: "project-card--narrow",
+  },
+  {
+    image: auramoviesImg,
+    tagKey: "project_4_tag",
+    titleKey: "project_4_title",
+    descKey: "project_4_desc",
+    class: "project-card--wide",
+  },
+] as const;
 ---
 
 <!-- ==================== PIONEERS / FLUTTER SECTION ==================== -->
-<section class="pioneers-section" id="pioneers" aria-label="Pioneros en Flutter">
+<section class="pioneers-section" id="pioneers" aria-label="Tecnología de Vanguardia">
   <div class="pioneers-inner reveal">
-    <div class="pioneers-logo-wrap">
-      <img
-        src="/flutter-logo.webp"
-        alt="Flutter Logo"
-        class="pioneers-logo"
-        loading="lazy"
-        width="80"
-        height="auto"
-      />
+    <div class="tech-marquee-wrapper">
+      <div class="tech-marquee">
+        <div class="tech-marquee-track">
+          {marqueeLogos.map((logo) => (
+            <div class="tech-logo-item">
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                class="tech-logo-img"
+                loading="lazy"
+                width="36"
+                height="36"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
+    <p class="pioneers-eyebrow" data-i18n="pioneers_eyebrow">{T.pioneers_eyebrow}</p>
     <h2 class="pioneers-title" data-i18n="pioneers_title">{T.pioneers_title}</h2>
     <div class="pioneers-text-wrap">
       <p class="pioneers-desc" data-i18n="pioneers_p1" set:html={T.pioneers_p1}></p>
@@ -44,73 +111,25 @@ const T = translations[lang];
 
     <!-- Asymmetric Grid of Projects -->
     <div class="projects-grid reveal-stagger">
-      <!-- Project 1: CityXerpa (Wide Left) -->
-      <article class="project-card project-card--wide" style="--proj-bg: url('/proj-cityxerpa.png')">
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-card-top">
-            <span class="project-card-tag" data-i18n="project_1_tag">{T.project_1_tag}</span>
-            <div class="project-card-arrow">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      {projects.map((proj) => (
+        <article class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.image.src}')`}>
+          <div class="project-card-overlay"></div>
+          <div class="project-card-content">
+            <div class="project-card-top">
+              <span class="project-card-tag" data-i18n={proj.tagKey}>{T[proj.tagKey]}</span>
+              <div class="project-card-arrow">
+                <svg viewBox="0 0 14 14" fill="none" width="13" height="13">
+                  <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="project-card-bottom">
+              <h3 class="project-card-name" data-i18n={proj.titleKey}>{T[proj.titleKey]}</h3>
+              <p class="project-card-desc" data-i18n={proj.descKey}>{T[proj.descKey]}</p>
             </div>
           </div>
-          <div class="project-card-bottom">
-            <h3 class="project-card-name" data-i18n="project_1_title">{T.project_1_title}</h3>
-            <p class="project-card-desc" data-i18n="project_1_desc">{T.project_1_desc}</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 2: Dogfy Diet (Narrow Right) -->
-      <article class="project-card project-card--narrow" style="--proj-bg: url('/proj-dogfydiet.png')">
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-card-top">
-            <span class="project-card-tag" data-i18n="project_2_tag">{T.project_2_tag}</span>
-            <div class="project-card-arrow">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-          <div class="project-card-bottom">
-            <h3 class="project-card-name" data-i18n="project_2_title">{T.project_2_title}</h3>
-            <p class="project-card-desc" data-i18n="project_2_desc">{T.project_2_desc}</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 3: Rastreator (Narrow Left) -->
-      <article class="project-card project-card--narrow" style="--proj-bg: url('/proj-rastreator.png')">
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-card-top">
-            <span class="project-card-tag" data-i18n="project_3_tag">{T.project_3_tag}</span>
-            <div class="project-card-arrow">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-          <div class="project-card-bottom">
-            <h3 class="project-card-name" data-i18n="project_3_title">{T.project_3_title}</h3>
-            <p class="project-card-desc" data-i18n="project_3_desc">{T.project_3_desc}</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 4: ISDIN (Wide Right) -->
-      <article class="project-card project-card--wide" style="--proj-bg: url('/proj-isdin.png')">
-        <div class="project-card-overlay"></div>
-        <div class="project-card-content">
-          <div class="project-card-top">
-            <span class="project-card-tag" data-i18n="project_4_tag">{T.project_4_tag}</span>
-            <div class="project-card-arrow">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-          </div>
-          <div class="project-card-bottom">
-            <h3 class="project-card-name" data-i18n="project_4_title">{T.project_4_title}</h3>
-            <p class="project-card-desc" data-i18n="project_4_desc">{T.project_4_desc}</p>
-          </div>
-        </div>
-      </article>
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -209,34 +228,77 @@ const T = translations[lang];
       0 1px 0 rgba(255, 255, 255, 0.18) inset;
   }
 
-  .pioneers-logo-wrap {
+  .tech-marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .tech-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0;
     display: flex;
-    justify-content: center;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .tech-marquee-track {
+    display: flex;
     align-items: center;
-    margin-bottom: -0.8rem;
+    gap: 1.5rem;
+    animation: marquee 35s linear infinite;
+    width: max-content;
   }
 
-  .pioneers-logo {
-    width: 80px;
+  .tech-marquee:hover .tech-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .tech-logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.03), 
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tech-logo-item:hover {
+    transform: translateY(-4px) scale(1.06);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.06), 
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  .tech-logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
-    opacity: 0;
-    transform: scale(0.8) translateY(8px);
-    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    transition-delay: 0.15s;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.7);
+    transition: filter 0.3s ease, opacity 0.3s ease;
   }
 
-  .reveal.visible .pioneers-logo {
-    opacity: 0.85;
-    transform: scale(1) translateY(0);
+  .tech-logo-item:hover .tech-logo-img {
+    filter: grayscale(0%) opacity(1);
   }
 
-  .reveal.visible .pioneers-logo:hover {
-    opacity: 1;
-    transform: scale(1.08);
-    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    transition-delay: 0s;
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.3333%); }
   }
 
   /* ========================================

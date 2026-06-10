@@ -17,7 +17,7 @@ export const translations = {
 
     // Hero
     hero_label: "Estudio de apps móviles",
-    hero_tagline: "Diseñamos y desarrollamos apps que las personas aman usar.",
+    hero_tagline: "Diseñamos y desarrollamos apps que las personas <span class='gradient-text'>aman usar</span>.",
     hero_sub:
       "De la idea al lanzamiento. Apps nativas, multiplataforma y soluciones digitales para empresas que quieren crecer.",
     hero_cta_primary: "Ver proyectos",
@@ -95,27 +95,27 @@ export const translations = {
     manifesto_label: "NUESTRA VENTAJA",
 
     // Pioneers section (Flutter)
-    pioneers_eyebrow: "PIONEROS EN FLUTTER (2017)",
-    pioneers_title: "Velocidad Nativa. Un solo código. Cero deuda técnica.",
-    pioneers_p1: "No elegimos Flutter por moda, sino por <strong>ventaja competitiva</strong>. Somos la única agencia española en la lista oficial de consultoras Flutter.",
-    pioneers_p2: "Desarrollamos para iOS y Android simultáneamente, reduciendo el <strong>Time-to-Market</strong> a la mitad y garantizando un rendimiento que da más tiempo para innovar.",
-    pioneers_button: "POR QUÉ APOSTAMOS POR FLUTTER",
+    pioneers_eyebrow: "TECNOLOGÍA DE VANGUARDIA",
+    pioneers_title: "Rendimiento nativo. Stack moderno. Cero deuda técnica.",
+    pioneers_p1: "Seleccionamos las herramientas más avanzadas para darte una <strong>ventaja competitiva real</strong>. Desarrollamos con tecnologías robustas que garantizan escalabilidad y velocidad.",
+    pioneers_p2: "Desde desarrollo móvil y multiplataforma hasta infraestructuras cloud integradas de alta disponibilidad. Sin fricciones, solo resultados excepcionales.",
+    pioneers_button: "CONOCE NUESTRO STACK",
 
     // Projects summary section
     projects_eyebrow: "CASOS DE ÉXITO",
     projects_title: "Proyectos que hablan por sí solos.",
     project_1_tag: "App móvil",
-    project_1_title: "CityXerpa",
-    project_1_desc: "La superapp nacional de Andorra",
-    project_2_tag: "App móvil",
-    project_2_title: "Dogfy Diet",
-    project_2_desc: "App completa de nutrición canina en Flutter",
-    project_3_tag: "App móvil",
-    project_3_title: "Rastreator",
-    project_3_desc: "El comparador líder de seguros y telefonía móvil",
-    project_4_tag: "App móvil",
-    project_4_title: "ISDIN",
-    project_4_desc: "Estrategia digital y desarrollo para el gigante dermatológico",
+    project_1_title: "Gipsi",
+    project_1_desc: "Gestión inteligente de citas y reservas para barberías",
+    project_2_tag: "E-commerce",
+    project_2_title: "Nexus",
+    project_2_desc: "Marketplace moderno de comercio electrónico y ofertas",
+    project_3_tag: "Entretenimiento",
+    project_3_title: "Le Pokedex",
+    project_3_desc: "Enciclopedia Pokémon interactiva con rendimiento nativo",
+    project_4_tag: "Red Social",
+    project_4_title: "AuraMovies",
+    project_4_desc: "La red social definitiva para amantes del cine y series",
 
     // Footer
     footer_tagline: "Hecho con precisión en España.",
@@ -140,7 +140,7 @@ export const translations = {
 
     // Hero
     hero_label: "Mobile app studio",
-    hero_tagline: "We design and build apps people love to use.",
+    hero_tagline: "We design and build apps people <span class='gradient-text'>love to use</span>.",
     hero_sub:
       "From idea to launch. Native apps, cross-platform and digital solutions for companies ready to grow.",
     hero_cta_primary: "View projects",
@@ -218,27 +218,27 @@ export const translations = {
     manifesto_label: "OUR EDGE",
 
     // Pioneers section (Flutter)
-    pioneers_eyebrow: "FLUTTER PIONEERS (2017)",
-    pioneers_title: "Native Speed. Single codebase. Zero technical debt.",
-    pioneers_p1: "We didn't choose Flutter because of fashion, but for <strong>competitive advantage</strong>. We are the only Spanish agency on the official list of Flutter consultancies.",
-    pioneers_p2: "We develop for iOS and Android simultaneously, cutting <strong>Time-to-Market</strong> in half and guaranteeing performance that leaves more time to innovate.",
-    pioneers_button: "WHY WE BET ON FLUTTER",
+    pioneers_eyebrow: "VANGUARD TECH STACK",
+    pioneers_title: "Native performance. Modern stack. Zero technical debt.",
+    pioneers_p1: "We select the most advanced tools to give you a <strong>real competitive advantage</strong>. We develop with robust technologies that guarantee scalability and speed.",
+    pioneers_p2: "From mobile and cross-platform development to highly available integrated cloud infrastructures. Zero friction, only exceptional results.",
+    pioneers_button: "EXPLORE OUR TECH STACK",
 
     // Projects summary section
     projects_eyebrow: "SUCCESS STORIES",
     projects_title: "Projects that speak for themselves.",
     project_1_tag: "Mobile App",
-    project_1_title: "CityXerpa",
-    project_1_desc: "Andorra's national super-app",
-    project_2_tag: "Mobile App",
-    project_2_title: "Dogfy Diet",
-    project_2_desc: "Complete canine nutrition app built with Flutter",
-    project_3_tag: "Mobile App",
-    project_3_title: "Rastreator",
-    project_3_desc: "Spain's leading insurance & mobile comparison app",
-    project_4_tag: "Mobile App",
-    project_4_title: "ISDIN",
-    project_4_desc: "Digital strategy & development for the skincare leader",
+    project_1_title: "Gipsi",
+    project_1_desc: "Smart appointment and booking management for barbershops",
+    project_2_tag: "E-commerce",
+    project_2_title: "Nexus",
+    project_2_desc: "Modern e-commerce marketplace and real-time deals",
+    project_3_tag: "Entertainment",
+    project_3_title: "Le Pokedex",
+    project_3_desc: "Interactive Pokémon encyclopedia with native performance",
+    project_4_tag: "Social App",
+    project_4_title: "AuraMovies",
+    project_4_desc: "The ultimate social network for movie and series lovers",
 
     // Footer
     footer_tagline: "Crafted with precision in Spain.",
