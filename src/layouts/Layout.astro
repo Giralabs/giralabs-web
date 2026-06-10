@@ -30,6 +30,12 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<!-- Inline script: sets navbar state before first paint to avoid flash on mid-scroll reload -->
+		<script is:inline>
+			if (window.scrollY > 80) {
+				document.documentElement.setAttribute('data-scrolled', '');
+			}
+		</script>
 	</head>
 	<body>
 		<slot />
