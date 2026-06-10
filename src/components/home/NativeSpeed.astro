@@ -1,0 +1,431 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== PIONEERS / FLUTTER SECTION ==================== -->
+<section class="pioneers-section" id="pioneers" aria-label="Pioneros en Flutter">
+  <div class="pioneers-inner reveal">
+    <div class="pioneers-logo-wrap">
+      <img
+        src="/flutter-logo.webp"
+        alt="Flutter Logo"
+        class="pioneers-logo"
+        loading="lazy"
+        width="80"
+        height="auto"
+      />
+    </div>
+    <h2 class="pioneers-title" data-i18n="pioneers_title">{T.pioneers_title}</h2>
+    <div class="pioneers-text-wrap">
+      <p class="pioneers-desc" data-i18n="pioneers_p1" set:html={T.pioneers_p1}></p>
+      <p class="pioneers-desc" data-i18n="pioneers_p2" set:html={T.pioneers_p2}></p>
+    </div>
+    <div class="pioneers-cta-wrap">
+      <a href="javascript:void(0)" class="cta-primary pioneers-cta" data-i18n="pioneers_button">{T.pioneers_button}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROJECTS SUMMARY SECTION ==================== -->
+<section class="projects-section" id="projects" aria-label="Casos de éxito">
+  <div class="projects-inner">
+    <!-- Section Header -->
+    <div class="projects-header reveal">
+      <p class="projects-eyebrow" data-i18n="projects_eyebrow">{T.projects_eyebrow}</p>
+      <h2 class="projects-title" data-i18n="projects_title">{T.projects_title}</h2>
+    </div>
+
+    <!-- Asymmetric Grid of Projects -->
+    <div class="projects-grid reveal-stagger">
+      <!-- Project 1: CityXerpa (Wide Left) -->
+      <article class="project-card project-card--wide" style="--proj-bg: url('/proj-cityxerpa.png')">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-top">
+            <span class="project-card-tag" data-i18n="project_1_tag">{T.project_1_tag}</span>
+            <div class="project-card-arrow">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="project-card-bottom">
+            <h3 class="project-card-name" data-i18n="project_1_title">{T.project_1_title}</h3>
+            <p class="project-card-desc" data-i18n="project_1_desc">{T.project_1_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Dogfy Diet (Narrow Right) -->
+      <article class="project-card project-card--narrow" style="--proj-bg: url('/proj-dogfydiet.png')">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-top">
+            <span class="project-card-tag" data-i18n="project_2_tag">{T.project_2_tag}</span>
+            <div class="project-card-arrow">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="project-card-bottom">
+            <h3 class="project-card-name" data-i18n="project_2_title">{T.project_2_title}</h3>
+            <p class="project-card-desc" data-i18n="project_2_desc">{T.project_2_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: Rastreator (Narrow Left) -->
+      <article class="project-card project-card--narrow" style="--proj-bg: url('/proj-rastreator.png')">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-top">
+            <span class="project-card-tag" data-i18n="project_3_tag">{T.project_3_tag}</span>
+            <div class="project-card-arrow">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="project-card-bottom">
+            <h3 class="project-card-name" data-i18n="project_3_title">{T.project_3_title}</h3>
+            <p class="project-card-desc" data-i18n="project_3_desc">{T.project_3_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 4: ISDIN (Wide Right) -->
+      <article class="project-card project-card--wide" style="--proj-bg: url('/proj-isdin.png')">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-top">
+            <span class="project-card-tag" data-i18n="project_4_tag">{T.project_4_tag}</span>
+            <div class="project-card-arrow">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="project-card-bottom">
+            <h3 class="project-card-name" data-i18n="project_4_title">{T.project_4_title}</h3>
+            <p class="project-card-desc" data-i18n="project_4_desc">{T.project_4_desc}</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     PIONEERS SECTION
+  ======================================== */
+  .pioneers-section {
+    position: relative;
+    z-index: 1;
+    padding: 8rem 2rem;
+    background: transparent;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pioneers-inner {
+    max-width: 680px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.2rem;
+  }
+
+  .pioneers-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0;
+  }
+
+  .pioneers-title {
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    color: #111;
+    margin: 0;
+    max-width: 620px;
+  }
+
+  .pioneers-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    max-width: 580px;
+  }
+
+  .pioneers-desc {
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    line-height: 1.7;
+    color: #666;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .pioneers-desc strong {
+    font-weight: 700;
+    color: #111;
+  }
+
+  .pioneers-cta-wrap {
+    margin-top: 0.5rem;
+  }
+
+  .pioneers-cta {
+    background: rgba(20, 20, 20, 0.82);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding: 0.9rem 2.2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    transition: background 0.25s ease, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .pioneers-cta:hover {
+    background: rgba(0, 0, 0, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.2),
+      0 1px 0 rgba(255, 255, 255, 0.18) inset;
+  }
+
+  .pioneers-logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -0.8rem;
+  }
+
+  .pioneers-logo {
+    width: 80px;
+    height: auto;
+    opacity: 0;
+    transform: scale(0.8) translateY(8px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0.15s;
+  }
+
+  .reveal.visible .pioneers-logo {
+    opacity: 0.85;
+    transform: scale(1) translateY(0);
+  }
+
+  .reveal.visible .pioneers-logo:hover {
+    opacity: 1;
+    transform: scale(1.08);
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0s;
+  }
+
+  /* ========================================
+     PROJECTS SUMMARY SECTION
+  ======================================== */
+  .projects-section {
+    position: relative;
+    z-index: 1;
+    padding: 8rem 2rem;
+    background: transparent;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .projects-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .projects-header {
+    margin-bottom: 3.5rem;
+    text-align: left;
+  }
+
+  .projects-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 1rem;
+  }
+
+  .projects-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+    color: #111;
+    margin: 0;
+    max-width: 620px;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 20px;
+  }
+
+  .project-card--wide { grid-column: span 6; }
+  .project-card--narrow { grid-column: span 4; }
+
+  .project-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 420px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--proj-bg);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .project-card:hover::before { transform: scale(1.04); }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.05) 100%);
+    z-index: 1;
+  }
+
+  .project-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 2.2rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: inherit;
+  }
+
+  .project-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: auto;
+    width: 100%;
+  }
+
+  .project-card-tag {
+    display: inline-flex;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .project-card-arrow {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.12);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  }
+
+  .project-card:hover .project-card-arrow {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(45deg);
+  }
+
+  .project-card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: auto;
+  }
+
+  .project-card-name {
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .project-card-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 400;
+    max-width: 90%;
+  }
+
+  @media (max-width: 960px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .project-card--wide,
+    .project-card--narrow {
+      grid-column: span 10;
+      min-height: 360px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pioneers-section,
+    .projects-section { padding: 5rem 1.5rem; }
+    .project-card {
+      min-height: 320px;
+      border-radius: 18px;
+    }
+    .project-card-content { padding: 1.5rem; }
+  }
+</style>

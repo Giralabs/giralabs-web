@@ -1,0 +1,275 @@
+---
+import { translations } from "../../i18n/translations";
+import combinationMark from "../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "es" } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== CONTACT BAND ==================== -->
+<section class="contact-band" id="contact" aria-label="Contact">
+  <div class="contact-band-inner">
+    <div class="contact-glass">
+      <p class="contact-eyebrow" data-i18n="nav_contact">{T.nav_contact}</p>
+      <h2 class="contact-title" data-i18n="hero_tagline">{T.hero_tagline}</h2>
+      <a
+        href="mailto:support@giralabs.com"
+        class="contact-email"
+        id="contact-email-link">support@giralabs.com</a
+      >
+      <a
+        href="javascript:void(0)"
+        class="cta-primary contact-cta"
+        data-i18n="nav_cta">{T.nav_cta}</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer" id="footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img
+        src={combinationMark.src}
+        alt="Giralabs"
+        class="footer-logo"
+        width="120"
+        loading="lazy"
+      />
+    </div>
+    <nav aria-label="Footer navigation">
+      <ul class="footer-links" role="list">
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="footer-link"
+            data-i18n="nav_services">{T.nav_services}</a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="footer-link"
+            data-i18n="nav_projects">{T.nav_projects}</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="footer-link" data-i18n="nav_about"
+            >{T.nav_about}</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="footer-link" data-i18n="nav_blog"
+            >{T.nav_blog}</a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0)"
+            class="footer-link"
+            data-i18n="footer_contact">{T.footer_contact}</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="footer-bottom">
+      <span class="footer-tagline" data-i18n="footer_tagline"
+        >{T.footer_tagline}</span
+      >
+      <span class="footer-rights" data-i18n="footer_rights"
+        >{T.footer_rights}</span
+      >
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ========================================
+     CONTACT BAND
+  ======================================== */
+  .contact-band {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem;
+    background: rgba(0, 0, 0, 0.012);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .contact-band-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .contact-glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.05),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  }
+
+  .contact-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.65) 0%,
+      rgba(255, 255, 255, 0) 55%
+    );
+    pointer-events: none;
+  }
+
+  .contact-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin: 0;
+  }
+
+  .contact-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: #000;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .contact-email {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-email:hover {
+    color: #000;
+  }
+
+  .contact-cta {
+    margin-top: 0.4rem;
+    padding: 0.75rem 2rem;
+  }
+
+  /* ========================================
+     FOOTER
+  ======================================== */
+  .site-footer {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-logo {
+    width: 110px;
+    height: auto;
+    opacity: 0.6;
+    filter: grayscale(30%);
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: #000;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .footer-tagline,
+  .footer-rights {
+    font-size: 0.78rem;
+    color: #bbb;
+    font-weight: 400;
+  }
+
+  /* CTA primary (needed in this scope) */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.7rem;
+    background: #000;
+    color: #f0efea;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+    transition:
+      background 0.22s ease,
+      transform 0.2s ease,
+      box-shadow 0.22s ease;
+    white-space: nowrap;
+  }
+
+  .cta-primary:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+  }
+
+  @media (max-width: 600px) {
+    .contact-band {
+      padding: 5rem 1.5rem;
+    }
+    .contact-glass {
+      padding: 2.5rem 1.5rem;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

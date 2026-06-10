@@ -1,0 +1,197 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== PHONE STATEMENT SECTION ==================== -->
+<section class="statement-section" id="statement" aria-label="Statement">
+  <div class="statement-inner">
+    <!-- Left: text -->
+    <div class="statement-text">
+      <h2 class="statement-heading">
+        <span class="sh-light" data-i18n="statement_h_light1">{T.statement_h_light1}</span> <span class="sh-bold" data-i18n="statement_h_bold">{T.statement_h_bold}</span><br>
+        <span class="sh-light" data-i18n="statement_h_light2">{T.statement_h_light2}</span>
+      </h2>
+      <p class="statement-sub" data-i18n="statement_sub">
+        Sin saber qué construir ni para quién. Sin el equipo adecuado ni estrategia detrás.
+      </p>
+      <p class="statement-sub" data-i18n="statement_sub2">
+        En Giralabs unimos estrategia de producto, diseño e ingeniería. Para convertir <strong>ideas con potencial</strong> en apps que la gente elige usar.
+      </p>
+      <a href="javascript:void(0)" class="cta-outline statement-cta" data-i18n="statement_cta">HABLEMOS ANTES DEL PRIMER COMMIT</a>
+    </div>
+
+    <!-- Right: phone mockup -->
+    <div class="statement-visual">
+      <div class="phone-wrapper">
+        <img
+          src="/phone-mockup.svg"
+          alt="App example on phone"
+          class="phone-img"
+          loading="lazy"
+          width="480"
+        />
+        <div class="phone-shadow" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     STATEMENT SECTION (phone + text)
+  ======================================== */
+  .statement-section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    overflow: visible;
+  }
+
+  .statement-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem 0 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .statement-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .statement-heading {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    color: #000;
+    margin: 0;
+  }
+
+  .sh-light {
+    font-weight: 300;
+    color: #666;
+  }
+
+  .sh-bold {
+    font-weight: 800;
+    color: #000;
+    letter-spacing: -0.05em;
+  }
+
+  .statement-sub {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+    font-weight: 400;
+    max-width: 420px;
+  }
+
+  .statement-sub strong {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .statement-cta {
+    margin-top: 0.8rem;
+    align-self: flex-start;
+  }
+
+  /* Phone visual */
+  .statement-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .phone-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: visible;
+    margin-right: -4rem;
+  }
+
+  .phone-img {
+    width: 100%;
+    max-width: 950px;
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply;
+    animation: phoneIdle 5s ease-in-out 1s infinite;
+    transform-origin: center center;
+  }
+
+  .phone-wrapper:hover .phone-img {
+    animation-play-state: paused;
+  }
+
+  .phone-shadow {
+    position: absolute;
+    bottom: 2%;
+    left: 10%;
+    right: 10%;
+    height: 40px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.18) 0%, transparent 70%);
+    filter: blur(10px);
+    border-radius: 0 0 40% 40% / 0 0 100% 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Outlined CTA */
+  .cta-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.6rem;
+    background: transparent;
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1.5px solid #000;
+    letter-spacing: 0.06em;
+    transition: background 0.22s ease, color 0.22s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cta-outline:hover {
+    background: #000;
+    color: #F0EFEA;
+    transform: translateY(-1px);
+  }
+
+  @keyframes phoneIdle {
+    0%, 100% { transform: perspective(1400px) rotateY(-16deg) rotateX(5deg) translateY(0px); }
+    50%       { transform: perspective(1400px) rotateY(-12deg) rotateX(2deg) translateY(-14px); }
+  }
+
+  @media (max-width: 960px) {
+    .statement-section { padding: 5rem 1.5rem; }
+    .statement-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .statement-visual { order: -1; }
+    .phone-wrapper { margin-right: 0; justify-content: center; }
+    .phone-img { max-width: 380px; }
+  }
+
+  @media (max-width: 600px) {
+    .statement-section { padding: 5rem 1.5rem; }
+  }
+</style>

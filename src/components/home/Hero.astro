@@ -1,0 +1,291 @@
+---
+import { translations } from '../../i18n/translations';
+import combinationMark from '../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero" aria-label="Hero">
+  <div class="hero-inner">
+
+    <!-- Top-left label -->
+    <p class="hero-label" data-i18n="hero_label">{T.hero_label}</p>
+
+    <!-- Center: combination mark (vertical) animated -->
+    <div class="hero-mark-wrap">
+      <div class="hero-mark-glow" aria-hidden="true"></div>
+      <div class="hero-mark-entrance">
+        <img
+          src={combinationMark.src}
+          alt="Giralabs"
+          class="hero-combination-mark"
+          width="220"
+          height="auto"
+        />
+      </div>
+    </div>
+
+    <!-- Divider line -->
+    <div class="hero-line" aria-hidden="true"></div>
+
+    <!-- Tagline -->
+    <p class="hero-tagline" data-i18n="hero_tagline">{T.hero_tagline}</p>
+
+    <!-- Sub -->
+    <p class="hero-sub" data-i18n="hero_sub">{T.hero_sub}</p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <a href="javascript:void(0)" class="cta-primary" id="hero-cta-primary" data-i18n="hero_cta_primary">{T.hero_cta_primary}</a>
+      <a href="javascript:void(0)" class="cta-secondary" id="hero-cta-secondary" data-i18n="hero_cta_secondary">{T.hero_cta_secondary}</a>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-dot"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     HERO
+  ======================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Eyebrow label */
+  .hero-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 3rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+  }
+
+  /* Combination mark */
+  .hero-mark-glow {
+    position: absolute;
+    width: 440px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, rgba(255,220,150,0.2) 50%, transparent 70%);
+    filter: blur(28px);
+    z-index: 1;
+    opacity: 0;
+    animation: markGlowPulse 6s ease-in-out 2.5s infinite, fadeIn 1.5s ease-out 0.4s forwards;
+    pointer-events: none;
+  }
+
+  .hero-mark-entrance {
+    opacity: 0;
+    animation: markEntrance 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-combination-mark {
+    width: clamp(240px, 45vw, 400px);
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply;
+    animation: markBreath 8s ease-in-out 2.8s infinite;
+    transform-origin: center center;
+  }
+
+  .hero-mark-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero-mark-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(105deg,
+      transparent 30%,
+      rgba(255,255,255,0.22) 50%,
+      transparent 70%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 3;
+  }
+
+  .hero-mark-wrap:hover::after {
+    opacity: 1;
+    animation: markShimmer 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hero line */
+  .hero-line {
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12) 20%, rgba(0,0,0,0.12) 80%, transparent);
+    margin-bottom: 2.2rem;
+    animation: expandLine 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
+  }
+
+  /* Tagline */
+  .hero-tagline {
+    font-size: clamp(1.25rem, 2.8vw, 1.55rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    color: #111;
+    margin: 0 0 0.85rem;
+    max-width: 520px;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 0.9s forwards;
+  }
+
+  /* Sub */
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #777;
+    max-width: 440px;
+    margin: 0 0 2.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 1.05s forwards;
+    font-weight: 400;
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 1.2s forwards;
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.7rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.22s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    white-space: nowrap;
+    cursor: pointer;
+
+    /* iOS-like Liquid Glassmorphism on light background */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.04),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.65);
+    border-color: rgba(0, 0, 0, 0.16);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out 1.8s forwards;
+  }
+
+  .scroll-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #c5c5c5;
+    animation: scrollBounce 2.2s ease-in-out infinite;
+  }
+
+  /* ========================================
+     KEYFRAMES
+  ======================================== */
+  @keyframes markEntrance {
+    0%   { opacity: 0; filter: brightness(2.5) blur(6px); transform: scale(1.04); }
+    25%  { opacity: 1; filter: brightness(1.2) blur(0); }
+    100% { opacity: 1; filter: brightness(1) blur(0); transform: scale(1); }
+  }
+
+  @keyframes markBreath {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.009); }
+  }
+
+  @keyframes markGlowPulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%       { opacity: 0.85; transform: scale(1.08); }
+  }
+
+  @keyframes markShimmer {
+    0%   { left: -100%; }
+    100% { left: 150%; }
+  }
+
+  @keyframes expandLine {
+    to { width: 160px; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.35; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 5rem 1.5rem 3rem; }
+  }
+</style>

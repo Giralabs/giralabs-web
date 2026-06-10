@@ -1,0 +1,532 @@
+---
+import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
+
+interface Props {
+  lang?: string;
+}
+const { lang = 'es' } = Astro.props;
+---
+
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <!-- Top bar: visible before scroll -->
+  <div class="nav-top-bar" id="nav-top-bar">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="/" class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
+        <div class="nav-logo-wrapper">
+          <div class="nav-logo-entrance">
+            <img src={apricotSymbol.src} alt="Giralabs" class="nav-logo-img" width="34" height="34" />
+          </div>
+        </div>
+        <span class="nav-brand-name" aria-label="GIRALABS">
+          <span class="nb-char" style="--d:0.05s">G</span><span class="nb-char" style="--d:0.09s">I</span><span class="nb-char" style="--d:0.13s">R</span><span class="nb-char" style="--d:0.17s">A</span><span class="nb-char" style="--d:0.21s">L</span><span class="nb-char" style="--d:0.25s">A</span><span class="nb-char" style="--d:0.29s">B</span><span class="nb-char" style="--d:0.33s">S</span>
+        </span>
+      </a>
+
+      <!-- Center nav links -->
+      <ul class="nav-links" role="list">
+        <li><a href="javascript:void(0)" class="nav-link" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="javascript:void(0)" class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href="javascript:void(0)" class="nav-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href="javascript:void(0)" class="nav-link" data-i18n="nav_blog">Blog</a></li>
+      </ul>
+
+      <!-- Right -->
+      <div class="nav-right">
+        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language" type="button">
+          <span id="lang-es" class="lang-opt active">ES</span>
+          <span class="lang-sep">/</span>
+          <span id="lang-en" class="lang-opt">EN</span>
+        </button>
+        <a href="javascript:void(0)" class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+        <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating glass pill: appears on scroll -->
+  <div class="nav-pill" id="nav-pill" aria-hidden="true">
+    <div class="pill-inner">
+      <a href="/" class="pill-logo" aria-label="Giralabs home">
+        <img src={apricotSymbol.src} alt="Giralabs" width="24" height="24" />
+      </a>
+      <ul class="pill-links" role="list">
+        <li><a href="javascript:void(0)" class="pill-link" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="javascript:void(0)" class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href="javascript:void(0)" class="pill-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href="javascript:void(0)" class="pill-link" data-i18n="nav_blog">Blog</a></li>
+      </ul>
+      <div class="pill-right">
+        <button id="pill-lang-toggle" class="lang-toggle pill-lang" aria-label="Toggle language" type="button">
+          <span id="pill-lang-es" class="lang-opt active">ES</span>
+          <span class="lang-sep">/</span>
+          <span id="pill-lang-en" class="lang-opt">EN</span>
+        </button>
+        <a href="javascript:void(0)" class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <ul class="mobile-links" role="list">
+      <li><a href="javascript:void(0)" class="mobile-link" data-i18n="nav_services">Servicios</a></li>
+      <li><a href="javascript:void(0)" class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
+      <li><a href="javascript:void(0)" class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
+      <li><a href="javascript:void(0)" class="mobile-link" data-i18n="nav_blog">Blog</a></li>
+      <li><a href="javascript:void(0)" class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  /* =============================================
+     NAVBAR WRAPPER
+  ============================================= */
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+
+  /* =============================================
+     TOP BAR (visible when at top)
+  ============================================= */
+  .nav-top-bar {
+    padding: 0 2rem;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .nav-top-bar.hidden {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Logo */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-wrapper {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 600px;
+  }
+
+  /* 3D entrance animation container */
+  .nav-logo-entrance {
+    opacity: 0;
+    animation: navLogoFlip 1.4s cubic-bezier(0.25, 1, 0.3, 1) 0.1s forwards;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .nav-logo:hover .nav-logo-entrance {
+    transform: rotateY(180deg);
+  }
+
+  .nav-logo-img {
+    width: 32px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));
+  }
+
+  .nav-brand-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: #000;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* Individual letter spans */
+  .nb-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: navCharReveal 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: var(--d);
+  }
+
+  @keyframes navLogoFlip {
+    0%   { opacity: 0; transform: rotateY(-300deg) scale(0.7); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  }
+
+  @keyframes navCharReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Nav links */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #555;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+    letter-spacing: -0.005em;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #000;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .nav-link:hover { color: #000; }
+  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* Right cluster */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Lang toggle */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #888;
+    transition: color 0.2s;
+  }
+
+  .lang-toggle:hover { color: #000; }
+
+  .lang-opt {
+    transition: color 0.2s, opacity 0.2s;
+    opacity: 0.4;
+  }
+
+  .lang-opt.active { opacity: 1; color: #000; }
+  .lang-sep { opacity: 0.25; font-weight: 300; }
+
+  /* CTA top bar */
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 1rem;
+    background: #000;
+    color: #F0EFEA;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    background: #222;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: #000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:first-child { transform: translateY(3.25px) rotate(45deg); }
+  .hamburger.open span:last-child  { transform: translateY(-3.25px) rotate(-45deg); }
+
+  /* =============================================
+     FLOATING GLASS PILL (iOS 26 liquid glass)
+  ============================================= */
+  .nav-pill {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.4s ease;
+    z-index: 101;
+  }
+
+  .nav-pill.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .pill-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 0.55rem 1rem 0.55rem 0.75rem;
+    border-radius: 100px;
+
+    /* iOS 26 Liquid Glass */
+    background: rgba(240, 239, 234, 0.45);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 2px 24px rgba(0,0,0,0.08),
+      0 0 0 0.5px rgba(0,0,0,0.04) inset,
+      0 1px 0 rgba(255,255,255,0.9) inset;
+  }
+
+  .pill-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .pill-logo img {
+    width: 24px;
+    height: auto;
+    display: block;
+  }
+
+  .pill-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.4rem;
+  }
+
+  .pill-link {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #444;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    letter-spacing: -0.005em;
+  }
+
+  .pill-link:hover { color: #000; }
+
+  .pill-right {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-left: 0.2rem;
+  }
+
+  .pill-lang {
+    font-size: 0.72rem;
+  }
+
+  /* CTA inside pill */
+  .pill-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.38rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+
+    /* glass button inside glass pill */
+    background: rgba(0, 0, 0, 0.82);
+    color: rgba(240, 239, 234, 0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2) inset;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .pill-cta:hover {
+    background: rgba(30,30,30,0.92);
+    transform: scale(1.02);
+  }
+
+  /* Separator inside pill */
+  .pill-sep {
+    width: 1px;
+    height: 16px;
+    background: rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  /* =============================================
+     MOBILE DRAWER
+  ============================================= */
+  .mobile-drawer {
+    display: none;
+    flex-direction: column;
+    background: rgba(240, 239, 234, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 2rem 2rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .mobile-drawer.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: color 0.2s;
+  }
+
+  .mobile-link:hover { color: #000; }
+  .mobile-link.mobile-cta { border-bottom: none; margin-top: 0.5rem; color: #000; font-weight: 600; }
+
+  /* =============================================
+     RESPONSIVE
+  ============================================= */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-drawer { display: flex; }
+    .nav-pill { display: none; }
+  }
+</style>
+
+<script>
+  // ---- Scroll: show pill, hide top bar ----
+  const topBar = document.getElementById('nav-top-bar');
+  const pill = document.getElementById('nav-pill');
+  const THRESHOLD = 80;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > THRESHOLD;
+    topBar.classList.toggle('hidden', scrolled);
+    pill.classList.toggle('visible', scrolled);
+    pill.setAttribute('aria-hidden', String(!scrolled));
+  }, { passive: true });
+
+  // ---- Mobile hamburger ----
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  if (hamburgerBtn && mobileDrawer) {
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+      hamburgerBtn.setAttribute('aria-expanded', String(!isOpen));
+      hamburgerBtn.classList.toggle('open', !isOpen);
+      mobileDrawer.classList.toggle('open', !isOpen);
+      mobileDrawer.setAttribute('aria-hidden', String(isOpen));
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        hamburgerBtn.classList.remove('open');
+        mobileDrawer.classList.remove('open');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+
+  // ---- Language toggle (top bar) ----
+  function syncLangUI(lang) {
+    ['lang-es', 'lang-en', 'pill-lang-es', 'pill-lang-en'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const isActive = id.includes(lang === 'es' ? 'es' : 'en');
+        el.classList.toggle('active', isActive);
+      }
+    });
+  }
+
+  function handleLangToggle() {
+    const currentLang = document.documentElement.lang || 'es';
+    const newLang = currentLang === 'es' ? 'en' : 'es';
+    // Fire custom event so index.astro's i18n script can respond
+    document.dispatchEvent(new CustomEvent('giralabs:lang', { detail: { lang: newLang } }));
+    syncLangUI(newLang);
+  }
+
+  document.getElementById('lang-toggle')?.addEventListener('click', handleLangToggle);
+  document.getElementById('pill-lang-toggle')?.addEventListener('click', handleLangToggle);
+</script>

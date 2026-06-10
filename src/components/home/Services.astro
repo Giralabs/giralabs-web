@@ -1,0 +1,389 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== SERVICES DARK ==================== -->
+<section class="sd-section" id="services" aria-label="Services">
+  <div class="sd-inner">
+
+    <!-- Header -->
+    <div class="sd-header">
+      <p class="sd-eyebrow" data-i18n="sd_eyebrow">{T.sd_eyebrow}</p>
+      <h2 class="sd-title" data-i18n="sd_title" set:html={T.sd_title.replace('\n','<br>')}></h2>
+    </div>
+
+    <!-- 2-col cards grid -->
+    <div class="sd-grid">
+
+      <!-- CARD 01: Product Discovery (wide left) -->
+      <article class="sd-card sd-card--hover sd-col-wide" style="--grad: url('/grad-apps.jpg')">
+        <div class="sd-card-bg"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">01</span>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info">
+            <span class="sd-glass-tag" data-i18n="service_1_tag">{T.service_1_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_1_title">{T.service_1_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_1_desc">{T.service_1_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 02: Diseño y UX (narrow right) -->
+      <article class="sd-card sd-card--hover sd-col-narrow" style="--grad: url('/grad-design.jpg')">
+        <div class="sd-card-bg"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">02</span>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info">
+            <span class="sd-glass-tag" data-i18n="service_2_tag">{T.service_2_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_2_title">{T.service_2_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_2_desc">{T.service_2_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 03: Ingeniería (wide left) -->
+      <article class="sd-card sd-card--hover sd-col-wide" style="--grad: url('/grad-engineering.jpg')">
+        <div class="sd-card-bg"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">03</span>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info">
+            <span class="sd-glass-tag" data-i18n="service_3_tag">{T.service_3_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_3_title">{T.service_3_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_3_desc">{T.service_3_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 04: Crecimiento (narrow right) -->
+      <article class="sd-card sd-card--hover sd-col-narrow" style="--grad: url('/grad-growth.jpg')">
+        <div class="sd-card-bg"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">04</span>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info">
+            <span class="sd-glass-tag" data-i18n="service_4_tag">{T.service_4_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_4_title">{T.service_4_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_4_desc">{T.service_4_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 05: IA (always visible, dark, half-width) -->
+      <article class="sd-card sd-card--always sd-col-half" style="--grad: none">
+        <div class="sd-card-bg sd-card-bg--dark"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">05</span>
+            <div class="sd-tech-row">
+              <span class="sd-tech-sm">LLMs</span>
+              <span class="sd-tech-dot"></span>
+              <span class="sd-tech-sm">RAG</span>
+              <span class="sd-tech-dot"></span>
+              <span class="sd-tech-sm">Agentes</span>
+            </div>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info sd-card-info--always">
+            <span class="sd-glass-tag" data-i18n="service_5_tag">{T.service_5_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_5_title">{T.service_5_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_5_desc">{T.service_5_desc}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 06: Equipo (always visible, dark, half-width) -->
+      <article class="sd-card sd-card--always sd-col-half" style="--grad: none">
+        <div class="sd-card-bg sd-card-bg--dark2"></div>
+        <div class="sd-grain"></div>
+        <div class="sd-card-body">
+          <div class="sd-card-top">
+            <span class="sd-num">06</span>
+            <div class="sd-tech-row">
+              <span class="sd-tech-sm">Flutter</span>
+              <span class="sd-tech-dot"></span>
+              <span class="sd-tech-sm">iOS</span>
+              <span class="sd-tech-dot"></span>
+              <span class="sd-tech-sm">Android</span>
+            </div>
+            <div class="sd-arrow-wrap">
+              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="sd-card-info sd-card-info--always">
+            <span class="sd-glass-tag" data-i18n="service_6_tag">{T.service_6_tag}</span>
+            <h3 class="sd-card-title" data-i18n="service_6_title">{T.service_6_title}</h3>
+            <p class="sd-card-desc" data-i18n="service_6_desc">{T.service_6_desc}</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     SERVICES DARK SECTION
+  ======================================== */
+  .sd-section {
+    position: relative;
+    z-index: 1;
+    background: #0a0a0a;
+    padding: 7rem 2rem 6rem;
+    margin-top: -2px;
+  }
+
+  .sd-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sd-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .sd-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin: 0 0 1rem;
+  }
+
+  .sd-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.92);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .sd-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 12px;
+  }
+
+  .sd-col-wide  { grid-column: span 6; }
+  .sd-col-narrow { grid-column: span 4; }
+  .sd-col-half  { grid-column: span 5; }
+
+  .sd-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 340px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card--hover { min-height: 360px; }
+  .sd-card--always { min-height: 280px; }
+
+  .sd-card:hover { transform: scale(1.015); }
+
+  .sd-card-bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--grad);
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card:hover .sd-card-bg { transform: scale(1.04); }
+
+  .sd-card-bg--dark {
+    background-image: none;
+    background: radial-gradient(ellipse at 30% 30%, #0e3d4e 0%, #071420 60%, #030810 100%);
+  }
+
+  .sd-card-bg--dark2 {
+    background-image: none;
+    background: radial-gradient(ellipse at 70% 40%, #1e2d0e 0%, #101508 60%, #050500 100%);
+  }
+
+  .sd-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .sd-card-body {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: inherit;
+  }
+
+  .sd-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .sd-num {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sd-arrow-wrap {
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .sd-card:hover .sd-arrow-wrap {
+    color: rgba(255,255,255,0.9);
+    transform: translate(2px, -2px);
+  }
+
+  .sd-tech-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    margin-left: 0.6rem;
+  }
+
+  .sd-tech-sm {
+    font-size: 0.62rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.01em;
+  }
+
+  .sd-tech-dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .sd-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: auto;
+  }
+
+  .sd-glass-tag {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 0.28rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.18);
+    transition: background 0.3s ease;
+  }
+
+  .sd-card:hover .sd-glass-tag { background: rgba(255,255,255,0.16); }
+
+  .sd-card-title {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: rgba(255,255,255,0.95);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .sd-card-desc {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease 0.05s;
+  }
+
+  .sd-card--hover:hover .sd-card-desc {
+    max-height: 200px;
+    opacity: 1;
+  }
+
+  .sd-card-info--always .sd-card-desc {
+    max-height: 200px !important;
+    opacity: 1 !important;
+  }
+
+  .sd-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.05s, opacity 0.4s ease 0.1s;
+  }
+
+  .sd-card--hover:hover .sd-card-tags {
+    max-height: 60px;
+    opacity: 1;
+  }
+
+  .sd-tech {
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    background: rgba(255,255,255,0.07);
+    padding: 0.18rem 0.5rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+</style>

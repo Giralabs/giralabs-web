@@ -1,0 +1,158 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== MANIFESTO (word stagger animation / Edge) ==================== -->
+<section class="manifesto-section" id="how" aria-label="Nuestra ventaja">
+  <div class="manifesto-inner">
+    <span class="manifesto-label" data-i18n="manifesto_label">NUESTRA VENTAJA</span>
+    <!-- Words injected by JS -->
+    <p class="manifesto-text" id="manifesto-container"></p>
+  </div>
+</section>
+
+<script>
+  const manifestoWords = {
+    es: [
+      {t:'No',b:0},{t:'construimos',b:0},{t:'software.',b:1},
+      {t:'Construimos',b:1},{t:'el',b:0},{t:'producto',b:1},{t:'que',b:0},{t:'tus',b:0},
+      {t:'clientes',b:1},{t:'usarán',b:0},{t:'cuando',b:0},{t:'más',b:1},{t:'importa.',b:1},
+      {t:'Con',b:0},{t:'honestidad',b:1},{t:'brutal',b:1},{t:'sobre',b:0},
+      {t:'qué',b:0},{t:'vale',b:0},{t:'la',b:0},{t:'pena',b:0},{t:'construir',b:1},{t:'y',b:0},{t:'qué',b:0},{t:'no.',b:1},
+      {t:'Priorizamos',b:1},{t:'lo',b:0},{t:'que',b:0},{t:'importa.',b:1},
+      {t:'Cortamos',b:1},{t:'el',b:0},{t:'ruido',b:0},{t:'antes',b:0},{t:'de',b:0},
+      {t:'que',b:0},{t:'toque',b:0},{t:'el',b:0},{t:'código.',b:1},
+      {t:'No',b:0},{t:'somos',b:0},{t:'proveedores.',b:1},
+      {t:'Somos',b:1},{t:'el',b:0},{t:'equipo',b:1},{t:'técnico',b:1},
+      {t:'que',b:0},{t:'debiste',b:0},{t:'tener',b:0},{t:'desde',b:0},{t:'el',b:0},{t:'día',b:0},{t:'uno.',b:1}
+    ],
+    en: [
+      {t:'We',b:0},{t:"don't",b:0},{t:'build',b:0},{t:'software.',b:1},
+      {t:'We',b:1},{t:'build',b:1},{t:'the',b:0},{t:'product',b:1},
+      {t:'your',b:0},{t:'clients',b:1},{t:'will',b:0},{t:'use',b:0},
+      {t:'when',b:0},{t:'it',b:0},{t:'matters',b:1},{t:'most.',b:1},
+      {t:'With',b:0},{t:'brutal',b:1},{t:'honesty',b:1},{t:'about',b:0},
+      {t:"what's",b:0},{t:'worth',b:0},{t:'building',b:1},{t:'and',b:0},{t:"what's",b:0},{t:'not.',b:1},
+      {t:'We',b:1},{t:'prioritize',b:1},{t:'what',b:0},{t:'matters.',b:1},
+      {t:'We',b:1},{t:'cut',b:1},{t:'the',b:0},{t:'noise',b:0},
+      {t:'before',b:0},{t:'it',b:0},{t:'touches',b:0},{t:'the',b:0},{t:'code.',b:1},
+      {t:"We're",b:0},{t:'not',b:0},{t:'vendors.',b:1},
+      {t:"We're",b:1},{t:'the',b:0},{t:'technical',b:1},{t:'team',b:1},
+      {t:'you',b:0},{t:'should',b:0},{t:'have',b:0},{t:'had',b:0},{t:'from',b:0},{t:'day',b:0},{t:'one.',b:1}
+    ]
+  };
+
+  function buildManifestoDOM(lang) {
+    const container = document.getElementById('manifesto-container');
+    if (!container) return;
+    const frag = document.createDocumentFragment();
+    manifestoWords[lang].forEach((word, i) => {
+      if (i > 0) frag.appendChild(document.createTextNode(' '));
+      const span = document.createElement('span');
+      span.className = 'mw' + (word.b ? ' mw-bold' : '');
+      span.textContent = word.t;
+      frag.appendChild(span);
+    });
+    container.innerHTML = '';
+    container.appendChild(frag);
+    document.querySelector('.manifesto-section')?.classList.remove('manifesto-fired');
+  }
+
+  function tryAnimateManifesto() {
+    const section = document.querySelector('.manifesto-section');
+    if (!section || section.classList.contains('manifesto-fired')) return;
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) {
+      section.classList.add('manifesto-fired');
+      const words = section.querySelectorAll('.mw');
+      words.forEach((w, i) => {
+        setTimeout(() => w.classList.add('mw-on'), i * 35);
+      });
+      window.removeEventListener('scroll', tryAnimateManifesto);
+    }
+  }
+
+  // Expose functions globally so index.astro script can call them on lang change
+  window.__buildManifestoDOM = buildManifestoDOM;
+  window.__tryAnimateManifesto = tryAnimateManifesto;
+
+  buildManifestoDOM('es');
+  window.addEventListener('scroll', tryAnimateManifesto, { passive: true });
+  tryAnimateManifesto();
+</script>
+
+<style>
+  /* ========================================
+     MANIFESTO (word stagger animation)
+  ======================================== */
+  .manifesto-section {
+    position: relative;
+    z-index: 1;
+    padding: 9rem 2rem 10rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background: transparent;
+  }
+
+  .manifesto-inner {
+    max-width: 940px;
+    padding: 0 1rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .manifesto-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 2.5rem;
+  }
+
+  .manifesto-text {
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -0.04em;
+    color: #111;
+    margin: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .mw {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(16px);
+    vertical-align: baseline;
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .mw-bold {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+
+  .mw.mw-on {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 960px) {
+    .manifesto-section { padding: 6rem 1.5rem 7rem; }
+    .manifesto-text { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+  }
+
+  @media (max-width: 600px) {
+    .manifesto-section { padding: 5rem 1.5rem; }
+  }
+</style>
