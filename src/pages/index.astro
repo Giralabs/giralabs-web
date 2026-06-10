@@ -1,11 +1,171 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/home/Hero.astro';
+import PhoneMockup from '../components/home/PhoneMockup.astro';
+import Services from '../components/home/Services.astro';
+import Edge from '../components/home/Edge.astro';
+import NativeSpeed from '../components/home/NativeSpeed.astro';
+import Contact from '../components/home/Contact.astro';
+import { translations } from '../i18n/translations';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const defaultLang = 'es';
+const T = translations[defaultLang];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title={T.meta_title}
+  description={T.meta_description}
+  lang={defaultLang}
+>
+  <!-- Global dot-grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  <!-- Ambient glows -->
+  <div class="ambient-top" aria-hidden="true"></div>
+  <div class="ambient-bottom" aria-hidden="true"></div>
+
+  <!-- ==================== NAVBAR (component) ==================== -->
+  <Navbar lang={defaultLang} />
+
+  <!-- ==================== HOME SECTIONS (components) ==================== -->
+  <Hero lang={defaultLang} />
+  <PhoneMockup lang={defaultLang} />
+  <Services lang={defaultLang} />
+  <Edge lang={defaultLang} />
+  <NativeSpeed lang={defaultLang} />
+  <Contact lang={defaultLang} />
+
 </Layout>
+
+<!-- ==================== I18N + INTERACTIONS ==================== -->
+<script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
+  let currentLang = document.documentElement.lang || 'es';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    const T = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[key] !== undefined) {
+        if (key === 'how_title' || key === 'sd_title') {
+          el.innerHTML = T[key].replace(/\n/g, '<br/>');
+        } else if (key === 'pioneers_p1' || key === 'pioneers_p2' || key === 'statement_sub2' || key === 'hero_tagline') {
+          el.innerHTML = T[key];
+        } else {
+          el.textContent = T[key];
+        }
+      }
+    });
+    document.documentElement.lang = lang;
+    document.title = T.meta_title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', T.meta_description);
+  }
+
+  // Listen to lang change events from Navbar component
+  document.addEventListener('giralabs:lang', (e) => {
+    applyLang(e.detail.lang);
+    // Delegate manifesto rebuild to Edge component's exposed functions
+    if (window.__buildManifestoDOM) window.__buildManifestoDOM(e.detail.lang);
+    if (window.__tryAnimateManifesto) window.__tryAnimateManifesto();
+  });
+
+  // ---- Scroll reveal (general) ----
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+<style>
+  /* ========================================
+     GLOBAL
+  ======================================== */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  .ambient-top {
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255, 210, 150, 0.15) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(60px);
+  }
+
+  .ambient-bottom {
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(50px);
+  }
+
+  /* ========================================
+     GLOBAL REVEAL ANIMATION
+  ======================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-stagger {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.1s,
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
+  }
+
+  .reveal-stagger.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========================================
+     GLOBAL CTA PRIMARIO (referenced across components)
+  ======================================== */
+  :global(.cta-primary) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.7rem;
+    background: #000;
+    color: #F0EFEA;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+    transition: background 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
+    white-space: nowrap;
+  }
+
+  :global(.cta-primary:hover) {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  }
+</style>

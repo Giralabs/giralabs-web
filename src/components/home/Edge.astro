@@ -1,0 +1,234 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== MANIFESTO (word stagger animation / Edge) ==================== -->
+<section class="manifesto-section" id="how" aria-label="Nuestra ventaja">
+  <div class="manifesto-inner">
+    <span class="manifesto-label" data-i18n="manifesto_label">NUESTRA VENTAJA</span>
+    <!-- Words injected by JS -->
+    <p class="manifesto-text" id="manifesto-container"></p>
+  </div>
+</section>
+
+<script>
+  // ----- DATA --------------------
+
+  // Each word carries its text (t) and a bold flag (b).
+  // Bold words are key terms that receive heavier weight in the render.
+  const manifestoWords = {
+    es: [
+      {t:'No',b:0},{t:'construimos',b:0},{t:'software.',b:1},
+      {t:'Construimos',b:1},{t:'el',b:0},{t:'producto',b:1},{t:'que',b:0},{t:'tus',b:0},
+      {t:'clientes',b:1},{t:'usarán',b:0},{t:'cuando',b:0},{t:'más',b:1},{t:'importa.',b:1},
+      {t:'Con',b:0},{t:'honestidad',b:1},{t:'brutal',b:1},{t:'sobre',b:0},
+      {t:'qué',b:0},{t:'vale',b:0},{t:'la',b:0},{t:'pena',b:0},{t:'construir',b:1},{t:'y',b:0},{t:'qué',b:0},{t:'no.',b:1},
+      {t:'Priorizamos',b:1},{t:'lo',b:0},{t:'que',b:0},{t:'importa.',b:1},
+      {t:'Cortamos',b:1},{t:'el',b:0},{t:'ruido',b:0},{t:'antes',b:0},{t:'de',b:0},
+      {t:'que',b:0},{t:'toque',b:0},{t:'el',b:0},{t:'código.',b:1},
+      {t:'No',b:0},{t:'somos',b:0},{t:'proveedores.',b:1},
+      {t:'Somos',b:1},{t:'el',b:0},{t:'equipo',b:1},{t:'técnico',b:1},
+      {t:'que',b:0},{t:'debiste',b:0},{t:'tener',b:0},{t:'desde',b:0},{t:'el',b:0},{t:'día',b:0},{t:'uno.',b:1}
+    ],
+    en: [
+      {t:'We',b:0},{t:"don't",b:0},{t:'build',b:0},{t:'software.',b:1},
+      {t:'We',b:1},{t:'build',b:1},{t:'the',b:0},{t:'product',b:1},
+      {t:'your',b:0},{t:'clients',b:1},{t:'will',b:0},{t:'use',b:0},
+      {t:'when',b:0},{t:'it',b:0},{t:'matters',b:1},{t:'most.',b:1},
+      {t:'With',b:0},{t:'brutal',b:1},{t:'honesty',b:1},{t:'about',b:0},
+      {t:"what's",b:0},{t:'worth',b:0},{t:'building',b:1},{t:'and',b:0},{t:"what's",b:0},{t:'not.',b:1},
+      {t:'We',b:1},{t:'prioritize',b:1},{t:'what',b:0},{t:'matters.',b:1},
+      {t:'We',b:1},{t:'cut',b:1},{t:'the',b:0},{t:'noise',b:0},
+      {t:'before',b:0},{t:'it',b:0},{t:'touches',b:0},{t:'the',b:0},{t:'code.',b:1},
+      {t:"We're",b:0},{t:'not',b:0},{t:'vendors.',b:1},
+      {t:"We're",b:1},{t:'the',b:0},{t:'technical',b:1},{t:'team',b:1},
+      {t:'you',b:0},{t:'should',b:0},{t:'have',b:0},{t:'had',b:0},{t:'from',b:0},{t:'day',b:0},{t:'one.',b:1}
+    ]
+  };
+
+  // ----- STATE --------------------
+
+  let wordSpans: HTMLElement[] = [];
+  let revealedChars: number[] = [];
+  let typeTimers: (ReturnType<typeof setInterval> | null)[] = [];
+  // Prevents the animation from firing more than once per DOM build
+  let fired = false;
+
+  // ----- ANIMATION --------------------
+
+  // Types a single word letter by letter. The first character is placed
+  // instantly so the word anchors its position before the interval begins.
+  // This avoids a visible jump when the word appears at the end of a line.
+  function typeWord(wordIdx: number) {
+    const span = wordSpans[wordIdx];
+    if (!span) return;
+    const full = span.dataset.full ?? '';
+
+    span.textContent = full[0] ?? '';  // first letter instant
+    revealedChars[wordIdx] = 1;
+
+    if (full.length === 1) return;  // single-char word, done
+
+    const isBold = span.classList.contains('mw-bold');
+    const letterSpeed = isBold ? 42 : 30;  // ms per letter — bold feels heavier
+
+    typeTimers[wordIdx] = setInterval(() => {
+      if (revealedChars[wordIdx] >= full.length) {
+        clearInterval(typeTimers[wordIdx]!);
+        typeTimers[wordIdx] = null;
+        span.textContent = full;
+        return;
+      }
+      revealedChars[wordIdx]++;
+      span.textContent = full.slice(0, revealedChars[wordIdx]);
+    }, letterSpeed);
+  }
+
+  // Schedules all words sequentially so each one starts only after the
+  // previous has finished typing. Sentence-ending words get a longer pause
+  // so the reader can process the phrase before the next one begins.
+  function runTypewriterSequence() {
+    let delay = 0;
+    wordSpans.forEach((span, i) => {
+      const full = span.dataset.full ?? '';
+      const isBold = span.classList.contains('mw-bold');
+      const letterSpeed = isBold ? 42 : 30;
+      const wordDuration = (full.length - 1) * letterSpeed;  // -1 because first letter is instant
+      const isSentenceEnd = /[.!?]$/.test(full);
+      const pauseAfter = isSentenceEnd ? 350 : 65;  // ms — breathing room after punctuation
+
+      setTimeout(() => typeWord(i), delay);
+      delay += wordDuration + pauseAfter;
+    });
+  }
+
+  // ----- DOM --------------------
+
+  // Builds the manifesto paragraph from the word list for the given language.
+  // Resets all timers and state so it is safe to call on language switch.
+  function buildManifestoDOM(lang: string) {
+    const container = document.getElementById('manifesto-container');
+    if (!container) return;
+
+    // Clear any in-flight timers from a previous render (e.g. lang switch mid-animation)
+    typeTimers.forEach(t => { if (t) clearInterval(t); });
+
+    const words = (manifestoWords as Record<string, {t:string,b:number}[]>)[lang] ?? manifestoWords.es;
+    const frag = document.createDocumentFragment();
+    words.forEach((word, i) => {
+      if (i > 0) frag.appendChild(document.createTextNode(' '));
+      const span = document.createElement('span');
+      span.className = 'mw' + (word.b ? ' mw-bold' : '');
+      span.dataset.full = word.t;
+      span.textContent = '';
+      frag.appendChild(span);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(frag);
+
+    wordSpans     = Array.from(container.querySelectorAll<HTMLElement>('.mw'));
+    revealedChars = new Array(wordSpans.length).fill(0);
+    typeTimers    = new Array(wordSpans.length).fill(null);
+    fired         = false;
+
+    checkViewport();
+  }
+
+  // ----- TRIGGER --------------------
+
+  // Fires the animation once when the section top crosses 78% of the viewport.
+  // The scroll listener removes itself after firing to avoid unnecessary calls.
+  function checkViewport() {
+    if (fired) return;
+    const section = document.querySelector<HTMLElement>('.manifesto-section');
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.78) {
+      fired = true;
+      window.removeEventListener('scroll', checkViewport);
+      runTypewriterSequence();
+    }
+  }
+
+  // ----- INIT --------------------
+
+  // Expose to index.astro so the lang switcher can rebuild and re-trigger
+  window.__buildManifestoDOM = buildManifestoDOM;
+  window.__tryAnimateManifesto = checkViewport;
+
+  buildManifestoDOM('es');
+  window.addEventListener('scroll', checkViewport, { passive: true });
+  checkViewport();
+</script>
+
+<style>
+  /* ========================================
+     MANIFESTO (word stagger animation)
+  ======================================== */
+  .manifesto-section {
+    position: relative;
+    z-index: 1;
+    padding: 9rem 2rem 10rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background: transparent;
+  }
+
+  .manifesto-inner {
+    max-width: 940px;
+    padding: 0 1rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .manifesto-text {
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -0.04em;
+    color: #111;
+    margin: 0;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .manifesto-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 2.5rem;
+    text-align: left;
+  }
+
+  .mw {
+    display: inline;
+  }
+
+  .mw-bold {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+
+  /* ========================================
+     RESPONSIVE
+  ======================================== */
+  @media (max-width: 960px) {
+    .manifesto-section { padding: 6rem 1.5rem 7rem; }
+    .manifesto-text { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+  }
+
+  @media (max-width: 600px) {
+    .manifesto-section { padding: 5rem 1.5rem; }
+  }
+</style>

@@ -1,0 +1,366 @@
+---
+import { translations } from '../../i18n/translations';
+import combinationMark from '../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+---
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero" aria-label="Hero">
+  <div class="hero-inner">
+
+    <!-- Center: combination mark (vertical) animated -->
+    <div class="hero-mark-wrap">
+      <div class="hero-mark-glow" aria-hidden="true"></div>
+      <div class="hero-mark-entrance">
+        <img
+          src={combinationMark.src}
+          alt="Giralabs"
+          class="hero-combination-mark"
+          width="400"
+          height="auto"
+        />
+      </div>
+    </div>
+
+    <!-- Divider line -->
+    <div class="hero-line" aria-hidden="true"></div>
+
+    <!-- Tagline -->
+    <p class="hero-tagline" data-i18n="hero_tagline" set:html={T.hero_tagline}></p>
+
+    <!-- Sub -->
+    <p class="hero-sub" data-i18n="hero_sub">{T.hero_sub}</p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <a href="javascript:void(0)" class="cta-primary" id="hero-cta-primary" data-i18n="hero_cta_primary">{T.hero_cta_primary}</a>
+      <a href="javascript:void(0)" class="cta-secondary" id="hero-cta-secondary" data-i18n="hero_cta_secondary">{T.hero_cta_secondary}</a>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-dot"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     HERO
+  ======================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Combination mark */
+  .hero-mark-glow {
+    position: absolute;
+    width: 620px;
+    height: 420px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 200, 160, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 170, 130, 0.25) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(255, 230, 200, 0.5) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 1;
+    opacity: 0.8;
+    mix-blend-mode: plus-lighter;
+    animation: liquidGlow 12s ease-in-out infinite alternate;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .hero-mark-entrance {
+    opacity: 0;
+    animation: markEntrance 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+    position: relative;
+    z-index: 2;
+    transform-style: preserve-3d;
+  }
+
+  .hero-combination-mark {
+    width: clamp(290px, 50vw, 460px);
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply;
+    transform-origin: center center;
+    transform: translateZ(40px);
+  }
+
+  .hero-mark-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .hero-mark-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(105deg,
+      transparent 30%,
+      rgba(255,255,255,0.22) 50%,
+      transparent 70%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 3;
+  }
+
+  .hero-mark-wrap:hover::after {
+    opacity: 1;
+    animation: markShimmer 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hero line */
+  .hero-line {
+    position: relative;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12) 20%, rgba(0,0,0,0.12) 80%, transparent);
+    margin-bottom: 2.2rem;
+    animation: expandLine 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
+    overflow: hidden;
+  }
+
+  /* Tagline */
+  .hero-tagline {
+    font-size: clamp(1.25rem, 2.8vw, 1.55rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    color: #111;
+    margin: 0 0 0.85rem;
+    max-width: 520px;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 0.9s forwards;
+  }
+
+  /* Sub */
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #777;
+    max-width: 440px;
+    margin: 0 0 2.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 1.05s forwards;
+    font-weight: 400;
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) 1.2s forwards;
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.7rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    letter-spacing: -0.01em;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.22s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    white-space: nowrap;
+    cursor: pointer;
+
+    /* iOS-like Liquid Glassmorphism on light background */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.04),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.65);
+    border-color: rgba(0, 0, 0, 0.16);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out 1.8s forwards;
+  }
+
+  .scroll-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #c5c5c5;
+    animation: scrollBounce 2.2s ease-in-out infinite;
+  }
+
+  /* ========================================
+     KEYFRAMES
+  ======================================== */
+  @keyframes markEntrance {
+    0%   { opacity: 0; filter: brightness(2.5) blur(6px); transform: scale(1.04); }
+    25%  { opacity: 1; filter: brightness(1.2) blur(0); }
+    100% { opacity: 1; filter: brightness(1) blur(0); transform: scale(1); }
+  }
+
+  @keyframes markBreath {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.009); }
+  }
+
+  @keyframes markGlowPulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%       { opacity: 0.85; transform: scale(1.08); }
+  }
+
+  @keyframes markShimmer {
+    0%   { left: -100%; }
+    100% { left: 150%; }
+  }
+
+  @keyframes expandLine {
+    to { width: 160px; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.35; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 5rem 1.5rem 3rem; }
+  }
+
+  /* Gradient text */
+  :global(.gradient-text) {
+    background: linear-gradient(135deg, #FF8A65 0%, #FFB74D 50%, #FF7043 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  /* Laser line shimmer */
+  .hero-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,138,101,0.5), transparent);
+    animation: lineShimmer 3s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes lineShimmer {
+    0% { left: -100%; }
+    100% { left: 150%; }
+  }
+
+  @keyframes liquidGlow {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      filter: blur(40px);
+    }
+    33% {
+      transform: translate(15px, -10px) scale(1.05) rotate(120deg);
+      filter: blur(45px);
+    }
+    66% {
+      transform: translate(-10px, 15px) scale(0.95) rotate(240deg);
+      filter: blur(35px);
+    }
+    100% {
+      transform: translate(0, 0) scale(1) rotate(360deg);
+      filter: blur(40px);
+    }
+  }
+</style>
+
+<!-- ==================== 3D INTERACTIVE SCRIPT ==================== -->
+<script>
+  const hero = document.getElementById('hero');
+  const card = hero ? hero.querySelector('.hero-mark-wrap') : null as any;
+  const glow = hero ? hero.querySelector('.hero-mark-glow') : null as any;
+
+  if (hero && card) {
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      // Calculate rotation angles (max 10 degrees)
+      const rotateX = -(y / (rect.height / 2)) * 10;
+      const rotateY = (x / (rect.width / 2)) * 10;
+      
+      // Apply 3D transform with smooth transition
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      if (glow) {
+        // Shift the glow position slightly to match the 3D depth
+        glow.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0) scale(1.05)`;
+      }
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      // Smooth reset on mouse leave
+      card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (glow) {
+        glow.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      }
+    });
+  }
+</script>
