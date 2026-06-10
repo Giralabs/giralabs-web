@@ -19,6 +19,10 @@ const T = translations[lang];
 </section>
 
 <script>
+  // ----- DATA --------------------
+
+  // Each word carries its text (t) and a bold flag (b).
+  // Bold words are key terms that receive heavier weight in the render.
   const manifestoWords = {
     es: [
       {t:'No',b:0},{t:'construimos',b:0},{t:'software.',b:1},
@@ -49,43 +53,120 @@ const T = translations[lang];
     ]
   };
 
-  function buildManifestoDOM(lang) {
+  // ----- STATE --------------------
+
+  let wordSpans: HTMLElement[] = [];
+  let revealedChars: number[] = [];
+  let typeTimers: (ReturnType<typeof setInterval> | null)[] = [];
+  // Prevents the animation from firing more than once per DOM build
+  let fired = false;
+
+  // ----- ANIMATION --------------------
+
+  // Types a single word letter by letter. The first character is placed
+  // instantly so the word anchors its position before the interval begins.
+  // This avoids a visible jump when the word appears at the end of a line.
+  function typeWord(wordIdx: number) {
+    const span = wordSpans[wordIdx];
+    if (!span) return;
+    const full = span.dataset.full ?? '';
+
+    span.textContent = full[0] ?? '';  // first letter instant
+    revealedChars[wordIdx] = 1;
+
+    if (full.length === 1) return;  // single-char word, done
+
+    const isBold = span.classList.contains('mw-bold');
+    const letterSpeed = isBold ? 42 : 30;  // ms per letter — bold feels heavier
+
+    typeTimers[wordIdx] = setInterval(() => {
+      if (revealedChars[wordIdx] >= full.length) {
+        clearInterval(typeTimers[wordIdx]!);
+        typeTimers[wordIdx] = null;
+        span.textContent = full;
+        return;
+      }
+      revealedChars[wordIdx]++;
+      span.textContent = full.slice(0, revealedChars[wordIdx]);
+    }, letterSpeed);
+  }
+
+  // Schedules all words sequentially so each one starts only after the
+  // previous has finished typing. Sentence-ending words get a longer pause
+  // so the reader can process the phrase before the next one begins.
+  function runTypewriterSequence() {
+    let delay = 0;
+    wordSpans.forEach((span, i) => {
+      const full = span.dataset.full ?? '';
+      const isBold = span.classList.contains('mw-bold');
+      const letterSpeed = isBold ? 42 : 30;
+      const wordDuration = (full.length - 1) * letterSpeed;  // -1 because first letter is instant
+      const isSentenceEnd = /[.!?]$/.test(full);
+      const pauseAfter = isSentenceEnd ? 350 : 65;  // ms — breathing room after punctuation
+
+      setTimeout(() => typeWord(i), delay);
+      delay += wordDuration + pauseAfter;
+    });
+  }
+
+  // ----- DOM --------------------
+
+  // Builds the manifesto paragraph from the word list for the given language.
+  // Resets all timers and state so it is safe to call on language switch.
+  function buildManifestoDOM(lang: string) {
     const container = document.getElementById('manifesto-container');
     if (!container) return;
+
+    // Clear any in-flight timers from a previous render (e.g. lang switch mid-animation)
+    typeTimers.forEach(t => { if (t) clearInterval(t); });
+
+    const words = (manifestoWords as Record<string, {t:string,b:number}[]>)[lang] ?? manifestoWords.es;
     const frag = document.createDocumentFragment();
-    manifestoWords[lang].forEach((word, i) => {
+    words.forEach((word, i) => {
       if (i > 0) frag.appendChild(document.createTextNode(' '));
       const span = document.createElement('span');
       span.className = 'mw' + (word.b ? ' mw-bold' : '');
-      span.textContent = word.t;
+      span.dataset.full = word.t;
+      span.textContent = '';
       frag.appendChild(span);
     });
+
     container.innerHTML = '';
     container.appendChild(frag);
-    document.querySelector('.manifesto-section')?.classList.remove('manifesto-fired');
+
+    wordSpans     = Array.from(container.querySelectorAll<HTMLElement>('.mw'));
+    revealedChars = new Array(wordSpans.length).fill(0);
+    typeTimers    = new Array(wordSpans.length).fill(null);
+    fired         = false;
+
+    checkViewport();
   }
 
-  function tryAnimateManifesto() {
-    const section = document.querySelector('.manifesto-section');
-    if (!section || section.classList.contains('manifesto-fired')) return;
+  // ----- TRIGGER --------------------
+
+  // Fires the animation once when the section top crosses 78% of the viewport.
+  // The scroll listener removes itself after firing to avoid unnecessary calls.
+  function checkViewport() {
+    if (fired) return;
+    const section = document.querySelector<HTMLElement>('.manifesto-section');
+    if (!section) return;
     const rect = section.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.85) {
-      section.classList.add('manifesto-fired');
-      const words = section.querySelectorAll('.mw');
-      words.forEach((w, i) => {
-        setTimeout(() => w.classList.add('mw-on'), i * 35);
-      });
-      window.removeEventListener('scroll', tryAnimateManifesto);
+    if (rect.top < window.innerHeight * 0.78) {
+      fired = true;
+      window.removeEventListener('scroll', checkViewport);
+      runTypewriterSequence();
     }
   }
 
-  // Expose functions globally so index.astro script can call them on lang change
+  // ----- INIT --------------------
+
+  // Expose to index.astro so the lang switcher can rebuild and re-trigger
   window.__buildManifestoDOM = buildManifestoDOM;
-  window.__tryAnimateManifesto = tryAnimateManifesto;
+  window.__tryAnimateManifesto = checkViewport;
 
   buildManifestoDOM('es');
-  window.addEventListener('scroll', tryAnimateManifesto, { passive: true });
-  tryAnimateManifesto();
+  window.addEventListener('scroll', checkViewport, { passive: true });
+  checkViewport();
 </script>
 
 <style>
@@ -107,16 +188,6 @@ const T = translations[lang];
     width: 100%;
   }
 
-  .manifesto-label {
-    display: block;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #bbb;
-    margin-bottom: 2.5rem;
-  }
-
   .manifesto-text {
     font-size: clamp(2.2rem, 6vw, 5rem);
     font-weight: 400;
@@ -126,15 +197,22 @@ const T = translations[lang];
     margin: 0;
     word-break: normal;
     overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .manifesto-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 2.5rem;
+    text-align: left;
   }
 
   .mw {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(16px);
-    vertical-align: baseline;
-    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    display: inline;
   }
 
   .mw-bold {
@@ -142,11 +220,9 @@ const T = translations[lang];
     letter-spacing: -0.05em;
   }
 
-  .mw.mw-on {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
+  /* ========================================
+     RESPONSIVE
+  ======================================== */
   @media (max-width: 960px) {
     .manifesto-section { padding: 6rem 1.5rem 7rem; }
     .manifesto-text { font-size: clamp(1.8rem, 7vw, 2.8rem); }
