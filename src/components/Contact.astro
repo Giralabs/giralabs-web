@@ -1,0 +1,1470 @@
+---
+import { translations } from "../i18n/translations";
+
+interface Props {
+  lang?: string;
+  actionUrl?: string;
+  bookingActionUrl?: string;
+}
+
+const { 
+  lang = "es", 
+  actionUrl = "https://formspree.io/f/placeholder",
+  bookingActionUrl = "https://formspree.io/f/placeholder_booking"
+} = Astro.props;
+const T = translations[lang];
+
+// Dropdown translated options and UI keys
+const formTranslations = {
+  es: {
+    title: "Hablemos de tu proyecto",
+    subtitle: "Rellena el formulario y nos pondremos en contacto contigo en menos de 24 horas.",
+    name: "Nombre completo",
+    name_placeholder: "Tu nombre...",
+    email: "Correo electrónico",
+    email_placeholder: "Tu correo electrónico...",
+    company: "Nombre de la empresa (opcional)",
+    company_placeholder: "Nombre de tu empresa...",
+    how_heard: "¿Cómo has conocido a Giralabs?",
+    service: "Servicio en el que estás interesado",
+    project_details: "Cuéntanos más sobre el proyecto",
+    project_details_placeholder: "Cuéntanos más sobre tu idea, alcance, plazos de entrega...",
+    submit: "Enviar mensaje",
+    sending: "Enviando...",
+    success_title: "¡Mensaje enviado con éxito!",
+    success_desc: "Gracias por ponerte en contacto. Nuestro equipo revisará los detalles y te responderá a la brevedad.",
+    error_title: "Error al enviar el formulario",
+    error_desc: "Hubo un problema. Por favor, revisa los campos e inténtalo de nuevo, o envíanos un correo directamente a support@giralabs.com.",
+    select_how: "Selecciona una opción...",
+    select_service: "Selecciona un servicio...",
+    options_how: [
+      "Recomendación / Contacto",
+      "LinkedIn",
+      "Twitter / X",
+      "Búsqueda en Google",
+      "Otro"
+    ],
+    options_services: [
+      "Descubrimiento de Producto",
+      "Diseño de Experiencia (UX/UI)",
+      "Ingeniería Móvil & Backend",
+      "Crecimiento Continuo",
+      "Inteligencia Artificial Aplicada",
+      "Digitalización de Empresas",
+      "Otro / Consulta General"
+    ],
+    // Booking translations
+    booking_title: "Agendar videollamada",
+    booking_subtitle: "Elige un día y hora para reunirnos virtualmente y analizar los requisitos de tu producto (Google Meet).",
+    booking_confirm: "Confirmar cita",
+    booking_success_title: "¡Reunión Agendada!",
+    booking_success_desc: "Excelente. Hemos enviado una invitación de Google Meet para el día ",
+    booking_email_prompt: "Introduce tu correo para la invitación:",
+    booking_email_placeholder: "tu@correo.com",
+    booking_time_title: "Horas disponibles para el día",
+    booking_nav_prev: "Anterior",
+    booking_nav_next: "Siguiente",
+    weekdays: ["L", "M", "X", "J", "V", "S", "D"],
+    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+  },
+  en: {
+    title: "Let's talk about your project",
+    subtitle: "Fill out the form and we will get back to you in less than 24 hours.",
+    name: "Full name",
+    name_placeholder: "Your name...",
+    email: "Email address",
+    email_placeholder: "Your email...",
+    company: "Company name (optional)",
+    company_placeholder: "Your company name...",
+    how_heard: "How did you hear about Giralabs?",
+    service: "Service you are interested in",
+    project_details: "Tell us more about the project",
+    project_details_placeholder: "Tell us more about your idea, scope, deadline...",
+    submit: "Send message",
+    sending: "Sending...",
+    success_title: "Message sent successfully!",
+    success_desc: "Thank you for getting in touch. Our team will review the details and get back to you shortly.",
+    error_title: "Error sending form",
+    error_desc: "Something went wrong. Please check the fields and try again, or email us directly at support@giralabs.com.",
+    select_how: "Select an option...",
+    select_service: "Select a service...",
+    options_how: [
+      "Recommendation / Referral",
+      "LinkedIn",
+      "Twitter / X",
+      "Google Search",
+      "Other"
+    ],
+    options_services: [
+      "Product Discovery",
+      "Experience Design (UX/UI)",
+      "Mobile & Backend Engineering",
+      "Continuous Growth",
+      "Applied Artificial Intelligence",
+      "Business Digitalization",
+      "Other / General Inquiry"
+    ],
+    // Booking translations
+    booking_title: "Schedule a video call",
+    booking_subtitle: "Select a day and time to meet virtually and analyze your product requirements (Google Meet).",
+    booking_confirm: "Confirm booking",
+    booking_success_title: "Meeting Scheduled!",
+    booking_success_desc: "Excellent. We have sent a Google Meet invitation for ",
+    booking_email_prompt: "Enter your email for the invitation:",
+    booking_email_placeholder: "you@example.com",
+    booking_time_title: "Available slots for",
+    booking_nav_prev: "Prev",
+    booking_nav_next: "Next",
+    weekdays: ["M", "T", "W", "T", "F", "S", "S"],
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  }
+};
+
+const F = formTranslations[lang] || formTranslations.es;
+---
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section class="contact-section reveal" id="contact" aria-label="Contact Form">
+  <!-- Dynamic floating color glows behind the cards -->
+  <div class="card-bg-glow glow-1"></div>
+  <div class="card-bg-glow glow-2"></div>
+
+  <div class="contact-container">
+    
+    <div class="contact-grid-layout">
+      
+      <!-- LEFT COLUMN: Contact Form -->
+      <div class="form-glass-card">
+        <!-- Mouse cursor light spotlight -->
+        <div class="card-spotlight" id="contact-card-spotlight"></div>
+
+        <!-- Success/Error Overlay -->
+        <div class="form-overlay" id="form-success-overlay">
+          <div class="success-icon-wrapper">
+            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="overlay-title">{F.success_title}</h3>
+          <p class="overlay-desc">{F.success_desc}</p>
+        </div>
+
+        <!-- Form (dynamic Formspree endpoint) -->
+        <h2 class="contact-heading">{F.title}</h2>
+        <p class="contact-subtitle">{F.subtitle}</p>
+
+        <form id="ajax-contact-form" action={actionUrl} method="POST" class="form-grid">
+          
+          <!-- Name -->
+          <div class="form-field">
+            <label for="form-name" class="form-label">{F.name} *</label>
+            <input 
+              type="text" 
+              id="form-name" 
+              name="name" 
+              required 
+              placeholder={F.name_placeholder} 
+              class="form-input"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-field">
+            <label for="form-email" class="form-label">{F.email} *</label>
+            <input 
+              type="email" 
+              id="form-email" 
+              name="email" 
+              required 
+              placeholder={F.email_placeholder} 
+              class="form-input"
+            />
+          </div>
+
+          <!-- Company Name (Optional) -->
+          <div class="form-field">
+            <label for="form-company" class="form-label">{F.company}</label>
+            <input 
+              type="text" 
+              id="form-company" 
+              name="company" 
+              placeholder={F.company_placeholder} 
+              class="form-input"
+            />
+          </div>
+
+          <!-- Referral Source dropdown -->
+          <div class="form-field">
+            <label for="form-how-heard" class="form-label">{F.how_heard} *</label>
+            <select id="form-how-heard" name="how_heard" required class="form-select">
+              <option value="" disabled selected>{F.select_how}</option>
+              {F.options_how.map((opt) => (
+                <option value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Service Category dropdown -->
+          <div class="form-field full-width">
+            <label for="form-service" class="form-label">{F.service} *</label>
+            <select id="form-service" name="service" required class="form-select">
+              <option value="" disabled selected>{F.select_service}</option>
+              {F.options_services.map((opt) => (
+                <option value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Project Details Textarea -->
+          <div class="form-field full-width">
+            <label for="form-details" class="form-label">{F.project_details} *</label>
+            <textarea 
+              id="form-details" 
+              name="project_details" 
+              required 
+              placeholder={F.project_details_placeholder}
+              class="form-textarea"
+            ></textarea>
+          </div>
+
+          <!-- Submit & Feedback wrapper -->
+          <div class="form-field full-width" style="margin-top: 0.5rem;">
+            <div class="submit-wrapper">
+              <button type="submit" id="form-submit-btn" class="cta-primary contact-form-submit">
+                <span id="btn-text-content">{F.submit}</span>
+              </button>
+            </div>
+            <div class="feedback-msg" id="form-error-msg">{F.error_desc}</div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- RIGHT COLUMN: Booking Calendar Card (Black Glass Theme) -->
+      <div class="booking-dark-card" data-action={bookingActionUrl}>
+        <div class="card-spotlight" id="booking-card-spotlight"></div>
+
+        <!-- Success Booking Overlay -->
+        <div class="booking-overlay" id="booking-success-overlay">
+          <div class="success-icon-wrapper booking-success-icon">
+            <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+              <path d="M8 14h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M16 14h.01"></path>
+              <path d="M8 18h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M16 18h.01"></path>
+            </svg>
+          </div>
+          <h3 class="overlay-title booking-success-title">{F.booking_success_title}</h3>
+          <p class="overlay-desc booking-success-desc" id="booking-success-desc-text">{F.booking_success_desc}</p>
+        </div>
+
+        <div class="booking-card-content">
+          <h3 class="booking-heading">{F.booking_title}</h3>
+          <p class="booking-subtitle">{F.booking_subtitle}</p>
+
+          <!-- Calendar Widget -->
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button type="button" class="calendar-nav-btn" id="calendar-prev-btn" aria-label="Previous Month">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="calendar-month-year" id="calendar-month-year-lbl">Junio 2026</span>
+              <button type="button" class="calendar-nav-btn" id="calendar-next-btn" aria-label="Next Month">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            
+            <div class="calendar-weekdays" id="calendar-weekdays-grid">
+              <!-- Rendered dynamically -->
+            </div>
+            <div class="calendar-days" id="calendar-days-grid">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Time slots section (Visible after selecting date) -->
+          <div class="time-slots-section" id="time-slots-panel">
+            <h4 class="time-slots-title" id="time-slots-title-lbl">{F.booking_time_title}</h4>
+            <div class="time-slots-grid" id="time-slots-grid">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Quick Confirmation email field (Visible after selecting date & time slot) -->
+          <div class="booking-confirm-section" id="booking-confirm-panel">
+            <label for="booking-email-input" class="booking-email-label">{F.booking_email_prompt}</label>
+            <div class="booking-email-row">
+              <input 
+                type="email" 
+                id="booking-email-input" 
+                class="booking-email-input" 
+                placeholder={F.booking_email_placeholder}
+              />
+              <button type="button" class="booking-submit-btn" id="booking-submit-btn">
+                <span id="booking-btn-text-content">{F.booking_confirm}</span>
+              </button>
+            </div>
+            <div class="booking-error-msg" id="booking-error-msg"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     CONTACT FORM STYLING (Split layout & Glassmorphism)
+  ======================================== */
+  .contact-section {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 2rem;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Split Desktop Grid Layout */
+  .contact-grid-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .contact-header {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    grid-column: span 2;
+  }
+
+  .contact-heading {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #000;
+    margin: 0 0 1rem 0;
+    line-height: 1.15;
+  }
+
+  .contact-subtitle {
+    font-size: 1.05rem;
+    color: rgba(0, 0, 0, 0.55);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+  }
+
+  /* Decorative glowing ambient blobs behind cards */
+  .card-bg-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(130px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  .glow-1 {
+    background: radial-gradient(circle, rgba(255, 120, 50, 0.45) 0%, transparent 70%);
+    top: 10%;
+    left: 5%;
+    animation: floatBlob1 25s infinite alternate ease-in-out;
+  }
+
+  .glow-2 {
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+    bottom: 5%;
+    right: 5%;
+    animation: floatBlob2 20s infinite alternate ease-in-out;
+  }
+
+  @keyframes floatBlob1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, -50px) scale(1.15); }
+    100% { transform: translate(-40px, 40px) scale(0.9); }
+  }
+
+  @keyframes floatBlob2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-60px, 60px) scale(0.85); }
+    100% { transform: translate(50px, -30px) scale(1.1); }
+  }
+
+  /* ----------------------------------------
+     COLUMN 1: Light Glass Frosted Card
+  ---------------------------------------- */
+  .form-glass-card {
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 32px;
+    padding: 3.5rem;
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.03),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  /* Interactive spotlight overlay */
+  .card-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    background: radial-gradient(450px circle at var(--mx, 0px) var(--my, 0px), rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    transition: opacity 0.4s ease;
+  }
+
+  .form-glass-card:hover .card-spotlight {
+    opacity: 1;
+  }
+
+  /* Form Layout */
+  .form-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+    width: 100%;
+  }
+
+  /* Field Container micro-animation */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .form-field:focus-within {
+    transform: translateY(-2px);
+  }
+
+  .form-field.full-width {
+    grid-column: span 2;
+  }
+
+  /* Muted Elegant Labels */
+  .form-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.45);
+    margin-left: 0.2rem;
+    transition: color 0.2s ease;
+  }
+
+  .form-field:focus-within .form-label {
+    color: #000;
+  }
+
+  /* Highly Transparent Glass Inputs */
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 0.95rem 1.25rem;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: #000;
+    outline: none;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.005) inset,
+      0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .form-input:hover, .form-select:hover, .form-textarea:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.02),
+      0 0 0 3px rgba(255, 255, 255, 0.4);
+  }
+
+  .form-textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  /* Style select dropdown arrow and options background */
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.5)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+    background-size: 10px;
+    padding-right: 2.5rem;
+  }
+
+  .form-select option {
+    background-color: #F0EFEA;
+    color: #000;
+  }
+
+  /* Submit styles */
+  .submit-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .contact-form-submit {
+    padding: 0.9rem 2.8rem !important;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  .contact-form-submit:disabled {
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  /* Feedback messages */
+  .feedback-msg {
+    margin-top: 1.2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    width: 100%;
+    display: none;
+    line-height: 1.5;
+  }
+
+  .feedback-msg.error {
+    display: block;
+    background: rgba(255, 59, 48, 0.08);
+    border: 1px solid rgba(255, 59, 48, 0.15);
+    color: #ff3b30;
+  }
+
+  /* Form Success Overlay */
+  .form-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(240, 239, 234, 0.96);
+    backdrop-filter: blur(35px) saturate(185%);
+    -webkit-backdrop-filter: blur(35px) saturate(185%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .form-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .success-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    margin-bottom: 1.5rem;
+    transform: scale(0.7);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .form-overlay.show .success-icon-wrapper {
+    transform: scale(1);
+  }
+
+  .overlay-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  .overlay-desc {
+    font-size: 0.92rem;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 0;
+  }
+
+
+  /* ----------------------------------------
+     COLUMN 2: Deep Dark booking glass card
+  ---------------------------------------- */
+  .booking-dark-card {
+    background: rgba(16, 16, 16, 0.91);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 3.5rem;
+    color: #fff;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.3),
+      0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #booking-card-spotlight {
+    background: radial-gradient(400px circle at var(--mx, 0px) var(--my, 0px), rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+  }
+
+  .booking-dark-card:hover #booking-card-spotlight {
+    opacity: 1;
+  }
+
+  .booking-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .booking-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #FFF;
+    margin: 0 0 0.8rem 0;
+  }
+
+  .booking-subtitle {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.5;
+    margin: 0 0 2rem 0;
+  }
+
+  /* Booking Success Overlay */
+  .booking-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .booking-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .booking-success-icon {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #FF5A1F; /* Highlight Meet orange */
+  }
+
+  .booking-overlay.show .booking-success-icon {
+    transform: scale(1);
+  }
+
+  .booking-success-title {
+    color: #FFF;
+  }
+
+  .booking-success-desc {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ----------------------------------------
+     Calendar Layout & Grid
+  ---------------------------------------- */
+  .calendar-container {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 0.8rem;
+    border-radius: 12px;
+  }
+
+  .calendar-month-year {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #FFF;
+    letter-spacing: -0.01em;
+  }
+
+  .calendar-nav-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .calendar-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFF;
+  }
+
+  .calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+
+  :global(.calendar-weekday-lbl) {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4rem;
+  }
+
+  /* Individual Calendar Day circles */
+  :global(.calendar-day-btn) {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  :global(.calendar-day-btn.empty) {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  :global(.calendar-day-btn.disabled) {
+    color: rgba(255, 255, 255, 0.15);
+    cursor: default;
+    pointer-events: none;
+    background: transparent !important;
+  }
+
+  :global(.calendar-day-btn.available:hover) {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #FFF !important;
+  }
+
+  :global(.calendar-day-btn.selected) {
+    background: #FF5A1F !important; /* orange accent for calendar date selection */
+    color: #FFF !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 16px rgba(255, 90, 31, 0.4) !important;
+    transform: scale(1.05);
+  }
+
+  /* ----------------------------------------
+     Time Slots Panels
+  ---------------------------------------- */
+  .time-slots-section {
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+    animation: slideDownFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  @keyframes slideDownFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .time-slots-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .time-slots-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  :global(.time-slot-btn) {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.55rem 1.1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  :global(.time-slot-btn:hover) {
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: #FFF !important;
+  }
+
+  :global(.time-slot-btn.selected) {
+    background: #FFF !important;
+    border-color: #FFF !important;
+    color: #000 !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15) !important;
+  }
+
+  /* ----------------------------------------
+     Booking Email Confirm
+  ---------------------------------------- */
+  .booking-confirm-section {
+    display: none;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+    animation: slideDownFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .booking-email-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .booking-email-row {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .booking-email-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #FFF;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    outline: none;
+    font-family: inherit;
+    transition: all 0.25s;
+  }
+
+  .booking-email-input:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .booking-email-input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .booking-submit-btn {
+    background: #FFF;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 1.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.22s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .booking-submit-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.1);
+  }
+
+  .booking-submit-btn:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .booking-error-msg {
+    font-size: 0.8rem;
+    color: #ff3b30;
+    margin-top: 0.3rem;
+    display: none;
+  }
+
+  .booking-error-msg.show {
+    display: block;
+  }
+
+  /* ----------------------------------------
+     RESPONSIVE GRID BINDINGS
+  ---------------------------------------- */
+  @media (max-width: 960px) {
+    .contact-grid-layout {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    .contact-header {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+    .form-field.full-width {
+      grid-column: span 1;
+    }
+    .form-glass-card, .booking-dark-card {
+      padding: 2.5rem 1.6rem;
+      border-radius: 24px;
+    }
+    .contact-section {
+      padding: 6rem 1.5rem;
+    }
+    .submit-wrapper {
+      justify-content: stretch;
+    }
+    .contact-form-submit {
+      width: 100%;
+      justify-content: center;
+    }
+    .form-overlay, .booking-overlay {
+      padding: 2rem 1.5rem;
+    }
+    .booking-email-row {
+      flex-direction: column;
+    }
+    .booking-submit-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<!-- ==================== CLIENT SIDE FORM + CALENDAR INTERACTION ==================== -->
+<script define:vars={{ formTranslations, defaultLang: lang }}>
+  function initContactBooking() {
+    // ----------------------------------------
+    // 1. SELECTORS & STATE
+    // ----------------------------------------
+    const contactForm = document.getElementById("ajax-contact-form");
+    const contactSubmitBtn = document.getElementById("form-submit-btn");
+    const contactBtnText = document.getElementById("btn-text-content");
+    const contactErrorMsg = document.getElementById("form-error-msg");
+    const contactOverlay = document.getElementById("form-success-overlay");
+    const contactCard = document.getElementById("contact-card-spotlight")?.parentElement;
+
+    const bookingCard = document.getElementById("booking-card-spotlight")?.parentElement;
+    const bookingOverlay = document.getElementById("booking-success-overlay");
+    const bookingOverlayDescText = document.getElementById("booking-success-desc-text");
+    const calendarPrevBtn = document.getElementById("calendar-prev-btn");
+    const calendarNextBtn = document.getElementById("calendar-next-btn");
+    const calendarMonthYearLbl = document.getElementById("calendar-month-year-lbl");
+    const calendarWeekdaysGrid = document.getElementById("calendar-weekdays-grid");
+    const calendarDaysGrid = document.getElementById("calendar-days-grid");
+
+    const timeSlotsPanel = document.getElementById("time-slots-panel");
+    const timeSlotsTitleLbl = document.getElementById("time-slots-title-lbl");
+    const timeSlotsGrid = document.getElementById("time-slots-grid");
+
+    const confirmPanel = document.getElementById("booking-confirm-panel");
+    const bookingEmailInput = document.getElementById("booking-email-input");
+    const bookingSubmitBtn = document.getElementById("booking-submit-btn");
+    const bookingBtnText = document.getElementById("booking-btn-text-content");
+    const bookingErrorMsg = document.getElementById("booking-error-msg");
+
+    if (!contactForm || !contactSubmitBtn || !contactBtnText || !contactErrorMsg || !contactOverlay) return;
+
+    // Interactive date state
+    let currentDate = new Date();
+    let calendarYear = currentDate.getFullYear();
+    let calendarMonth = currentDate.getMonth();
+
+    // Selectable times
+    const defaultTimeSlots = ["09:30", "11:00", "15:00", "16:30"];
+    let selectedDateString = "";
+    let selectedDateObj = null;
+    let selectedTimeSlot = "";
+
+    // ----------------------------------------
+    // 2. MOUSE SPOTLIGHT ACTIONS
+    // ----------------------------------------
+    const handleSpotlight = (cardEl, e) => {
+      const rect = cardEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cardEl.style.setProperty("--mx", `${x}px`);
+      cardEl.style.setProperty("--my", `${y}px`);
+    };
+
+    if (contactCard) {
+      contactCard.addEventListener("mousemove", (e) => handleSpotlight(contactCard, e));
+    }
+    if (bookingCard) {
+      bookingCard.addEventListener("mousemove", (e) => handleSpotlight(bookingCard, e));
+    }
+
+    // ----------------------------------------
+    // 3. CALENDAR GENERATION LOGIC
+    // ----------------------------------------
+    function getDaysInMonth(year, month) {
+      return new Date(year, month + 1, 0).getDate();
+    }
+
+    function renderCalendarWidget(lang) {
+      const activeF = formTranslations[lang] || formTranslations.es;
+
+      // Render month year label
+      if (calendarMonthYearLbl) {
+        calendarMonthYearLbl.textContent = `${activeF.months[calendarMonth]} ${calendarYear}`;
+      }
+
+      // Render weekday titles
+      if (calendarWeekdaysGrid) {
+        calendarWeekdaysGrid.innerHTML = "";
+        activeF.weekdays.forEach(day => {
+          const lbl = document.createElement("span");
+          lbl.className = "calendar-weekday-lbl";
+          lbl.textContent = day;
+          calendarWeekdaysGrid.appendChild(lbl);
+        });
+      }
+
+      // Render days
+      if (calendarDaysGrid) {
+        calendarDaysGrid.innerHTML = "";
+
+        // First day of month (Mon=0, Tue=1... Sun=6 based on local Giralabs mapping)
+        const firstDayNative = new Date(calendarYear, calendarMonth, 1).getDay();
+        const firstDayIdx = firstDayNative === 0 ? 6 : firstDayNative - 1;
+        const totalDays = getDaysInMonth(calendarYear, calendarMonth);
+
+        // Add spacing empty cells
+        for (let i = 0; i < firstDayIdx; i++) {
+          const emptyCell = document.createElement("div");
+          emptyCell.className = "calendar-day-btn empty";
+          calendarDaysGrid.appendChild(emptyCell);
+        }
+
+        // Today reference
+        const systemToday = new Date();
+
+        for (let day = 1; day <= totalDays; day++) {
+          const dayBtn = document.createElement("button");
+          dayBtn.type = "button";
+          dayBtn.className = "calendar-day-btn";
+          dayBtn.textContent = day;
+
+          const thisDate = new Date(calendarYear, calendarMonth, day);
+
+          const isPast = new Date(thisDate.getFullYear(), thisDate.getMonth(), thisDate.getDate()) < 
+                         new Date(systemToday.getFullYear(), systemToday.getMonth(), systemToday.getDate());
+
+          const nativeDayOfWeek = thisDate.getDay();
+          const isWeekend = nativeDayOfWeek === 0 || nativeDayOfWeek === 6;
+
+          if (isPast || isWeekend) {
+            dayBtn.classList.add("disabled");
+            dayBtn.disabled = true;
+          } else {
+            dayBtn.classList.add("available");
+            
+            if (selectedDateObj && 
+                selectedDateObj.getDate() === day && 
+                selectedDateObj.getMonth() === calendarMonth && 
+                selectedDateObj.getFullYear() === calendarYear) {
+              dayBtn.classList.add("selected");
+            }
+
+            dayBtn.addEventListener("click", () => {
+              document.querySelectorAll(".calendar-day-btn.selected").forEach(el => el.classList.remove("selected"));
+              dayBtn.classList.add("selected");
+
+              selectedDateObj = thisDate;
+              
+              const formattedDate = lang === "es" 
+                ? `${day} de ${activeF.months[calendarMonth]}` 
+                : `${activeF.months[calendarMonth]} ${day}`;
+              
+              selectedDateString = `${formattedDate}, ${calendarYear}`;
+
+              revealTimeSlots(selectedDateString, lang);
+            });
+          }
+
+          calendarDaysGrid.appendChild(dayBtn);
+        }
+      }
+    }
+
+    function revealTimeSlots(dateText, lang) {
+      if (!timeSlotsPanel || !timeSlotsGrid || !timeSlotsTitleLbl) return;
+
+      const activeF = formTranslations[lang] || formTranslations.es;
+      timeSlotsTitleLbl.textContent = `${activeF.booking_time_title} ${dateText.split(",")[0]}`;
+      
+      timeSlotsGrid.innerHTML = "";
+      selectedTimeSlot = "";
+      
+      if (confirmPanel) confirmPanel.style.display = "none";
+
+      defaultTimeSlots.forEach(time => {
+        const slotBtn = document.createElement("button");
+        slotBtn.type = "button";
+        slotBtn.className = "time-slot-btn";
+        slotBtn.textContent = time;
+
+        slotBtn.addEventListener("click", () => {
+          document.querySelectorAll(".time-slot-btn.selected").forEach(el => el.classList.remove("selected"));
+          slotBtn.classList.add("selected");
+
+          selectedTimeSlot = time;
+          revealConfirmPanel(lang);
+        });
+
+        timeSlotsGrid.appendChild(slotBtn);
+      });
+
+      timeSlotsPanel.style.display = "flex";
+    }
+
+    function revealConfirmPanel(lang) {
+      if (!confirmPanel || !bookingEmailInput) return;
+
+      const contactFormEmail = document.getElementById("form-email")?.value;
+      if (contactFormEmail && !bookingEmailInput.value) {
+        bookingEmailInput.value = contactFormEmail;
+      }
+
+      confirmPanel.style.display = "flex";
+      bookingErrorMsg.classList.remove("show");
+    }
+
+    // Nav Calendar buttons
+    if (calendarPrevBtn && calendarNextBtn) {
+      calendarPrevBtn.addEventListener("click", () => {
+        calendarMonth--;
+        if (calendarMonth < 0) {
+          calendarMonth = 11;
+          calendarYear--;
+        }
+        const currentLang = document.documentElement.lang || "es";
+        renderCalendarWidget(currentLang);
+      });
+
+      calendarNextBtn.addEventListener("click", () => {
+        calendarMonth++;
+        if (calendarMonth > 11) {
+          calendarMonth = 0;
+          calendarYear++;
+        }
+        const currentLang = document.documentElement.lang || "es";
+        renderCalendarWidget(currentLang);
+      });
+    }
+
+    // ----------------------------------------
+    // 4. TRANSLATIONS GLOBAL EVENT LISTENER
+    // ----------------------------------------
+    function updateFormTranslations(lang) {
+      const activeF = formTranslations[lang] || formTranslations.es;
+
+      // Form Header
+      const titleEl = document.querySelector(".contact-heading");
+      if (titleEl) titleEl.textContent = activeF.title;
+      const subtitleEl = document.querySelector(".contact-subtitle");
+      if (subtitleEl) subtitleEl.textContent = activeF.subtitle;
+
+      // Form Labels
+      const labelName = document.querySelector('label[for="form-name"]');
+      if (labelName) labelName.textContent = activeF.name + " *";
+      const labelEmail = document.querySelector('label[for="form-email"]');
+      if (labelEmail) labelEmail.textContent = activeF.email + " *";
+      const labelCompany = document.querySelector('label[for="form-company"]');
+      if (labelCompany) labelCompany.textContent = activeF.company;
+      const labelHowHeard = document.querySelector('label[for="form-how-heard"]');
+      if (labelHowHeard) labelHowHeard.textContent = activeF.how_heard + " *";
+      const labelService = document.querySelector('label[for="form-service"]');
+      if (labelService) labelService.textContent = activeF.service + " *";
+      const labelDetails = document.querySelector('label[for="form-details"]');
+      if (labelDetails) labelDetails.textContent = activeF.project_details + " *";
+
+      // Form Placeholders
+      const inputName = document.getElementById("form-name");
+      if (inputName) inputName.placeholder = activeF.name_placeholder;
+      const inputEmail = document.getElementById("form-email");
+      if (inputEmail) inputEmail.placeholder = activeF.email_placeholder;
+      const inputCompany = document.getElementById("form-company");
+      if (inputCompany) inputCompany.placeholder = activeF.company_placeholder;
+      const inputDetails = document.getElementById("form-details");
+      if (inputDetails) inputDetails.placeholder = activeF.project_details_placeholder;
+
+      // Select elements option 0
+      const selectHow = document.getElementById("form-how-heard");
+      if (selectHow && selectHow.options[0]) selectHow.options[0].textContent = activeF.select_how;
+      const selectService = document.getElementById("form-service");
+      if (selectService && selectService.options[0]) selectService.options[0].textContent = activeF.select_service;
+
+      // Update select values option text
+      if (selectHow) {
+        activeF.options_how.forEach((opt, idx) => {
+          if (selectHow.options[idx + 1]) {
+            selectHow.options[idx + 1].textContent = opt;
+            selectHow.options[idx + 1].value = opt;
+          }
+        });
+      }
+      if (selectService) {
+        activeF.options_services.forEach((opt, idx) => {
+          if (selectService.options[idx + 1]) {
+            selectService.options[idx + 1].textContent = opt;
+            selectService.options[idx + 1].value = opt;
+          }
+        });
+      }
+
+      // Submit Contact Button text
+      if (contactBtnText && !contactSubmitBtn.disabled) {
+        contactBtnText.textContent = activeF.submit;
+      }
+
+      // Form overlay
+      const overlayTitle = document.querySelector(".overlay-title");
+      if (overlayTitle) overlayTitle.textContent = activeF.success_title;
+      const overlayDesc = document.querySelector(".overlay-desc");
+      if (overlayDesc) overlayDesc.textContent = activeF.success_desc;
+      if (contactErrorMsg) contactErrorMsg.textContent = activeF.error_desc;
+
+      // ----------------- BOOKING LABELS -----------------
+      const bookingTitleEl = document.querySelector(".booking-heading");
+      if (bookingTitleEl) bookingTitleEl.textContent = activeF.booking_title;
+      const bookingSubtitleEl = document.querySelector(".booking-subtitle");
+      if (bookingSubtitleEl) bookingSubtitleEl.textContent = activeF.booking_subtitle;
+
+      const bookingEmailConfirmLbl = document.querySelector(".booking-email-label");
+      if (bookingEmailConfirmLbl && !selectedTimeSlot) {
+        bookingEmailConfirmLbl.textContent = activeF.booking_email_prompt;
+      }
+      const bookingEmailInputEl = document.getElementById("booking-email-input");
+      if (bookingEmailInputEl) bookingEmailInputEl.placeholder = activeF.booking_email_placeholder;
+      
+      const bookingSubmitBtnLbl = document.getElementById("booking-btn-text-content");
+      if (bookingSubmitBtnLbl && !bookingSubmitBtn.disabled) {
+        bookingSubmitBtnLbl.textContent = activeF.booking_confirm;
+      }
+
+      const bookingOverlayTitleEl = document.querySelector(".booking-success-title");
+      if (bookingOverlayTitleEl) bookingOverlayTitleEl.textContent = activeF.booking_success_title;
+
+      renderCalendarWidget(lang);
+      if (selectedDateString) {
+        revealTimeSlots(selectedDateString, lang);
+      }
+    }
+
+    const initialLang = localStorage.getItem("giralabs-lang") || document.documentElement.lang || defaultLang || "es";
+    updateFormTranslations(initialLang);
+
+    if (window.__giralabsContactListenerAttached) {
+      document.removeEventListener("giralabs:lang", window.__giralabsContactListenerAttached);
+    }
+    window.__giralabsContactListenerAttached = (e) => {
+      updateFormTranslations(e.detail.lang);
+    };
+    document.addEventListener("giralabs:lang", window.__giralabsContactListenerAttached);
+
+    // ----------------------------------------
+    // 5. CONTACT FORM SUBMISSION (AJAX)
+    // ----------------------------------------
+    contactForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      
+      const currentLang = document.documentElement.lang || "es";
+      const activeF = formTranslations[currentLang] || formTranslations.es;
+
+      // Reset state
+      contactErrorMsg.classList.remove("error");
+      contactSubmitBtn.disabled = true;
+      contactBtnText.textContent = activeF.sending;
+
+      const data = new FormData(contactForm);
+      const actionUrl = contactForm.getAttribute("action");
+
+      try {
+        const response = await fetch(actionUrl, {
+          method: "POST",
+          body: data,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok || response.status === 200) {
+          contactForm.reset();
+          contactOverlay.classList.add("show");
+        } else {
+          const result = await response.json();
+          throw new Error(result.error || "Formspree submission failed");
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        contactErrorMsg.classList.add("error");
+        contactSubmitBtn.disabled = false;
+        contactBtnText.textContent = activeF.submit;
+      }
+    });
+
+    // ----------------------------------------
+    // 6. CALENDAR BOOKING SUBMISSION (AJAX)
+    // ----------------------------------------
+    if (bookingSubmitBtn) {
+      bookingSubmitBtn.addEventListener("click", async () => {
+        const currentLang = document.documentElement.lang || "es";
+        const activeF = formTranslations[currentLang] || formTranslations.es;
+
+        const email = bookingEmailInput.value.trim();
+        if (!email) {
+          bookingErrorMsg.textContent = activeF.error_desc.split(".")[0];
+          bookingErrorMsg.classList.add("show");
+          return;
+        }
+
+        bookingErrorMsg.classList.remove("show");
+        bookingSubmitBtn.disabled = true;
+        bookingBtnText.textContent = activeF.sending;
+
+        const actionUrl = bookingCard.getAttribute("data-action");
+        const payload = {
+          email: email,
+          type: "Videollamada Google Meet (Giralabs)",
+          date: selectedDateString,
+          time: selectedTimeSlot
+        };
+
+        try {
+          const response = await fetch(actionUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok || response.status === 200) {
+            bookingOverlayDescText.innerHTML = `${activeF.booking_success_desc} <strong>${selectedDateString.split(",")[0]} a las ${selectedTimeSlot}</strong>.`;
+            bookingOverlay.classList.add("show");
+          } else {
+            const result = await response.json();
+            throw new Error(result.error || "Booking submission failed");
+          }
+        } catch (error) {
+          console.error("Booking error:", error);
+          bookingErrorMsg.textContent = activeF.error_desc.split(".")[0];
+          bookingErrorMsg.classList.add("show");
+          
+          bookingSubmitBtn.disabled = false;
+          bookingBtnText.textContent = activeF.booking_confirm;
+        }
+      });
+    }
+  }
+
+  // Support both standard page loads and View Transitions (astro:page-load)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initContactBooking);
+  } else {
+    initContactBooking();
+  }
+  document.addEventListener("astro:page-load", initContactBooking);
+</script>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
+import CTAContact from '../components/CTAContact.astro';
 import Footer from '../components/Footer.astro';
 
 const defaultLang = 'es';
@@ -71,8 +72,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-discovery" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/descubrimiento" class="service-details-link">
+              <a href="/contact" class="service-btn btn-discovery" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/discovery" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -147,8 +148,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-design" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/diseno-experiencia" class="service-details-link">
+              <a href="/contact" class="service-btn btn-design" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/experience-design" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -217,8 +218,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-engineering" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/ingenieria" class="service-details-link">
+              <a href="/contact" class="service-btn btn-engineering" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/engineering" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -299,8 +300,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-growth" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/crecimiento-continuo" class="service-details-link">
+              <a href="/contact" class="service-btn btn-growth" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/continuous-growth" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -373,8 +374,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-ai" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/inteligencia-artificial" class="service-details-link">
+              <a href="/contact" class="service-btn btn-ai" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/applied-ai" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -446,8 +447,8 @@ const T = translations[defaultLang];
               </ul>
             </div>
             <div class="service-actions">
-              <a href="/#contact" class="service-btn btn-team" data-i18n="services_page_cta">{T.services_page_cta}</a>
-              <a href="/servicio/digitalizacion-empresas" class="service-details-link">
+              <a href="/contact" class="service-btn btn-team" data-i18n="services_page_cta">{T.services_page_cta}</a>
+              <a href="/service/business-digitalization" class="service-details-link">
                 <span data-i18n="service_details_title">{T.service_details_title}</span>
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -481,6 +482,8 @@ const T = translations[defaultLang];
 
     </div>
   </main>
+
+  <CTAContact lang={defaultLang} />
 
   <!-- ==================== FOOTER ==================== -->
   <Footer lang={defaultLang} />

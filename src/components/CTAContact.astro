@@ -1,6 +1,6 @@
 ---
-import { translations } from "../../i18n/translations";
-import combinationMark from "../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+import { translations } from "../i18n/translations";
+import combinationMark from "../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
 
 interface Props {
   lang?: string;
@@ -22,15 +22,13 @@ const T = translations[lang];
         id="contact-email-link">support@giralabs.com</a
       >
       <a
-        href="javascript:void(0)"
+        href="/contact"
         class="cta-primary contact-cta"
         data-i18n="nav_cta">{T.nav_cta}</a
       >
     </div>
   </div>
 </section>
-
-
 
 <style>
   /* ========================================

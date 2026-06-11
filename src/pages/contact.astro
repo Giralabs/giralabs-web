@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { translations } from '../i18n/translations';
+
+const defaultLang = 'es';
+const T = translations[defaultLang];
+---
+
+<Layout
+  title={`${T.nav_contact} | ${T.meta_title}`}
+  description={T.meta_description}
+  lang={defaultLang}
+>
+  <!-- Global dot-grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  
+  <!-- Ambient glowing blobs specific to contact page -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <Navbar lang={defaultLang} />
+
+  <!-- Contact Form section -->
+  <main class="contact-page-container">
+    <Contact 
+      lang={defaultLang} 
+      actionUrl="https://formspree.io/f/xvznwgob" 
+      bookingActionUrl="https://formspree.io/f/xvznwgob" 
+    />
+  </main>
+
+  <!-- Footer -->
+  <Footer lang={defaultLang} />
+
+</Layout>
+
+<!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
+<script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
+  let currentLang = document.documentElement.lang || 'es';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    const T = translations[lang];
+    
+    // Translate standard elements marked with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[key] !== undefined) {
+        el.textContent = T[key];
+      }
+    });
+
+    document.documentElement.lang = lang;
+    document.title = T.nav_contact + " | " + T.meta_title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', T.meta_description);
+  }
+
+  // Detect and apply saved language on load
+  const savedLang = localStorage.getItem('giralabs-lang');
+  if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+    applyLang(savedLang);
+  }
+
+  // Listen to navbar's language changes
+  document.addEventListener('giralabs:lang', (e) => {
+    applyLang(e.detail.lang);
+  });
+
+  // ---- Scroll reveal (general) ----
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+<style>
+  /* ========================================
+     GLOBAL & LAYOUT SPECIFICS FOR CONTACT PAGE
+  ======================================== */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  /* Ambient flows in light space */
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.08;
+  }
+
+  .glow-top {
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 210, 150, 0.12) 0%, transparent 65%);
+  }
+
+  .glow-bottom {
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
+  }
+
+  .contact-page-container {
+    position: relative;
+    z-index: 1;
+    padding-top: 4rem; /* Safe spacing from Navbar */
+  }
+
+  /* ========================================
+     GLOBAL REVEAL ANIMATION
+  ======================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

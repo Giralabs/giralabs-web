@@ -6,12 +6,12 @@ import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   return [
-    { params: { slug: 'descubrimiento' }, props: { index: 1, nextSlug: 'diseno-experiencia', nextIndex: 2 } },
-    { params: { slug: 'diseno-experiencia' }, props: { index: 2, nextSlug: 'ingenieria', nextIndex: 3 } },
-    { params: { slug: 'ingenieria' }, props: { index: 3, nextSlug: 'crecimiento-continuo', nextIndex: 4 } },
-    { params: { slug: 'crecimiento-continuo' }, props: { index: 4, nextSlug: 'inteligencia-artificial', nextIndex: 5 } },
-    { params: { slug: 'inteligencia-artificial' }, props: { index: 5, nextSlug: 'digitalizacion-empresas', nextIndex: 6 } },
-    { params: { slug: 'digitalizacion-empresas' }, props: { index: 6, nextSlug: 'descubrimiento', nextIndex: 1 } },
+    { params: { slug: 'discovery' }, props: { index: 1, nextSlug: 'experience-design', nextIndex: 2 } },
+    { params: { slug: 'experience-design' }, props: { index: 2, nextSlug: 'engineering', nextIndex: 3 } },
+    { params: { slug: 'engineering' }, props: { index: 3, nextSlug: 'continuous-growth', nextIndex: 4 } },
+    { params: { slug: 'continuous-growth' }, props: { index: 4, nextSlug: 'applied-ai', nextIndex: 5 } },
+    { params: { slug: 'applied-ai' }, props: { index: 5, nextSlug: 'business-digitalization', nextIndex: 6 } },
+    { params: { slug: 'business-digitalization' }, props: { index: 6, nextSlug: 'discovery', nextIndex: 1 } },
   ];
 }
 
@@ -50,7 +50,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   <!-- ==================== BREADCRUMB / GO BACK ==================== -->
   <nav class="details-breadcrumb reveal">
     <div class="breadcrumb-inner">
-      <a href="/servicios" class="breadcrumb-back">
+      <a href="/services" class="breadcrumb-back">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
@@ -92,7 +92,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
           </ul>
         </div>
 
-        <a href="/#contact" class="details-btn" data-i18n="services_page_cta">{T.services_page_cta}</a>
+        <a href="/contact" class="details-btn" data-i18n="services_page_cta">{T.services_page_cta}</a>
       </section>
 
       <!-- COLUMN 2: Premium Visual Glass Card -->
@@ -266,7 +266,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   <section class="next-service-nav reveal">
     <div class="next-service-inner">
       <span class="next-lbl" data-i18n="service_next_cta">{T.service_next_cta}</span>
-      <a href={`/servicio/${nextSlug}`} class="next-title-link">
+      <a href={`/service/${nextSlug}`} class="next-title-link">
         <span data-i18n={nextTitleKey}>{T[nextTitleKey]}</span>
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="next-chevron">
           <polyline points="9 18 15 12 9 6"></polyline>

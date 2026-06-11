@@ -28,21 +28,21 @@ const T = translations[lang];
       <!-- Center nav links -->
       <ul class="nav-links" role="list">
         <li class="nav-dropdown-wrapper">
-          <a href="/servicios" class="nav-link dropdown-toggle" data-i18n="nav_services">
-            Servicios
+          <a href="/services" class="nav-link dropdown-toggle">
+            <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="nav-dropdown-menu">
-            <a href="/servicios" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href="/services" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href="/servicio/descubrimiento" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href="/servicio/diseno-experiencia" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href="/servicio/ingenieria" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href="/servicio/crecimiento-continuo" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href="/servicio/inteligencia-artificial" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href="/servicio/digitalizacion-empresas" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href="/service/discovery" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href="/service/experience-design" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href="/service/engineering" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href="/service/continuous-growth" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href="/service/applied-ai" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href="/service/business-digitalization" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
         <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
@@ -57,7 +57,7 @@ const T = translations[lang];
           <span class="lang-sep">/</span>
           <span id="lang-en" class="lang-opt">EN</span>
         </button>
-        <a href="#contact" class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+        <a href="/contact" class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
           <span></span><span></span>
         </button>
@@ -73,21 +73,21 @@ const T = translations[lang];
       </a>
       <ul class="pill-links" role="list">
         <li class="pill-dropdown-wrapper">
-          <a href="/servicios" class="pill-link dropdown-toggle" data-i18n="nav_services">
-            Servicios
+          <a href="/services" class="pill-link dropdown-toggle">
+            <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="pill-dropdown-menu">
-            <a href="/servicios" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href="/services" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href="/servicio/descubrimiento" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href="/servicio/diseno-experiencia" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href="/servicio/ingenieria" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href="/servicio/crecimiento-continuo" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href="/servicio/inteligencia-artificial" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href="/servicio/digitalizacion-empresas" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href="/service/discovery" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href="/service/experience-design" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href="/service/engineering" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href="/service/continuous-growth" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href="/service/applied-ai" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href="/service/business-digitalization" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
         <li><a href="#projects" class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
@@ -100,7 +100,7 @@ const T = translations[lang];
           <span class="lang-sep">/</span>
           <span id="pill-lang-en" class="lang-opt">EN</span>
         </button>
-        <a href="#contact" class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+        <a href="/contact" class="pill-cta" data-i18n="nav_cta">Hablemos</a>
       </div>
     </div>
   </div>
@@ -109,26 +109,26 @@ const T = translations[lang];
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <ul class="mobile-links" role="list">
       <li class="mobile-dropdown-wrapper">
-        <button class="mobile-link mobile-dropdown-toggle" data-i18n="nav_services" type="button">
-          Servicios
+        <button class="mobile-link mobile-dropdown-toggle" type="button">
+          <span data-i18n="nav_services">Servicios</span>
           <svg class="mobile-chevron-icon" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
         <div class="mobile-dropdown-menu">
-          <a href="/servicios" class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
-          <a href="/servicio/descubrimiento" class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
-          <a href="/servicio/diseno-experiencia" class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
-          <a href="/servicio/ingenieria" class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
-          <a href="/servicio/crecimiento-continuo" class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
-          <a href="/servicio/inteligencia-artificial" class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
-          <a href="/servicio/digitalizacion-empresas" class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
+          <a href="/services" class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+          <a href="/service/discovery" class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
+          <a href="/service/experience-design" class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
+          <a href="/service/engineering" class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
+          <a href="/service/continuous-growth" class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
+          <a href="/service/applied-ai" class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
+          <a href="/service/business-digitalization" class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
       <li><a href="#projects" class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
       <li><a href="#how" class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
       <li><a href="#" class="mobile-link" data-i18n="nav_blog">Blog</a></li>
-      <li><a href="#contact" class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+      <li><a href="/contact" class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
     </ul>
   </div>
 </nav>
@@ -332,6 +332,8 @@ const T = translations[lang];
     display: inline-block;
     margin-left: 4px;
     vertical-align: middle;
+    position: relative;
+    top: 1px;
     transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
@@ -851,7 +853,9 @@ const T = translations[lang];
         const href = link.getAttribute('href');
         if (href) {
           if (href === '#services') {
-            link.setAttribute('href', '/servicios');
+            link.setAttribute('href', '/services');
+          } else if (href === '#contact') {
+            link.setAttribute('href', '/contact');
           } else {
             link.setAttribute('href', '/' + href);
           }
