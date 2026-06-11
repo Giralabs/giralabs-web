@@ -6,7 +6,7 @@ import PhoneMockup from '../components/home/PhoneMockup.astro';
 import Services from '../components/home/Services.astro';
 import Edge from '../components/home/Edge.astro';
 import NativeSpeed from '../components/home/NativeSpeed.astro';
-import Contact from '../components/home/Contact.astro';
+import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { translations } from '../i18n/translations';
 
@@ -34,7 +34,11 @@ const T = translations[defaultLang];
   <Services lang={defaultLang} />
   <Edge lang={defaultLang} />
   <NativeSpeed lang={defaultLang} />
-  <Contact lang={defaultLang} />
+  <Contact 
+    lang={defaultLang} 
+    actionUrl="https://formspree.io/f/xvznwgob" 
+    bookingActionUrl="https://formspree.io/f/xvznwgob" 
+  />
   <Footer lang={defaultLang} />
 
 </Layout>
