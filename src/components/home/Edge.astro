@@ -21,35 +21,17 @@ const T = translations[lang];
 <script>
   // ----- DATA --------------------
 
-  // Each word carries its text (t) and a bold flag (b).
-  // Bold words are key terms that receive heavier weight in the render.
+  // Each word carries its text (t) and a bold/style flag (b).
+  // 0: regular, 1: bold, 2: gradient-text
   const manifestoWords = {
     es: [
-      {t:'No',b:0},{t:'construimos',b:0},{t:'software.',b:1},
       {t:'Construimos',b:1},{t:'el',b:0},{t:'producto',b:1},{t:'que',b:0},{t:'tus',b:0},
-      {t:'clientes',b:1},{t:'usarán',b:0},{t:'cuando',b:0},{t:'más',b:1},{t:'importa.',b:1},
-      {t:'Con',b:0},{t:'honestidad',b:1},{t:'brutal',b:1},{t:'sobre',b:0},
-      {t:'qué',b:0},{t:'vale',b:0},{t:'la',b:0},{t:'pena',b:0},{t:'construir',b:1},{t:'y',b:0},{t:'qué',b:0},{t:'no.',b:1},
-      {t:'Priorizamos',b:1},{t:'lo',b:0},{t:'que',b:0},{t:'importa.',b:1},
-      {t:'Cortamos',b:1},{t:'el',b:0},{t:'ruido',b:0},{t:'antes',b:0},{t:'de',b:0},
-      {t:'que',b:0},{t:'toque',b:0},{t:'el',b:0},{t:'código.',b:1},
-      {t:'No',b:0},{t:'somos',b:0},{t:'proveedores.',b:1},
-      {t:'Somos',b:1},{t:'el',b:0},{t:'equipo',b:1},{t:'técnico',b:1},
-      {t:'que',b:0},{t:'debiste',b:0},{t:'tener',b:0},{t:'desde',b:0},{t:'el',b:0},{t:'día',b:0},{t:'uno.',b:1}
+      {t:'clientes',b:1},{t:'usarán',b:0},{t:'cuando',b:2},{t:'más',b:2},{t:'importa.',b:2}
     ],
     en: [
-      {t:'We',b:0},{t:"don't",b:0},{t:'build',b:0},{t:'software.',b:1},
-      {t:'We',b:1},{t:'build',b:1},{t:'the',b:0},{t:'product',b:1},
+      {t:'We',b:1},{t:'build',b:0},{t:'the',b:0},{t:'product',b:1},
       {t:'your',b:0},{t:'clients',b:1},{t:'will',b:0},{t:'use',b:0},
-      {t:'when',b:0},{t:'it',b:0},{t:'matters',b:1},{t:'most.',b:1},
-      {t:'With',b:0},{t:'brutal',b:1},{t:'honesty',b:1},{t:'about',b:0},
-      {t:"what's",b:0},{t:'worth',b:0},{t:'building',b:1},{t:'and',b:0},{t:"what's",b:0},{t:'not.',b:1},
-      {t:'We',b:1},{t:'prioritize',b:1},{t:'what',b:0},{t:'matters.',b:1},
-      {t:'We',b:1},{t:'cut',b:1},{t:'the',b:0},{t:'noise',b:0},
-      {t:'before',b:0},{t:'it',b:0},{t:'touches',b:0},{t:'the',b:0},{t:'code.',b:1},
-      {t:"We're",b:0},{t:'not',b:0},{t:'vendors.',b:1},
-      {t:"We're",b:1},{t:'the',b:0},{t:'technical',b:1},{t:'team',b:1},
-      {t:'you',b:0},{t:'should',b:0},{t:'have',b:0},{t:'had',b:0},{t:'from',b:0},{t:'day',b:0},{t:'one.',b:1}
+      {t:'when',b:2},{t:'it',b:2},{t:'matters',b:2},{t:'most.',b:2}
     ]
   };
 
@@ -76,8 +58,8 @@ const T = translations[lang];
 
     if (full.length === 1) return;  // single-char word, done
 
-    const isBold = span.classList.contains('mw-bold');
-    const letterSpeed = isBold ? 42 : 30;  // ms per letter — bold feels heavier
+    const isStyled = span.classList.contains('mw-bold') || span.classList.contains('mw-gradient');
+    const letterSpeed = isStyled ? 42 : 30;  // ms per letter — bold/styled feels heavier
 
     typeTimers[wordIdx] = setInterval(() => {
       if (revealedChars[wordIdx] >= full.length) {
@@ -98,8 +80,8 @@ const T = translations[lang];
     let delay = 0;
     wordSpans.forEach((span, i) => {
       const full = span.dataset.full ?? '';
-      const isBold = span.classList.contains('mw-bold');
-      const letterSpeed = isBold ? 42 : 30;
+      const isStyled = span.classList.contains('mw-bold') || span.classList.contains('mw-gradient');
+      const letterSpeed = isStyled ? 42 : 30;
       const wordDuration = (full.length - 1) * letterSpeed;  // -1 because first letter is instant
       const isSentenceEnd = /[.!?]$/.test(full);
       const pauseAfter = isSentenceEnd ? 350 : 65;  // ms — breathing room after punctuation
@@ -113,6 +95,7 @@ const T = translations[lang];
 
   // Builds the manifesto paragraph from the word list for the given language.
   // Resets all timers and state so it is safe to call on language switch.
+  // We use data-i18n check in index.astro triggers but Edge maintains its custom rebuilder.
   function buildManifestoDOM(lang: string) {
     const container = document.getElementById('manifesto-container');
     if (!container) return;
@@ -125,7 +108,10 @@ const T = translations[lang];
     words.forEach((word, i) => {
       if (i > 0) frag.appendChild(document.createTextNode(' '));
       const span = document.createElement('span');
-      span.className = 'mw' + (word.b ? ' mw-bold' : '');
+      let className = 'mw';
+      if (word.b === 1) className += ' mw-bold';
+      else if (word.b === 2) className += ' mw-gradient';
+      span.className = className;
       span.dataset.full = word.t;
       span.textContent = '';
       frag.appendChild(span);
@@ -218,6 +204,14 @@ const T = translations[lang];
 
   .mw-bold {
     font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+
+  .mw-gradient {
+    font-weight: 800;
+    background: linear-gradient(135deg, #FF8A65 0%, #FFB74D 50%, #FF7043 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     letter-spacing: -0.05em;
   }
 
