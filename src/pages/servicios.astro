@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
+import Footer from '../components/Footer.astro';
 
 const defaultLang = 'es';
 const T = translations[defaultLang];
@@ -482,14 +483,7 @@ const T = translations[defaultLang];
   </main>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer class="services-footer">
-    <div class="footer-inner reveal">
-      <p class="footer-tagline" data-i18n="footer_tagline">{T.footer_tagline}</p>
-      <div class="footer-bottom">
-        <span data-i18n="footer_rights">{T.footer_rights}</span>
-      </div>
-    </div>
-  </footer>
+  <Footer lang={defaultLang} />
 
   <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
   <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
@@ -1756,37 +1750,7 @@ const T = translations[defaultLang];
     40%, 80% { background: rgba(var(--team-rgb-1), 0.04); border-color: var(--team-color-2); color: var(--team-color-2); box-shadow: 0 0 10px rgba(var(--team-rgb-2), 0.05); }
   }
 
-  /* ========================================
-     SERVICES PAGE FOOTER
-  ======================================== */
-  .services-footer {
-    position: relative;
-    border-top: 1px solid rgba(0,0,0,0.06);
-    padding: 3rem 2rem;
-    z-index: 2;
-    text-align: center;
-    background-color: #F0EFEA;
-  }
 
-  .footer-inner {
-    max-width: 1050px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .footer-tagline {
-    font-size: 0.82rem;
-    color: rgba(0,0,0,0.5);
-    margin: 0;
-  }
-
-  .footer-bottom {
-    font-size: 0.72rem;
-    color: rgba(0,0,0,0.35);
-  }
 
   /* ========================================
      RESPONSIVE LAYOUT

@@ -1,0 +1,139 @@
+---
+import { translations } from "../i18n/translations";
+import combinationMark from "../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "es" } = Astro.props;
+const T = translations[lang];
+---
+
+<footer class="site-footer" id="footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img
+        src={combinationMark.src}
+        alt="Giralabs"
+        class="footer-logo"
+        width="110"
+        height="38"
+        loading="lazy"
+      />
+    </div>
+    <nav aria-label="Footer navigation">
+      <ul class="footer-links" role="list">
+        <li>
+          <a
+            href="/servicios"
+            class="footer-link"
+            data-i18n="nav_services">{T.nav_services}</a>
+        </li>
+        <li>
+          <a
+            href="/#projects"
+            class="footer-link"
+            data-i18n="nav_projects">{T.nav_projects}</a>
+        </li>
+        <li>
+          <a href="/#how" class="footer-link" data-i18n="nav_about"
+            >{T.nav_about}</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link" data-i18n="nav_blog"
+            >{T.nav_blog}</a>
+        </li>
+        <li>
+          <a
+            href="/#contact"
+            class="footer-link"
+            data-i18n="footer_contact">{T.footer_contact}</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="footer-bottom">
+      <span class="footer-tagline" data-i18n="footer_tagline"
+        >{T.footer_tagline}</span
+      >
+      <span class="footer-rights" data-i18n="footer_rights"
+        >{T.footer_rights}</span
+      >
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: #F0EFEA;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-logo {
+    width: 110px;
+    height: auto;
+    opacity: 0.6;
+    filter: grayscale(30%);
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: #000;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .footer-tagline,
+  .footer-rights {
+    font-size: 0.78rem;
+    color: #bbb;
+    font-weight: 400;
+  }
+
+  @media (max-width: 600px) {
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
