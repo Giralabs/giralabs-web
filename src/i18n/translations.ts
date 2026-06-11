@@ -9,6 +9,7 @@ export const translations = {
 
     // Navbar
     nav_services: "Servicios",
+    nav_services_all: "Todos los servicios",
     nav_projects: "Proyectos",
     nav_about: "Nosotros",
     nav_blog: "Blog",
@@ -30,39 +31,72 @@ export const translations = {
     stats_countries: "Países",
 
     // Services dark section header
-    sd_eyebrow: "APPS · DISEÑO · INGENIERÍA · IA",
-    sd_title: "Construimos producto serio.\nIntegramos IA donde mueve el negocio.",
+    sd_eyebrow: "LO QUE HACEMOS",
+    sd_title: "Construimos producto digital premium.\nIntegramos tecnología que acelera tu negocio.",
 
     // Service cards (6 total)
-    service_1_title: "Product Discovery y Estrategia",
+    service_1_title: "Descubrimiento de Producto",
     service_1_tag: "Estrategia",
     service_1_desc:
-      "2 semanas. 4.500 €. Salimos con qué construir, para quién y precio fijo del MVP. Sin código hasta saber que merece la pena.",
+      "Definimos tu MVP en 2 semanas. Validamos la idea, diseñamos el alcance técnico y cerramos un precio fijo. Cero código hasta estar seguros.",
 
-    service_2_title: "Diseño y UX",
+    service_2_title: "Diseño de Experiencia (UX/UI)",
     service_2_tag: "Diseño",
     service_2_desc:
-      "Diseño que convierte, no decora. Design system, prototipado y test con usuarios reales antes de invertir un euro en código.",
+      "Interfaces limpias que convierten. Sistemas de diseño escalables, prototipos interactivos y pruebas reales con usuarios antes del desarrollo.",
 
-    service_3_title: "Ingeniería de Alto Rendimiento",
-    service_3_tag: "Ingeniería · Flutter",
+    service_3_title: "Ingeniería Móvil & Backend",
+    service_3_tag: "Desarrollo",
     service_3_desc:
-      "Del Figma a la App Store en 16 semanas. Flutter Partner oficial de Google en el cliente. Backend en Go sobre Cloud Run y Kubernetes (GKE) en el servidor. Arquitecturas que aguantan millones de peticiones sin despeinarse.",
+      "De Figma a producción en 16 semanas. Flutter Partner oficial en frontend, y backend robusto en Go. Arquitecturas preparadas para millones de peticiones.",
 
-    service_4_title: "Crecimiento y Evolución del Producto",
-    service_4_tag: "Crecimiento",
+    service_4_title: "Crecimiento Continuo",
+    service_4_tag: "Evolución",
     service_4_desc:
-      "El lanzamiento es el día 1. Escalamos a millones de usuarios. Sprints quincenales con métricas, no opiniones.",
+      "El lanzamiento es solo el primer paso. Escalamos tu producto con sprints basados en métricas reales de usuario, no en opiniones.",
 
-    service_5_title: "Integración de IA en Software",
+    service_5_title: "Inteligencia Artificial Aplicada",
     service_5_tag: "IA · Integración",
     service_5_desc:
-      "LLMs, RAG empresarial on-prem y agentes autónomos integrados en el núcleo de tu producto. Caso real: un cliente bajó la resolución de tickets de soporte de 4 h a 8 s. Sin hype, con resultados medibles.",
+      "Modelos de lenguaje, agentes autónomos y RAG empresarial integrados en tu núcleo de negocio. Resultados medibles sin rodeos técnicos.",
 
-    service_6_title: "Ampliación de Equipo",
-    service_6_tag: "Equipo",
+    service_6_title: "Digitalización de Empresas",
+    service_6_tag: "Procesos",
     service_6_desc:
-      "Engineers senior integrados en tu equipo en 72h. Flutter, iOS, Android, backend. Sin fricción de onboarding, sin coste fijo.",
+      "Desarrollamos aplicaciones personalizadas para digitalizar empresas. Soluciones a medida que automatizan tus operaciones, optimizan flujos de trabajo y aceleran el crecimiento.",
+
+    // Services page translations
+    services_page_title: "Nuestros Servicios",
+    services_page_subtitle: "Construimos software a medida con precisión de ingeniería y diseño excepcional.",
+    services_page_cta: "Cuéntanos tu proyecto",
+    services_included: "Qué incluye:",
+    service_1_feature_1: "Definición del alcance técnico y funcional.",
+    service_1_feature_2: "Prototipo interactivo (Wireframes).",
+    service_1_feature_3: "Presupuesto cerrado de desarrollo.",
+    service_2_feature_1: "Diseño de interfaz de usuario de alta fidelidad.",
+    service_2_feature_2: "Sistemas de diseño escalables.",
+    service_2_feature_3: "Pruebas de usabilidad reales.",
+    service_3_feature_1: "Aplicaciones móviles nativas con Flutter.",
+    service_3_feature_2: "Backend escalable y seguro en Go.",
+    service_3_feature_3: "Despliegue y nube en Kubernetes (GKE).",
+    service_4_feature_1: "Instrumentación y analítica avanzada de uso.",
+    service_4_feature_2: "Optimización continua y pruebas A/B.",
+    service_4_feature_3: "Sprints ágiles de evolución mensual.",
+    service_5_feature_1: "Integración de Modelos de Lenguaje (LLMs).",
+    service_5_feature_2: "Agentes inteligentes y automatización.",
+    service_5_feature_3: "Sistemas de recuperación de información (RAG).",
+    service_6_feature_1: "Sistemas personalizados de gestión (CRM/ERP).",
+    service_6_feature_2: "Integración segura de servicios cloud y APIs.",
+    service_6_feature_3: "Automatización de flujos de trabajo.",
+    service_details_title: "Detalles del servicio",
+    service_next_cta: "Siguiente servicio",
+    service_back_list: "Volver a todos los servicios",
+    service_1_details: "Analizamos tu idea a fondo antes de tirar una sola línea de código. Definimos los requerimientos y el alcance funcional, creamos los wireframes interactivos y diseñamos una hoja de ruta con un presupuesto de desarrollo cerrado para mitigar cualquier riesgo técnico.",
+    service_2_details: "Diseñamos interfaces que cautivan y convierten. Creamos flujos limpios y sistemas de diseño consistentes para asegurar que la experiencia sea intuitiva en cualquier pantalla, validando las decisiones con pruebas de usabilidad reales.",
+    service_3_details: "Desarrollamos aplicaciones robustas con rendimiento nativo utilizando Flutter, combinadas con arquitecturas de backend altamente escalables en Go y desplegadas en la nube de Kubernetes para garantizar alta disponibilidad.",
+    service_4_details: "El lanzamiento es solo el punto de partida. Implementamos analítica avanzada, monitorizamos el comportamiento del usuario y ejecutamos sprints ágiles de mejora continua basados en datos reales para maximizar el engagement.",
+    service_5_details: "Integramos de manera práctica modelos de lenguaje natural (LLMs), agentes autónomos y sistemas de recuperación RAG en la estructura de tu negocio para automatizar tareas complejas y habilitar nuevas capacidades inteligentes.",
+    service_6_details: "Modernizamos tus operaciones creando CRMs, ERPs y flujos de trabajo automatizados a medida que se integran sin problemas con tus herramientas existentes para eliminar cuellos de botella y reducir costes.",
 
     // How we work
     how_label: "Cómo trabajamos",
@@ -132,6 +166,7 @@ export const translations = {
 
     // Navbar
     nav_services: "Services",
+    nav_services_all: "All services",
     nav_projects: "Projects",
     nav_about: "About",
     nav_blog: "Blog",
@@ -153,39 +188,72 @@ export const translations = {
     stats_countries: "Countries",
 
     // Services dark section header
-    sd_eyebrow: "APPS · DESIGN · ENGINEERING · AI",
-    sd_title: "We build serious product.\nWe integrate AI where it moves the business.",
+    sd_eyebrow: "WHAT WE DO",
+    sd_title: "We build premium digital products.\nWe integrate technology that accelerates your business.",
 
     // Service cards (6 total)
-    service_1_title: "Product Discovery & Strategy",
+    service_1_title: "Product Discovery",
     service_1_tag: "Strategy",
     service_1_desc:
-      "2 weeks. €4,500. We leave knowing what to build, for whom, and a fixed MVP price. No code until we know it's worth it.",
+      "We define your MVP in 2 weeks. Validating the idea, planning the technical scope, and fixing a budget. Zero code until we are sure.",
 
-    service_2_title: "Design & UX",
+    service_2_title: "Experience Design (UX/UI)",
     service_2_tag: "Design",
     service_2_desc:
-      "Design that converts, not just decorates. Design system, prototyping and user testing before investing a single euro in code.",
+      "Clean, conversion-oriented interfaces. Scalable design systems, interactive prototypes, and real-user testing before writing code.",
 
-    service_3_title: "High Performance Engineering",
-    service_3_tag: "Engineering · Flutter",
+    service_3_title: "Mobile & Backend Engineering",
+    service_3_tag: "Development",
     service_3_desc:
-      "From Figma to the App Store in 16 weeks. Official Flutter Partner of Google on the client. Go backend on Cloud Run and Kubernetes (GKE) on the server. Architectures that handle millions of requests without breaking a sweat.",
+      "From Figma to production in 16 weeks. Google's Flutter Partner on client, robust Go backend on server. Built to scale to millions.",
 
-    service_4_title: "Product Growth & Evolution",
-    service_4_tag: "Growth",
+    service_4_title: "Continuous Growth",
+    service_4_tag: "Evolution",
     service_4_desc:
-      "Launch day is day 1. We scale to millions of users. Bi-weekly sprints driven by metrics, not opinions.",
+      "Launch day is just day one. We scale your product with bi-weekly sprints driven by clear user metrics, not opinions.",
 
-    service_5_title: "AI Integration in Software",
+    service_5_title: "Applied Artificial Intelligence",
     service_5_tag: "AI · Integration",
     service_5_desc:
-      "LLMs, enterprise RAG on-prem and autonomous agents integrated at the core of your product. Real case: a client reduced support ticket resolution from 4h to 8s. No hype, measurable results.",
+      "LLMs, autonomous agents, and enterprise RAG integrated directly into your business core. Real, measurable results, no hype.",
 
-    service_6_title: "Team Extension",
-    service_6_tag: "Team",
+    service_6_title: "Business Digitalization",
+    service_6_tag: "Processes",
     service_6_desc:
-      "Senior engineers embedded in your team in 72h. Flutter, iOS, Android, backend. Zero onboarding friction, no fixed cost.",
+      "We build custom applications to digitalize businesses. Tailor-made solutions that automate operations, optimize workflows, and accelerate growth.",
+
+    // Services page translations
+    services_page_title: "Our Services",
+    services_page_subtitle: "We build custom software with engineering precision and exceptional design.",
+    services_page_cta: "Tell us about your project",
+    services_included: "What's included:",
+    service_1_feature_1: "Technical and functional scope definition.",
+    service_1_feature_2: "Interactive MVP wireframing.",
+    service_1_feature_3: "Fixed budget proposal for development.",
+    service_2_feature_1: "High-fidelity UI interface design.",
+    service_2_feature_2: "Scalable design system architecture.",
+    service_2_feature_3: "Real user usability testing.",
+    service_3_feature_1: "Native cross-platform mobile apps (Flutter).",
+    service_3_feature_2: "Secure, high-performance Go backend.",
+    service_3_feature_3: "Cloud deployment in Kubernetes (GKE).",
+    service_4_feature_1: "Advanced analytical usage tracking.",
+    service_4_feature_2: "Continuous optimization and A/B testing.",
+    service_4_feature_3: "Monthly evolution agile sprints.",
+    service_5_feature_1: "Large Language Model (LLM) integrations.",
+    service_5_feature_2: "Intelligent autonomous agents.",
+    service_5_feature_3: "Retrieval-Augmented Generation (RAG) systems.",
+    service_6_feature_1: "Custom management software (CRM/ERP).",
+    service_6_feature_2: "Secure cloud integrations and APIs.",
+    service_6_feature_3: "Process workflow automation.",
+    service_details_title: "Service details",
+    service_next_cta: "Next service",
+    service_back_list: "Back to all services",
+    service_1_details: "We analyze your idea in depth before writing a single line of code. We define functional and technical requirements, build interactive wireframes, and design a development roadmap with a closed budget to mitigate technical risk.",
+    service_2_details: "We design interfaces that captivate and convert. We create clean user flows and consistent design systems to ensure an intuitive experience on any screen, validating design choices with real usability testing.",
+    service_3_details: "We build robust mobile apps with native performance using Flutter, coupled with highly scalable Go backend architectures, deployed on Kubernetes cloud to guarantee high availability.",
+    service_4_details: "Launching is just the starting point. We implement advanced analytics, monitor user behavior, and execute agile continuous improvement sprints based on real data to maximize engagement.",
+    service_5_details: "We integrate large language models (LLMs), autonomous agents, and RAG retrieval systems into your business structure to automate complex tasks and enable smart new capabilities.",
+    service_6_details: "We modernize your operations by building custom CRMs, ERPs, and automated workflows that integrate seamlessly with your existing tools to eliminate bottlenecks and cut costs.",
 
     // How we work
     how_label: "How we work",

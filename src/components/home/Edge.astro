@@ -164,7 +164,8 @@ const T = translations[lang];
   window.__buildManifestoDOM = buildManifestoDOM;
   window.__tryAnimateManifesto = checkViewport;
 
-  buildManifestoDOM('es');
+  const savedLang = localStorage.getItem('giralabs-lang') || 'es';
+  buildManifestoDOM(savedLang);
   window.addEventListener('scroll', checkViewport, { passive: true });
   checkViewport();
 </script>

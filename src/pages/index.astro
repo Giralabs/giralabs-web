@@ -62,6 +62,12 @@ const T = translations[defaultLang];
     if (metaDesc) metaDesc.setAttribute('content', T.meta_description);
   }
 
+  // Detect and apply saved language on load
+  const savedLang = localStorage.getItem('giralabs-lang');
+  if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+    applyLang(savedLang);
+  }
+
   // Listen to lang change events from Navbar component
   document.addEventListener('giralabs:lang', (e) => {
     applyLang(e.detail.lang);

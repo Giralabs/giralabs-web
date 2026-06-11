@@ -1,10 +1,12 @@
 ---
 import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
+import { translations } from '../i18n/translations';
 
 interface Props {
   lang?: string;
 }
 const { lang = 'es' } = Astro.props;
+const T = translations[lang];
 ---
 
 <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -25,7 +27,24 @@ const { lang = 'es' } = Astro.props;
 
       <!-- Center nav links -->
       <ul class="nav-links" role="list">
-        <li><a href="#services" class="nav-link" data-i18n="nav_services">Servicios</a></li>
+        <li class="nav-dropdown-wrapper">
+          <a href="/servicios" class="nav-link dropdown-toggle" data-i18n="nav_services">
+            Servicios
+            <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="/servicios" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <div class="dropdown-divider"></div>
+            <a href="/servicio/descubrimiento" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href="/servicio/diseno-experiencia" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href="/servicio/ingenieria" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href="/servicio/crecimiento-continuo" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href="/servicio/inteligencia-artificial" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href="/servicio/digitalizacion-empresas" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+          </div>
+        </li>
         <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
         <li><a href="#how" class="nav-link" data-i18n="nav_about">Nosotros</a></li>
         <li><a href="#" class="nav-link" data-i18n="nav_blog">Blog</a></li>
@@ -53,7 +72,24 @@ const { lang = 'es' } = Astro.props;
         <img src={apricotSymbol.src} alt="Giralabs" width="24" height="24" />
       </a>
       <ul class="pill-links" role="list">
-        <li><a href="#services" class="pill-link" data-i18n="nav_services">Servicios</a></li>
+        <li class="pill-dropdown-wrapper">
+          <a href="/servicios" class="pill-link dropdown-toggle" data-i18n="nav_services">
+            Servicios
+            <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+          <div class="pill-dropdown-menu">
+            <a href="/servicios" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <div class="dropdown-divider"></div>
+            <a href="/servicio/descubrimiento" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href="/servicio/diseno-experiencia" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href="/servicio/ingenieria" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href="/servicio/crecimiento-continuo" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href="/servicio/inteligencia-artificial" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href="/servicio/digitalizacion-empresas" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+          </div>
+        </li>
         <li><a href="#projects" class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
         <li><a href="#how" class="pill-link" data-i18n="nav_about">Nosotros</a></li>
         <li><a href="#" class="pill-link" data-i18n="nav_blog">Blog</a></li>
@@ -72,7 +108,23 @@ const { lang = 'es' } = Astro.props;
   <!-- Mobile drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <ul class="mobile-links" role="list">
-      <li><a href="#services" class="mobile-link" data-i18n="nav_services">Servicios</a></li>
+      <li class="mobile-dropdown-wrapper">
+        <button class="mobile-link mobile-dropdown-toggle" data-i18n="nav_services" type="button">
+          Servicios
+          <svg class="mobile-chevron-icon" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-menu">
+          <a href="/servicios" class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+          <a href="/servicio/descubrimiento" class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
+          <a href="/servicio/diseno-experiencia" class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
+          <a href="/servicio/ingenieria" class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
+          <a href="/servicio/crecimiento-continuo" class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
+          <a href="/servicio/inteligencia-artificial" class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
+          <a href="/servicio/digitalizacion-empresas" class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
+        </div>
+      </li>
       <li><a href="#projects" class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
       <li><a href="#how" class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
       <li><a href="#" class="mobile-link" data-i18n="nav_blog">Blog</a></li>
@@ -201,6 +253,8 @@ const { lang = 'es' } = Astro.props;
     position: relative;
     transition: color 0.2s ease;
     letter-spacing: -0.005em;
+    display: inline-flex;
+    align-items: center;
   }
 
   .nav-link::after {
@@ -218,6 +272,230 @@ const { lang = 'es' } = Astro.props;
 
   .nav-link:hover { color: #000; }
   .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* =============================================
+     NAVBAR DROPDOWN (Hover triggers)
+  ============================================= */
+  .nav-dropdown-wrapper {
+    position: relative;
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    width: 250px;
+    background: rgba(240, 239, 234, 0.85);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 0.6rem 0.5rem;
+    box-shadow: 
+      0 10px 30px rgba(0,0,0,0.06),
+      0 0 0 0.5px rgba(0,0,0,0.02) inset,
+      0 1px 0 rgba(255,255,255,0.8) inset;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: 
+      opacity 0.25s ease, 
+      transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+      visibility 0.25s;
+    transition-delay: 0.12s; /* 120ms delay when closing to prevent slip-offs */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: transparent;
+  }
+
+  .nav-dropdown-wrapper:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(4px);
+    transition-delay: 0s; /* Open instantly on hover */
+  }
+
+  .chevron-icon {
+    display: inline-block;
+    margin-left: 4px;
+    vertical-align: middle;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .nav-dropdown-wrapper:hover .chevron-icon,
+  .pill-dropdown-wrapper:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* =============================================
+     PILL DROPDOWN
+  ============================================= */
+  .pill-dropdown-wrapper {
+    position: relative;
+  }
+
+  .pill-link {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .pill-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    width: 240px;
+    background: rgba(240, 239, 234, 0.85);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 0.6rem 0.5rem;
+    box-shadow: 
+      0 10px 30px rgba(0,0,0,0.06),
+      0 0 0 0.5px rgba(0,0,0,0.02) inset,
+      0 1px 0 rgba(255,255,255,0.8) inset;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: 
+      opacity 0.25s ease, 
+      transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+      visibility 0.25s;
+    transition-delay: 0.12s; /* 120ms delay when closing to prevent slip-offs */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .pill-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: transparent;
+  }
+
+  .pill-dropdown-wrapper:hover .pill-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(8px);
+    transition-delay: 0s; /* Open instantly on hover */
+  }
+
+  /* =============================================
+     DROPDOWN SHARED ITEMS
+  ============================================= */
+  .dropdown-item {
+    display: block;
+    padding: 0.55rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    color: #555;
+    text-decoration: none;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .dropdown-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000;
+    transform: translateX(3px);
+  }
+
+  .dropdown-item.main-item {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 0.25rem 0.5rem;
+  }
+
+  /* =============================================
+     MOBILE ACCORDION DROPDOWN
+  ============================================= */
+  .mobile-dropdown-wrapper {
+    width: 100%;
+  }
+
+  .mobile-dropdown-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .mobile-chevron-icon {
+    transition: transform 0.3s ease;
+    color: #888;
+  }
+
+  .mobile-dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.8rem;
+  }
+
+  .mobile-dropdown-wrapper.open .mobile-dropdown-menu {
+    max-height: 380px;
+  }
+
+  .mobile-dropdown-wrapper.open .mobile-chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  .mobile-sublink {
+    display: block;
+    padding: 0.65rem 0;
+    font-size: 0.88rem;
+    color: #666;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    transition: color 0.2s;
+  }
+
+  .mobile-sublink:hover {
+    color: #000;
+  }
+
+  .mobile-sublink.main-item {
+    font-weight: 600;
+    color: #333;
+  }
 
   /* Right cluster */
   .nav-right {
@@ -523,7 +801,7 @@ const { lang = 'es' } = Astro.props;
       mobileDrawer.classList.toggle('open', !isOpen);
       mobileDrawer.setAttribute('aria-hidden', String(isOpen));
     });
-    document.querySelectorAll('.mobile-link').forEach(link => {
+    document.querySelectorAll('.mobile-link, .mobile-sublink').forEach(link => {
       link.addEventListener('click', () => {
         hamburgerBtn.setAttribute('aria-expanded', 'false');
         hamburgerBtn.classList.remove('open');
@@ -547,6 +825,7 @@ const { lang = 'es' } = Astro.props;
   function handleLangToggle() {
     const currentLang = document.documentElement.lang || 'es';
     const newLang = currentLang === 'es' ? 'en' : 'es';
+    localStorage.setItem('giralabs-lang', newLang);
     // Fire custom event so index.astro's i18n script can respond
     document.dispatchEvent(new CustomEvent('giralabs:lang', { detail: { lang: newLang } }));
     syncLangUI(newLang);
@@ -554,4 +833,47 @@ const { lang = 'es' } = Astro.props;
 
   document.getElementById('lang-toggle')?.addEventListener('click', handleLangToggle);
   document.getElementById('pill-lang-toggle')?.addEventListener('click', handleLangToggle);
+
+  // Sync lang UI and document lang on load from localStorage
+  const savedLang = localStorage.getItem('giralabs-lang');
+  if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+    document.documentElement.lang = savedLang;
+    syncLangUI(savedLang);
+  }
+
+  // ---- Dropdown cards smooth scroll & Sub-page Navigation ----
+  function initDropdownScroll() {
+    const isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html') || window.location.pathname === '';
+
+    // Fix other header anchor links when not on homepage
+    if (!isHomepage) {
+      document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) {
+          if (href === '#services') {
+            link.setAttribute('href', '/servicios');
+          } else {
+            link.setAttribute('href', '/' + href);
+          }
+        }
+      });
+    }
+
+    // Mobile dropdown accordion toggle
+    const mobileToggle = document.querySelector('.mobile-dropdown-toggle');
+    const mobileWrapper = document.querySelector('.mobile-dropdown-wrapper');
+    if (mobileToggle && mobileWrapper) {
+      const newToggle = mobileToggle.cloneNode(true);
+      mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+      
+      newToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileWrapper.classList.toggle('open');
+      });
+    }
+  }
+
+  initDropdownScroll();
+  document.addEventListener('astro:after-swap', initDropdownScroll);
 </script>
