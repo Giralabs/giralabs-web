@@ -1,0 +1,1585 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { translations } from '../../i18n/translations';
+
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'descubrimiento' }, props: { index: 1, nextSlug: 'diseno-experiencia', nextIndex: 2 } },
+    { params: { slug: 'diseno-experiencia' }, props: { index: 2, nextSlug: 'ingenieria', nextIndex: 3 } },
+    { params: { slug: 'ingenieria' }, props: { index: 3, nextSlug: 'crecimiento-continuo', nextIndex: 4 } },
+    { params: { slug: 'crecimiento-continuo' }, props: { index: 4, nextSlug: 'inteligencia-artificial', nextIndex: 5 } },
+    { params: { slug: 'inteligencia-artificial' }, props: { index: 5, nextSlug: 'digitalizacion-empresas', nextIndex: 6 } },
+    { params: { slug: 'digitalizacion-empresas' }, props: { index: 6, nextSlug: 'descubrimiento', nextIndex: 1 } },
+  ];
+}
+
+const { slug } = Astro.params;
+const { index, nextSlug, nextIndex } = Astro.props;
+
+const defaultLang = 'es';
+const T = translations[defaultLang];
+
+// Dynamic key mappings based on the service index
+const tagKey = `service_${index}_tag` as const;
+const titleKey = `service_${index}_title` as const;
+const detailsKey = `service_${index}_details` as const;
+const f1Key = `service_${index}_feature_1` as const;
+const f2Key = `service_${index}_feature_2` as const;
+const f3Key = `service_${index}_feature_3` as const;
+
+const nextTitleKey = `service_${nextIndex}_title` as const;
+---
+
+<Layout
+  title={`${T.meta_title} | ${T[titleKey]}`}
+  description={T.meta_description}
+  lang={defaultLang}
+>
+  <!-- Global dot-grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient glowing blobs -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <Navbar lang={defaultLang} />
+
+  <!-- ==================== BREADCRUMB / GO BACK ==================== -->
+  <nav class="details-breadcrumb reveal">
+    <div class="breadcrumb-inner">
+      <a href="/servicios" class="breadcrumb-back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span data-i18n="service_back_list">{T.service_back_list}</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN SERVICE CONTAINER ==================== -->
+  <main class="details-container">
+    <div class="details-grid reveal" id={`service-block-${index}`}>
+      
+      <!-- COLUMN 1: Info panel -->
+      <section class="details-info-panel">
+        <div class="details-header">
+          <span class="details-num">0{index}</span>
+          <span class="details-tag" data-i18n={tagKey}>{T[tagKey]}</span>
+        </div>
+        <h1 class="details-title" data-i18n={titleKey}>{T[titleKey]}</h1>
+        <p class="details-desc" data-i18n={detailsKey}>{T[detailsKey]}</p>
+
+        <!-- Checklist -->
+        <div class="details-includes-panel">
+          <h4 class="includes-title" data-i18n="services_included">{T.services_included}</h4>
+          <ul class="includes-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" stroke="var(--accent-color-1)" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n={f1Key}>{T[f1Key]}</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" stroke="var(--accent-color-1)" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n={f2Key}>{T[f2Key]}</span>
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" stroke="var(--accent-color-1)" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n={f3Key}>{T[f3Key]}</span>
+            </li>
+          </ul>
+        </div>
+
+        <a href="/#contact" class="details-btn" data-i18n="services_page_cta">{T.services_page_cta}</a>
+      </section>
+
+      <!-- COLUMN 2: Premium Visual Glass Card -->
+      <section class="details-visual-panel">
+        <div class="service-glass-card">
+          <div class="service-spotlight"></div>
+          <div class="service-sweep"></div>
+          <div class="service-card-border"></div>
+          <div class="service-card-shadow"></div>
+          <div class="service-card-glow service-card-glow-1"></div>
+          <div class="service-card-glow service-card-glow-2"></div>
+
+          <div class="widget-wrapper">
+            <!-- Render specific widget conditionally -->
+            {index === 1 && (
+              <div class="discovery-timeline">
+                <div class="timeline-step step-1">
+                  <span class="step-num">W1</span>
+                  <span class="step-lbl">Scope</span>
+                </div>
+                <div class="timeline-step step-2">
+                  <span class="step-num">W2</span>
+                  <span class="step-lbl">Proto</span>
+                </div>
+                <div class="timeline-step step-3">
+                  <span class="step-num">MVP</span>
+                  <span class="step-lbl">€ Fixed</span>
+                </div>
+                <svg class="timeline-connector" viewBox="0 0 160 10" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="discovery-page-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--discovery-color-1)" />
+                      <stop offset="100%" stop-color="var(--discovery-color-2)" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 10 5 L 150 5" stroke="rgba(0,0,0,0.05)" stroke-width="2" stroke-dasharray="3,3" />
+                  <path d="M 10 5 L 150 5" stroke="url(#discovery-page-grad)" stroke-width="2" class="connector-progress" />
+                </svg>
+              </div>
+            )}
+
+            {index === 2 && (
+              <div class="design-workspace">
+                <div class="grid-overlay"></div>
+                <div class="mock-device">
+                  <div class="mock-button">
+                    <span class="btn-glow"></span>
+                    <span class="btn-text">Interact</span>
+                  </div>
+                  <div class="mock-elements">
+                    <div class="mock-el el-1"></div>
+                    <div class="mock-el el-2"></div>
+                  </div>
+                </div>
+                <div class="design-cursor">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="black">
+                    <path d="M4.5 3v15.2l4.2-4.2 3.1 7.3 2.6-1.1-3.1-7.3 5.7-.4L4.5 3z" />
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            {index === 3 && (
+              <div class="engineering-console">
+                <div class="speed-dial">
+                  <svg viewBox="0 0 100 100" width="80" height="80">
+                    <defs>
+                      <linearGradient id="engineering-page-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--engineering-color-1)" />
+                        <stop offset="100%" stop-color="var(--engineering-color-2)" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="40" stroke="rgba(0,0,0,0.04)" stroke-width="5" fill="none" />
+                    <circle cx="50" cy="50" r="40" stroke="url(#engineering-page-grad)" stroke-width="5" fill="none" stroke-dasharray="251.2" stroke-dashoffset="251.2" class="dial-progress" />
+                  </svg>
+                  <div class="dial-label">
+                    <span class="dial-val">16w</span>
+                    <span class="dial-sub">Deploy</span>
+                  </div>
+                </div>
+                <div class="console-terminal">
+                  <div class="terminal-dots">
+                    <span class="t-dot t-dot-r"></span>
+                    <span class="t-dot t-dot-y"></span>
+                    <span class="t-dot t-dot-g"></span>
+                  </div>
+                  <div class="terminal-lines">
+                    <span class="term-l l-1">> init flutter app...</span>
+                    <span class="term-l l-2">> backend: go on gke</span>
+                    <span class="term-l l-3">> status: active 99.9%</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {index === 4 && (
+              <div class="growth-chart">
+                <div class="chart-bg-grid"></div>
+                <svg viewBox="0 0 180 90" class="chart-svg">
+                  <defs>
+                    <linearGradient id="chart-page-area-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--growth-color-1)" stop-opacity="0.25" />
+                      <stop offset="100%" stop-color="var(--growth-color-2)" stop-opacity="0.0" />
+                    </linearGradient>
+                    <linearGradient id="chart-page-line-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--growth-color-1)" />
+                      <stop offset="100%" stop-color="var(--growth-color-2)" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 10 80 Q 55 68 95 48 T 170 15 L 170 80 Z" fill="url(#chart-page-area-grad)" class="chart-area" />
+                  <path d="M 10 80 Q 55 68 95 48 T 170 15" fill="none" stroke="url(#chart-page-line-grad)" stroke-width="2.5" stroke-linecap="round" class="chart-line" />
+                  <circle cx="170" cy="15" r="4" fill="#fff" stroke="var(--growth-color-1)" stroke-width="2" class="chart-dot" />
+                </svg>
+                <div class="chart-labels">
+                  <span>Día 1</span>
+                  <span>1M+ Users</span>
+                </div>
+              </div>
+            )}
+
+            {index === 5 && (
+              <div class="ai-chat">
+                <div class="chat-row chat-user">
+                  <div class="chat-avatar">U</div>
+                  <div class="chat-bubble">Integrar soporte empresa</div>
+                </div>
+                <div class="chat-row chat-loader">
+                  <div class="chat-avatar ai-avatar">AI</div>
+                  <div class="chat-bubble dots-bubble">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-pulse"></span>
+                    <span class="dot-pulse"></span>
+                  </div>
+                </div>
+                <div class="chat-row chat-ai">
+                  <div class="chat-avatar ai-avatar">AI</div>
+                  <div class="chat-bubble result-bubble">
+                    <div class="result-badge">4h → 8s</div>
+                    <div class="result-text">Agente RAG Activo</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {index === 6 && (
+              <div class="team-mesh">
+                <div class="mesh-hub">
+                  <span class="hub-label">Gira</span>
+                  <span class="hub-pulse"></span>
+                </div>
+                <div class="mesh-node node-flutter">CRM</div>
+                <div class="mesh-node node-ios">ERP</div>
+                <div class="mesh-node node-backend">Cloud</div>
+                
+                <svg class="mesh-svg" viewBox="0 0 130 130">
+                  <line x1="65" y1="65" x2="29" y2="24" stroke="rgba(0,0,0,0.05)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+                  <line x1="65" y1="65" x2="109" y2="19" stroke="rgba(0,0,0,0.05)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+                  <line x1="65" y1="65" x2="65" y2="95" stroke="rgba(0,0,0,0.05)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+                </svg>
+                <div class="mesh-badge">Automatización</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== NAVIGATION PATH: NEXT SERVICE ==================== -->
+  <section class="next-service-nav reveal">
+    <div class="next-service-inner">
+      <span class="next-lbl" data-i18n="service_next_cta">{T.service_next_cta}</span>
+      <a href={`/servicio/${nextSlug}`} class="next-title-link">
+        <span data-i18n={nextTitleKey}>{T[nextTitleKey]}</span>
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="next-chevron">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="services-footer">
+    <div class="footer-inner reveal">
+      <p class="footer-tagline" data-i18n="footer_tagline">{T.footer_tagline}</p>
+      <div class="footer-bottom">
+        <span data-i18n="footer_rights">{T.footer_rights}</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
+  <script define:vars={{ translations: { es: translations['es'], en: translations['en'] }, index, nextIndex }}>
+    let currentLang = document.documentElement.lang || 'es';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      const T = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[key] !== undefined) {
+          el.textContent = T[key];
+        }
+      });
+      document.documentElement.lang = lang;
+      
+      const titleKey = `service_${index}_title`;
+      document.title = T.meta_title + " | " + T[titleKey];
+    }
+
+    // Detect and apply saved language on load
+    const savedLang = localStorage.getItem('giralabs-lang');
+    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+      applyLang(savedLang);
+    }
+
+    // Listen to navbar's language changes
+    document.addEventListener('giralabs:lang', (e) => {
+      applyLang(e.detail.lang);
+    });
+
+    // Spotlight mouse tracking for advanced glass card
+    document.querySelectorAll('.service-glass-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+      });
+    });
+
+    // Trigger visual scroll animations and activate the visuals
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('details-grid')) {
+            entry.target.classList.add('is-active');
+          }
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px' });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</Layout>
+
+<style>
+  /* ========================================
+     GLOBAL SERVICES VARIABLES
+  ======================================== */
+  :root {
+    --discovery-color-1: #ff7d3b;
+    --discovery-color-2: #ff2a85;
+    --discovery-rgb-1: 255, 125, 59;
+    --discovery-rgb-2: 255, 42, 133;
+
+    --design-color-1: #00f0ff;
+    --design-color-2: #7000ff;
+    --design-rgb-1: 0, 240, 255;
+    --design-rgb-2: 112, 0, 255;
+
+    --engineering-color-1: #3d8bff;
+    --engineering-color-2: #00f5a0;
+    --engineering-rgb-1: 61, 139, 255;
+    --engineering-rgb-2: 0, 245, 160;
+
+    --growth-color-1: #00e676;
+    --growth-color-2: #baff00;
+    --growth-rgb-1: 0, 230, 118;
+    --growth-rgb-2: 186, 255, 0;
+
+    --ai-color-1: #a855f7;
+    --ai-color-2: #ff007f;
+    --ai-rgb-1: 168, 85, 247;
+    --ai-rgb-2: 255, 0, 127;
+
+    --team-color-1: #eab308;
+    --team-color-2: #ff5722;
+    --team-rgb-1: 234, 179, 8;
+    --team-rgb-2: 255, 87, 34;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  /* Ambient flows in light space */
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.07;
+  }
+
+  .glow-top {
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 210, 150, 0.12) 0%, transparent 65%);
+  }
+
+  .glow-bottom {
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
+  }
+
+  /* ========================================
+     BREADCRUMB HEADER
+  ======================================== */
+  .details-breadcrumb {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 2rem 2rem;
+  }
+
+  .breadcrumb-inner {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.22s ease;
+  }
+
+  .breadcrumb-back:hover {
+    color: #000;
+    transform: translateX(-3px);
+  }
+
+  /* ========================================
+     MAIN DETAILS CONTAINER & GRID
+  ======================================== */
+  .details-container {
+    position: relative;
+    z-index: 2;
+    padding: 0 2rem 4rem;
+  }
+
+  .details-grid {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+
+  /* Bind Colors based on active ID block */
+  #service-block-1 {
+    --accent-color-1: var(--discovery-color-1);
+    --accent-rgb-1: var(--discovery-rgb-1);
+    --accent-color-2: var(--discovery-color-2);
+    --accent-rgb-2: var(--discovery-rgb-2);
+  }
+  #service-block-2 {
+    --accent-color-1: var(--design-color-1);
+    --accent-rgb-1: var(--design-rgb-1);
+    --accent-color-2: var(--design-color-2);
+    --accent-rgb-2: var(--design-rgb-2);
+  }
+  #service-block-3 {
+    --accent-color-1: var(--engineering-color-1);
+    --accent-rgb-1: var(--engineering-rgb-1);
+    --accent-color-2: var(--engineering-color-2);
+    --accent-rgb-2: var(--engineering-rgb-2);
+  }
+  #service-block-4 {
+    --accent-color-1: var(--growth-color-1);
+    --accent-rgb-1: var(--growth-rgb-1);
+    --accent-color-2: var(--growth-color-2);
+    --accent-rgb-2: var(--growth-rgb-2);
+  }
+  #service-block-5 {
+    --accent-color-1: var(--ai-color-1);
+    --accent-rgb-1: var(--ai-rgb-1);
+    --accent-color-2: var(--ai-color-2);
+    --accent-rgb-2: var(--ai-rgb-2);
+  }
+  #service-block-6 {
+    --accent-color-1: var(--team-color-1);
+    --accent-rgb-1: var(--team-rgb-1);
+    --accent-color-2: var(--team-color-2);
+    --accent-rgb-2: var(--team-rgb-2);
+  }
+
+  .details-info-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .details-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: monospace;
+    color: var(--accent-color-1);
+    letter-spacing: -0.05em;
+    text-shadow: 0 0 12px rgba(var(--accent-rgb-1), 0.2);
+  }
+
+  .details-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    color: var(--accent-color-1);
+    border-color: rgba(var(--accent-rgb-1), 0.25);
+    background: rgba(var(--accent-rgb-1), 0.04);
+    border: 1px solid rgba(var(--accent-rgb-1), 0.15);
+  }
+
+  .details-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: #000;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+  }
+
+  .details-desc {
+    font-size: 1.05rem;
+    color: rgba(0, 0, 0, 0.65);
+    line-height: 1.65;
+    margin: 0 0 2.2rem;
+  }
+
+  /* Includes Sub-Panel */
+  .details-includes-panel {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.015);
+  }
+
+  .includes-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.45);
+    margin: 0 0 1rem;
+  }
+
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .includes-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.88rem;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 400;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+  }
+
+  /* CTA Button */
+  .details-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    background: #000;
+    color: #fff;
+    border: 1px solid transparent;
+  }
+
+  .details-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    background: #222;
+  }
+
+  /* COLUMN 2: Visual panel card structure */
+  .details-visual-panel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Frosted Glass Card */
+  .service-glass-card {
+    display: flex;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 36px;
+    padding: 4.5rem 3.5rem;
+    position: relative;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
+  }
+
+  .details-grid.is-active:hover .service-glass-card {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .widget-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ----------------------------------------
+     NEON SPOTLIGHTS & REFLECTIONS
+  ---------------------------------------- */
+  .service-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    border-radius: 36px;
+    background: radial-gradient(400px circle at var(--mx, 0px) var(--my, 0px), rgba(var(--accent-rgb-1), 0.05) 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+    transition: opacity 0.5s ease;
+  }
+
+  .service-glass-card:hover .service-spotlight {
+    opacity: 1 !important;
+  }
+
+  /* Laser Sweep */
+  .service-sweep {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    border-radius: 36px;
+    background: radial-gradient(350px circle at 0% 50%, rgba(var(--accent-rgb-1), 0.1) 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  }
+
+  .details-grid.is-active .service-sweep {
+    animation: serviceSweepAnim 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .service-glass-card:hover .service-sweep {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  @keyframes serviceSweepAnim {
+    0% {
+      opacity: 0;
+      transform: translateX(-60%);
+      background: radial-gradient(350px circle at 0% 50%, rgba(var(--accent-rgb-1), 0.1) 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    }
+    30%, 70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(60%);
+      background: radial-gradient(350px circle at 100% 50%, rgba(var(--accent-rgb-1), 0.1) 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    }
+  }
+
+  /* Border and Glows */
+  .service-card-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 36px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.2) 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 3;
+    transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .details-grid.is-active .service-card-border {
+    background: linear-gradient(135deg, var(--accent-color-1) 0%, rgba(var(--accent-rgb-2), 0.3) 60%, rgba(255,255,255,0.3) 100%) border-box;
+  }
+
+  .details-grid.is-active:hover .service-card-border {
+    background: linear-gradient(135deg, var(--accent-color-1) 0%, rgba(var(--accent-rgb-2), 0.6) 50%, rgba(255,255,255,0.4) 100%) border-box;
+  }
+
+  .service-card-shadow {
+    position: absolute;
+    inset: 2px;
+    border-radius: 36px;
+    background: transparent;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .details-grid.is-active .service-card-shadow {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.05),
+      0 0 25px rgba(var(--accent-rgb-1), 0.02),
+      0 0 25px rgba(var(--accent-rgb-2), 0.02);
+  }
+
+  .details-grid.is-active:hover .service-card-shadow {
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.08),
+      0 0 35px rgba(var(--accent-rgb-1), 0.06),
+      0 0 35px rgba(var(--accent-rgb-2), 0.06);
+  }
+
+  .service-card-glow {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .details-grid.is-active .service-card-glow {
+    opacity: 0.05;
+  }
+
+  .details-grid.is-active:hover .service-card-glow {
+    opacity: 0.1;
+  }
+
+  .service-card-glow-1 {
+    background: var(--accent-color-1);
+    top: -50px;
+    right: -50px;
+    animation: serviceFloatBlob1 15s infinite alternate ease-in-out;
+  }
+
+  .service-card-glow-2 {
+    background: var(--accent-color-2);
+    bottom: -60px;
+    left: -40px;
+    animation: serviceFloatBlob2 12s infinite alternate ease-in-out;
+  }
+
+  @keyframes serviceFloatBlob1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, 40px) scale(1.15); }
+    100% { transform: translate(-50px, 20px) scale(0.9); }
+  }
+
+  @keyframes serviceFloatBlob2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(0.85); }
+    100% { transform: translate(25px, -50px) scale(1.1); }
+  }
+
+  /* ========================================
+     WIDGET 1: DISCOVERY TIMELINE
+  ======================================== */
+  .discovery-timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 270px;
+    height: 90px;
+  }
+
+  .timeline-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.65rem 0.8rem;
+    border-radius: 12px;
+    min-width: 74px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+
+  .step-num {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.45);
+    font-family: monospace;
+  }
+
+  .step-lbl {
+    font-size: 0.62rem;
+    color: rgba(0, 0, 0, 0.75);
+    font-weight: 500;
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 10px;
+    z-index: 1;
+  }
+
+  .connector-progress {
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+  }
+
+  .details-grid.is-active .timeline-step.step-1 { animation: step1Pulse 4s infinite ease-in-out; }
+  .details-grid.is-active .timeline-step.step-2 { animation: step2Pulse 4s infinite ease-in-out; }
+  .details-grid.is-active .timeline-step.step-3 { animation: step3Pulse 4s infinite ease-in-out; }
+  .details-grid.is-active .connector-progress { animation: lineProgress 4s infinite ease-in-out; }
+
+  @keyframes step1Pulse {
+    0%, 100% { border-color: rgba(0, 0, 0, 0.08); transform: translateY(0); }
+    12%, 40% { border-color: rgba(0, 0, 0, 0.25); transform: translateY(-4px); }
+  }
+
+  @keyframes step2Pulse {
+    0%, 12%, 100% { border-color: rgba(0, 0, 0, 0.08); transform: translateY(0); }
+    24%, 52% { border-color: rgba(0, 0, 0, 0.25); transform: translateY(-4px); }
+  }
+
+  @keyframes step3Pulse {
+    0%, 24%, 100% {
+      border-color: rgba(0, 0, 0, 0.08);
+      transform: translateY(0);
+      box-shadow: none;
+      background: #fff;
+    }
+    36%, 76% {
+      border-color: var(--discovery-color-1);
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(var(--discovery-rgb-1), 0.15);
+      background: rgba(var(--discovery-rgb-1), 0.03);
+    }
+  }
+
+  @keyframes lineProgress {
+    0%, 8% { stroke-dashoffset: 140; }
+    52%, 80% { stroke-dashoffset: 0; }
+    90%, 100% { stroke-dashoffset: 140; }
+  }
+
+  /* ========================================
+     WIDGET 2: DESIGN WORKSPACE
+  ======================================== */
+  .design-workspace {
+    position: relative;
+    width: 200px;
+    height: 130px;
+    background: rgba(0, 0, 0, 0.015);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 10px 10px;
+  }
+
+  .mock-device {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  .mock-button {
+    position: relative;
+    padding: 5px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    font-size: 0.58rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+  }
+
+  .mock-elements {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+    width: 100%;
+  }
+
+  .mock-el {
+    height: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 2px;
+    opacity: 0;
+  }
+
+  .mock-el.el-1 { flex: 2; }
+  .mock-el.el-2 { flex: 1; }
+
+  .design-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(150px, 95px);
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  }
+
+  .details-grid.is-active .design-cursor {
+    animation: cursorClick 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .details-grid.is-active .mock-button {
+    animation: btnPress 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .details-grid.is-active .mock-el {
+    animation: elSlide 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  @keyframes cursorClick {
+    0% { transform: translate(150px, 95px); }
+    55% { transform: translate(85px, 50px); }
+    63% { transform: translate(85px, 50px) scale(0.8); }
+    70% { transform: translate(85px, 50px) scale(1); }
+    100% { transform: translate(150px, 95px); }
+  }
+
+  @keyframes btnPress {
+    0%, 58% {
+      background: rgba(0, 0, 0, 0.03);
+      color: rgba(0, 0, 0, 0.6);
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow: none;
+    }
+    63%, 90% {
+      background: linear-gradient(135deg, rgba(var(--design-rgb-1), 0.08), rgba(var(--design-rgb-2), 0.08));
+      color: var(--design-color-2);
+      border-color: var(--design-color-2);
+      box-shadow: 0 0 10px rgba(var(--design-rgb-2), 0.15);
+    }
+  }
+
+  @keyframes elSlide {
+    0%, 65% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    75%, 95% {
+      opacity: 1;
+      transform: translateY(0);
+      background: rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  /* ========================================
+     WIDGET 3: ENGINEERING CONSOLE
+  ======================================== */
+  .engineering-console {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .speed-dial {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .dial-progress {
+    transform: rotate(-90deg);
+    transform-origin: 50px 50px;
+  }
+
+  .dial-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dial-val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+  }
+
+  .dial-sub {
+    font-size: 0.5rem;
+    color: rgba(0, 0, 0, 0.45);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+
+  .console-terminal {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: monospace;
+    font-size: 0.55rem;
+    text-align: left;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .t-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+  .t-dot-r { background: #ff5f56; }
+  .t-dot-y { background: #ffbd2e; }
+  .t-dot-g { background: #27c93f; }
+
+  .terminal-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .term-l {
+    color: rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.2;
+    transform: translateX(-2px);
+  }
+
+  .details-grid.is-active .dial-progress { animation: dialFluctuate 4s infinite ease-in-out; }
+  .details-grid.is-active .term-l.l-1 { animation: termLine1 4s infinite ease-in-out; }
+  .details-grid.is-active .term-l.l-2 { animation: termLine2 4s infinite ease-in-out; }
+  .details-grid.is-active .term-l.l-3 { animation: termLine3 4s infinite ease-in-out; }
+
+  @keyframes dialFluctuate {
+    0%, 100% { stroke-dashoffset: 251.2; }
+    45%, 85% { stroke-dashoffset: 75.3; }
+  }
+
+  @keyframes termLine1 {
+    0%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    12%, 80% { opacity: 1; transform: translateX(0); color: rgba(0, 0, 0, 0.75); }
+  }
+
+  @keyframes termLine2 {
+    0%, 12%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    24%, 80% { opacity: 1; transform: translateX(0); color: rgba(0, 0, 0, 0.75); }
+  }
+
+  @keyframes termLine3 {
+    0%, 24%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    36%, 80% { opacity: 1; transform: translateX(0); color: var(--engineering-color-1); }
+  }
+
+  /* ========================================
+     WIDGET 4: GROWTH CHART
+  ======================================== */
+  .growth-chart {
+    position: relative;
+    width: 220px;
+    height: 110px;
+    background: rgba(0, 0, 0, 0.015);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .chart-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center;
+  }
+
+  .chart-svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .chart-line {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+  }
+
+  .chart-area {
+    opacity: 0;
+  }
+
+  .chart-dot {
+    transform: scale(0);
+    transform-origin: 170px 15px;
+  }
+
+  .chart-labels {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.5rem;
+    color: rgba(0, 0, 0, 0.45);
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .details-grid.is-active .chart-line { animation: drawLine 3.8s infinite ease-in-out; }
+  .details-grid.is-active .chart-area { animation: fillArea 3.8s infinite ease-in-out; }
+  .details-grid.is-active .chart-dot { animation: chartDotPulse 3.8s infinite ease-in-out; }
+
+  @keyframes drawLine {
+    0% { stroke-dashoffset: 240; }
+    45%, 80% { stroke-dashoffset: 0; }
+    90%, 100% { stroke-dashoffset: 240; }
+  }
+
+  @keyframes fillArea {
+    0%, 15% { opacity: 0; }
+    45%, 80% { opacity: 1; }
+    90%, 100% { opacity: 0; }
+  }
+
+  @keyframes chartDotPulse {
+    0%, 40% { transform: scale(0); }
+    45%, 80% { transform: scale(1); }
+    90%, 100% { transform: scale(0); }
+  }
+
+  /* ========================================
+     WIDGET 5: AI CHAT
+  ======================================== */
+  .ai-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .chat-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .chat-avatar {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    font-size: 0.52rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ai-avatar {
+    background: linear-gradient(135deg, var(--ai-color-1), var(--ai-color-2));
+    color: #fff;
+  }
+
+  .chat-bubble {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    line-height: 1.25;
+    max-width: 85%;
+  }
+
+  .chat-user .chat-bubble {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: #000;
+    border-top-left-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+
+  .dots-bubble {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    padding: 6px 10px;
+  }
+
+  .dot-pulse {
+    width: 3px;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    animation: aiDots 0.8s infinite alternate;
+  }
+
+  .dot-pulse:nth-child(2) { animation-delay: 0.15s; }
+  .dot-pulse:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes aiDots {
+    0% { transform: scale(0.7); opacity: 0.2; }
+    100% { transform: scale(1.3); opacity: 1; }
+  }
+
+  .result-bubble {
+    background: rgba(var(--ai-rgb-1), 0.08);
+    border: 1px solid rgba(var(--ai-rgb-1), 0.15);
+    color: #000;
+    border-top-left-radius: 2px;
+    text-align: left;
+  }
+
+  .result-badge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--ai-color-1);
+    margin-bottom: 2px;
+  }
+
+  .result-text {
+    font-size: 0.5rem;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .details-grid.is-active .chat-user { animation: chatUserSeq 6s infinite ease-in-out; }
+  .details-grid.is-active .chat-loader { animation: chatLoaderSeq 6s infinite ease-in-out; }
+  .details-grid.is-active .chat-ai { animation: chatAISeq 6s infinite ease-in-out; }
+
+  @keyframes chatUserSeq {
+    0%, 100% { opacity: 0; transform: translateY(4px); }
+    5%, 85% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes chatLoaderSeq {
+    0%, 10%, 48%, 100% { opacity: 0; transform: translateY(4px); }
+    16%, 42% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes chatAISeq {
+    0%, 46%, 100% { opacity: 0; transform: translateY(4px); }
+    52%, 85% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========================================
+     WIDGET 6: TEAM MESH
+  ======================================== */
+  .team-mesh {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+  }
+
+  .mesh-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: all 0.4s ease;
+  }
+
+  .hub-label {
+    font-size: 0.45rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.7);
+    letter-spacing: -0.02em;
+  }
+
+  .hub-pulse {
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 50%;
+    animation: hubRipple 2.2s infinite ease-out;
+  }
+
+  @keyframes hubRipple {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  .mesh-node {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.52rem;
+    color: rgba(0,0,0,0.75);
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .node-flutter {
+    top: 15px;
+    left: 5px;
+  }
+
+  .node-ios {
+    top: 10px;
+    right: 5px;
+  }
+
+  .node-backend {
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .mesh-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .mesh-badge {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5rem;
+    background: rgba(0,0,0,0.015);
+    border: 1px solid rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.45);
+    padding: 2px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  .details-grid.is-active .node-flutter { animation: nodeFlutterMove 5s infinite ease-in-out; }
+  .details-grid.is-active .node-ios { animation: nodeIosMove 5s infinite ease-in-out; }
+  .details-grid.is-active .node-backend { animation: nodeBackendMove 5s infinite ease-in-out; }
+  .details-grid.is-active .m-line { animation: linePulse 5s infinite ease-in-out; }
+  .details-grid.is-active .mesh-hub { animation: hubPulseActive 5s infinite ease-in-out; }
+  .details-grid.is-active .mesh-badge { animation: badgePulseActive 5s infinite ease-in-out; }
+
+  @keyframes nodeFlutterMove {
+    0%, 100% { transform: translate(0, 0); border-color: rgba(0,0,0,0.05); color: rgba(0,0,0,0.6); }
+    40%, 80% { transform: translate(4px, 2px); border-color: var(--team-color-1); color: #000; }
+  }
+
+  @keyframes nodeIosMove {
+    0%, 100% { transform: translate(0, 0); border-color: rgba(0,0,0,0.05); color: rgba(0,0,0,0.6); }
+    40%, 80% { transform: translate(-4px, 2px); border-color: var(--team-color-2); color: #000; }
+  }
+
+  @keyframes nodeBackendMove {
+    0%, 100% { transform: translateX(-50%) translateY(0); border-color: rgba(0,0,0,0.05); color: rgba(0,0,0,0.6); }
+    40%, 80% { transform: translateX(-50%) translateY(-4px); border-color: var(--team-color-1); color: #000; }
+  }
+
+  @keyframes linePulse {
+    0%, 100% { stroke: rgba(0,0,0,0.05); stroke-width: 1.5px; }
+    40%, 80% { stroke: rgba(0,0,0,0.15); stroke-width: 2px; }
+  }
+
+  @keyframes hubPulseActive {
+    0%, 100% { border-color: rgba(0,0,0,0.1); box-shadow: none; color: rgba(0,0,0,0.7); }
+    40%, 80% { border-color: var(--team-color-1); box-shadow: 0 0 15px rgba(var(--team-rgb-1), 0.15); color: var(--team-color-1); }
+  }
+
+  @keyframes badgePulseActive {
+    0%, 100% { background: rgba(0,0,0,0.015); border-color: rgba(0,0,0,0.05); color: rgba(0,0,0,0.45); }
+    40%, 80% { background: rgba(var(--team-rgb-1), 0.04); border-color: var(--team-color-2); color: var(--team-color-2); box-shadow: 0 0 10px rgba(var(--team-rgb-2), 0.05); }
+  }
+
+  /* ========================================
+     NEXT SERVICE NAV PANEL
+  ======================================== */
+  .next-service-nav {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 5rem 2rem;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .next-service-inner {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .next-lbl {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .next-title-link {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    letter-spacing: -0.03em;
+    transition: color 0.3s ease;
+  }
+
+  .next-chevron {
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .next-title-link:hover {
+    color: var(--accent-color-1);
+  }
+
+  .next-title-link:hover .next-chevron {
+    transform: translateX(6px);
+  }
+
+  /* ========================================
+     SERVICES PAGE FOOTER
+  ======================================== */
+  .services-footer {
+    position: relative;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding: 3rem 2rem;
+    z-index: 2;
+    text-align: center;
+    background-color: #F0EFEA;
+  }
+
+  .footer-inner {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.82rem;
+    color: rgba(0,0,0,0.5);
+    margin: 0;
+  }
+
+  .footer-bottom {
+    font-size: 0.72rem;
+    color: rgba(0,0,0,0.35);
+  }
+
+  /* ========================================
+     RESPONSIVE
+  ======================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 860px) {
+    .details-grid {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+
+    .service-glass-card {
+      padding: 3rem 2rem;
+    }
+
+    .details-visual-panel {
+      order: -1;
+    }
+  }
+</style>

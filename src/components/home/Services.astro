@@ -9,381 +9,1544 @@ const { lang = 'es' } = Astro.props;
 const T = translations[lang];
 ---
 
-<!-- ==================== SERVICES DARK ==================== -->
+<!-- ==================== SERVICES BENTO GRID ==================== -->
 <section class="sd-section" id="services" aria-label="Services">
   <div class="sd-inner">
 
     <!-- Header -->
-    <div class="sd-header">
+    <div class="sd-header reveal">
       <p class="sd-eyebrow" data-i18n="sd_eyebrow">{T.sd_eyebrow}</p>
       <h2 class="sd-title" data-i18n="sd_title" set:html={T.sd_title.replace('\n','<br>')}></h2>
     </div>
 
-    <!-- 2-col cards grid -->
-    <div class="sd-grid">
+    <!-- Bento Grid (12 Columns) -->
+    <div class="sd-grid reveal-stagger">
 
-      <!-- CARD 01: Product Discovery (wide left) -->
-      <article class="sd-card sd-card--hover sd-col-wide" style="--grad: url('/grad-apps.jpg')">
-        <div class="sd-card-bg"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">01</span>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 01: Product Discovery (Wide Left, Span 7) -->
+      <a href="/servicio/descubrimiento" class="sd-card sd-card--horiz" data-card="1">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">01</span>
+              <span class="sd-tag" data-i18n="service_1_tag">{T.service_1_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_1_title">{T.service_1_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_1_desc">{T.service_1_desc}</p>
             </div>
           </div>
-          <div class="sd-card-info">
-            <span class="sd-glass-tag" data-i18n="service_1_tag">{T.service_1_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_1_title">{T.service_1_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_1_desc">{T.service_1_desc}</p>
+          <div class="sd-card-visual visual-discovery">
+            <!-- Widget: Discovery timeline steps -->
+            <div class="discovery-timeline">
+              <div class="timeline-step step-1">
+                <span class="step-num">W1</span>
+                <span class="step-lbl">Scope</span>
+              </div>
+              <div class="timeline-step step-2">
+                <span class="step-num">W2</span>
+                <span class="step-lbl">Proto</span>
+              </div>
+              <div class="timeline-step step-3">
+                <span class="step-num">MVP</span>
+                <span class="step-lbl">€ Fixed</span>
+              </div>
+              <svg class="timeline-connector" viewBox="0 0 160 10" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="discovery-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--accent-color-1)" />
+                    <stop offset="100%" stop-color="var(--accent-color-2)" />
+                  </linearGradient>
+                </defs>
+                <path d="M 10 5 L 150 5" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="3,3" />
+                <path d="M 10 5 L 150 5" stroke="url(#discovery-grad)" stroke-width="2" class="connector-progress" />
+              </svg>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- CARD 02: Diseño y UX (narrow right) -->
-      <article class="sd-card sd-card--hover sd-col-narrow" style="--grad: url('/grad-design.jpg')">
-        <div class="sd-card-bg"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">02</span>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 02: Diseño y UX (Narrow Right, Span 5) -->
+      <a href="/servicio/diseno-experiencia" class="sd-card sd-card--vert" data-card="2">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-visual visual-design">
+            <!-- Widget: Design screen cursor-drag simulator -->
+            <div class="design-workspace">
+              <div class="grid-overlay"></div>
+              <div class="mock-device">
+                <div class="mock-button">
+                  <span class="btn-glow"></span>
+                  <span class="btn-text">Interact</span>
+                </div>
+                <div class="mock-elements">
+                  <div class="mock-el el-1"></div>
+                  <div class="mock-el el-2"></div>
+                </div>
+              </div>
+              <div class="design-cursor">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+                  <path d="M4.5 3v15.2l4.2-4.2 3.1 7.3(tipo de cursor) 2.6-1.1-3.1-7.3 5.7-.4L4.5 3z" />
+                </svg>
+              </div>
             </div>
           </div>
-          <div class="sd-card-info">
-            <span class="sd-glass-tag" data-i18n="service_2_tag">{T.service_2_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_2_title">{T.service_2_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_2_desc">{T.service_2_desc}</p>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">02</span>
+              <span class="sd-tag" data-i18n="service_2_tag">{T.service_2_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_2_title">{T.service_2_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_2_desc">{T.service_2_desc}</p>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- CARD 03: Ingeniería (wide left) -->
-      <article class="sd-card sd-card--hover sd-col-wide" style="--grad: url('/grad-engineering.jpg')">
-        <div class="sd-card-bg"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">03</span>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 03: Ingeniería (Narrow Left, Span 5) -->
+      <a href="/servicio/ingenieria" class="sd-card sd-card--vert" data-card="3">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-visual visual-engineering">
+            <!-- Widget: Gauge + Terminal logs -->
+            <div class="engineering-console">
+              <div class="speed-dial">
+                <svg viewBox="0 0 100 100" width="80" height="80">
+                  <defs>
+                    <linearGradient id="engineering-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--accent-color-1)" />
+                      <stop offset="100%" stop-color="var(--accent-color-2)" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.04)" stroke-width="5" fill="none" />
+                  <circle cx="50" cy="50" r="40" stroke="url(#engineering-grad)" stroke-width="5" fill="none" stroke-dasharray="251.2" stroke-dashoffset="251.2" class="dial-progress" />
+                </svg>
+                <div class="dial-label">
+                  <span class="dial-val">16w</span>
+                  <span class="dial-sub">Deploy</span>
+                </div>
+              </div>
+              <div class="console-terminal">
+                <div class="terminal-dots">
+                  <span class="t-dot t-dot-r"></span>
+                  <span class="t-dot t-dot-y"></span>
+                  <span class="t-dot t-dot-g"></span>
+                </div>
+                <div class="terminal-lines">
+                  <span class="term-l l-1">> init flutter app...</span>
+                  <span class="term-l l-2">> backend: go on gke</span>
+                  <span class="term-l l-3">> status: active 99.9%</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="sd-card-info">
-            <span class="sd-glass-tag" data-i18n="service_3_tag">{T.service_3_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_3_title">{T.service_3_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_3_desc">{T.service_3_desc}</p>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">03</span>
+              <span class="sd-tag" data-i18n="service_3_tag">{T.service_3_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_3_title">{T.service_3_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_3_desc">{T.service_3_desc}</p>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- CARD 04: Crecimiento (narrow right) -->
-      <article class="sd-card sd-card--hover sd-col-narrow" style="--grad: url('/grad-growth.jpg')">
-        <div class="sd-card-bg"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">04</span>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 04: Crecimiento (Wide Right, Span 7) -->
+      <a href="/servicio/crecimiento-continuo" class="sd-card sd-card--horiz" data-card="4">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">04</span>
+              <span class="sd-tag" data-i18n="service_4_tag">{T.service_4_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_4_title">{T.service_4_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_4_desc">{T.service_4_desc}</p>
             </div>
           </div>
-          <div class="sd-card-info">
-            <span class="sd-glass-tag" data-i18n="service_4_tag">{T.service_4_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_4_title">{T.service_4_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_4_desc">{T.service_4_desc}</p>
+          <div class="sd-card-visual visual-growth">
+            <!-- Widget: SVG line graph growth chart -->
+            <div class="growth-chart">
+              <div class="chart-bg-grid"></div>
+              <svg viewBox="0 0 180 90" class="chart-svg">
+                <defs>
+                  <linearGradient id="chart-area-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent-color-1)" stop-opacity="0.25" />
+                    <stop offset="100%" stop-color="var(--accent-color-2)" stop-opacity="0.0" />
+                  </linearGradient>
+                  <linearGradient id="chart-line-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="var(--accent-color-1)" />
+                    <stop offset="100%" stop-color="var(--accent-color-2)" />
+                  </linearGradient>
+                </defs>
+                <path d="M 10 80 Q 55 68 95 48 T 170 15 L 170 80 Z" fill="url(#chart-area-grad)" class="chart-area" />
+                <path d="M 10 80 Q 55 68 95 48 T 170 15" fill="none" stroke="url(#chart-line-grad)" stroke-width="2.5" stroke-linecap="round" class="chart-line" />
+                <circle cx="170" cy="15" r="4" fill="#fff" stroke="var(--accent-color-1)" stroke-width="2" class="chart-dot" />
+              </svg>
+              <div class="chart-labels">
+                <span>Día 1</span>
+                <span>1M+ Users</span>
+              </div>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- CARD 05: IA (always visible, dark, half-width) -->
-      <article class="sd-card sd-card--always sd-col-half" style="--grad: none">
-        <div class="sd-card-bg sd-card-bg--dark"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">05</span>
-            <div class="sd-tech-row">
-              <span class="sd-tech-sm">LLMs</span>
-              <span class="sd-tech-dot"></span>
-              <span class="sd-tech-sm">RAG</span>
-              <span class="sd-tech-dot"></span>
-              <span class="sd-tech-sm">Agentes</span>
-            </div>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 05: IA (Equal Left, Span 6) -->
+      <a href="/servicio/inteligencia-artificial" class="sd-card sd-card--vert" data-card="5">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-visual visual-ai">
+            <!-- Widget: Chat message support transition -->
+            <div class="ai-chat">
+              <div class="chat-row chat-user">
+                <div class="chat-avatar">U</div>
+                <div class="chat-bubble">Integrar soporte empresa</div>
+              </div>
+              <div class="chat-row chat-loader">
+                <div class="chat-avatar ai-avatar">AI</div>
+                <div class="chat-bubble dots-bubble">
+                  <span class="dot-pulse"></span>
+                  <span class="dot-pulse"></span>
+                  <span class="dot-pulse"></span>
+                </div>
+              </div>
+              <div class="chat-row chat-ai">
+                <div class="chat-avatar ai-avatar">AI</div>
+                <div class="chat-bubble result-bubble">
+                  <div class="result-badge">4h → 8s</div>
+                  <div class="result-text">Agente RAG Activo</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="sd-card-info sd-card-info--always">
-            <span class="sd-glass-tag" data-i18n="service_5_tag">{T.service_5_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_5_title">{T.service_5_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_5_desc">{T.service_5_desc}</p>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">05</span>
+              <span class="sd-tag" data-i18n="service_5_tag">{T.service_5_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_5_title">{T.service_5_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_5_desc">{T.service_5_desc}</p>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
-      <!-- CARD 06: Equipo (always visible, dark, half-width) -->
-      <article class="sd-card sd-card--always sd-col-half" style="--grad: none">
-        <div class="sd-card-bg sd-card-bg--dark2"></div>
-        <div class="sd-grain"></div>
-        <div class="sd-card-body">
-          <div class="sd-card-top">
-            <span class="sd-num">06</span>
-            <div class="sd-tech-row">
-              <span class="sd-tech-sm">Flutter</span>
-              <span class="sd-tech-dot"></span>
-              <span class="sd-tech-sm">iOS</span>
-              <span class="sd-tech-dot"></span>
-              <span class="sd-tech-sm">Android</span>
-            </div>
-            <div class="sd-arrow-wrap">
-              <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- CARD 06: Equipo (Equal Right, Span 6) -->
+      <a href="/servicio/digitalizacion-empresas" class="sd-card sd-card--vert" data-card="6">
+        <div class="sd-spotlight"></div>
+        <div class="sd-sweep"></div>
+        <div class="sd-card-border"></div>
+        <div class="sd-card-shadow"></div>
+        <div class="sd-card-glow sd-card-glow-1"></div>
+        <div class="sd-card-glow sd-card-glow-2"></div>
+        <div class="sd-card-content">
+          <div class="sd-card-arrow">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+          <div class="sd-card-visual visual-team">
+            <!-- Widget: Network mesh connection -->
+            <div class="team-mesh">
+              <div class="mesh-hub">
+                <span class="hub-label">Gira</span>
+                <span class="hub-pulse"></span>
+              </div>
+              <div class="mesh-node node-flutter">CRM</div>
+              <div class="mesh-node node-ios">ERP</div>
+              <div class="mesh-node node-backend">Cloud</div>
+              
+              <svg class="mesh-svg" viewBox="0 0 130 130">
+                <line x1="65" y1="65" x2="29" y2="24" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+                <line x1="65" y1="65" x2="109" y2="19" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+                <line x1="65" y1="65" x2="65" y2="95" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-dasharray="3,3" class="m-line" />
+              </svg>
+              <div class="mesh-badge">Automatización</div>
             </div>
           </div>
-          <div class="sd-card-info sd-card-info--always">
-            <span class="sd-glass-tag" data-i18n="service_6_tag">{T.service_6_tag}</span>
-            <h3 class="sd-card-title" data-i18n="service_6_title">{T.service_6_title}</h3>
-            <p class="sd-card-desc" data-i18n="service_6_desc">{T.service_6_desc}</p>
+          <div class="sd-card-text">
+            <div class="sd-card-top">
+              <span class="sd-num">06</span>
+              <span class="sd-tag" data-i18n="service_6_tag">{T.service_6_tag}</span>
+            </div>
+            <div class="sd-card-main">
+              <h3 class="sd-card-title" data-i18n="service_6_title">{T.service_6_title}</h3>
+              <p class="sd-card-desc" data-i18n="service_6_desc">{T.service_6_desc}</p>
+            </div>
           </div>
         </div>
-      </article>
+      </a>
 
     </div>
   </div>
 </section>
 
+<!-- Scroll Reveal Activation & Spotlight tracking -->
+<script>
+  function initScrollReveal() {
+    const cards = document.querySelectorAll('.sd-card');
+    
+    // Spotlight mouse tracking
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+      });
+    });
+
+    // IntersectionObserver to activate cards and sweep animations on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+          // Once animated, keep it active so users can hover, and stop observing
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  initScrollReveal();
+  document.addEventListener('astro:after-swap', initScrollReveal);
+</script>
+
 <style>
   /* ========================================
-     SERVICES DARK SECTION
+     SERVICES SECTION GLOBAL & THEME SETUP
   ======================================== */
   .sd-section {
     position: relative;
-    z-index: 1;
-    background: #0a0a0a;
-    padding: 7rem 2rem 6rem;
+    z-index: 2;
+    background-color: #070709;
+    padding: 8rem 2rem;
     margin-top: -2px;
+    overflow: hidden;
+    --accent-discovery: #ff914d;
+    --accent-design: #00f0ff;
+    --accent-engineering: #3d8bff;
+    --accent-growth: #10b981;
+    --accent-ai: #a855f7;
+    --accent-team: #eab308;
+  }
+
+  /* Soft glowing radial gradient behind the section header */
+  .sd-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
 
   .sd-inner {
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 
   .sd-header {
-    margin-bottom: 3.5rem;
+    margin-bottom: 4rem;
+    text-align: left;
   }
 
   .sd-eyebrow {
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin: 0 0 1rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0 1.2rem;
   }
 
   .sd-title {
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 600;
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-weight: 700;
     letter-spacing: -0.04em;
-    color: rgba(255,255,255,0.92);
+    color: rgba(255, 255, 255, 0.95);
     margin: 0;
     line-height: 1.25;
   }
 
+  /* ========================================
+     BENTO GRID SYSTEM (Desktop default)
+  ======================================== */
   .sd-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+    width: 100%;
   }
 
-  .sd-col-wide  { grid-column: span 6; }
-  .sd-col-narrow { grid-column: span 4; }
-  .sd-col-half  { grid-column: span 5; }
+  /* Robust layout selectors + Accent bindings */
+  .sd-card[data-card="1"] {
+    grid-column: span 7;
+    --accent-color-1: #ff7d3b;
+    --accent-rgb-1: 255, 125, 59;
+    --accent-color-2: #ff2a85;
+    --accent-rgb-2: 255, 42, 133;
+  }
+  .sd-card[data-card="2"] {
+    grid-column: span 5;
+    --accent-color-1: #00f0ff;
+    --accent-rgb-1: 0, 240, 255;
+    --accent-color-2: #7000ff;
+    --accent-rgb-2: 112, 0, 255;
+  }
+  .sd-card[data-card="3"] {
+    grid-column: span 5;
+    --accent-color-1: #3d8bff;
+    --accent-rgb-1: 61, 139, 255;
+    --accent-color-2: #00f5a0;
+    --accent-rgb-2: 0, 245, 160;
+  }
+  .sd-card[data-card="4"] {
+    grid-column: span 7;
+    --accent-color-1: #00e676;
+    --accent-rgb-1: 0, 230, 118;
+    --accent-color-2: #baff00;
+    --accent-rgb-2: 186, 255, 0;
+  }
+  .sd-card[data-card="5"] {
+    grid-column: span 6;
+    --accent-color-1: #a855f7;
+    --accent-rgb-1: 168, 85, 247;
+    --accent-color-2: #ff007f;
+    --accent-rgb-2: 255, 0, 127;
+  }
+  .sd-card[data-card="6"] {
+    grid-column: span 6;
+    --accent-color-1: #eab308;
+    --accent-rgb-1: 234, 179, 8;
+    --accent-color-2: #ff5722;
+    --accent-rgb-2: 255, 87, 34;
+  }
 
+  /* ========================================
+     CARD BASE STRUCTURE
+  ======================================== */
   .sd-card {
     position: relative;
-    border-radius: 18px;
+    background-color: #0c0c0e; /* Strong dark base */
+    border-radius: 24px;
     overflow: hidden;
-    min-height: 340px;
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: 
+      background-color 0.4s ease, 
+      transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    text-decoration: none; /* Prevent underlines inside links */
   }
 
-  .sd-card--hover { min-height: 360px; }
-  .sd-card--always { min-height: 280px; }
+  .sd-card.is-active:hover {
+    transform: translateY(-2px);
+    background-color: #111114;
+  }
 
-  .sd-card:hover { transform: scale(1.015); }
-
-  .sd-card-bg {
+  /* Minimalist Link Arrow */
+  .sd-card-arrow {
     position: absolute;
-    inset: 0;
-    background-image: var(--grad);
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    top: 1.8rem;
+    right: 1.8rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    transition: 
+      background-color 0.3s ease, 
+      border-color 0.3s ease, 
+      color 0.3s ease,
+      transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  .sd-card:hover .sd-card-bg { transform: scale(1.04); }
-
-  .sd-card-bg--dark {
-    background-image: none;
-    background: radial-gradient(ellipse at 30% 30%, #0e3d4e 0%, #071420 60%, #030810 100%);
+  .sd-card:hover .sd-card-arrow {
+    background: rgba(var(--accent-rgb-1), 0.1);
+    border-color: rgba(var(--accent-rgb-1), 0.3);
+    color: var(--accent-color-1);
+    transform: translate(2px, -2px) scale(1.05);
   }
 
-  .sd-card-bg--dark2 {
-    background-image: none;
-    background: radial-gradient(ellipse at 70% 40%, #1e2d0e 0%, #101508 60%, #050500 100%);
+  .sd-card--vert {
+    flex-direction: column;
+    min-height: 440px; /* Increased slightly to accommodate larger visuals */
   }
 
-  .sd-grain {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.07;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    z-index: 1;
+  .sd-card--horiz {
+    flex-direction: row;
+    min-height: 310px;
   }
 
-  .sd-card-body {
+  .sd-card-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    padding: 2.2rem;
     position: relative;
     z-index: 2;
-    height: 100%;
-    padding: 1.4rem 1.5rem 1.6rem;
-    display: flex;
+  }
+
+  .sd-card--vert .sd-card-content {
     flex-direction: column;
     justify-content: space-between;
-    min-height: inherit;
+    align-items: stretch;
+  }
+
+  .sd-card--horiz .sd-card-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* ----------------------------------------
+     NEON GRADIENT BORDERS (Webkit composite mask)
+  ---------------------------------------- */
+  .sd-card-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 3;
+    transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card.is-active .sd-card-border {
+    background: linear-gradient(135deg, var(--accent-color-1) 0%, rgba(var(--accent-rgb-2), 0.25) 60%, rgba(255,255,255,0.04) 100%) border-box;
+  }
+
+  .sd-card.is-active:hover .sd-card-border {
+    background: linear-gradient(135deg, var(--accent-color-1) 0%, rgba(var(--accent-rgb-2), 0.6) 50%, rgba(255,255,255,0.08) 100%) border-box;
+  }
+
+  /* ----------------------------------------
+     NEON HALO SHADOWS (Dropshadow glow)
+  ---------------------------------------- */
+  .sd-card-shadow {
+    position: absolute;
+    inset: 2px;
+    border-radius: 24px;
+    background: transparent;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .sd-card.is-active .sd-card-shadow {
+    box-shadow: 
+      0 12px 30px rgba(0, 0, 0, 0.6),
+      0 0 25px rgba(var(--accent-rgb-1), 0.04),
+      0 0 25px rgba(var(--accent-rgb-2), 0.04); /* Soft duo-glow outline */
+  }
+
+  .sd-card.is-active:hover .sd-card-shadow {
+    box-shadow: 
+      0 16px 40px rgba(0, 0, 0, 0.7),
+      0 0 35px rgba(var(--accent-rgb-1), 0.12),
+      0 0 35px rgba(var(--accent-rgb-2), 0.12); /* Intense duo-glow outline on hover */
+  }
+
+  /* ----------------------------------------
+     SPOTLIGHTS & LASER SWEEPS
+  ---------------------------------------- */
+  /* Spotlight effect (Mouse Hover state) */
+  .sd-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    background: radial-gradient(400px circle at var(--mx, 0px) var(--my, 0px), rgba(var(--accent-rgb-1), 0.08) 0%, rgba(var(--accent-rgb-2), 0.08) 40%, transparent 80%);
+    transition: opacity 0.5s ease;
+  }
+
+  .sd-card:hover .sd-spotlight {
+    animation: none !important; /* disable sweep on hover */
+    opacity: 1 !important;
+  }
+
+  /* Spotlight Sweep (Laser scroll-reveal animation) */
+  .sd-sweep {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    background: radial-gradient(350px circle at 0% 50%, rgba(var(--accent-rgb-1), 0.15) 0%, rgba(var(--accent-rgb-2), 0.1) 50%, transparent 100%);
+  }
+
+  .sd-card.is-active .sd-sweep {
+    animation: spotlightSweep 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .sd-card:hover .sd-sweep {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  @keyframes spotlightSweep {
+    0% {
+      opacity: 0;
+      transform: translateX(-60%);
+      background: radial-gradient(350px circle at 0% 50%, rgba(var(--accent-rgb-1), 0.15) 0%, rgba(var(--accent-rgb-2), 0.1) 50%, transparent 100%);
+    }
+    30%, 70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(60%);
+      background: radial-gradient(350px circle at 100% 50%, rgba(var(--accent-rgb-1), 0.15) 0%, rgba(var(--accent-rgb-2), 0.1) 50%, transparent 100%);
+    }
+  }
+
+  /* ----------------------------------------
+     DUAL FLUID LAVA GLOW BLOBS
+  ---------------------------------------- */
+  .sd-card-glow {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    filter: blur(55px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card.is-active .sd-card-glow {
+    opacity: 0.22; /* High color presence when scroll-activated */
+  }
+
+  .sd-card.is-active:hover .sd-card-glow {
+    opacity: 0.38; /* Extra color presence on hover */
+  }
+
+  .sd-card-glow-1 {
+    background: var(--accent-color-1);
+    top: -40px;
+    right: -40px;
+    animation: floatBlob1 12s infinite alternate ease-in-out;
+  }
+
+  .sd-card-glow-2 {
+    background: var(--accent-color-2);
+    bottom: -50px;
+    left: -20px;
+    animation: floatBlob2 10s infinite alternate ease-in-out;
+  }
+
+  @keyframes floatBlob1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-25px, 35px) scale(1.2); }
+    100% { transform: translate(-45px, 20px) scale(0.9); }
+  }
+
+  @keyframes floatBlob2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(35px, -25px) scale(0.8); }
+    100% { transform: translate(20px, -45px) scale(1.15); }
+  }
+
+  /* ========================================
+     CARD DETAILS & TEXT
+  ======================================== */
+  .sd-card-text {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+  }
+
+  .sd-card--horiz .sd-card-text {
+    width: 55%;
+    flex-shrink: 0;
   }
 
   .sd-card-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
   }
 
   .sd-num {
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.35);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: monospace;
     letter-spacing: 0.05em;
-    font-variant-numeric: tabular-nums;
   }
 
-  .sd-arrow-wrap {
-    color: rgba(255,255,255,0.5);
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-
-  .sd-card:hover .sd-arrow-wrap {
-    color: rgba(255,255,255,0.9);
-    transform: translate(2px, -2px);
-  }
-
-  .sd-tech-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex: 1;
-    margin-left: 0.6rem;
-  }
-
-  .sd-tech-sm {
-    font-size: 0.62rem;
-    font-weight: 400;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.01em;
-  }
-
-  .sd-tech-dot {
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-  }
-
-  .sd-card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    margin-top: auto;
-  }
-
-  .sd-glass-tag {
-    display: inline-flex;
-    align-self: flex-start;
-    padding: 0.28rem 0.7rem;
+  /* Colored Tag Badge */
+  .sd-tag {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb-1), 0.08), rgba(var(--accent-rgb-2), 0.08));
+    border: 1px solid rgba(var(--accent-rgb-1), 0.25);
     border-radius: 100px;
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--accent-color-1);
     letter-spacing: 0.02em;
-    color: rgba(255,255,255,0.8);
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.18);
-    transition: background 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
-  .sd-card:hover .sd-glass-tag { background: rgba(255,255,255,0.16); }
+  .sd-card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 
   .sd-card-title {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: rgba(255,255,255,0.95);
+    font-size: clamp(1.25rem, 2.5vw, 1.45rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   .sd-card-desc {
     font-size: 0.82rem;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.55);
     line-height: 1.6;
     margin: 0;
     font-weight: 400;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease 0.05s;
   }
 
-  .sd-card--hover:hover .sd-card-desc {
-    max-height: 200px;
-    opacity: 1;
-  }
-
-  .sd-card-info--always .sd-card-desc {
-    max-height: 200px !important;
-    opacity: 1 !important;
-  }
-
-  .sd-card-tags {
+  /* ========================================
+     CARD VISUAL WRAPPERS (WIDGETS)
+  ======================================== */
+  .sd-card-visual {
+    position: relative;
+    z-index: 2;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.05s, opacity 0.4s ease 0.1s;
+    align-items: center;
+    justify-content: center;
+    /* Removed overflow: hidden so elements don't get clipped at container borders */
   }
 
-  .sd-card--hover:hover .sd-card-tags {
-    max-height: 60px;
-    opacity: 1;
+  .sd-card--vert .sd-card-visual {
+    width: 100%;
+    margin-bottom: 2rem;
+    height: 170px; /* Increased to 170px for extra visual height & breathing room */
   }
 
-  .sd-tech {
-    font-size: 0.62rem;
+  .sd-card--horiz .sd-card-visual {
+    width: 45%;
+    height: 150px;
+    justify-content: center;
+  }
+
+  /* ----------------------------------------
+     WIDGET 1: DISCOVERY TIMELINE (Infinite Loop Animation)
+  ---------------------------------------- */
+  .discovery-timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 250px;
+    height: 90px;
+  }
+
+  .timeline-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #070709;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.6rem 0.7rem;
+    border-radius: 12px;
+    min-width: 68px;
+  }
+
+  .step-num {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    font-family: monospace;
+  }
+
+  .step-lbl {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.65);
     font-weight: 500;
-    color: rgba(255,255,255,0.55);
-    background: rgba(255,255,255,0.07);
-    padding: 0.18rem 0.5rem;
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 10px;
+    z-index: 1;
+  }
+
+  .connector-progress {
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+  }
+
+  /* Widget 1 Loop Animations */
+  .sd-card.is-active .timeline-step.step-1 { animation: step1Pulse 4s infinite ease-in-out; }
+  .sd-card.is-active .timeline-step.step-2 { animation: step2Pulse 4s infinite ease-in-out; }
+  .sd-card.is-active .timeline-step.step-3 { animation: step3Pulse 4s infinite ease-in-out; }
+  .sd-card.is-active .connector-progress { animation: lineProgress 4s infinite ease-in-out; }
+
+  @keyframes step1Pulse {
+    0%, 100% { border-color: rgba(255, 255, 255, 0.1); transform: translateY(0); }
+    12%, 40% { border-color: rgba(255, 255, 255, 0.35); transform: translateY(-4px); }
+  }
+
+  @keyframes step2Pulse {
+    0%, 12%, 100% { border-color: rgba(255, 255, 255, 0.1); transform: translateY(0); }
+    24%, 52% { border-color: rgba(255, 255, 255, 0.35); transform: translateY(-4px); }
+  }
+
+  @keyframes step3Pulse {
+    0%, 24%, 100% {
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(0);
+      box-shadow: none;
+      background: #070709;
+    }
+    36%, 76% {
+      border-color: var(--accent-color-1);
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb-1), 0.2);
+      background: rgba(var(--accent-rgb-1), 0.05);
+    }
+  }
+
+  @keyframes lineProgress {
+    0%, 8% { stroke-dashoffset: 140; }
+    52%, 80% { stroke-dashoffset: 0; }
+    90%, 100% { stroke-dashoffset: 140; }
+  }
+
+  /* ----------------------------------------
+     WIDGET 2: DESIGN WORKSPACE (Infinite Loop Animation)
+  ---------------------------------------- */
+  .design-workspace {
+    position: relative;
+    width: 180px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.005);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 10px 10px;
+  }
+
+  .mock-device {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px;
+    height: 70px;
+    background: rgba(7, 7, 9, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+  }
+
+  .mock-button {
+    position: relative;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+  }
+
+  .mock-elements {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+    width: 100%;
+  }
+
+  .mock-el {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 2px;
+    opacity: 0;
+  }
+
+  .mock-el.el-1 { flex: 2; }
+  .mock-el.el-2 { flex: 1; }
+
+  .design-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(140px, 90px);
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  }
+
+  /* Design Animations on Scroll/Hover */
+  .sd-card.is-active .design-cursor {
+    animation: cursorClick 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card.is-active .mock-button {
+    animation: btnPress 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sd-card.is-active .mock-el {
+    animation: elSlide 1.8s infinite cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  @keyframes cursorClick {
+    0% { transform: translate(140px, 90px); }
+    55% { transform: translate(75px, 45px); }
+    63% { transform: translate(75px, 45px) scale(0.8); }
+    70% { transform: translate(75px, 45px) scale(1); }
+    100% { transform: translate(140px, 90px); }
+  }
+
+  @keyframes btnPress {
+    0%, 58% {
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.6);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: none;
+    }
+    63%, 90% {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb-1), 0.15), rgba(var(--accent-rgb-2), 0.15));
+      color: var(--accent-color-1);
+      border-color: var(--accent-color-1);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb-1), 0.25);
+    }
+  }
+
+  @keyframes elSlide {
+    0%, 65% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    75%, 95% {
+      opacity: 1;
+      transform: translateY(0);
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  /* ----------------------------------------
+     WIDGET 3: ENGINEERING CONSOLE (Infinite Loop Animation)
+  ---------------------------------------- */
+  .engineering-console {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 230px;
+  }
+
+  .speed-dial {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .dial-progress {
+    transform: rotate(-90deg);
+    transform-origin: 50px 50px;
+  }
+
+  .dial-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dial-val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .dial-sub {
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+
+  .console-terminal {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: monospace;
+    font-size: 0.55rem;
+    text-align: left;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .t-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+  .t-dot-r { background: #ff5f56; }
+  .t-dot-y { background: #ffbd2e; }
+  .t-dot-g { background: #27c93f; }
+
+  .terminal-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .term-l {
+    color: rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.2;
+    transform: translateX(-2px);
+  }
+
+  /* Engineering Loop Animations */
+  .sd-card.is-active .dial-progress { animation: dialFluctuate 4s infinite ease-in-out; }
+  .sd-card.is-active .term-l.l-1 { animation: termLine1 4s infinite ease-in-out; }
+  .sd-card.is-active .term-l.l-2 { animation: termLine2 4s infinite ease-in-out; }
+  .sd-card.is-active .term-l.l-3 { animation: termLine3 4s infinite ease-in-out; }
+
+  @keyframes dialFluctuate {
+    0%, 100% { stroke-dashoffset: 251.2; }
+    45%, 85% { stroke-dashoffset: 75.3; } /* Gauge peaks at 70% fill */
+  }
+
+  @keyframes termLine1 {
+    0%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    12%, 80% { opacity: 1; transform: translateX(0); color: rgba(255,255,255,0.85); }
+  }
+
+  @keyframes termLine2 {
+    0%, 12%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    24%, 80% { opacity: 1; transform: translateX(0); color: rgba(255,255,255,0.85); }
+  }
+
+  @keyframes termLine3 {
+    0%, 24%, 100% { opacity: 0.2; transform: translateX(-2px); }
+    36%, 80% { opacity: 1; transform: translateX(0); color: var(--accent-color-1); }
+  }
+
+  /* ----------------------------------------
+     WIDGET 4: GROWTH CHART (Infinite Loop Animation)
+  ---------------------------------------- */
+  .growth-chart {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.005);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .chart-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center;
+  }
+
+  .chart-svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .chart-line {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+  }
+
+  .chart-area {
+    opacity: 0;
+  }
+
+  .chart-dot {
+    transform: scale(0);
+    transform-origin: 170px 15px;
+  }
+
+  .chart-labels {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  /* Growth Loop Animations */
+  .sd-card.is-active .chart-line { animation: drawLine 3.8s infinite ease-in-out; }
+  .sd-card.is-active .chart-area { animation: fillArea 3.8s infinite ease-in-out; }
+  .sd-card.is-active .chart-dot { animation: chartDotPulse 3.8s infinite ease-in-out; }
+
+  @keyframes drawLine {
+    0% { stroke-dashoffset: 240; }
+    45%, 80% { stroke-dashoffset: 0; }
+    90%, 100% { stroke-dashoffset: 240; }
+  }
+
+  @keyframes fillArea {
+    0%, 15% { opacity: 0; }
+    45%, 80% { opacity: 1; }
+    90%, 100% { opacity: 0; }
+  }
+
+  @keyframes chartDotPulse {
+    0%, 40% { transform: scale(0); }
+    45%, 80% { transform: scale(1); }
+    90%, 100% { transform: scale(0); }
+  }
+
+  /* ----------------------------------------
+     WIDGET 5: AI CHAT SUPPORT (Infinite Loop Animation)
+  ---------------------------------------- */
+  .ai-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .chat-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .chat-avatar {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ai-avatar {
+    background: linear-gradient(135deg, var(--accent-color-1), var(--accent-color-2));
+    color: #000;
+  }
+
+  .chat-bubble {
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 0.58rem;
+    line-height: 1.2;
+    max-width: 85%;
+  }
+
+  .chat-user .chat-bubble {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.85);
+    border-top-left-radius: 2px;
+  }
+
+  .dots-bubble {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    padding: 6px 8px;
+  }
+
+  .dot-pulse {
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: aiDots 0.8s infinite alternate;
+  }
+
+  .dot-pulse:nth-child(2) { animation-delay: 0.15s; }
+  .dot-pulse:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes aiDots {
+    0% { transform: scale(0.7); opacity: 0.2; }
+    100% { transform: scale(1.3); opacity: 1; }
+  }
+
+  .result-bubble {
+    background: rgba(var(--accent-rgb-1), 0.08);
+    border: 1px solid rgba(var(--accent-rgb-1), 0.2);
+    color: #fff;
+    border-top-left-radius: 2px;
+    text-align: left;
+  }
+
+  .result-badge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--accent-color-1);
+    margin-bottom: 2px;
+  }
+
+  .result-text {
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* AI Chat Loop Animations (Staggered 6-second timeline) */
+  .sd-card.is-active .chat-user { animation: chatUserSeq 6s infinite ease-in-out; }
+  .sd-card.is-active .chat-loader { animation: chatLoaderSeq 6s infinite ease-in-out; }
+  .sd-card.is-active .chat-ai { animation: chatAISeq 6s infinite ease-in-out; }
+
+  @keyframes chatUserSeq {
+    0%, 100% { opacity: 0; transform: translateY(4px); }
+    5%, 85% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes chatLoaderSeq {
+    0%, 10%, 48%, 100% { opacity: 0; transform: translateY(4px); }
+    16%, 42% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes chatAISeq {
+    0%, 46%, 100% { opacity: 0; transform: translateY(4px); }
+    52%, 85% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ----------------------------------------
+     WIDGET 6: TEAM MESH (Infinite Loop Animation - Unclipped)
+  ---------------------------------------- */
+  .team-mesh {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+  }
+
+  .mesh-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: all 0.4s ease;
+  }
+
+  .hub-label {
+    font-size: 0.45rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: -0.02em;
+  }
+
+  .hub-pulse {
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+    animation: hubRipple 2.2s infinite ease-out;
+  }
+
+  @keyframes hubRipple {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  .mesh-node {
+    position: absolute;
+    background: rgba(7, 7, 9, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.52rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .node-flutter {
+    top: 15px;
+    left: 5px;
+  }
+
+  .node-ios {
+    top: 10px;
+    right: 5px;
+  }
+
+  .node-backend {
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .mesh-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .mesh-badge {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.4);
+    padding: 2px 8px;
     border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  /* Team Loop Animations */
+  .sd-card.is-active .node-flutter { animation: nodeFlutterMove 5s infinite ease-in-out; }
+  .sd-card.is-active .node-ios { animation: nodeIosMove 5s infinite ease-in-out; }
+  .sd-card.is-active .node-backend { animation: nodeBackendMove 5s infinite ease-in-out; }
+  .sd-card.is-active .m-line { animation: linePulse 5s infinite ease-in-out; }
+  .sd-card.is-active .mesh-hub { animation: hubPulseActive 5s infinite ease-in-out; }
+  .sd-card.is-active .mesh-badge { animation: badgePulseActive 5s infinite ease-in-out; }
+
+  @keyframes nodeFlutterMove {
+    0%, 100% { transform: translate(0, 0); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+    40%, 80% { transform: translate(4px, 2px); border-color: var(--accent-color-1); color: #fff; }
+  }
+
+  @keyframes nodeIosMove {
+    0%, 100% { transform: translate(0, 0); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+    40%, 80% { transform: translate(-4px, 2px); border-color: var(--accent-color-2); color: #fff; }
+  }
+
+  @keyframes nodeBackendMove {
+    0%, 100% { transform: translateX(-50%) translateY(0); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+    40%, 80% { transform: translateX(-50%) translateY(-4px); border-color: var(--accent-color-1); color: #fff; }
+  }
+
+  @keyframes linePulse {
+    0%, 100% { stroke: rgba(255,255,255,0.06); stroke-width: 1.5px; }
+    40%, 80% { stroke: rgba(255,255,255,0.18); stroke-width: 2px; }
+  }
+
+  @keyframes hubPulseActive {
+    0%, 100% { border-color: rgba(255,255,255,0.12); box-shadow: none; color: rgba(255,255,255,0.7); }
+    40%, 80% { border-color: var(--accent-color-1); box-shadow: 0 0 15px rgba(var(--accent-rgb-1), 0.25); color: var(--accent-color-1); }
+  }
+
+  @keyframes badgePulseActive {
+    0%, 100% { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); }
+    40%, 80% { background: rgba(var(--accent-rgb-1), 0.08); border-color: var(--accent-color-2); color: var(--accent-color-2); box-shadow: 0 0 10px rgba(var(--accent-rgb-2), 0.1); }
+  }
+
+  /* ========================================
+     RESPONSIVE BREAKPOINTS
+  ======================================== */
+  @media (max-width: 960px) {
+    .sd-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .sd-card[data-card] {
+      grid-column: span 12 !important;
+    }
+
+    .sd-card--vert,
+    .sd-card--horiz {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .sd-card-content {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      padding: 1.8rem;
+    }
+
+    .sd-card-visual {
+      order: -1;
+      width: 100% !important;
+      margin-bottom: 1.8rem !important;
+      height: 160px !important; /* Increased to 160px to prevent clipping */
+      justify-content: center !important;
+    }
+
+    .sd-card--horiz .sd-card-text {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sd-section {
+      padding: 5rem 1.2rem;
+    }
+
+    .sd-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .sd-card-content {
+      padding: 1.4rem;
+    }
   }
 </style>
