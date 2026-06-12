@@ -155,7 +155,7 @@ export const translations = {
     footer_tagline: "Hecho con precisión en España.",
     footer_contact: "Contacto",
     footer_rights: "© 2026 Giralabs. Todos los derechos reservados.",
-    footer_email: "support@giralabs.com",
+    footer_email: "support@giralabs.es",
 
     // About Page
     about_page_title: "Nosotros",
@@ -209,31 +209,33 @@ export const translations = {
     legal_page_title: "Aviso Legal",
     legal_page_subtitle: "Términos, condiciones y aspectos legales de Giralabs.",
     legal_intro_title: "1. Información General",
-    legal_intro_desc: "En cumplimiento de la legislación aplicable, se informa que este sitio web es operado por Giralabs. Para cualquier consulta o contacto, puedes escribirnos a support@giralabs.com.",
+    legal_intro_desc: "Este sitio web es operado por Giralabs Estudio de Software S.L., con domicilio social en Madrid, España. Para cualquier consulta, comunicación o ejercicio de derechos, puede ponerse en contacto con nuestro equipo técnico y de soporte a través de la dirección de correo electrónico support@giralabs.es.",
     legal_terms_title: "2. Propiedad Intelectual",
-    legal_terms_desc: "Todos los contenidos de este sitio web, incluyendo textos, gráficos, interfaces y código de programación, son propiedad exclusiva de Giralabs y están protegidos por leyes nacionales e internacionales.",
+    legal_terms_desc: "Todo el software, código fuente, interfaces, sistemas de diseño, animaciones, wireframes, textos y elementos gráficos que componen esta web o nuestros productos son propiedad exclusiva de Giralabs, estando estrictamente prohibida su copia, distribución o ingeniería inversa sin consentimiento previo por escrito.",
     legal_limit_title: "3. Limitación de Responsabilidad",
-    legal_limit_desc: "Giralabs no se hace responsable de los daños directos o indirectos derivados del uso o imposibilidad de uso del sitio web, ni de posibles errores técnicos en los contenidos.",
+    legal_limit_desc: "Aunque nos esforzamos por garantizar la máxima disponibilidad técnica y la veracidad de los contenidos informados, Giralabs no asume responsabilidad alguna por posibles caídas del servicio técnico temporal, retrasos o errores tipográficos en el material expuesto.",
+    legal_jurisdiction_title: "4. Jurisdicción y Ley Aplicable",
+    legal_jurisdiction_desc: "Cualquier controversia relacionada con el uso de este sitio web estará sujeta a la legislación española y a la competencia de los Juzgados y Tribunales de la ciudad de Madrid, renunciando expresamente a cualquier otro fuero.",
 
     // Privacy Page
     privacy_page_title: "Política de Privacidad",
     privacy_page_subtitle: "Cómo protegemos y tratamos tus datos personales en Giralabs.",
     privacy_collect_title: "1. Datos que Recopilamos",
-    privacy_collect_desc: "Recopilamos únicamente los datos que nos proporcionas voluntariamente a través del formulario de contacto y suscripción a la newsletter (como nombre, email y detalles del proyecto).",
+    privacy_collect_desc: "Recopilamos información de contacto voluntaria (como nombres, correos electrónicos, especificaciones de proyectos y mensajes) a través de nuestros formularios interactivos y la suscripción a boletines de noticias. No utilizamos cookies de rastreo invasivas, solo análisis de tráfico anónimos para optimizar el rendimiento técnico de la web.",
     privacy_purpose_title: "2. Finalidad del Tratamiento",
-    privacy_purpose_desc: "Tus datos se utilizan exclusivamente para responder a tus solicitudes de contacto y enviarte actualizaciones de nuestra newsletter si te has suscrito.",
+    privacy_purpose_desc: "Los datos recopilados se procesan para gestionar presupuestos, responder preguntas de soporte y enviar información del blog/newsletter si ha dado su consentimiento explícito. Los datos no se venderán, cederán ni alquilarán a terceros bajo ningún concepto, siendo almacenados de forma segura bajo cifrado SSL.",
     privacy_rights_title: "3. Tus Derechos",
-    privacy_rights_desc: "Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición enviando un correo electrónico a support@giralabs.com en cualquier momento.",
+    privacy_rights_desc: "Bajo el Reglamento General de Protección de Datos (RGPD), usted dispone de los derechos de acceso, rectificación, supresión (olvido), limitación del tratamiento, portabilidad y oposición de sus datos personales. Puede ejercer cualquiera de ellos escribiéndonos a support@giralabs.es.",
 
     // Accessibility Page
     accessibility_page_title: "Declaración de Accesibilidad",
     accessibility_page_subtitle: "Compromiso de Giralabs con la accesibilidad web y la usabilidad para todos.",
     accessibility_standard_title: "1. Nuestro Compromiso",
-    accessibility_standard_desc: "Trabajamos activamente para que este sitio web sea accesible para el mayor número posible de usuarios, siguiendo las pautas WCAG 2.1 del nivel AA.",
+    accessibility_standard_desc: "Nos esforzamos para que el contenido de esta web sea accesible y utilizable para personas con diversidad funcional, apuntando a cumplir con las pautas de accesibilidad para el contenido web (WCAG 2.1) en su nivel de conformidad AA.",
     accessibility_features_title: "2. Características de Accesibilidad",
-    accessibility_features_desc: "El sitio cuenta con marcado HTML semántico, soporte para lectores de pantalla, combinaciones de colores legibles y navegación completa mediante teclado.",
+    accessibility_features_desc: "Este sitio incluye marcado HTML semántico riguroso para lectores de pantalla, soporte para zoom de texto nativo sin deformaciones del layout, combinaciones cromáticas de alto contraste, y atajos de teclado completos para una navegación libre de ratón.",
     accessibility_feedback_title: "3. Contacto y Sugerencias",
-    accessibility_feedback_desc: "Si encuentras dificultades de acceso o quieres realizarnos alguna sugerencia de mejora, por favor escríbenos a support@giralabs.com.",
+    accessibility_feedback_desc: "Si encuentras barreras de accesibilidad técnica, tienes dificultades para realizar alguna operación o quieres realizarnos alguna sugerencia de mejora, por favor ponte en contacto con nosotros escribiendo a support@giralabs.es.",
   },
 
   en: {
@@ -390,7 +392,7 @@ export const translations = {
     footer_tagline: "Crafted with precision in Spain.",
     footer_contact: "Contact",
     footer_rights: "© 2026 Giralabs. All rights reserved.",
-    footer_email: "support@giralabs.com",
+    footer_email: "support@giralabs.es",
 
     // About Page
     about_page_title: "About Us",
@@ -444,31 +446,33 @@ export const translations = {
     legal_page_title: "Legal Notice",
     legal_page_subtitle: "Terms, conditions, and legal aspects of Giralabs.",
     legal_intro_title: "1. General Information",
-    legal_intro_desc: "In compliance with applicable legislation, we inform you that this website is operated by Giralabs. For any inquiries or contact, you can write to us at support@giralabs.com.",
+    legal_intro_desc: "This website is operated by Giralabs Software Studio S.L., with registered offices in Madrid, Spain. For any inquiry, communication, or exercise of legal rights, you may contact our engineering and support team directly at support@giralabs.es.",
     legal_terms_title: "2. Intellectual Property",
-    legal_terms_desc: "All content on this website, including texts, graphics, interfaces, and programming code, is the exclusive property of Giralabs and is protected by national and international laws.",
+    legal_terms_desc: "All software, source code, user interfaces, design systems, animations, wireframes, text, and visual assets comprising this site are the intellectual property of Giralabs. Copying, distribution, or reverse-engineering without written consent is strictly prohibited.",
     legal_limit_title: "3. Limitation of Liability",
-    legal_limit_desc: "Giralabs is not liable for direct or indirect damages resulting from the use or inability to use this website, nor for possible technical errors in its content.",
+    legal_limit_desc: "While we strive to ensure maximum service uptime and content correctness, Giralabs assumes no liability for temporary server drops, communication delays, or potential typographic errors in the published content.",
+    legal_jurisdiction_title: "4. Jurisdiction and Applicable Law",
+    legal_jurisdiction_desc: "Any dispute related to the use of this website shall be governed by Spanish law and subject to the exclusive jurisdiction of the Courts of the city of Madrid, Spain.",
 
     // Privacy Page
     privacy_page_title: "Privacy Policy",
     privacy_page_subtitle: "How we protect and process your personal data at Giralabs.",
     privacy_collect_title: "1. Data We Collect",
-    privacy_collect_desc: "We only collect data that you voluntarily provide to us through the contact and newsletter subscription forms (such as name, email, and project details).",
+    privacy_collect_desc: "We collect contact information voluntarily provided by you (such as names, emails, project details, and messages) through our forms. We do not use intrusive tracking cookies, only anonymous traffic analytics to optimize site performance.",
     privacy_purpose_title: "2. Purpose of Processing",
-    privacy_purpose_desc: "Your data is used exclusively to respond to your contact requests and send you updates from our newsletter if you have subscribed.",
+    privacy_purpose_desc: "The collected data is processed to manage pricing estimates, reply to inquiries, and send blog updates if you opt-in. Your data will never be sold, leased, or shared with third parties, and it is stored securely using SSL/TLS encryption.",
     privacy_rights_title: "3. Your Rights",
-    privacy_rights_desc: "You can exercise your rights of access, rectification, erasure, and restriction by sending an email to support@giralabs.com at any time.",
+    privacy_rights_desc: "Under the General Data Protection Regulation (GDPR), you hold the right to access, rectify, erase, restrict processing, request portability, and object to the processing of your personal data. You can exercise these rights at support@giralabs.es.",
 
     // Accessibility Page
     accessibility_page_title: "Accessibility Statement",
     accessibility_page_subtitle: "Giralabs' commitment to web accessibility and usability for everyone.",
     accessibility_standard_title: "1. Our Commitment",
-    accessibility_standard_desc: "We actively work to make this website accessible to the maximum number of users, following the WCAG 2.1 Level AA guidelines.",
+    accessibility_standard_desc: "We work actively to make this website accessible to the broadest possible audience, aiming to meet the Web Content Accessibility Guidelines (WCAG 2.1) at the AA compliance level.",
     accessibility_features_title: "2. Accessibility Features",
-    accessibility_features_desc: "The site features semantic HTML markup, screen reader support, readable color combinations, and full keyboard navigation.",
+    accessibility_features_desc: "This site features structural semantic HTML markup optimized for screen readers, native text zooming without layout breaks, high-contrast color pairings, and full keyboard navigation support.",
     accessibility_feedback_title: "3. Contact and Feedback",
-    accessibility_feedback_desc: "If you experience any accessibility issues or would like to suggest improvements, please write to us at support@giralabs.com.",
+    accessibility_feedback_desc: "If you encounter any technical accessibility barriers or would like to suggest usability improvements, please contact us at support@giralabs.es.",
   },
 } as const;
 
