@@ -537,6 +537,35 @@ const T = translations[defaultLang];
     opacity: 1;
   }
 
+  .card-sweep {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    transition: none;
+    z-index: 1;
+  }
+
+  .value-card:hover .card-sweep,
+  .team-card:hover .card-sweep {
+    animation: shine 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  @keyframes shine {
+    100% {
+      left: 150%;
+    }
+  }
+
   .card-info {
     position: relative;
     z-index: 2;

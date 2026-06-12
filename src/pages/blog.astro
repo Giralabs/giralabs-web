@@ -383,22 +383,32 @@ const T = translations[defaultLang];
     opacity: 1;
   }
 
-  /* Laser sweep animation */
   .card-sweep {
     position: absolute;
-    inset: 0;
-    opacity: 0;
-    background: radial-gradient(350px circle at 0% 50%, rgba(0,0,0,0.05) 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    transition: none;
+    z-index: 1;
   }
 
   .blog-glass-card:hover .card-sweep {
-    animation: sweep 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: shine 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  @keyframes sweep {
-    0% { opacity: 0; transform: translateX(-60%); }
-    30%, 70% { opacity: 1; }
-    100% { opacity: 0; transform: translateX(60%); }
+  @keyframes shine {
+    100% {
+      left: 150%;
+    }
   }
 
   .card-inner {
