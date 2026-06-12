@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar.astro';
 import { translations } from '../../i18n/translations';
 import Footer from '../../components/Footer.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   return [
     { params: { slug: 'discovery' }, props: { index: 1, nextSlug: 'experience-design', nextIndex: 2 } },

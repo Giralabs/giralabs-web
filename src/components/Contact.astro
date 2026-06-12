@@ -58,12 +58,22 @@ const formTranslations = {
     booking_subtitle: "Elige un día y hora para reunirnos virtualmente y analizar los requisitos de tu producto (Google Meet).",
     booking_confirm: "Confirmar cita",
     booking_success_title: "¡Reunión Agendada!",
-    booking_success_desc: "Excelente. Hemos enviado una invitación de Google Meet para el día ",
-    booking_email_prompt: "Introduce tu correo para la invitación:",
-    booking_email_placeholder: "tu@correo.com",
+    booking_success_desc: "Te hemos enviado la invitación de Google Meet para el ",
+    booking_meet_btn: "Unirse a Google Meet →",
     booking_time_title: "Horas disponibles para el día",
     booking_nav_prev: "Anterior",
     booking_nav_next: "Siguiente",
+    // Booking form fields
+    booking_name_label: "Nombre completo",
+    booking_name_placeholder: "Tu nombre completo...",
+    booking_email_label: "Correo electrónico",
+    booking_email_placeholder: "tu@correo.com",
+    booking_company_label: "Empresa (opcional)",
+    booking_company_placeholder: "Nombre de tu empresa...",
+    booking_guests_label: "Invitados",
+    booking_add_guest_btn: "+ Añadir invitado",
+    booking_guest_placeholder: "correo@invitado.com",
+    booking_slot_unavailable: "No disponible",
     weekdays: ["L", "M", "X", "J", "V", "S", "D"],
     months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
   },
@@ -109,12 +119,22 @@ const formTranslations = {
     booking_subtitle: "Select a day and time to meet virtually and analyze your product requirements (Google Meet).",
     booking_confirm: "Confirm booking",
     booking_success_title: "Meeting Scheduled!",
-    booking_success_desc: "Excellent. We have sent a Google Meet invitation for ",
-    booking_email_prompt: "Enter your email for the invitation:",
-    booking_email_placeholder: "you@example.com",
+    booking_success_desc: "We've sent your Google Meet invitation for ",
+    booking_meet_btn: "Join Google Meet →",
     booking_time_title: "Available slots for",
     booking_nav_prev: "Prev",
     booking_nav_next: "Next",
+    // Booking form fields
+    booking_name_label: "Full name",
+    booking_name_placeholder: "Your full name...",
+    booking_email_label: "Email address",
+    booking_email_placeholder: "you@example.com",
+    booking_company_label: "Company (optional)",
+    booking_company_placeholder: "Your company name...",
+    booking_guests_label: "Guests",
+    booking_add_guest_btn: "+ Add guest",
+    booking_guest_placeholder: "guest@email.com",
+    booking_slot_unavailable: "Unavailable",
     weekdays: ["M", "T", "W", "T", "F", "S", "S"],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   }
@@ -288,6 +308,10 @@ const F = formTranslations[lang] || formTranslations.es;
           </div>
           <h3 class="overlay-title booking-success-title">{F.booking_success_title}</h3>
           <p class="overlay-desc booking-success-desc" id="booking-success-desc-text">{F.booking_success_desc}</p>
+          <a id="booking-meet-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="booking-meet-link-btn" style="display:none;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            {F.booking_meet_btn}
+          </a>
         </div>
 
         <div class="booking-card-content">
@@ -322,20 +346,69 @@ const F = formTranslations[lang] || formTranslations.es;
             </div>
           </div>
 
-          <!-- Quick Confirmation email field (Visible after selecting date & time slot) -->
+          <!-- Full Booking Form (visible after selecting date & time slot) -->
           <div class="booking-confirm-section" id="booking-confirm-panel">
-            <label for="booking-email-input" class="booking-email-label">{F.booking_email_prompt}</label>
-            <div class="booking-email-row">
-              <input 
-                type="email" 
-                id="booking-email-input" 
-                class="booking-email-input" 
-                placeholder={F.booking_email_placeholder}
+
+            <!-- Name -->
+            <div class="booking-form-row">
+              <label class="booking-field-label" id="lbl-booking-name">{F.booking_name_label} *</label>
+              <input
+                type="text"
+                id="booking-name-input"
+                class="booking-field-input"
+                placeholder={F.booking_name_placeholder}
+                autocomplete="name"
               />
+            </div>
+
+            <!-- Email -->
+            <div class="booking-form-row">
+              <label class="booking-field-label" id="lbl-booking-email">{F.booking_email_label} *</label>
+              <input
+                type="email"
+                id="booking-email-input"
+                class="booking-field-input"
+                placeholder={F.booking_email_placeholder}
+                autocomplete="email"
+              />
+            </div>
+
+            <!-- Company (optional) -->
+            <div class="booking-form-row">
+              <label class="booking-field-label" id="lbl-booking-company">{F.booking_company_label}</label>
+              <input
+                type="text"
+                id="booking-company-input"
+                class="booking-field-input"
+                placeholder={F.booking_company_placeholder}
+                autocomplete="organization"
+              />
+            </div>
+
+            <!-- Guests section -->
+            <div class="booking-guests-section">
+              <div class="booking-guests-header">
+                <label class="booking-field-label" id="lbl-booking-guests">{F.booking_guests_label}</label>
+                <button type="button" class="booking-add-guest-btn" id="booking-add-guest-btn">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  <span id="lbl-add-guest-btn">{F.booking_add_guest_btn}</span>
+                </button>
+              </div>
+              <div class="booking-guests-list" id="booking-guests-list"></div>
+            </div>
+
+            <!-- Submit -->
+            <div class="booking-submit-row">
               <button type="button" class="booking-submit-btn" id="booking-submit-btn">
                 <span id="booking-btn-text-content">{F.booking_confirm}</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
               </button>
             </div>
+
             <div class="booking-error-msg" id="booking-error-msg"></div>
           </div>
 
@@ -1041,11 +1114,16 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   :global(.calendar-day-btn.selected) {
-    background: #FF5A1F !important; /* orange accent for calendar date selection */
-    color: #FFF !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #000 !important;
     font-weight: 700 !important;
-    box-shadow: 0 6px 16px rgba(255, 90, 31, 0.4) !important;
-    transform: scale(1.05);
+    box-shadow:
+      0 4px 18px rgba(255, 255, 255, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.55) inset !important;
+    transform: scale(1.08);
   }
 
   /* ----------------------------------------
@@ -1199,13 +1277,242 @@ const F = formTranslations[lang] || formTranslations.es;
 
   .booking-error-msg {
     font-size: 0.8rem;
-    color: #ff3b30;
+    color: #ff6b61;
     margin-top: 0.3rem;
     display: none;
+    line-height: 1.5;
   }
 
   .booking-error-msg.show {
     display: block;
+  }
+
+  /* ----------------------------------------
+     Booking confirm form fields
+  ---------------------------------------- */
+  .booking-confirm-section {
+    display: none;
+    flex-direction: column;
+    gap: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+    animation: slideDownFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .booking-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .booking-field-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.32);
+  }
+
+  .booking-field-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #fff;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    outline: none;
+    font-family: inherit;
+    transition: all 0.22s;
+    box-sizing: border-box;
+  }
+
+  .booking-field-input::placeholder {
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  .booking-field-input:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .booking-field-input:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+  }
+
+  /* Guests section */
+  .booking-guests-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .booking-guests-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .booking-add-guest-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 100px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .booking-add-guest-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .booking-guests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  :global(.booking-guest-row) {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    animation: slideDownFade 0.25s ease forwards;
+  }
+
+  :global(.booking-guest-email-input) {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    outline: none;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  :global(.booking-guest-email-input::placeholder) {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.booking-guest-email-input:focus) {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  :global(.booking-guest-remove-btn) {
+    background: rgba(255, 59, 48, 0.12);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+    color: rgba(255, 100, 90, 0.9);
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  :global(.booking-guest-remove-btn:hover) {
+    background: rgba(255, 59, 48, 0.22);
+    border-color: rgba(255, 59, 48, 0.35);
+    color: #ff6b61;
+  }
+
+  /* Submit row */
+  .booking-submit-row {
+    display: flex;
+    justify-content: stretch;
+    margin-top: 0.3rem;
+  }
+
+  .booking-submit-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    color: #000 !important;
+    border-radius: 12px;
+    padding: 0.9rem 1.6rem;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    letter-spacing: -0.01em;
+  }
+
+  .booking-submit-btn:hover {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    color: #000 !important;
+    transform: translateY(-1.5px);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.25),
+      0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  }
+
+  .booking-submit-btn:disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Booked (unavailable) time slots */
+  :global(.time-slot-btn.booked) {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+    color: rgba(255, 255, 255, 0.18) !important;
+    cursor: default !important;
+    pointer-events: none !important;
+    text-decoration: line-through;
+  }
+
+  /* Meet link button in success overlay */
+  .booking-meet-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, #FF5A1F 0%, #ff7a45 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 0.85rem 1.8rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    box-shadow: 0 8px 24px rgba(255, 90, 31, 0.4);
+    transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .booking-meet-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(255, 90, 31, 0.5);
   }
 
   /* ----------------------------------------
@@ -1246,11 +1553,8 @@ const F = formTranslations[lang] || formTranslations.es;
     .form-overlay, .booking-overlay {
       padding: 2rem 1.5rem;
     }
-    .booking-email-row {
-      flex-direction: column;
-    }
-    .booking-submit-btn {
-      width: 100%;
+    .booking-field-input {
+      font-size: 0.95rem;
     }
   }
 </style>
@@ -1282,7 +1586,6 @@ const F = formTranslations[lang] || formTranslations.es;
     const timeSlotsGrid = document.getElementById("time-slots-grid");
 
     const confirmPanel = document.getElementById("booking-confirm-panel");
-    const bookingEmailInput = document.getElementById("booking-email-input");
     const bookingSubmitBtn = document.getElementById("booking-submit-btn");
     const bookingBtnText = document.getElementById("booking-btn-text-content");
     const bookingErrorMsg = document.getElementById("booking-error-msg");
@@ -1294,11 +1597,16 @@ const F = formTranslations[lang] || formTranslations.es;
     let calendarYear = currentDate.getFullYear();
     let calendarMonth = currentDate.getMonth();
 
-    // Selectable times
+    // Selectable times (single source of truth — must match API)
     const defaultTimeSlots = ["09:30", "11:00", "15:00", "16:30"];
-    let selectedDateString = "";
-    let selectedDateObj = null;
-    let selectedTimeSlot = "";
+    let selectedDateString = "";   // human-readable: "15 de Junio"
+    let selectedDateISO   = "";    // machine-readable: "2026-06-15"
+    let selectedDateObj   = null;
+    let selectedTimeSlot  = "";
+    let bookedSlotsForDate = [];   // slots already taken for the selected date
+
+    // Guest counter
+    let guestCount = 0;
 
     // ----------------------------------------
     // 2. MOUSE SPOTLIGHT ACTIONS
@@ -1395,11 +1703,14 @@ const F = formTranslations[lang] || formTranslations.es;
               dayBtn.classList.add("selected");
 
               selectedDateObj = thisDate;
-              
-              const formattedDate = lang === "es" 
-                ? `${day} de ${activeF.months[calendarMonth]}` 
+
+              const pad2 = (n) => String(n).padStart(2, '0');
+              selectedDateISO = `${calendarYear}-${pad2(calendarMonth + 1)}-${pad2(day)}`;
+
+              const formattedDate = lang === "es"
+                ? `${day} de ${activeF.months[calendarMonth]}`
                 : `${activeF.months[calendarMonth]} ${day}`;
-              
+
               selectedDateString = `${formattedDate}, ${calendarYear}`;
 
               revealTimeSlots(selectedDateString, lang);
@@ -1411,43 +1722,81 @@ const F = formTranslations[lang] || formTranslations.es;
       }
     }
 
-    function revealTimeSlots(dateText, lang) {
+    async function revealTimeSlots(dateText, lang) {
       if (!timeSlotsPanel || !timeSlotsGrid || !timeSlotsTitleLbl) return;
 
       const activeF = formTranslations[lang] || formTranslations.es;
       timeSlotsTitleLbl.textContent = `${activeF.booking_time_title} ${dateText.split(",")[0]}`;
-      
+
       timeSlotsGrid.innerHTML = "";
       selectedTimeSlot = "";
-      
+      bookedSlotsForDate = [];
+
       if (confirmPanel) confirmPanel.style.display = "none";
+
+      // Show loading state
+      timeSlotsPanel.style.display = "flex";
+      timeSlotsGrid.innerHTML = `<span style="color:rgba(255,255,255,0.25);font-size:0.8rem;">Cargando disponibilidad...</span>`;
+
+      // Fetch booked slots from the API
+      try {
+        if (selectedDateISO) {
+          const res = await fetch(`/api/bookings?date=${selectedDateISO}`);
+          if (res.ok) {
+            const data = await res.json();
+            bookedSlotsForDate = data.bookedSlots || [];
+          }
+        }
+      } catch (e) {
+        console.warn("[Giralabs] Could not fetch slot availability:", e);
+      }
+
+      timeSlotsGrid.innerHTML = "";
 
       defaultTimeSlots.forEach(time => {
         const slotBtn = document.createElement("button");
         slotBtn.type = "button";
-        slotBtn.className = "time-slot-btn";
-        slotBtn.textContent = time;
 
-        slotBtn.addEventListener("click", () => {
-          document.querySelectorAll(".time-slot-btn.selected").forEach(el => el.classList.remove("selected"));
-          slotBtn.classList.add("selected");
+        const isBooked = bookedSlotsForDate.includes(time);
+        slotBtn.className = isBooked ? "time-slot-btn booked" : "time-slot-btn";
+        slotBtn.textContent = isBooked ? `${time}` : time;
+        if (isBooked) slotBtn.disabled = true;
 
-          selectedTimeSlot = time;
-          revealConfirmPanel(lang);
-        });
+        if (!isBooked) {
+          slotBtn.addEventListener("click", () => {
+            document.querySelectorAll(".time-slot-btn.selected").forEach(el => el.classList.remove("selected"));
+            slotBtn.classList.add("selected");
+            selectedTimeSlot = time;
+            revealConfirmPanel(lang);
+          });
+        }
 
         timeSlotsGrid.appendChild(slotBtn);
       });
-
-      timeSlotsPanel.style.display = "flex";
     }
 
     function revealConfirmPanel(lang) {
-      if (!confirmPanel || !bookingEmailInput) return;
+      if (!confirmPanel) return;
 
+      // Pre-fill email from the contact form if not yet typed
+      const emailInput = document.getElementById("booking-email-input");
       const contactFormEmail = document.getElementById("form-email")?.value;
-      if (contactFormEmail && !bookingEmailInput.value) {
-        bookingEmailInput.value = contactFormEmail;
+      if (emailInput && contactFormEmail && !emailInput.value) {
+        emailInput.value = contactFormEmail;
+      }
+
+      // Pre-fill name from the contact form
+      const nameInput = document.getElementById("booking-name-input");
+      const contactFormName = document.getElementById("form-name")?.value;
+      if (nameInput && contactFormName && !nameInput.value) {
+        nameInput.value = contactFormName;
+      }
+
+      // Pre-fill company from the contact form
+      const companyInput = document.getElementById("booking-company-input");
+      const contactFormCompany = document.getElementById("form-company")?.value;
+      if (companyInput && contactFormCompany && !companyInput.value) {
+        companyInput.value = contactFormCompany;
       }
 
       confirmPanel.style.display = "flex";
@@ -1606,16 +1955,35 @@ const F = formTranslations[lang] || formTranslations.es;
       const bookingSubtitleEl = document.querySelector(".booking-subtitle");
       if (bookingSubtitleEl) bookingSubtitleEl.textContent = activeF.booking_subtitle;
 
-      const bookingEmailConfirmLbl = document.querySelector(".booking-email-label");
-      if (bookingEmailConfirmLbl && !selectedTimeSlot) {
-        bookingEmailConfirmLbl.textContent = activeF.booking_email_prompt;
-      }
+      // Booking form field labels
+      const lblBookingName = document.getElementById("lbl-booking-name");
+      if (lblBookingName) lblBookingName.textContent = activeF.booking_name_label + " *";
+      const lblBookingEmail = document.getElementById("lbl-booking-email");
+      if (lblBookingEmail) lblBookingEmail.textContent = activeF.booking_email_label + " *";
+      const lblBookingCompany = document.getElementById("lbl-booking-company");
+      if (lblBookingCompany) lblBookingCompany.textContent = activeF.booking_company_label;
+      const lblBookingGuests = document.getElementById("lbl-booking-guests");
+      if (lblBookingGuests) lblBookingGuests.textContent = activeF.booking_guests_label;
+      const lblAddGuestBtn = document.getElementById("lbl-add-guest-btn");
+      if (lblAddGuestBtn) lblAddGuestBtn.textContent = activeF.booking_add_guest_btn;
+
+      // Booking form placeholders
+      const bookingNameInput = document.getElementById("booking-name-input");
+      if (bookingNameInput) bookingNameInput.placeholder = activeF.booking_name_placeholder;
       const bookingEmailInputEl = document.getElementById("booking-email-input");
       if (bookingEmailInputEl) bookingEmailInputEl.placeholder = activeF.booking_email_placeholder;
-      
+      const bookingCompanyInput = document.getElementById("booking-company-input");
+      if (bookingCompanyInput) bookingCompanyInput.placeholder = activeF.booking_company_placeholder;
+
       const bookingSubmitBtnLbl = document.getElementById("booking-btn-text-content");
       if (bookingSubmitBtnLbl && !bookingSubmitBtn.disabled) {
         bookingSubmitBtnLbl.textContent = activeF.booking_confirm;
+      }
+
+      // Meet link button
+      const meetLinkBtnEl = document.getElementById("booking-meet-link-btn");
+      if (meetLinkBtnEl && meetLinkBtnEl.style.display !== "none") {
+        // Keep its href; just update the accessible text if needed
       }
 
       const bookingOverlayTitleEl = document.querySelector(".booking-success-title");
@@ -1680,16 +2048,98 @@ const F = formTranslations[lang] || formTranslations.es;
     });
 
     // ----------------------------------------
-    // 6. CALENDAR BOOKING SUBMISSION (AJAX)
+    // 6. GUEST MANAGEMENT (max 5)
+    // ----------------------------------------
+    const MAX_GUESTS = 5;
+    const addGuestBtn  = document.getElementById("booking-add-guest-btn");
+    const guestsList   = document.getElementById("booking-guests-list");
+
+    function updateAddGuestBtnState() {
+      if (!addGuestBtn || !guestsList) return;
+      const lang = document.documentElement.lang || "es";
+      const count = guestsList.querySelectorAll(".booking-guest-row").length;
+      const atLimit = count >= MAX_GUESTS;
+      addGuestBtn.style.opacity = atLimit ? "0.3" : "1";
+      addGuestBtn.style.pointerEvents = atLimit ? "none" : "auto";
+      addGuestBtn.title = atLimit
+        ? (lang === "es" ? `Máximo ${MAX_GUESTS} invitados` : `Maximum ${MAX_GUESTS} guests`)
+        : "";
+      // Update counter in label span (shows e.g. "(3/5)")
+      const span = document.getElementById("lbl-add-guest-btn");
+      if (span) {
+        const activeF = formTranslations[lang] || formTranslations.es;
+        span.textContent = count > 0
+          ? `${activeF.booking_add_guest_btn} (${count}/${MAX_GUESTS})`
+          : activeF.booking_add_guest_btn;
+      }
+    }
+
+    if (addGuestBtn && guestsList) {
+      addGuestBtn.addEventListener("click", () => {
+        const currentCount = guestsList.querySelectorAll(".booking-guest-row").length;
+        if (currentCount >= MAX_GUESTS) return;
+
+        guestCount++;
+        const lang = document.documentElement.lang || "es";
+        const activeF = formTranslations[lang] || formTranslations.es;
+
+        const row = document.createElement("div");
+        row.className = "booking-guest-row";
+        row.innerHTML = `
+          <input
+            type="email"
+            class="booking-guest-email-input"
+            placeholder="${activeF.booking_guest_placeholder}"
+            autocomplete="email"
+          />
+          <button type="button" class="booking-guest-remove-btn" aria-label="Eliminar invitado">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        `;
+        row.querySelector(".booking-guest-remove-btn").addEventListener("click", () => {
+          row.remove();
+          updateAddGuestBtnState();
+        });
+        guestsList.appendChild(row);
+        row.querySelector("input").focus();
+        updateAddGuestBtnState();
+      });
+    }
+
+    // ----------------------------------------
+    // 7. CALENDAR BOOKING SUBMISSION (API)
     // ----------------------------------------
     if (bookingSubmitBtn) {
       bookingSubmitBtn.addEventListener("click", async () => {
         const currentLang = document.documentElement.lang || "es";
         const activeF = formTranslations[currentLang] || formTranslations.es;
 
-        const email = bookingEmailInput.value.trim();
-        if (!email) {
-          bookingErrorMsg.textContent = activeF.error_desc.split(".")[0];
+        // Collect form values
+        const name    = document.getElementById("booking-name-input")?.value?.trim();
+        const email   = document.getElementById("booking-email-input")?.value?.trim();
+        const company = document.getElementById("booking-company-input")?.value?.trim();
+        const guestInputs = document.querySelectorAll(".booking-guest-email-input");
+        const guests  = Array.from(guestInputs)
+          .map(i => i.value.trim())
+          .filter(v => v && v.includes("@"));
+
+        // Validate
+        if (!name) {
+          bookingErrorMsg.textContent = currentLang === "es" ? "Por favor introduce tu nombre." : "Please enter your name.";
+          bookingErrorMsg.classList.add("show");
+          document.getElementById("booking-name-input")?.focus();
+          return;
+        }
+        if (!email || !email.includes("@")) {
+          bookingErrorMsg.textContent = currentLang === "es" ? "Por favor introduce un correo válido." : "Please enter a valid email.";
+          bookingErrorMsg.classList.add("show");
+          document.getElementById("booking-email-input")?.focus();
+          return;
+        }
+        if (!selectedDateISO || !selectedTimeSlot) {
+          bookingErrorMsg.textContent = currentLang === "es" ? "Selecciona fecha y hora primero." : "Please select a date and time first.";
           bookingErrorMsg.classList.add("show");
           return;
         }
@@ -1698,36 +2148,55 @@ const F = formTranslations[lang] || formTranslations.es;
         bookingSubmitBtn.disabled = true;
         bookingBtnText.textContent = activeF.sending;
 
-        const actionUrl = bookingCard.getAttribute("data-action");
-        const payload = {
-          email: email,
-          type: "Videollamada Google Meet (Giralabs)",
-          date: selectedDateString,
-          time: selectedTimeSlot
-        };
-
         try {
-          const response = await fetch(actionUrl, {
+          const response = await fetch("/api/bookings", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              dateISO: selectedDateISO,
+              dateFormatted: selectedDateString.split(",")[0],
+              time: selectedTimeSlot,
+              name,
+              email,
+              company,
+              guests,
+              lang: currentLang
+            })
           });
 
-          if (response.ok || response.status === 200) {
-            bookingOverlayDescText.innerHTML = `${activeF.booking_success_desc} <strong>${selectedDateString.split(",")[0]} a las ${selectedTimeSlot}</strong>.`;
+          const result = await response.json();
+
+          if (response.ok && result.meetLink) {
+            // Mark the slot as booked in the UI immediately
+            document.querySelectorAll(".time-slot-btn.selected").forEach(btn => {
+              btn.classList.remove("selected");
+              btn.classList.add("booked");
+              btn.disabled = true;
+            });
+            bookedSlotsForDate.push(selectedTimeSlot);
+
+            // Update success overlay
+            const dateLabel = selectedDateString.split(",")[0];
+            if (bookingOverlayDescText) {
+              bookingOverlayDescText.innerHTML =
+                `${activeF.booking_success_desc}<strong>${dateLabel} a las ${selectedTimeSlot}</strong>.`;
+            }
+
+            // Show Meet link button in overlay
+            const meetLinkBtn = document.getElementById("booking-meet-link-btn");
+            if (meetLinkBtn) {
+              meetLinkBtn.href = result.meetLink;
+              meetLinkBtn.style.display = "inline-flex";
+            }
+
             bookingOverlay.classList.add("show");
           } else {
-            const result = await response.json();
-            throw new Error(result.error || "Booking submission failed");
+            throw new Error(result.error || "Error al procesar la reserva");
           }
         } catch (error) {
-          console.error("Booking error:", error);
-          bookingErrorMsg.textContent = activeF.error_desc.split(".")[0];
+          console.error("[Giralabs] Booking error:", error);
+          bookingErrorMsg.textContent = error.message || activeF.error_desc.split(".")[0];
           bookingErrorMsg.classList.add("show");
-          
           bookingSubmitBtn.disabled = false;
           bookingBtnText.textContent = activeF.booking_confirm;
         }
