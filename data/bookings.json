@@ -1,0 +1,70 @@
+{
+  "byDate": {
+    "2026-06-17": {
+      "11:00": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [
+          "ecentiaseo@gmail.com"
+        ],
+        "meetLink": "https://meet.google.com/new",
+        "bookedAt": "2026-06-12T20:36:30.198Z"
+      },
+      "15:00": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [
+          "ecentiaseo@gmail.com"
+        ],
+        "meetLink": "https://meet.google.com/new",
+        "bookedAt": "2026-06-12T20:43:34.411Z"
+      }
+    },
+    "2026-06-19": {
+      "15:00": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [
+          "ecentiaseo@gmail.com"
+        ],
+        "meetLink": "https://meet.google.com/xpn-zkuj-zcq",
+        "bookedAt": "2026-06-12T20:49:54.431Z"
+      }
+    },
+    "2026-06-15": {
+      "15:00": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [
+          "ecentiaseo@gmail.com"
+        ],
+        "meetLink": "https://meet.google.com/cyu-uprh-ovc",
+        "bookedAt": "2026-06-12T21:00:01.406Z"
+      }
+    },
+    "2026-06-25": {
+      "09:30": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [
+          "ecentiaseo@gmail.com"
+        ],
+        "meetLink": "https://meet.google.com/byd-rzdz-nrw",
+        "bookedAt": "2026-06-12T21:15:53.820Z",
+        "cancelToken": "22e26c04-d819-4f7f-820f-c5731dba260c",
+        "dateFormatted": "25 de Junio"
+      }
+    }
+  },
+  "byToken": {
+    "22e26c04-d819-4f7f-820f-c5731dba260c": {
+      "dateISO": "2026-06-25",
+      "time": "09:30"
+    }
+  }
+}

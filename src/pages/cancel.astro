@@ -1,0 +1,344 @@
+---
+export const prerender = false;
+
+const token       = Astro.url.searchParams.get('token') ?? '';
+const cancelledBy = (Astro.url.searchParams.get('from') ?? 'client') as 'client' | 'giralabs';
+const isGiralabs  = cancelledBy === 'giralabs';
+
+// Server-side fetch of booking info
+let booking: {
+  dateISO: string; time: string; name: string; email: string;
+  company?: string; guests: string[]; dateFormatted: string;
+} | null = null;
+
+if (token) {
+  try {
+    const { getBookingByToken } = await import('../lib/bookings-store.js');
+    const found = await getBookingByToken(token);
+    if (found) {
+      booking = {
+        dateISO: found.dateISO,
+        time: found.time,
+        name: found.info.name,
+        email: found.info.email,
+        company: found.info.company,
+        guests: found.info.guests,
+        dateFormatted: found.info.dateFormatted ?? found.dateISO,
+      };
+    }
+  } catch (e) {
+    console.error('Cancel page lookup failed:', e);
+  }
+}
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cancelar reunión · Giralabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #080808;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(240,239,234,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 24px;
+      padding: 48px 44px;
+      max-width: 480px;
+      width: 100%;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      position: relative;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    /* ── NOT FOUND state ── */
+    .state-notfound .icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+    .state-notfound h1 {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 10px; color: #fff;
+    }
+    .state-notfound p { color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.65; }
+
+    /* ── CONFIRM state ── */
+    .badge {
+      display: inline-block;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 11px; font-weight: 700;
+      color: #f87171;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .state-confirm h1 {
+      font-size: 24px; font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .state-confirm .subtitle {
+      color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .booking-details {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+    }
+    .detail-row { display: flex; justify-content: space-between; padding: 8px 0; }
+    .detail-row:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .detail-label { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; }
+    .detail-value { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 600; text-align: right; }
+
+    .warning-box {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    .btn-danger {
+      width: 100%;
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: background 0.2s, transform 0.15s;
+      font-family: inherit;
+    }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-danger:active { transform: scale(0.98); }
+    .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-ghost {
+      width: 100%;
+      background: transparent;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      letter-spacing: -0.01em;
+      transition: border-color 0.2s, color 0.2s;
+      font-family: inherit;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+
+    /* ── SUCCESS state ── */
+    .state-success { display: none; text-align: center; }
+    .state-success .check-icon {
+      width: 64px; height: 64px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 24px;
+    }
+    .state-success h1 {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .state-success p { color: rgba(255,255,255,0.45); font-size: 14px; line-height: 1.65; margin-bottom: 28px; }
+    .btn-primary {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff; text-decoration: none;
+      border-radius: 12px; padding: 14px 28px;
+      font-size: 14px; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: rgba(255,255,255,0.12); }
+
+    /* ── ERROR state ── */
+    .error-msg {
+      display: none;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #f87171;
+      margin-top: 12px;
+    }
+    .error-msg.show { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <span class="logo">Giralabs</span>
+
+  {!token || !booking ? (
+    <!-- NOT FOUND -->
+    <div class="state-notfound">
+      <div class="icon">🔍</div>
+      <h1>Reserva no encontrada</h1>
+      <p>Este enlace de cancelación no es válido o la reunión ya fue cancelada previamente.</p>
+    </div>
+  ) : (
+    <>
+      <!-- CONFIRM -->
+      <div class="state-confirm" id="state-confirm">
+        <div class="badge">⚠️ Cancelar reunión</div>
+        <h1>¿Seguro que quieres cancelar?</h1>
+        <p class="subtitle">
+          {isGiralabs
+            ? `Estás a punto de cancelar la reunión con ${booking.name}. Se le notificará por correo.`
+            : `Estás a punto de cancelar tu reunión con Giralabs. Recibirás un correo de confirmación.`}
+        </p>
+
+        <div class="booking-details">
+          <div class="detail-row">
+            <span class="detail-label">Fecha</span>
+            <span class="detail-value">{booking.dateFormatted}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Hora</span>
+            <span class="detail-value">{booking.time} CET</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">{isGiralabs ? 'Cliente' : 'Con'}</span>
+            <span class="detail-value">{isGiralabs ? booking.name : 'Giralabs'}</span>
+          </div>
+          {booking.company && (
+            <div class="detail-row">
+              <span class="detail-label">Empresa</span>
+              <span class="detail-value">{booking.company}</span>
+            </div>
+          )}
+        </div>
+
+        <div class="warning-box">
+          ⚠️ Al confirmar, el horario quedará <strong style="color:rgba(255,255,255,0.7)">libre de nuevo</strong> y
+          {isGiralabs ? ` ${booking.name} recibirá un correo informándole de la cancelación.` : ' recibirás un correo de confirmación.'}
+        </div>
+
+        <button class="btn-danger" id="btn-confirm-cancel">
+          Sí, cancelar reunión
+        </button>
+        <button class="btn-ghost" onclick="history.back()">
+          No, volver atrás
+        </button>
+
+        <div class="error-msg" id="error-msg">
+          Error al cancelar la reserva. Por favor inténtalo de nuevo o escríbenos a giralabs.contact@gmail.com
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="state-success" id="state-success">
+        <div class="check-icon">✅</div>
+        <h1>Reunión cancelada</h1>
+        <p>
+          {isGiralabs
+            ? `Se ha cancelado la reunión con ${booking.name}. Se le ha notificado por correo.`
+            : 'Tu reunión ha sido cancelada correctamente. Recibirás un correo de confirmación.'}
+        </p>
+        <a href="/" class="btn-primary">Volver a Giralabs →</a>
+      </div>
+    </>
+  )}
+</div>
+
+{token && booking && (
+  <script define:vars={{ token, cancelledBy }}>
+    const btnConfirm = document.getElementById('btn-confirm-cancel');
+    const stateConfirm = document.getElementById('state-confirm');
+    const stateSuccess = document.getElementById('state-success');
+    const errorMsg = document.getElementById('error-msg');
+
+    btnConfirm?.addEventListener('click', async () => {
+      btnConfirm.disabled = true;
+      btnConfirm.textContent = 'Cancelando...';
+      errorMsg?.classList.remove('show');
+
+      try {
+        const res = await fetch('/api/cancel', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, cancelledBy }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.ok) {
+          stateConfirm.style.display = 'none';
+          stateSuccess.style.display = 'block';
+        } else if (data.error === 'not_found') {
+          errorMsg.textContent = 'Esta reserva ya fue cancelada previamente o no existe.';
+          errorMsg?.classList.add('show');
+          btnConfirm.disabled = false;
+          btnConfirm.textContent = 'Sí, cancelar reunión';
+        } else {
+          errorMsg?.classList.add('show');
+          btnConfirm.disabled = false;
+          btnConfirm.textContent = 'Sí, cancelar reunión';
+        }
+      } catch {
+        errorMsg?.classList.add('show');
+        btnConfirm.disabled = false;
+        btnConfirm.textContent = 'Sí, cancelar reunión';
+      }
+    });
+  </script>
+)}
+
+</body>
+</html>
