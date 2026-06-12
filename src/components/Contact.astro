@@ -196,23 +196,49 @@ const F = formTranslations[lang] || formTranslations.es;
           <!-- Referral Source dropdown -->
           <div class="form-field">
             <label for="form-how-heard" class="form-label">{F.how_heard} *</label>
-            <select id="form-how-heard" name="how_heard" required class="form-select">
-              <option value="" disabled selected>{F.select_how}</option>
-              {F.options_how.map((opt) => (
-                <option value={opt}>{opt}</option>
-              ))}
-            </select>
+            <div class="custom-select-container" id="container-how-heard">
+              <select id="form-how-heard" name="how_heard" required class="native-hidden-select" tabIndex="-1">
+                <option value="" disabled selected>{F.select_how}</option>
+                {F.options_how.map((opt) => (
+                  <option value={opt}>{opt}</option>
+                ))}
+              </select>
+              <button type="button" class="custom-select-trigger" id="how-heard-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="custom-select-value">{F.select_how}</span>
+                <svg class="custom-select-chevron" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <div class="custom-select-dropdown" role="listbox" aria-label={F.how_heard}>
+                {F.options_how.map((opt) => (
+                  <div class="custom-select-option" role="option" data-value={opt}>{opt}</div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <!-- Service Category dropdown -->
           <div class="form-field full-width">
             <label for="form-service" class="form-label">{F.service} *</label>
-            <select id="form-service" name="service" required class="form-select">
-              <option value="" disabled selected>{F.select_service}</option>
-              {F.options_services.map((opt) => (
-                <option value={opt}>{opt}</option>
-              ))}
-            </select>
+            <div class="custom-select-container" id="container-service">
+              <select id="form-service" name="service" required class="native-hidden-select" tabIndex="-1">
+                <option value="" disabled selected>{F.select_service}</option>
+                {F.options_services.map((opt) => (
+                  <option value={opt}>{opt}</option>
+                ))}
+              </select>
+              <button type="button" class="custom-select-trigger" id="service-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="custom-select-value">{F.select_service}</span>
+                <svg class="custom-select-chevron" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <div class="custom-select-dropdown" role="listbox" aria-label={F.service}>
+                {F.options_services.map((opt) => (
+                  <div class="custom-select-option" role="option" data-value={opt}>{opt}</div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <!-- Project Details Textarea -->
@@ -460,11 +486,17 @@ const F = formTranslations[lang] || formTranslations.es;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    position: relative;
     transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .form-field:focus-within {
     transform: translateY(-2px);
+    z-index: 10;
+  }
+
+  .form-field.open {
+    z-index: 20;
   }
 
   .form-field.full-width {
@@ -540,6 +572,158 @@ const F = formTranslations[lang] || formTranslations.es;
     color: #000;
   }
 
+  /* ========================================
+     CUSTOM DROPDOWNS (Glassmorphism Effect)
+     ======================================== */
+  .custom-select-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .native-hidden-select {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    bottom: 0;
+    left: 50%;
+  }
+
+  .custom-select-trigger {
+    width: 100%;
+    padding: 0.95rem 1.25rem;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: rgba(0, 0, 0, 0.3); /* Placeholder color */
+    outline: none;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.005) inset,
+      0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .custom-select-trigger.has-value {
+    color: #000;
+  }
+
+  .custom-select-trigger:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+
+  .custom-select-trigger:focus,
+  .custom-select-container.open .custom-select-trigger {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.02),
+      0 0 0 3px rgba(255, 255, 255, 0.4);
+  }
+
+  .custom-select-chevron {
+    color: rgba(0, 0, 0, 0.5);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+  }
+
+  .custom-select-container.open .custom-select-chevron {
+    transform: rotate(180deg);
+  }
+
+  .custom-select-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: rgba(240, 239, 234, 0.88);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 0.5rem 0.35rem 0.5rem 0.5rem;
+    box-shadow: 
+      0 12px 30px rgba(0, 0, 0, 0.08),
+      0 0 0 0.5px rgba(0, 0, 0, 0.02) inset,
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: 
+      opacity 0.25s ease, 
+      transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+      visibility 0.25s;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    max-height: 280px;
+    overflow-y: auto;
+
+    /* Firefox Scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+  }
+
+  .custom-select-dropdown::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-select-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-select-dropdown::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.12);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+  }
+  .custom-select-dropdown::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .custom-select-container.open .custom-select-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .custom-select-option {
+    display: block;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    color: #555;
+    text-decoration: none;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .custom-select-option:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000;
+    transform: translateX(3px);
+  }
+
+  .custom-select-option.selected {
+    background: rgba(0, 0, 0, 0.06);
+    color: #000;
+    font-weight: 600;
+  }
+
   /* Submit styles */
   .submit-wrapper {
     display: flex;
@@ -548,15 +732,40 @@ const F = formTranslations[lang] || formTranslations.es;
 
   .contact-form-submit {
     padding: 0.9rem 2.8rem !important;
+    font-size: 0.8rem;
     font-weight: 600;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    border: none;
     outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 100px;
+    
+    /* Pioneers CTA glass effect */
+    background: rgba(20, 20, 20, 0.82) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    color: #fff !important;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset !important;
+    transition: background 0.25s ease, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .contact-form-submit:hover {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.2),
+      0 1px 0 rgba(255, 255, 255, 0.18) inset !important;
   }
 
   .contact-form-submit:disabled {
-    opacity: 0.65;
+    opacity: 0.5;
     pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
   }
 
   /* Feedback messages */
@@ -872,27 +1081,31 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   :global(.time-slot-btn) {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     font-size: 0.8rem;
     font-weight: 600;
     padding: 0.55rem 1.1rem;
     border-radius: 100px;
     cursor: pointer;
     font-family: inherit;
-    transition: all 0.2s ease;
+    transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   :global(.time-slot-btn:hover) {
-    background: rgba(255, 255, 255, 0.09) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
     color: #FFF !important;
   }
 
   :global(.time-slot-btn.selected) {
-    background: #FFF !important;
-    border-color: #FFF !important;
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
     color: #000 !important;
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15) !important;
   }
@@ -946,31 +1159,42 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   .booking-submit-btn {
-    background: #FFF;
-    color: #000;
-    border: none;
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #000 !important;
     border-radius: 12px;
     padding: 0.8rem 1.6rem;
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
     font-family: inherit;
-    transition: all 0.22s;
+    transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow:
+      0 4px 15px rgba(0, 0, 0, 0.15),
+      0 1px 0 rgba(255, 255, 255, 0.4) inset;
   }
 
   .booking-submit-btn:hover {
-    background: rgba(255, 255, 255, 0.95);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    color: #000 !important;
+    transform: translateY(-1.5px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.22),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
   }
 
   .booking-submit-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.4;
     pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
   }
 
   .booking-error-msg {
@@ -1313,6 +1537,57 @@ const F = formTranslations[lang] || formTranslations.es;
         });
       }
 
+      // Update custom select options and triggers
+      const containerHow = document.getElementById("container-how-heard");
+      if (containerHow) {
+        const trigger = containerHow.querySelector(".custom-select-trigger");
+        const valSpan = trigger.querySelector(".custom-select-value");
+        const nativeSelect = containerHow.querySelector(".native-hidden-select");
+        const customOptions = containerHow.querySelectorAll(".custom-select-option");
+
+        customOptions.forEach((optEl, idx) => {
+          const optText = activeF.options_how[idx];
+          if (optText) {
+            optEl.textContent = optText;
+            optEl.setAttribute("data-value", optText);
+          }
+        });
+
+        if (!trigger.classList.contains("has-value")) {
+          valSpan.textContent = activeF.select_how;
+        } else {
+          const selectedIdx = nativeSelect.selectedIndex - 1;
+          if (selectedIdx >= 0 && activeF.options_how[selectedIdx]) {
+            valSpan.textContent = activeF.options_how[selectedIdx];
+          }
+        }
+      }
+
+      const containerService = document.getElementById("container-service");
+      if (containerService) {
+        const trigger = containerService.querySelector(".custom-select-trigger");
+        const valSpan = trigger.querySelector(".custom-select-value");
+        const nativeSelect = containerService.querySelector(".native-hidden-select");
+        const customOptions = containerService.querySelectorAll(".custom-select-option");
+
+        customOptions.forEach((optEl, idx) => {
+          const optText = activeF.options_services[idx];
+          if (optText) {
+            optEl.textContent = optText;
+            optEl.setAttribute("data-value", optText);
+          }
+        });
+
+        if (!trigger.classList.contains("has-value")) {
+          valSpan.textContent = activeF.select_service;
+        } else {
+          const selectedIdx = nativeSelect.selectedIndex - 1;
+          if (selectedIdx >= 0 && activeF.options_services[selectedIdx]) {
+            valSpan.textContent = activeF.options_services[selectedIdx];
+          }
+        }
+      }
+
       // Submit Contact Button text
       if (contactBtnText && !contactSubmitBtn.disabled) {
         contactBtnText.textContent = activeF.submit;
@@ -1458,6 +1733,93 @@ const F = formTranslations[lang] || formTranslations.es;
         }
       });
     }
+
+    // ----------------------------------------
+    // Custom Dropdown Handling & Initialization
+    // ----------------------------------------
+    const customSelects = document.querySelectorAll(".custom-select-container");
+    customSelects.forEach(container => {
+      const trigger = container.querySelector(".custom-select-trigger");
+      const valSpan = trigger.querySelector(".custom-select-value");
+      const nativeSelect = container.querySelector(".native-hidden-select");
+      const options = container.querySelectorAll(".custom-select-option");
+
+      // Toggle dropdown open
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        
+        // Close other custom selects first
+        customSelects.forEach(other => {
+          if (other !== container) {
+            other.classList.remove("open");
+            other.parentElement.classList.remove("open");
+            other.querySelector(".custom-select-trigger").setAttribute("aria-expanded", "false");
+          }
+        });
+
+        const isOpen = container.classList.contains("open");
+        container.classList.toggle("open", !isOpen);
+        container.parentElement.classList.toggle("open", !isOpen);
+        trigger.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      // Handle option click
+      options.forEach(option => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const val = option.getAttribute("data-value");
+          
+          // Set native select value
+          nativeSelect.value = val;
+          nativeSelect.dispatchEvent(new Event("change"));
+
+          // Update trigger visual state
+          valSpan.textContent = option.textContent;
+          trigger.classList.add("has-value");
+
+          // Update selected visual state on options
+          options.forEach(opt => opt.classList.remove("selected"));
+          option.classList.add("selected");
+
+          // Close dropdown
+          container.classList.remove("open");
+          container.parentElement.classList.remove("open");
+          trigger.setAttribute("aria-expanded", "false");
+        });
+      });
+    });
+
+    // Close dropdowns on click outside
+    document.addEventListener("click", () => {
+      customSelects.forEach(container => {
+        container.classList.remove("open");
+        container.parentElement.classList.remove("open");
+        container.querySelector(".custom-select-trigger").setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Handle form reset
+    contactForm.addEventListener("reset", () => {
+      customSelects.forEach(container => {
+        const trigger = container.querySelector(".custom-select-trigger");
+        const valSpan = trigger.querySelector(".custom-select-value");
+        const nativeSelect = container.querySelector(".native-hidden-select");
+        const options = container.querySelectorAll(".custom-select-option");
+
+        trigger.classList.remove("has-value");
+        container.classList.remove("open");
+        container.parentElement.classList.remove("open");
+        options.forEach(opt => opt.classList.remove("selected"));
+
+        const currentLang = document.documentElement.lang || "es";
+        const activeF = formTranslations[currentLang] || formTranslations.es;
+        if (nativeSelect.id === "form-how-heard") {
+          valSpan.textContent = activeF.select_how;
+        } else if (nativeSelect.id === "form-service") {
+          valSpan.textContent = activeF.select_service;
+        }
+      });
+    });
   }
 
   // Support both standard page loads and View Transitions (astro:page-load)

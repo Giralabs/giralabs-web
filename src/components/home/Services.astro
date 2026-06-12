@@ -453,49 +453,13 @@ const T = translations[lang];
     width: 100%;
   }
 
-  /* Robust layout selectors + Accent bindings */
-  .sd-card[data-card="1"] {
-    grid-column: span 7;
-    --accent-color-1: #ff7d3b;
-    --accent-rgb-1: 255, 125, 59;
-    --accent-color-2: #ff2a85;
-    --accent-rgb-2: 255, 42, 133;
-  }
-  .sd-card[data-card="2"] {
-    grid-column: span 5;
-    --accent-color-1: #00f0ff;
-    --accent-rgb-1: 0, 240, 255;
-    --accent-color-2: #7000ff;
-    --accent-rgb-2: 112, 0, 255;
-  }
-  .sd-card[data-card="3"] {
-    grid-column: span 5;
-    --accent-color-1: #3d8bff;
-    --accent-rgb-1: 61, 139, 255;
-    --accent-color-2: #00f5a0;
-    --accent-rgb-2: 0, 245, 160;
-  }
-  .sd-card[data-card="4"] {
-    grid-column: span 7;
-    --accent-color-1: #00e676;
-    --accent-rgb-1: 0, 230, 118;
-    --accent-color-2: #baff00;
-    --accent-rgb-2: 186, 255, 0;
-  }
-  .sd-card[data-card="5"] {
-    grid-column: span 6;
-    --accent-color-1: #a855f7;
-    --accent-rgb-1: 168, 85, 247;
-    --accent-color-2: #ff007f;
-    --accent-rgb-2: 255, 0, 127;
-  }
-  .sd-card[data-card="6"] {
-    grid-column: span 6;
-    --accent-color-1: #eab308;
-    --accent-rgb-1: 234, 179, 8;
-    --accent-color-2: #ff5722;
-    --accent-rgb-2: 255, 87, 34;
-  }
+  /* Robust layout selectors */
+  .sd-card[data-card="1"] { grid-column: span 7; }
+  .sd-card[data-card="2"] { grid-column: span 5; }
+  .sd-card[data-card="3"] { grid-column: span 5; }
+  .sd-card[data-card="4"] { grid-column: span 7; }
+  .sd-card[data-card="5"] { grid-column: span 6; }
+  .sd-card[data-card="6"] { grid-column: span 6; }
 
   /* ========================================
      CARD BASE STRUCTURE
@@ -510,6 +474,10 @@ const T = translations[lang];
       transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     display: flex;
     text-decoration: none; /* Prevent underlines inside links */
+    --accent-color-1: #ffffff;
+    --accent-rgb-1: 255, 255, 255;
+    --accent-color-2: #8e8e93;
+    --accent-rgb-2: 142, 142, 147;
   }
 
   .sd-card.is-active:hover {
@@ -701,11 +669,11 @@ const T = translations[lang];
   }
 
   .sd-card.is-active .sd-card-glow {
-    opacity: 0.22; /* High color presence when scroll-activated */
+    opacity: 0.12; /* High color presence when scroll-activated */
   }
 
   .sd-card.is-active:hover .sd-card-glow {
-    opacity: 0.38; /* Extra color presence on hover */
+    opacity: 0.24; /* Extra color presence on hover */
   }
 
   .sd-card-glow-1 {
@@ -1115,9 +1083,9 @@ const T = translations[lang];
     height: 4px;
     border-radius: 50%;
   }
-  .t-dot-r { background: #ff5f56; }
-  .t-dot-y { background: #ffbd2e; }
-  .t-dot-g { background: #27c93f; }
+  .t-dot-r { background: #333333; }
+  .t-dot-y { background: #666666; }
+  .t-dot-g { background: #aaaaaa; }
 
   .terminal-lines {
     display: flex;
