@@ -199,6 +199,41 @@ export const translations = {
     error_404_subtitle: "Página no encontrada",
     error_404_desc: "Lo sentimos, la página que estás buscando no existe, ha sido eliminada o ha cambiado de dirección.",
     error_404_btn: "Volver al inicio",
+
+    // Footer bottom links
+    footer_legal: "Aviso Legal",
+    footer_privacy: "Política de Privacidad",
+    footer_accessibility: "Accesibilidad",
+
+    // Legal Page
+    legal_page_title: "Aviso Legal",
+    legal_page_subtitle: "Términos, condiciones y aspectos legales de Giralabs.",
+    legal_intro_title: "1. Información General",
+    legal_intro_desc: "En cumplimiento de la legislación aplicable, se informa que este sitio web es operado por Giralabs. Para cualquier consulta o contacto, puedes escribirnos a support@giralabs.com.",
+    legal_terms_title: "2. Propiedad Intelectual",
+    legal_terms_desc: "Todos los contenidos de este sitio web, incluyendo textos, gráficos, interfaces y código de programación, son propiedad exclusiva de Giralabs y están protegidos por leyes nacionales e internacionales.",
+    legal_limit_title: "3. Limitación de Responsabilidad",
+    legal_limit_desc: "Giralabs no se hace responsable de los daños directos o indirectos derivados del uso o imposibilidad de uso del sitio web, ni de posibles errores técnicos en los contenidos.",
+
+    // Privacy Page
+    privacy_page_title: "Política de Privacidad",
+    privacy_page_subtitle: "Cómo protegemos y tratamos tus datos personales en Giralabs.",
+    privacy_collect_title: "1. Datos que Recopilamos",
+    privacy_collect_desc: "Recopilamos únicamente los datos que nos proporcionas voluntariamente a través del formulario de contacto y suscripción a la newsletter (como nombre, email y detalles del proyecto).",
+    privacy_purpose_title: "2. Finalidad del Tratamiento",
+    privacy_purpose_desc: "Tus datos se utilizan exclusivamente para responder a tus solicitudes de contacto y enviarte actualizaciones de nuestra newsletter si te has suscrito.",
+    privacy_rights_title: "3. Tus Derechos",
+    privacy_rights_desc: "Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición enviando un correo electrónico a support@giralabs.com en cualquier momento.",
+
+    // Accessibility Page
+    accessibility_page_title: "Declaración de Accesibilidad",
+    accessibility_page_subtitle: "Compromiso de Giralabs con la accesibilidad web y la usabilidad para todos.",
+    accessibility_standard_title: "1. Nuestro Compromiso",
+    accessibility_standard_desc: "Trabajamos activamente para que este sitio web sea accesible para el mayor número posible de usuarios, siguiendo las pautas WCAG 2.1 del nivel AA.",
+    accessibility_features_title: "2. Características de Accesibilidad",
+    accessibility_features_desc: "El sitio cuenta con marcado HTML semántico, soporte para lectores de pantalla, combinaciones de colores legibles y navegación completa mediante teclado.",
+    accessibility_feedback_title: "3. Contacto y Sugerencias",
+    accessibility_feedback_desc: "Si encuentras dificultades de acceso o quieres realizarnos alguna sugerencia de mejora, por favor escríbenos a support@giralabs.com.",
   },
 
   en: {
@@ -399,6 +434,41 @@ export const translations = {
     error_404_subtitle: "Page not found",
     error_404_desc: "Sorry, the page you are looking for does not exist, has been removed, or has changed its address.",
     error_404_btn: "Go back home",
+
+    // Footer bottom links
+    footer_legal: "Legal Notice",
+    footer_privacy: "Privacy Policy",
+    footer_accessibility: "Accessibility",
+
+    // Legal Page
+    legal_page_title: "Legal Notice",
+    legal_page_subtitle: "Terms, conditions, and legal aspects of Giralabs.",
+    legal_intro_title: "1. General Information",
+    legal_intro_desc: "In compliance with applicable legislation, we inform you that this website is operated by Giralabs. For any inquiries or contact, you can write to us at support@giralabs.com.",
+    legal_terms_title: "2. Intellectual Property",
+    legal_terms_desc: "All content on this website, including texts, graphics, interfaces, and programming code, is the exclusive property of Giralabs and is protected by national and international laws.",
+    legal_limit_title: "3. Limitation of Liability",
+    legal_limit_desc: "Giralabs is not liable for direct or indirect damages resulting from the use or inability to use this website, nor for possible technical errors in its content.",
+
+    // Privacy Page
+    privacy_page_title: "Privacy Policy",
+    privacy_page_subtitle: "How we protect and process your personal data at Giralabs.",
+    privacy_collect_title: "1. Data We Collect",
+    privacy_collect_desc: "We only collect data that you voluntarily provide to us through the contact and newsletter subscription forms (such as name, email, and project details).",
+    privacy_purpose_title: "2. Purpose of Processing",
+    privacy_purpose_desc: "Your data is used exclusively to respond to your contact requests and send you updates from our newsletter if you have subscribed.",
+    privacy_rights_title: "3. Your Rights",
+    privacy_rights_desc: "You can exercise your rights of access, rectification, erasure, and restriction by sending an email to support@giralabs.com at any time.",
+
+    // Accessibility Page
+    accessibility_page_title: "Accessibility Statement",
+    accessibility_page_subtitle: "Giralabs' commitment to web accessibility and usability for everyone.",
+    accessibility_standard_title: "1. Our Commitment",
+    accessibility_standard_desc: "We actively work to make this website accessible to the maximum number of users, following the WCAG 2.1 Level AA guidelines.",
+    accessibility_features_title: "2. Accessibility Features",
+    accessibility_features_desc: "The site features semantic HTML markup, screen reader support, readable color combinations, and full keyboard navigation.",
+    accessibility_feedback_title: "3. Contact and Feedback",
+    accessibility_feedback_desc: "If you experience any accessibility issues or would like to suggest improvements, please write to us at support@giralabs.com.",
   },
 } as const;
 

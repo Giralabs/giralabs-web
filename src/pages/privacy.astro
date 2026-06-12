@@ -1,0 +1,298 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { translations } from '../i18n/translations';
+import Footer from '../components/Footer.astro';
+
+const defaultLang = 'es';
+const T = translations[defaultLang];
+---
+
+<Layout
+  title={`${T.privacy_page_title} | ${T.meta_title}`}
+  description={T.meta_description}
+  lang={defaultLang}
+>
+  <!-- Global dot-grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  
+  <!-- Ambient glowing blobs -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <Navbar lang={defaultLang} />
+
+  <!-- ==================== HERO HEADER ==================== -->
+  <header class="privacy-hero reveal">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">PRIVACIDAD</span>
+      <h1 class="hero-title" data-i18n="privacy_page_title">{T.privacy_page_title}</h1>
+      <p class="hero-subtitle" data-i18n="privacy_page_subtitle">{T.privacy_page_subtitle}</p>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENT SHEET ==================== -->
+  <main class="privacy-container">
+    <article class="privacy-card reveal">
+      <div class="card-border"></div>
+      <div class="card-effects">
+        <div class="card-spotlight"></div>
+      </div>
+      
+      <div class="card-inner">
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_collect_title">{T.privacy_collect_title}</h2>
+          <p class="section-text" data-i18n="privacy_collect_desc">{T.privacy_collect_desc}</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_purpose_title">{T.privacy_purpose_title}</h2>
+          <p class="section-text" data-i18n="privacy_purpose_desc">{T.privacy_purpose_desc}</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_rights_title">{T.privacy_rights_title}</h2>
+          <p class="section-text" data-i18n="privacy_rights_desc">{T.privacy_rights_desc}</p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer lang={defaultLang} />
+
+  <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
+  <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
+    let currentLang = document.documentElement.lang || 'es';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      const T = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[key] !== undefined) {
+          if (key === 'how_title' || key === 'sd_title') {
+            el.innerHTML = T[key].replace(/\n/g, '<br/>');
+          } else if (T[key].includes('<') || key === 'hero_tagline') {
+            el.innerHTML = T[key];
+          } else {
+            el.textContent = T[key];
+          }
+        }
+      });
+      document.documentElement.lang = lang;
+      document.title = T.privacy_page_title + " | " + T.meta_title;
+    }
+
+    // Detect and apply saved language on load
+    const savedLang = localStorage.getItem('giralabs-lang');
+    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+      applyLang(savedLang);
+    }
+
+    // Listen to navbar's language changes
+    document.addEventListener('giralabs:lang', (e) => {
+      applyLang(e.detail.lang);
+    });
+
+    // Spotlight mouse tracking for advanced glass card
+    const glassCard = document.querySelector('.privacy-card');
+    if (glassCard) {
+      glassCard.addEventListener('mousemove', (e) => {
+        const rect = glassCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        glassCard.style.setProperty('--mx', x + 'px');
+        glassCard.style.setProperty('--my', y + 'px');
+      });
+    }
+
+    // Trigger visual scroll animations
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</Layout>
+
+<style>
+  /* ========================================
+     GLOBAL VARIABLES & ACCENTS
+     ======================================== */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  /* Ambient glowing blobs */
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+  }
+
+  .glow-top {
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
+  }
+
+  .glow-bottom {
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
+  }
+
+  /* ========================================
+     HERO SEGMENT
+     ======================================== */
+  .privacy-hero {
+    position: relative;
+    padding: 10rem 2rem 3rem;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.4);
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #000;
+    margin: 0 0 1.2rem;
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.02rem, 3vw, 1.2rem);
+    color: rgba(0,0,0,0.55);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ========================================
+     PRIVACY CONTAINER & CARD
+     ======================================== */
+  .privacy-container {
+    position: relative;
+    z-index: 2;
+    padding: 0 2rem 6rem;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  .privacy-card {
+    position: relative;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    overflow: hidden;
+    box-shadow: 
+      0 10px 32px rgba(0,0,0,0.02),
+      0 0 0 0.5px rgba(0,0,0,0.02) inset,
+      0 1px 0 rgba(255,255,255,0.7) inset;
+  }
+
+  .card-border {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    z-index: 2;
+  }
+
+  .card-effects {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 28px;
+  }
+
+  .card-spotlight {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(350px circle at var(--mx, 0px) var(--my, 0px), rgba(0,0,0,0.03) 0%, rgba(255,255,255,0.2) 60%, transparent 100%);
+    transition: opacity 0.5s ease;
+  }
+
+  .privacy-card:hover .card-spotlight {
+    opacity: 1;
+  }
+
+  .card-inner {
+    position: relative;
+    z-index: 2;
+    padding: 4.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  /* ========================================
+     SECTIONS CONTROLLER
+     ======================================== */
+  .privacy-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+    color: rgba(0,0,0,0.6);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ========================================
+     RESPONSIVE BREAKPOINTS
+     ======================================== */
+  @media (max-width: 600px) {
+    .privacy-container { padding: 0 1.5rem 4rem; }
+    .card-inner { padding: 3rem 2rem; gap: 2.5rem; }
+    .privacy-hero { padding: 8rem 1.5rem 2.5rem; }
+  }
+</style>

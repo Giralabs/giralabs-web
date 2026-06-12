@@ -56,6 +56,13 @@ const T = translations[lang];
       <span class="footer-tagline" data-i18n="footer_tagline"
         >{T.footer_tagline}</span
       >
+      <div class="footer-bottom-links">
+        <a href="/legal" class="footer-sublink" data-i18n="footer_legal">{T.footer_legal}</a>
+        <span class="footer-sublink-sep">•</span>
+        <a href="/privacy" class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
+        <span class="footer-sublink-sep">•</span>
+        <a href="/accessibility" class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
+      </div>
       <span class="footer-rights" data-i18n="footer_rights"
         >{T.footer_rights}</span
       >
@@ -130,10 +137,36 @@ const T = translations[lang];
     font-weight: 400;
   }
 
+  .footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-sublink {
+    font-size: 0.76rem;
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-sublink:hover {
+    color: #000;
+  }
+
+  .footer-sublink-sep {
+    font-size: 0.7rem;
+    color: #ddd;
+    user-select: none;
+  }
+
   @media (max-width: 600px) {
     .footer-bottom {
       flex-direction: column;
       text-align: center;
+      gap: 1rem;
     }
   }
 </style>
