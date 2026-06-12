@@ -98,12 +98,14 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
       <!-- COLUMN 2: Premium Visual Glass Card -->
       <section class="details-visual-panel">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
 
           <div class="widget-wrapper">
             <!-- Render specific widget conditionally -->
@@ -265,12 +267,24 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   <!-- ==================== NAVIGATION PATH: NEXT SERVICE ==================== -->
   <section class="next-service-nav reveal">
     <div class="next-service-inner">
-      <span class="next-lbl" data-i18n="service_next_cta">{T.service_next_cta}</span>
-      <a href={`/service/${nextSlug}`} class="next-title-link">
-        <span data-i18n={nextTitleKey}>{T[nextTitleKey]}</span>
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="next-chevron">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
+      <a href={`/service/${nextSlug}`} class="next-service-card">
+        <div class="next-card-bg" aria-hidden="true"></div>
+        <div class="next-card-glow" aria-hidden="true"></div>
+        <div class="next-card-content">
+          <div class="next-header">
+            <span class="next-num">0{nextIndex}</span>
+            <span class="next-lbl" data-i18n="service_next_cta">{T.service_next_cta}</span>
+          </div>
+          <div class="next-title-link-wrapper">
+            <h3 class="next-title" data-i18n={nextTitleKey}>{T[nextTitleKey]}</h3>
+            <div class="next-arrow-circle">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
       </a>
     </div>
   </section>
@@ -340,35 +354,35 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
      GLOBAL SERVICES VARIABLES
   ======================================== */
   :root {
-    --discovery-color-1: #ff7d3b;
-    --discovery-color-2: #ff2a85;
-    --discovery-rgb-1: 255, 125, 59;
-    --discovery-rgb-2: 255, 42, 133;
+    --discovery-color-1: #000000;
+    --discovery-color-2: #6b7280;
+    --discovery-rgb-1: 0, 0, 0;
+    --discovery-rgb-2: 107, 114, 128;
 
-    --design-color-1: #00f0ff;
-    --design-color-2: #7000ff;
-    --design-rgb-1: 0, 240, 255;
-    --design-rgb-2: 112, 0, 255;
+    --design-color-1: #111111;
+    --design-color-2: #4b5563;
+    --design-rgb-1: 17, 17, 17;
+    --design-rgb-2: 75, 85, 99;
 
-    --engineering-color-1: #3d8bff;
-    --engineering-color-2: #00f5a0;
-    --engineering-rgb-1: 61, 139, 255;
-    --engineering-rgb-2: 0, 245, 160;
+    --engineering-color-1: #000000;
+    --engineering-color-2: #9ca3af;
+    --engineering-rgb-1: 0, 0, 0;
+    --engineering-rgb-2: 156, 163, 175;
 
-    --growth-color-1: #00e676;
-    --growth-color-2: #baff00;
-    --growth-rgb-1: 0, 230, 118;
-    --growth-rgb-2: 186, 255, 0;
+    --growth-color-1: #111111;
+    --growth-color-2: #374151;
+    --growth-rgb-1: 17, 17, 17;
+    --growth-rgb-2: 55, 65, 81;
 
-    --ai-color-1: #a855f7;
-    --ai-color-2: #ff007f;
-    --ai-rgb-1: 168, 85, 247;
-    --ai-rgb-2: 255, 0, 127;
+    --ai-color-1: #000000;
+    --ai-color-2: #d1d5db;
+    --ai-rgb-1: 0, 0, 0;
+    --ai-rgb-2: 209, 213, 219;
 
-    --team-color-1: #eab308;
-    --team-color-2: #ff5722;
-    --team-rgb-1: 234, 179, 8;
-    --team-rgb-2: 255, 87, 34;
+    --team-color-1: #111111;
+    --team-color-2: #4b5563;
+    --team-rgb-1: 17, 17, 17;
+    --team-rgb-2: 75, 85, 99;
   }
 
   .grid-bg {
@@ -422,17 +436,34 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   .breadcrumb-back {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     font-size: 0.82rem;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.6);
     text-decoration: none;
-    transition: color 0.2s ease, transform 0.22s ease;
+    padding: 0.5rem 1.1rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  }
+
+  .breadcrumb-back svg {
+    transition: transform 0.3s ease;
   }
 
   .breadcrumb-back:hover {
     color: #000;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     transform: translateX(-3px);
+  }
+
+  .breadcrumb-back:hover svg {
+    transform: translateX(-2px);
   }
 
   /* ========================================
@@ -511,6 +542,12 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     color: var(--accent-color-1);
     letter-spacing: -0.05em;
     text-shadow: 0 0 12px rgba(var(--accent-rgb-1), 0.2);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
+  }
+
+  .details-info-panel:hover .details-num {
+    transform: scale(1.1) translateY(-2px);
+    text-shadow: 0 0 18px rgba(var(--accent-rgb-1), 0.5);
   }
 
   .details-tag {
@@ -528,10 +565,14 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   .details-title {
     font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 800;
-    color: #000;
     margin: 0 0 1.5rem;
     letter-spacing: -0.04em;
     line-height: 1.15;
+    background: linear-gradient(135deg, #000000 40%, var(--accent-color-1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
   }
 
   .details-desc {
@@ -550,6 +591,12 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     padding: 1.6rem 1.8rem;
     margin-bottom: 2.5rem;
     box-shadow: 0 10px 30px rgba(0,0,0,0.015);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .details-includes-panel:hover {
+    border-color: rgba(var(--accent-rgb-1), 0.15);
+    box-shadow: 0 12px 36px rgba(var(--accent-rgb-1), 0.03);
   }
 
   .includes-title {
@@ -577,10 +624,21 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     font-size: 0.88rem;
     color: rgba(0, 0, 0, 0.8);
     font-weight: 400;
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .includes-list li:hover {
+    transform: translateX(4px);
+    color: #000;
   }
 
   .check-icon {
     flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .includes-list li:hover .check-icon {
+    transform: scale(1.2) rotate(5deg);
   }
 
   /* CTA Button */
@@ -588,22 +646,35 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 2rem;
-    font-size: 0.88rem;
+    padding: 0.9rem 2.2rem;
+    font-size: 0.85rem;
     font-weight: 600;
+    letter-spacing: 0.02em;
     border-radius: 100px;
     text-decoration: none;
-    letter-spacing: -0.01em;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    background: #000;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Premium glass effect */
+    background: rgba(20, 20, 20, 0.82);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     color: #fff;
-    border: 1px solid transparent;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    transition: background 0.25s ease, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
 
   .details-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-    background: #222;
+    background: rgba(0, 0, 0, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2.5px);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.18),
+      0 0 20px rgba(var(--accent-rgb-1), 0.25),
+      0 1px 0 rgba(255, 255, 255, 0.18) inset;
   }
 
   /* COLUMN 2: Visual panel card structure */
@@ -629,6 +700,15 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     justify-content: center;
     min-height: 340px;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
+  }
+
+  .service-card-effects {
+    position: absolute;
+    inset: 0;
+    border-radius: 36px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .details-grid.is-active:hover .service-glass-card {
@@ -1084,9 +1164,9 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     height: 4px;
     border-radius: 50%;
   }
-  .t-dot-r { background: #ff5f56; }
-  .t-dot-y { background: #ffbd2e; }
-  .t-dot-g { background: #27c93f; }
+  .t-dot-r { background: #4b5563; }
+  .t-dot-y { background: #9ca3af; }
+  .t-dot-g { background: #d1d5db; }
 
   .terminal-lines {
     display: flex;
@@ -1469,19 +1549,76 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   ======================================== */
   .next-service-nav {
     position: relative;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    padding: 5rem 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 6rem 2rem;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.15);
   }
 
   .next-service-inner {
     max-width: 1050px;
     margin: 0 auto;
+  }
+
+  .next-service-card {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    border-radius: 28px;
+    padding: 2.2rem 2.8rem;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.015);
+  }
+
+  .next-card-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 100% 50%, rgba(var(--accent-rgb-2), 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+  }
+
+  .next-card-glow {
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--accent-rgb-1), 0.08) 0%, transparent 70%);
+    filter: blur(40px);
+    transform: translateY(-50%) scale(0.8);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .next-card-content {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    gap: 0.6rem;
+  }
+
+  .next-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .next-num {
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: monospace;
+    color: rgba(0, 0, 0, 0.4);
+    opacity: 0.7;
+    transition: all 0.3s ease;
   }
 
   .next-lbl {
@@ -1492,28 +1629,72 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     color: rgba(0, 0, 0, 0.4);
   }
 
-  .next-title-link {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  .next-title-link-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+  }
+
+  .next-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
     font-weight: 800;
     color: #000;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
+    margin: 0;
     letter-spacing: -0.03em;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .next-arrow-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  /* Hover styles */
+  .next-service-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 
+      0 20px 40px rgba(0,0,0,0.04);
+  }
+
+  .next-service-card:hover .next-card-bg {
+    opacity: 0;
+  }
+
+  .next-service-card:hover .next-card-glow {
+    opacity: 0;
+  }
+
+  .next-service-card:hover .next-num {
+    opacity: 1;
+    color: #000;
+    transform: translateX(2px);
+  }
+
+  .next-service-card:hover .next-title {
+    color: #000;
+    transform: translateX(4px);
+  }
+
+  .next-service-card:hover .next-arrow-circle {
+    background: #000;
+    transform: scale(1.05) rotate(-45deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   }
 
   .next-chevron {
     transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .next-title-link:hover {
-    color: var(--accent-color-1);
-  }
-
-  .next-title-link:hover .next-chevron {
-    transform: translateX(6px);
   }
 
 

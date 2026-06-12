@@ -40,12 +40,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 01: Product Discovery -->
       <section class="service-block" id="service-block-1">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-discovery">01</span>
@@ -116,12 +118,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 02: UX/UI Design -->
       <section class="service-block service-reverse" id="service-block-2">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-design">02</span>
@@ -186,12 +190,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 03: Engineering -->
       <section class="service-block" id="service-block-3">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-engineering">03</span>
@@ -268,12 +274,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 04: Growth -->
       <section class="service-block service-reverse" id="service-block-4">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-growth">04</span>
@@ -342,12 +350,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 05: Artificial Intelligence -->
       <section class="service-block" id="service-block-5">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-ai">05</span>
@@ -415,12 +425,14 @@ const T = translations[defaultLang];
       <!-- SERVICE 06: Business Digitalization -->
       <section class="service-block service-reverse" id="service-block-6">
         <div class="service-glass-card">
-          <div class="service-spotlight"></div>
-          <div class="service-sweep"></div>
+          <div class="service-card-effects">
+            <div class="service-spotlight"></div>
+            <div class="service-sweep"></div>
+            <div class="service-card-glow service-card-glow-1"></div>
+            <div class="service-card-glow service-card-glow-2"></div>
+          </div>
           <div class="service-card-border"></div>
           <div class="service-card-shadow"></div>
-          <div class="service-card-glow service-card-glow-1"></div>
-          <div class="service-card-glow service-card-glow-2"></div>
           <div class="service-card-info">
             <div class="service-header">
               <span class="service-num text-team">06</span>
@@ -564,35 +576,35 @@ const T = translations[defaultLang];
      GLOBAL SERVICES VARIABLES & TRANSITION
   ======================================== */
   :root {
-    --discovery-color-1: #ff7d3b;
-    --discovery-color-2: #ff2a85;
-    --discovery-rgb-1: 255, 125, 59;
-    --discovery-rgb-2: 255, 42, 133;
+    --discovery-color-1: #000000;
+    --discovery-color-2: #6b7280;
+    --discovery-rgb-1: 0, 0, 0;
+    --discovery-rgb-2: 107, 114, 128;
 
-    --design-color-1: #00f0ff;
-    --design-color-2: #7000ff;
-    --design-rgb-1: 0, 240, 255;
-    --design-rgb-2: 112, 0, 255;
+    --design-color-1: #111111;
+    --design-color-2: #4b5563;
+    --design-rgb-1: 17, 17, 17;
+    --design-rgb-2: 75, 85, 99;
 
-    --engineering-color-1: #3d8bff;
-    --engineering-color-2: #00f5a0;
-    --engineering-rgb-1: 61, 139, 255;
-    --engineering-rgb-2: 0, 245, 160;
+    --engineering-color-1: #000000;
+    --engineering-color-2: #9ca3af;
+    --engineering-rgb-1: 0, 0, 0;
+    --engineering-rgb-2: 156, 163, 175;
 
-    --growth-color-1: #00e676;
-    --growth-color-2: #baff00;
-    --growth-rgb-1: 0, 230, 118;
-    --growth-rgb-2: 186, 255, 0;
+    --growth-color-1: #111111;
+    --growth-color-2: #374151;
+    --growth-rgb-1: 17, 17, 17;
+    --growth-rgb-2: 55, 65, 81;
 
-    --ai-color-1: #a855f7;
-    --ai-color-2: #ff007f;
-    --ai-rgb-1: 168, 85, 247;
-    --ai-rgb-2: 255, 0, 127;
+    --ai-color-1: #000000;
+    --ai-color-2: #d1d5db;
+    --ai-rgb-1: 0, 0, 0;
+    --ai-rgb-2: 209, 213, 219;
 
-    --team-color-1: #eab308;
-    --team-color-2: #ff5722;
-    --team-rgb-1: 234, 179, 8;
-    --team-rgb-2: 255, 87, 34;
+    --team-color-1: #111111;
+    --team-color-2: #4b5563;
+    --team-rgb-1: 17, 17, 17;
+    --team-rgb-2: 75, 85, 99;
   }
 
   .grid-bg {
@@ -895,6 +907,15 @@ const T = translations[defaultLang];
     gap: 4rem;
     align-items: center;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease;
+  }
+
+  .service-card-effects {
+    position: absolute;
+    inset: 0;
+    border-radius: 36px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
   }
 
   .service-block:hover .service-glass-card {
@@ -1373,9 +1394,9 @@ const T = translations[defaultLang];
     height: 4px;
     border-radius: 50%;
   }
-  .t-dot-r { background: #ff5f56; }
-  .t-dot-y { background: #ffbd2e; }
-  .t-dot-g { background: #27c93f; }
+  .t-dot-r { background: #4b5563; }
+  .t-dot-y { background: #9ca3af; }
+  .t-dot-g { background: #d1d5db; }
 
   .terminal-lines {
     display: flex;
