@@ -182,6 +182,17 @@ export const translations = {
     about_stats_2: "Tasa de Disponibilidad",
     about_stats_3: "Horas de QA y Pruebas",
     about_stats_4: "Proyectos de Impacto",
+
+    // Blog Page
+    blog_page_title: "Blog",
+    blog_page_subtitle: "Compartimos nuestras ideas sobre desarrollo de apps móviles, diseño de experiencia y tecnología.",
+    blog_hero_eyebrow: "NUESTRAS IDEAS",
+    blog_empty_title: "Próximamente",
+    blog_empty_desc: "Estamos preparando artículos sobre Flutter, desarrollo nativo, Kubernetes e Inteligencia Artificial aplicada.",
+    blog_subscribe_title: "Suscríbete a nuestra newsletter",
+    blog_subscribe_placeholder: "Introduce tu email...",
+    blog_subscribe_btn: "Suscribirse",
+    blog_subscribe_success: "¡Gracias! Te notificaremos tan pronto como publiquemos nuestro primer artículo.",
   },
 
   en: {
@@ -365,6 +376,17 @@ export const translations = {
     about_stats_2: "Uptime Rate",
     about_stats_3: "QA & Testing Hours",
     about_stats_4: "High-Impact Projects",
+
+    // Blog Page
+    blog_page_title: "Blog",
+    blog_page_subtitle: "We share our thoughts on mobile app development, experience design, and technology.",
+    blog_hero_eyebrow: "OUR THOUGHTS",
+    blog_empty_title: "Coming Soon",
+    blog_empty_desc: "We are preparing insightful articles about Flutter, native development, Kubernetes, and applied AI.",
+    blog_subscribe_title: "Subscribe to our newsletter",
+    blog_subscribe_placeholder: "Enter your email...",
+    blog_subscribe_btn: "Subscribe",
+    blog_subscribe_success: "Thank you! We will notify you as soon as we publish our first article.",
   },
 } as const;
 
