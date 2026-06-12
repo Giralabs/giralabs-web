@@ -193,6 +193,12 @@ export const translations = {
     blog_subscribe_placeholder: "Introduce tu email...",
     blog_subscribe_btn: "Suscribirse",
     blog_subscribe_success: "¡Gracias! Te notificaremos tan pronto como publiquemos nuestro primer artículo.",
+
+    // 404 Page
+    error_404_title: "404",
+    error_404_subtitle: "Página no encontrada",
+    error_404_desc: "Lo sentimos, la página que estás buscando no existe, ha sido eliminada o ha cambiado de dirección.",
+    error_404_btn: "Volver al inicio",
   },
 
   en: {
@@ -387,6 +393,12 @@ export const translations = {
     blog_subscribe_placeholder: "Enter your email...",
     blog_subscribe_btn: "Subscribe",
     blog_subscribe_success: "Thank you! We will notify you as soon as we publish our first article.",
+
+    // 404 Page
+    error_404_title: "404",
+    error_404_subtitle: "Page not found",
+    error_404_desc: "Sorry, the page you are looking for does not exist, has been removed, or has changed its address.",
+    error_404_btn: "Go back home",
   },
 } as const;
 
