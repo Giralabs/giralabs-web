@@ -228,19 +228,30 @@ const T = translations[defaultLang];
 
   .card-sweep {
     position: absolute;
-    inset: 0;
-    opacity: 0;
-    background: radial-gradient(350px circle at 0% 50%, rgba(0,0,0,0.04) 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    transition: none;
+    z-index: 1;
   }
 
   .error-glass-card:hover .card-sweep {
-    animation: sweep 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: shine 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  @keyframes sweep {
-    0% { opacity: 0; transform: translateX(-60%); }
-    30%, 70% { opacity: 1; }
-    100% { opacity: 0; transform: translateX(60%); }
+  @keyframes shine {
+    100% {
+      left: 150%;
+    }
   }
 
   .card-inner {
@@ -355,9 +366,30 @@ const T = translations[defaultLang];
   }
 
   .home-btn {
-    padding: 0.8rem 2rem;
-    border-radius: 14px;
-    font-weight: 600;
+    background: rgba(20, 20, 20, 0.82) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    padding: 0.9rem 2.2rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    border-radius: 100px !important;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset !important;
+    transition: background 0.25s ease, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s !important;
+  }
+
+  .home-btn:hover {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.2),
+      0 1px 0 rgba(255, 255, 255, 0.18) inset !important;
   }
 
   /* ========================================
