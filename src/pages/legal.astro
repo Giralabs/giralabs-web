@@ -4,14 +4,23 @@ import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
 import Footer from '../components/Footer.astro';
 
-const defaultLang = 'es';
-const T = translations[defaultLang];
+const acceptLang = Astro.request.headers.get('accept-language');
+const langParam = Astro.url.searchParams.get('lang');
+let lang = 'es';
+
+if (langParam === 'es' || langParam === 'en') {
+  lang = langParam;
+} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
+  lang = 'en';
+}
+
+const T = translations[lang];
 ---
 
 <Layout
-  title={`${T.legal_page_title} | ${T.meta_title}`}
-  description={T.meta_description}
-  lang={defaultLang}
+  title={`${T.meta_title} | ${T.legal_meta_title}`}
+  description={T.legal_meta_description}
+  lang={lang}
 >
   <!-- Global dot-grid background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -21,12 +30,12 @@ const T = translations[defaultLang];
   <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <Navbar lang={defaultLang} />
+  <Navbar lang={lang} />
 
   <!-- ==================== HERO HEADER ==================== -->
   <header class="legal-hero reveal">
     <div class="hero-inner">
-      <span class="hero-eyebrow">LEGAL</span>
+      <span class="hero-eyebrow" data-i18n="footer_legal">{T.footer_legal}</span>
       <h1 class="hero-title" data-i18n="legal_page_title">{T.legal_page_title}</h1>
       <p class="hero-subtitle" data-i18n="legal_page_subtitle">{T.legal_page_subtitle}</p>
     </div>
@@ -64,7 +73,7 @@ const T = translations[defaultLang];
     </article>
   </main>
 
-  <Footer lang={defaultLang} />
+  <Footer lang={lang} />
 
   <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
   <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
@@ -86,7 +95,7 @@ const T = translations[defaultLang];
         }
       });
       document.documentElement.lang = lang;
-      document.title = T.legal_page_title + " | " + T.meta_title;
+      document.title = T.meta_title + " | " + T.legal_meta_title;
     }
 
     // Detect and apply saved language on load, or browser settings if not saved

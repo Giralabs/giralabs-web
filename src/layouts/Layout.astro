@@ -23,13 +23,68 @@ const {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={`https://giralabs.es${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`} />
+		
+		<!-- Alternate hreflang configurations for multilingual search indexing -->
+		<link rel="alternate" hreflang="es" href={`https://giralabs.es${Astro.url.pathname}?lang=es`} />
+		<link rel="alternate" hreflang="en" href={`https://giralabs.es${Astro.url.pathname}?lang=en`} />
+		<link rel="alternate" hreflang="x-default" href={`https://giralabs.es${Astro.url.pathname}`} />
+
+		<!-- Open Graph / Facebook -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={`https://giralabs.es${Astro.url.pathname}`} />
+		<meta property="og:site_name" content="Giralabs" />
+		<meta property="og:image" content="https://giralabs.es/logo-email.avif" />
+
+		<!-- Twitter Cards -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://giralabs.es/logo-email.avif" />
+
 		<!-- Google Fonts for premium fallback typography -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<!-- JSON-LD Schema Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "ProfessionalService",
+					"@id": "https://giralabs.es/#organization",
+					"name": "Giralabs",
+					"url": "https://giralabs.es",
+					"logo": "https://giralabs.es/favicon.svg",
+					"image": "https://giralabs.es/favicon.svg",
+					"description": lang === 'en'
+						? "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions."
+						: "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
+					"address": {
+						"@type": "PostalAddress",
+						"addressLocality": "Madrid",
+						"addressRegion": "Madrid",
+						"addressCountry": "ES"
+					},
+					"priceRange": "$$$",
+					"sameAs": [
+						"https://github.com/giralabs",
+						"https://linkedin.com/company/giralabs"
+					]
+				},
+				{
+					"@type": "WebSite",
+					"@id": "https://giralabs.es/#website",
+					"url": "https://giralabs.es",
+					"name": "Giralabs",
+					"publisher": {
+						"@id": "https://giralabs.es/#organization"
+					}
+				}
+			]
+		})} />
 		<!-- Inline script: sets navbar state before first paint to avoid flash on mid-scroll reload -->
 		<script is:inline>
 			if (window.scrollY > 80) {

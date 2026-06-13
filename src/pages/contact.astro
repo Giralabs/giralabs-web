@@ -5,14 +5,23 @@ import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { translations } from '../i18n/translations';
 
-const defaultLang = 'es';
-const T = translations[defaultLang];
+const acceptLang = Astro.request.headers.get('accept-language');
+const langParam = Astro.url.searchParams.get('lang');
+let lang = 'es';
+
+if (langParam === 'es' || langParam === 'en') {
+  lang = langParam;
+} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
+  lang = 'en';
+}
+
+const T = translations[lang];
 ---
 
 <Layout
-  title={`${T.nav_contact} | ${T.meta_title}`}
-  description={T.meta_description}
-  lang={defaultLang}
+  title={`${T.meta_title} | ${T.contact_meta_title}`}
+  description={T.contact_meta_description}
+  lang={lang}
 >
   <!-- Global dot-grid background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -22,19 +31,19 @@ const T = translations[defaultLang];
   <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <Navbar lang={defaultLang} />
+  <Navbar lang={lang} />
 
   <!-- Contact Form section -->
   <main class="contact-page-container">
     <Contact 
-      lang={defaultLang} 
+      lang={lang} 
       actionUrl="https://formspree.io/f/xvznwgob" 
       bookingActionUrl="https://formspree.io/f/xvznwgob" 
     />
   </main>
 
   <!-- Footer -->
-  <Footer lang={defaultLang} />
+  <Footer lang={lang} />
 
 </Layout>
 
@@ -61,9 +70,9 @@ const T = translations[defaultLang];
     });
 
     document.documentElement.lang = lang;
-    document.title = T.nav_contact + " | " + T.meta_title;
+    document.title = T.meta_title + " | " + T.contact_meta_title;
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', T.meta_description);
+    if (metaDesc) metaDesc.setAttribute('content', T.contact_meta_description);
   }
 
   // Detect and apply saved language on load, or browser settings if not saved

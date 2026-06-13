@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /cancel
+Disallow: /api/
+
+# Host
+Host: https://giralabs.es
+
+# Sitemap
+Sitemap: https://giralabs.es/sitemap.xml

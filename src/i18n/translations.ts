@@ -3,9 +3,30 @@ export type Lang = "es" | "en";
 export const translations = {
   es: {
     // Meta
-    meta_title: "Giralabs | Estudio de Apps Móviles",
+    meta_title: "Giralabs | Empresa de Desarrollo de Software y Apps Móviles",
     meta_description:
-      "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
+      "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
+
+    // Page-specific Meta
+    services_meta_title: "Nuestros Servicios de Software y Apps",
+    services_meta_description: "Descubre nuestros servicios de desarrollo de software a medida: creación de aplicaciones móviles nativas (Flutter), páginas web, digitalización, e-commerce e IA.",
+    projects_meta_title: "Casos de Éxito y Proyectos de Software",
+    projects_meta_description: "Explora nuestros proyectos de desarrollo de software y aplicaciones móviles. Casos de éxito reales en sectores como e-commerce, barberías y entretenimiento.",
+    projects_sub: "Aplicaciones construidas con precisión de ingeniería y obsesión por el detalle. Cada proyecto, una historia de impacto real.",
+    about_meta_title: "Sobre Giralabs | Empresa de Desarrollo de Software",
+    about_meta_description: "Conoce al equipo de Giralabs, empresa de desarrollo de software y creación de aplicaciones móviles. Nuestra historia, valores de ingeniería y diseño premium.",
+    contact_meta_title: "Contacta con Giralabs | Solicita Presupuesto de Software",
+    contact_meta_description: "Contacta con Giralabs para tu próximo proyecto de desarrollo de software a medida o creación de apps. Solicita un presupuesto o agenda una cita con nuestro equipo.",
+    blog_meta_title: "Blog de Giralabs | Ideas de Tecnología y Desarrollo",
+    blog_meta_description: "El blog de Giralabs. Ideas, tutoriales y guías sobre desarrollo de aplicaciones móviles, diseño de experiencia de usuario (UX/UI) y tecnología cloud.",
+    accessibility_meta_title: "Declaración de Accesibilidad",
+    accessibility_meta_description: "Compromiso de Giralabs con la accesibilidad web y la usabilidad para todos según las pautas WCAG 2.1 AA.",
+    legal_meta_title: "Aviso Legal",
+    legal_meta_description: "Términos, condiciones y aspectos legales de Giralabs Estudio de Software S.L.",
+    privacy_meta_title: "Política de Privacidad",
+    privacy_meta_description: "Cómo protegemos y tratamos tus datos personales en Giralabs. Cumplimiento estricto con el RGPD.",
+    error_404_meta_title: "Página no encontrada (404)",
+    error_404_meta_description: "Lo sentimos, la página que buscas no existe en el sitio de Giralabs.",
 
     // Navbar
     nav_home: "Inicio",
@@ -18,10 +39,10 @@ export const translations = {
     nav_cta: "Hablemos",
 
     // Hero
-    hero_label: "Estudio de apps móviles",
-    hero_tagline: "Diseñamos y desarrollamos apps que las personas <span class='gradient-text'>aman usar</span>.",
+    hero_label: "Desarrollo de Software y Apps Móviles",
+    hero_tagline: "Desarrollo de software a medida y <span class='gradient-text'>apps móviles</span> que las personas aman usar.",
     hero_sub:
-      "De la idea al lanzamiento. Apps nativas, multiplataforma y soluciones digitales para empresas que quieren crecer.",
+      "Como empresa de desarrollo de software de servicio completo, creamos aplicaciones móviles nativas, páginas web de alto rendimiento y soluciones digitales a medida de tus objetivos.",
     hero_cta_primary: "Ver proyectos",
     hero_cta_secondary: "Conocer servicios",
 
@@ -481,9 +502,30 @@ export const translations = {
 
   en: {
     // Meta
-    meta_title: "Giralabs | Mobile App Studio",
+    meta_title: "Giralabs | Custom Software & Mobile App Development Company",
     meta_description:
-      "Giralabs is a studio specialized in mobile app development, business digitalization, and premium digital experiences.",
+      "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions.",
+
+    // Page-specific Meta
+    services_meta_title: "Our Software & Mobile App Services",
+    services_meta_description: "Explore our custom software development services: native mobile app creation (Flutter), high-performance websites, digitalization, e-commerce, and AI.",
+    projects_meta_title: "Case Studies & Software Projects Portfolio",
+    projects_meta_description: "Browse our software and mobile app development projects. Real-world success stories across e-commerce, barbershop scheduling, and entertainment sectors.",
+    projects_sub: "Applications built with engineering precision and obsession for detail. Every project, a story of real impact.",
+    about_meta_title: "About Giralabs | Custom Software Development Team",
+    about_meta_description: "Meet the Giralabs team, a custom software and mobile app development company. Learn about our history, engineering values, and premium design principles.",
+    contact_meta_title: "Contact Giralabs | Request a Software Quote",
+    contact_meta_description: "Contact Giralabs for your next custom software or mobile app development project. Request a quote or book an introductory meeting with our team.",
+    blog_meta_title: "Giralabs Blog | Technology & Development Insights",
+    blog_meta_description: "The Giralabs blog. Insights, tutorials, and guides on mobile app development, user experience design (UX/UI), and cloud technologies.",
+    accessibility_meta_title: "Accessibility Statement",
+    accessibility_meta_description: "Giralabs commitment to web accessibility and usability for everyone under WCAG 2.1 AA standards.",
+    legal_meta_title: "Legal Notice",
+    legal_meta_description: "Terms, conditions, and legal disclosures of Giralabs software studio.",
+    privacy_meta_title: "Privacy Policy",
+    privacy_meta_description: "How we protect and manage your personal data at Giralabs. Full compliance with the GDPR.",
+    error_404_meta_title: "Page Not Found (404)",
+    error_404_meta_description: "We are sorry, the page you are looking for does not exist on Giralabs website.",
 
     // Navbar
     nav_home: "Home",
@@ -496,10 +538,10 @@ export const translations = {
     nav_cta: "Let's talk",
 
     // Hero
-    hero_label: "Mobile app studio",
-    hero_tagline: "We design and build apps people <span class='gradient-text'>love to use</span>.",
+    hero_label: "Software & Mobile App Development",
+    hero_tagline: "Custom software and <span class='gradient-text'>mobile apps</span> designed and built for impact.",
     hero_sub:
-      "From idea to launch. Native apps, cross-platform and digital solutions for companies ready to grow.",
+      "As a full-service software development company, we build native mobile applications, high-performance web systems, and custom digital products tailored to your goals.",
     hero_cta_primary: "View projects",
     hero_cta_secondary: "Explore services",
 
