@@ -5,14 +5,23 @@ import { translations } from '../i18n/translations';
 import CTAContact from '../components/CTAContact.astro';
 import Footer from '../components/Footer.astro';
 
-const defaultLang = 'es';
-const T = translations[defaultLang];
+const acceptLang = Astro.request.headers.get('accept-language');
+const langParam = Astro.url.searchParams.get('lang');
+let lang = 'es';
+
+if (langParam === 'es' || langParam === 'en') {
+  lang = langParam;
+} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
+  lang = 'en';
+}
+
+const T = translations[lang];
 ---
 
 <Layout
-  title={`${T.meta_title} | ${T.services_page_title}`}
-  description={T.meta_description}
-  lang={defaultLang}
+  title={`${T.meta_title} | ${T.services_meta_title}`}
+  description={T.services_meta_description}
+  lang={lang}
 >
   <!-- Global dot-grid background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -22,7 +31,7 @@ const T = translations[defaultLang];
   <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <Navbar lang={defaultLang} />
+  <Navbar lang={lang} />
 
   <!-- ==================== HERO HEADER ==================== -->
   <header class="services-hero reveal">
@@ -492,10 +501,10 @@ const T = translations[defaultLang];
     </div>
   </main>
 
-  <CTAContact lang={defaultLang} />
+  <CTAContact lang={lang} />
 
   <!-- ==================== FOOTER ==================== -->
-  <Footer lang={defaultLang} />
+  <Footer lang={lang} />
 
   <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
   <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
@@ -517,7 +526,7 @@ const T = translations[defaultLang];
         }
       });
       document.documentElement.lang = lang;
-      document.title = T.meta_title + " | " + T.services_page_title;
+      document.title = T.meta_title + " | " + T.services_meta_title;
     }
 
     // Detect and apply saved language on load, or browser settings if not saved

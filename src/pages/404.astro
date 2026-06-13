@@ -4,14 +4,23 @@ import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
 import Footer from '../components/Footer.astro';
 
-const defaultLang = 'es';
-const T = translations[defaultLang];
+const acceptLang = Astro.request.headers.get('accept-language');
+const langParam = Astro.url.searchParams.get('lang');
+let lang = 'es';
+
+if (langParam === 'es' || langParam === 'en') {
+  lang = langParam;
+} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
+  lang = 'en';
+}
+
+const T = translations[lang];
 ---
 
 <Layout
-  title={`${T.error_404_title} | ${T.meta_title}`}
-  description={T.meta_description}
-  lang={defaultLang}
+  title={`${T.meta_title} | ${T.error_404_meta_title}`}
+  description={T.error_404_meta_description}
+  lang={lang}
 >
   <!-- Global dot-grid background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -21,7 +30,7 @@ const T = translations[defaultLang];
   <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <Navbar lang={defaultLang} />
+  <Navbar lang={lang} />
 
   <!-- ==================== 404 ERROR CONTENT ==================== -->
   <main class="error-container">
@@ -57,7 +66,7 @@ const T = translations[defaultLang];
     </section>
   </main>
 
-  <Footer lang={defaultLang} />
+  <Footer lang={lang} />
 
   <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
   <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
@@ -79,7 +88,7 @@ const T = translations[defaultLang];
         }
       });
       document.documentElement.lang = lang;
-      document.title = T.error_404_title + " | " + T.meta_title;
+      document.title = T.meta_title + " | " + T.error_404_meta_title;
     }
 
     // Detect and apply saved language on load, or browser settings if not saved

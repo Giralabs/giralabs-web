@@ -10,14 +10,23 @@ import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import { translations } from '../i18n/translations';
 
-const defaultLang = 'es';
-const T = translations[defaultLang];
+const acceptLang = Astro.request.headers.get('accept-language');
+const langParam = Astro.url.searchParams.get('lang');
+let lang = 'es';
+
+if (langParam === 'es' || langParam === 'en') {
+  lang = langParam;
+} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
+  lang = 'en';
+}
+
+const T = translations[lang];
 ---
 
 <Layout
   title={T.meta_title}
   description={T.meta_description}
-  lang={defaultLang}
+  lang={lang}
 >
   <!-- Global dot-grid background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -26,20 +35,20 @@ const T = translations[defaultLang];
   <div class="ambient-bottom" aria-hidden="true"></div>
 
   <!-- ==================== NAVBAR (component) ==================== -->
-  <Navbar lang={defaultLang} />
+  <Navbar lang={lang} />
 
   <!-- ==================== HOME SECTIONS (components) ==================== -->
-  <Hero lang={defaultLang} />
-  <PhoneMockup lang={defaultLang} />
-  <Services lang={defaultLang} />
-  <Edge lang={defaultLang} />
-  <NativeSpeed lang={defaultLang} />
+  <Hero lang={lang} />
+  <PhoneMockup lang={lang} />
+  <Services lang={lang} />
+  <Edge lang={lang} />
+  <NativeSpeed lang={lang} />
   <Contact 
-    lang={defaultLang} 
+    lang={lang} 
     actionUrl="https://formspree.io/f/xvznwgob" 
     bookingActionUrl="https://formspree.io/f/xvznwgob" 
   />
-  <Footer lang={defaultLang} />
+  <Footer lang={lang} />
 
 </Layout>
 
