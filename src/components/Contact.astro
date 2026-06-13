@@ -998,7 +998,7 @@ const F = formTranslations[lang] || formTranslations.es;
   .booking-success-icon {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.1);
-    color: #FF5A1F; /* Highlight Meet orange */
+    color: #fff; /* clean white success highlight */
   }
 
   .booking-overlay.show .booking-success-icon {
@@ -1498,21 +1498,31 @@ const F = formTranslations[lang] || formTranslations.es;
     align-items: center;
     gap: 0.55rem;
     margin-top: 1.5rem;
-    background: linear-gradient(135deg, #FF5A1F 0%, #ff7a45 100%);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #000;
     border-radius: 12px;
     padding: 0.85rem 1.8rem;
     font-weight: 700;
     font-size: 0.9rem;
     text-decoration: none;
     letter-spacing: -0.01em;
-    box-shadow: 0 8px 24px rgba(255, 90, 31, 0.4);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
     transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .booking-meet-link-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 255, 255, 0.9);
+    color: #000;
     transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(255, 90, 31, 0.5);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.25),
+      0 1px 0 rgba(255, 255, 255, 0.6) inset;
   }
 
   /* ----------------------------------------
@@ -1679,13 +1689,13 @@ const F = formTranslations[lang] || formTranslations.es;
 
           const thisDate = new Date(calendarYear, calendarMonth, day);
 
-          const isPast = new Date(thisDate.getFullYear(), thisDate.getMonth(), thisDate.getDate()) < 
-                         new Date(systemToday.getFullYear(), systemToday.getMonth(), systemToday.getDate());
+          const isPastOrToday = new Date(thisDate.getFullYear(), thisDate.getMonth(), thisDate.getDate()) <= 
+                                new Date(systemToday.getFullYear(), systemToday.getMonth(), systemToday.getDate());
 
           const nativeDayOfWeek = thisDate.getDay();
           const isWeekend = nativeDayOfWeek === 0 || nativeDayOfWeek === 6;
 
-          if (isPast || isWeekend) {
+          if (isPastOrToday || isWeekend) {
             dayBtn.classList.add("disabled");
             dayBtn.disabled = true;
           } else {
@@ -2020,6 +2030,22 @@ const F = formTranslations[lang] || formTranslations.es;
       contactSubmitBtn.disabled = true;
       contactBtnText.textContent = activeF.sending;
 
+      // Validate email input format
+      const contactEmailInput = document.getElementById("form-email");
+      const contactEmailVal = contactEmailInput?.value?.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!contactEmailVal || !emailRegex.test(contactEmailVal)) {
+        contactErrorMsg.textContent = currentLang === "es" 
+          ? "Por favor, introduce un correo electrónico válido (ejemplo@dominio.com)." 
+          : "Please enter a valid email address (example@domain.com).";
+        contactErrorMsg.classList.add("error");
+        contactSubmitBtn.disabled = false;
+        contactBtnText.textContent = activeF.submit;
+        contactEmailInput?.focus();
+        return;
+      }
+
       const data = new FormData(contactForm);
       const actionUrl = contactForm.getAttribute("action");
 
@@ -2041,6 +2067,7 @@ const F = formTranslations[lang] || formTranslations.es;
         }
       } catch (error) {
         console.error("Submission error:", error);
+        contactErrorMsg.textContent = activeF.error_desc;
         contactErrorMsg.classList.add("error");
         contactSubmitBtn.disabled = false;
         contactBtnText.textContent = activeF.submit;
@@ -2121,9 +2148,24 @@ const F = formTranslations[lang] || formTranslations.es;
         const email   = document.getElementById("booking-email-input")?.value?.trim();
         const company = document.getElementById("booking-company-input")?.value?.trim();
         const guestInputs = document.querySelectorAll(".booking-guest-email-input");
-        const guests  = Array.from(guestInputs)
-          .map(i => i.value.trim())
-          .filter(v => v && v.includes("@"));
+        
+        // Validate guest email formats
+        let allGuestsValid = true;
+        let invalidGuestInput = null;
+        const guests = [];
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        for (const input of guestInputs) {
+          const val = input.value.trim();
+          if (val) {
+            if (!emailRegex.test(val)) {
+              allGuestsValid = false;
+              invalidGuestInput = input;
+              break;
+            }
+            guests.push(val);
+          }
+        }
 
         // Validate
         if (!name) {
@@ -2132,10 +2174,20 @@ const F = formTranslations[lang] || formTranslations.es;
           document.getElementById("booking-name-input")?.focus();
           return;
         }
-        if (!email || !email.includes("@")) {
-          bookingErrorMsg.textContent = currentLang === "es" ? "Por favor introduce un correo válido." : "Please enter a valid email.";
+        if (!email || !emailRegex.test(email)) {
+          bookingErrorMsg.textContent = currentLang === "es" 
+            ? "Por favor, introduce un correo electrónico válido." 
+            : "Please enter a valid email address.";
           bookingErrorMsg.classList.add("show");
           document.getElementById("booking-email-input")?.focus();
+          return;
+        }
+        if (!allGuestsValid) {
+          bookingErrorMsg.textContent = currentLang === "es" 
+            ? "Por favor, introduce correos válidos para los invitados." 
+            : "Please enter valid email addresses for all guests.";
+          bookingErrorMsg.classList.add("show");
+          invalidGuestInput?.focus();
           return;
         }
         if (!selectedDateISO || !selectedTimeSlot) {

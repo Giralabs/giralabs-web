@@ -37,17 +37,26 @@ const marqueeLogos = [...logos, ...logos, ...logos];
 
 const projects = [
   {
-    image: nexusImg,
-    tagKey: "project_2_tag",
-    titleKey: "project_2_title",
-    descKey: "project_2_desc",
-    class: "project-card--wide",
-  },
-  {
     image: gipsiImg,
     tagKey: "project_1_tag",
     titleKey: "project_1_title",
     descKey: "project_1_desc",
+    class: "project-card--wide",
+  },
+  {
+    image: nexusImg,
+    tagKey: "project_2_tag",
+    titleKey: "project_2_title",
+    descKey: "project_2_desc",
+    class: "project-card--narrow",
+    bgSize: "contain",
+    bgColor: "#EACCE4",
+  },
+  {
+    image: rewindtvImg,
+    tagKey: "project_3_tag",
+    titleKey: "project_3_title",
+    descKey: "project_3_desc",
     class: "project-card--narrow",
   },
   {
@@ -55,13 +64,6 @@ const projects = [
     tagKey: "project_4_tag",
     titleKey: "project_4_title",
     descKey: "project_4_desc",
-    class: "project-card--narrow",
-  },
-  {
-    image: rewindtvImg,
-    tagKey: "project_3_tag",
-    titleKey: "project_3_title",
-    descKey: "project_3_desc",
     class: "project-card--wide",
   },
 ] as const;
@@ -112,7 +114,7 @@ const projects = [
     <!-- Asymmetric Grid of Projects -->
     <div class="projects-grid reveal-stagger">
       {projects.map((proj) => (
-        <article class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.image.src}')`}>
+        <article class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.image.src}');${proj.bgSize ? ` --proj-bg-size: ${proj.bgSize};` : ''}${proj.bgPos ? ` --proj-bg-pos: ${proj.bgPos};` : ''}${proj.bgColor ? ` background-color: ${proj.bgColor};` : ''}`}>
           <div class="project-card-overlay"></div>
           <div class="project-card-content">
             <div class="project-card-top">
@@ -369,8 +371,9 @@ const projects = [
     position: absolute;
     inset: 0;
     background-image: var(--proj-bg);
-    background-size: cover;
-    background-position: center;
+    background-size: var(--proj-bg-size, cover);
+    background-position: var(--proj-bg-pos, center);
+    background-repeat: no-repeat;
     z-index: 0;
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   }

@@ -59,12 +59,28 @@
         "cancelToken": "22e26c04-d819-4f7f-820f-c5731dba260c",
         "dateFormatted": "25 de Junio"
       }
+    },
+    "2026-06-23": {
+      "11:00": {
+        "name": "José Manuel Jiménez Rodríguez",
+        "email": "josemajimenezrodriguez8@gmail.com",
+        "company": "Ecentia",
+        "guests": [],
+        "meetLink": "https://meet.google.com/pyf-sewr-ags",
+        "bookedAt": "2026-06-13T17:12:50.079Z",
+        "cancelToken": "c2146a10-0a8d-4a3b-8d53-806603244dfe",
+        "dateFormatted": "23 de Junio"
+      }
     }
   },
   "byToken": {
     "22e26c04-d819-4f7f-820f-c5731dba260c": {
       "dateISO": "2026-06-25",
       "time": "09:30"
+    },
+    "c2146a10-0a8d-4a3b-8d53-806603244dfe": {
+      "dateISO": "2026-06-23",
+      "time": "11:00"
     }
   }
 }
