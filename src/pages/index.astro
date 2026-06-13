@@ -68,11 +68,18 @@ const T = translations[defaultLang];
     if (metaDesc) metaDesc.setAttribute('content', T.meta_description);
   }
 
-  // Detect and apply saved language on load
+  // Detect and apply saved language on load, or browser settings if not saved
+  let initialLang = 'es';
   const savedLang = localStorage.getItem('giralabs-lang');
   if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-    applyLang(savedLang);
+    initialLang = savedLang;
+  } else {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
+      initialLang = 'en';
+    }
   }
+  applyLang(initialLang);
 
   // Listen to lang change events from Navbar component
   document.addEventListener('giralabs:lang', (e) => {

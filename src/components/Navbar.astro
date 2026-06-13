@@ -839,12 +839,19 @@ const T = translations[lang];
   document.getElementById('lang-toggle')?.addEventListener('click', handleLangToggle);
   document.getElementById('pill-lang-toggle')?.addEventListener('click', handleLangToggle);
 
-  // Sync lang UI and document lang on load from localStorage
+  // Sync lang UI and document lang on load from localStorage or browser settings
+  let initialLang = 'es';
   const savedLang = localStorage.getItem('giralabs-lang');
   if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-    document.documentElement.lang = savedLang;
-    syncLangUI(savedLang);
+    initialLang = savedLang;
+  } else {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
+      initialLang = 'en';
+    }
   }
+  document.documentElement.lang = initialLang;
+  syncLangUI(initialLang);
 
   // ---- Dropdown cards smooth scroll & Sub-page Navigation ----
   function initDropdownScroll() {

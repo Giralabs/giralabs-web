@@ -150,8 +150,17 @@ const T = translations[lang];
   window.__buildManifestoDOM = buildManifestoDOM;
   window.__tryAnimateManifesto = checkViewport;
 
-  const savedLang = localStorage.getItem('giralabs-lang') || 'es';
-  buildManifestoDOM(savedLang);
+  let initialLang = 'es';
+  const savedLang = localStorage.getItem('giralabs-lang');
+  if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+    initialLang = savedLang;
+  } else {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
+      initialLang = 'en';
+    }
+  }
+  buildManifestoDOM(initialLang);
   window.addEventListener('scroll', checkViewport, { passive: true });
   checkViewport();
 </script>
