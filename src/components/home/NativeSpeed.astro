@@ -12,7 +12,7 @@ import xcodeLogo from '../../assets/tech_stack/xcode.webp';
 // Project images
 import gipsiImg from '../../assets/projects/gipsi_barber.webp';
 import nexusImg from '../../assets/projects/nexus.png';
-import pokedexImg from '../../assets/projects/lepokedex.webp';
+import rewindtvImg from '../../assets/projects/rewindtv.webp';
 import auramoviesImg from '../../assets/projects/auramovies.webp';
 
 interface Props {
@@ -37,24 +37,17 @@ const marqueeLogos = [...logos, ...logos, ...logos];
 
 const projects = [
   {
-    image: gipsiImg,
-    tagKey: "project_1_tag",
-    titleKey: "project_1_title",
-    descKey: "project_1_desc",
-    class: "project-card--wide",
-  },
-  {
     image: nexusImg,
     tagKey: "project_2_tag",
     titleKey: "project_2_title",
     descKey: "project_2_desc",
-    class: "project-card--narrow",
+    class: "project-card--wide",
   },
   {
-    image: pokedexImg,
-    tagKey: "project_3_tag",
-    titleKey: "project_3_title",
-    descKey: "project_3_desc",
+    image: gipsiImg,
+    tagKey: "project_1_tag",
+    titleKey: "project_1_title",
+    descKey: "project_1_desc",
     class: "project-card--narrow",
   },
   {
@@ -62,6 +55,13 @@ const projects = [
     tagKey: "project_4_tag",
     titleKey: "project_4_title",
     descKey: "project_4_desc",
+    class: "project-card--narrow",
+  },
+  {
+    image: rewindtvImg,
+    tagKey: "project_3_tag",
+    titleKey: "project_3_title",
+    descKey: "project_3_desc",
     class: "project-card--wide",
   },
 ] as const;

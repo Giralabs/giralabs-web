@@ -1,0 +1,939 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { translations } from '../../i18n/translations';
+import CTAContact from '../../components/CTAContact.astro';
+import Footer from '../../components/Footer.astro';
+import gipsiImg from '../../assets/projects/gipsi_barber.webp';
+import nexusImg from '../../assets/projects/nexus.png';
+import rewindtvImg from '../../assets/projects/rewindtv.webp';
+import auramoviesImg from '../../assets/projects/auramovies.webp';
+
+export const prerender = true;
+
+const projectData = {
+  'gipsi': {
+    title: 'Gipsi',
+    tag: 'App Móvil',
+    tagEn: 'Mobile App',
+    year: '2025',
+    platform: 'iOS · Android',
+    image: gipsiImg.src,
+    accentRgb: '0,0,0',
+    nextSlug: 'auramovies',
+    nextTitle: 'AuraMovies',
+    desc: 'Sistema de gestión de citas y reservas diseñado específicamente para barberías modernas. Una plataforma que conecta a los clientes con sus barberos favoritos de forma fluida e inteligente.',
+    descEn: 'Appointment and booking management system designed specifically for modern barbershops. A platform that connects clients with their favorite barbers seamlessly and intelligently.',
+    challenge: 'Las barberías tradicionales perdían citas y clientes por procesos de reserva ineficientes. Necesitaban una solución que digitalizase su operativa sin complejidad técnica.',
+    challengeEn: 'Traditional barbershops were losing appointments and clients due to inefficient booking processes. They needed a solution to digitize their operations without technical complexity.',
+    solution: 'Desarrollamos Gipsi con Flutter para ofrecer una experiencia nativa en iOS y Android. Backend robusto en Go con Supabase para la gestión en tiempo real de disponibilidad y notificaciones.',
+    solutionEn: 'We built Gipsi with Flutter to deliver a native experience on iOS and Android. Robust Go backend with Supabase for real-time availability management and notifications.',
+    features: [
+      'Reservas en tiempo real con confirmación instantánea',
+      'Panel de control para el barbero',
+      'Notificaciones push personalizadas',
+      'Perfil de cliente con historial',
+      'Integración con Google Calendar',
+      'Estadísticas de negocio',
+    ],
+    featuresEn: [
+      'Real-time bookings with instant confirmation',
+      'Barber dashboard and management panel',
+      'Personalized push notifications',
+      'Client profile with history',
+      'Google Calendar integration',
+      'Business analytics',
+    ],
+    tech: ['Flutter', 'Go', 'Supabase', 'PostgreSQL', 'Firebase'],
+    result: '3.000+ reservas gestionadas en el primer mes',
+    resultEn: '3,000+ bookings managed in the first month',
+  },
+  'nexus': {
+    title: 'Nexus',
+    tag: 'E-commerce',
+    tagEn: 'E-commerce',
+    year: '2024',
+    platform: 'Web · iOS · Android',
+    image: nexusImg.src,
+    accentRgb: '20,20,20',
+    nextSlug: 'gipsi',
+    nextTitle: 'Gipsi',
+    desc: 'Marketplace moderno de comercio electrónico con ofertas y descuentos en tiempo real. Una plataforma que redefine la experiencia de compra digital con personalización extrema.',
+    descEn: 'Modern e-commerce marketplace with real-time deals and discounts. A platform that redefines the digital shopping experience with extreme personalization.',
+    challenge: 'Los marketplaces existentes carecían de personalización y dinamismo en la presentación de ofertas. Los usuarios abandonaban la plataforma antes de completar su compra.',
+    challengeEn: 'Existing marketplaces lacked personalization and dynamism in presenting deals. Users abandoned the platform before completing their purchase.',
+    solution: 'Construimos Nexus sobre Flutter con un backend en Go y MongoDB para manejar catálogos y precios dinámicos a escala, con recomendaciones en tiempo real.',
+    solutionEn: 'We built Nexus on Flutter with a Go and MongoDB backend to handle dynamic catalogs and prices at scale, with real-time recommendations.',
+    features: [
+      'Catálogo dinámico con filtros avanzados',
+      'Ofertas flash con cuenta regresiva',
+      'Motor de recomendaciones personalizado',
+      'Carrito y checkout optimizado',
+      'Sistema de valoraciones verificadas',
+      'Panel de vendedor integrado',
+    ],
+    featuresEn: [
+      'Dynamic catalog with advanced filters',
+      'Flash deals with countdown timer',
+      'Personalized recommendation engine',
+      'Optimized cart and checkout flow',
+      'Verified review system',
+      'Integrated seller dashboard',
+    ],
+    tech: ['Flutter', 'Go', 'MongoDB', 'Redis', 'Kubernetes'],
+    result: '50.000+ usuarios en los primeros 3 meses',
+    resultEn: '50,000+ users in the first 3 months',
+  },
+  'rewind-tv': {
+    title: 'Rewind TV',
+    tag: 'Entretenimiento',
+    tagEn: 'Entertainment',
+    year: '2026',
+    platform: 'iOS · Android',
+    image: rewindtvImg.src,
+    accentRgb: '0,0,0',
+    nextSlug: 'nexus',
+    nextTitle: 'Nexus',
+    desc: 'Tu backlog definitivo de películas y series. Organiza lo que has visto, lo que tienes pendiente y descubre tus próximas obsesiones con recomendaciones inteligentes.',
+    descEn: "Your definitive movie and series backlog. Organize what you've watched, what's pending, and discover your next obsessions with smart recommendations.",
+    challenge: 'Los amantes del cine y las series carecían de una herramienta única e intuitiva para gestionar su historial, wishlist y descubrimientos sin depender de múltiples apps.',
+    challengeEn: 'Movie and series enthusiasts lacked a single intuitive tool to manage their history, watchlist, and discoveries without relying on multiple apps.',
+    solution: 'Rewind TV combina Flutter y Swift para la experiencia móvil nativa con Supabase para la sincronización en tiempo real entre dispositivos y un motor de recomendaciones basado en gustos.',
+    solutionEn: 'Rewind TV combines Flutter and Swift for the native mobile experience with Supabase for real-time cross-device sync and a taste-based recommendation engine.',
+    features: [
+      'Backlog personal con estados (visto, pendiente, descartado)',
+      'Recomendaciones personalizadas por IA',
+      'Búsqueda avanzada por género, director y año',
+      'Ratings y reseñas personales',
+      'Listas compartibles con amigos',
+      'Sincronización entre dispositivos',
+    ],
+    featuresEn: [
+      'Personal backlog with states (watched, pending, skipped)',
+      'AI-powered personalized recommendations',
+      'Advanced search by genre, director and year',
+      'Personal ratings and reviews',
+      'Shareable lists with friends',
+      'Cross-device sync',
+    ],
+    tech: ['Flutter', 'Swift', 'Supabase', 'PostgreSQL', 'Go'],
+    result: '15.000+ títulos registrados en la primera semana',
+    resultEn: '15,000+ titles logged in the first week',
+  },
+  'auramovies': {
+    title: 'AuraMovies',
+    tag: 'Red Social',
+    tagEn: 'Social App',
+    year: '2025',
+    platform: 'iOS · Android',
+    image: auramoviesImg.src,
+    accentRgb: '10,10,10',
+    nextSlug: 'rewind-tv',
+    nextTitle: 'Rewind TV',
+    desc: 'La red social definitiva para amantes del cine y las series. Comparte tu opinión, sigue a críticos, descubre tendencias y conecta con una comunidad apasionada.',
+    descEn: 'The ultimate social network for movie and series lovers. Share your opinion, follow critics, discover trends and connect with a passionate community.',
+    challenge: 'La comunidad cinéfila estaba fragmentada en múltiples plataformas con contenido de baja calidad. Faltaba un espacio de calidad donde la pasión por el cine fuera el centro.',
+    challengeEn: 'The film community was fragmented across multiple platforms with low-quality content. A quality space where passion for cinema was at the center was missing.',
+    solution: 'AuraMovies fue construido con Flutter y Go, con una arquitectura escalable sobre Kubernetes que soporta el alto volumen de contenido generado por usuarios en tiempo real.',
+    solutionEn: 'AuraMovies was built with Flutter and Go, with a scalable architecture on Kubernetes that handles the high volume of real-time user-generated content.',
+    features: [
+      'Feed personalizado de reseñas y críticas',
+      'Sistema de seguimiento entre usuarios',
+      'Salas de debate en tiempo real',
+      'Rankings y premios comunitarios',
+      'Integración con bases de datos de cine',
+      'Notificaciones en tiempo real',
+    ],
+    featuresEn: [
+      'Personalized feed of reviews and critiques',
+      'User follow system',
+      'Real-time debate rooms',
+      'Community rankings and awards',
+      'Integration with cinema databases',
+      'Real-time notifications',
+    ],
+    tech: ['Flutter', 'Go', 'MongoDB', 'Kubernetes', 'Firebase'],
+    result: '100.000+ reseñas publicadas en el primer mes',
+    resultEn: '100,000+ reviews published in the first month',
+  },
+};
+
+export async function getStaticPaths() {
+  return Object.keys({
+    'gipsi': true,
+    'nexus': true,
+    'rewind-tv': true,
+    'auramovies': true,
+  }).map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const proj = projectData[slug];
+
+if (!proj) {
+  return Astro.redirect('/projects');
+}
+
+const defaultLang = 'es';
+const T = translations[defaultLang];
+---
+
+<Layout
+  title={`Giralabs | ${proj.title}`}
+  description={proj.desc}
+  lang={defaultLang}
+>
+  <!-- Dot grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <Navbar lang={defaultLang} />
+
+  <!-- ==================== BREADCRUMB ==================== -->
+  <nav class="detail-breadcrumb reveal" aria-label="Navegación de vuelta">
+    <div class="breadcrumb-inner">
+      <a href="/projects" class="breadcrumb-back" id="proj-back-btn">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Todos los proyectos</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO FULLSCREEN ==================== -->
+  <div class="proj-hero reveal" style={`--hero-img: url('${proj.image}');`}>
+    <div class="proj-hero-bg" aria-hidden="true"></div>
+    <div class="proj-hero-overlay" aria-hidden="true"></div>
+    <div class="proj-hero-content">
+      <div class="proj-hero-meta">
+        <span class="proj-tag" data-i18n-tag>{proj.tag}</span>
+        <span class="proj-year">{proj.year}</span>
+        <span class="proj-platform-badge">{proj.platform}</span>
+      </div>
+      <h1 class="proj-hero-title">{proj.title}</h1>
+      <p class="proj-hero-desc" data-i18n-desc>{proj.desc}</p>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="proj-detail-main">
+
+
+
+    <!-- Two column layout: challenge + solution -->
+    <section class="detail-section reveal">
+      <div class="detail-grid">
+        <div class="detail-col">
+          <div class="detail-glass-card">
+            <div class="detail-card-header">
+              <span class="detail-card-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </span>
+              <h2 class="detail-card-title">El Reto</h2>
+            </div>
+            <p class="detail-card-body" data-i18n-challenge>{proj.challenge}</p>
+          </div>
+        </div>
+        <div class="detail-col">
+          <div class="detail-glass-card detail-glass-card--dark">
+            <div class="detail-card-header">
+              <span class="detail-card-icon dark-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
+              </span>
+              <h2 class="detail-card-title dark-title">La Solución</h2>
+            </div>
+            <p class="detail-card-body dark-body" data-i18n-solution>{proj.solution}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features list -->
+    <section class="features-section reveal">
+      <div class="features-inner">
+        <div class="features-header">
+          <span class="section-eyebrow">FUNCIONALIDADES</span>
+          <h2 class="section-title">Lo que incluye</h2>
+        </div>
+        <ul class="features-grid" id="features-list">
+          {proj.features.map((f, i) => (
+            <li class="feature-item" style={`--i: ${i}`}>
+              <span class="feature-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span data-feature-index={i}>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Tech stack -->
+    <section class="tech-section reveal">
+      <div class="tech-inner">
+        <span class="section-eyebrow">TECNOLOGÍAS</span>
+        <h2 class="section-title">Stack Técnico</h2>
+        <div class="tech-chips">
+          {proj.tech.map(t => (
+            <div class="tech-chip">
+              <span class="chip-dot" aria-hidden="true"></span>
+              <span>{t}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== NEXT PROJECT ==================== -->
+    <section class="next-proj-section reveal">
+      <a href={`/project/${proj.nextSlug}`} class="next-proj-card" id="next-proj-link">
+        <div class="next-card-bg" aria-hidden="true"></div>
+        <div class="next-card-glow" aria-hidden="true"></div>
+        <div class="next-card-content">
+          <span class="next-label">SIGUIENTE PROYECTO</span>
+          <h3 class="next-title">{proj.nextTitle}</h3>
+          <div class="next-arrow">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </div>
+      </a>
+    </section>
+
+  </main>
+
+  <CTAContact lang={defaultLang} />
+  <Footer lang={defaultLang} />
+
+  <!-- Scripts -->
+  <script
+    define:vars={{
+      projDesc: proj.desc,
+      projDescEn: proj.descEn,
+      projTag: proj.tag,
+      projTagEn: proj.tagEn,
+      projChallenge: proj.challenge,
+      projChallengeEn: proj.challengeEn,
+      projSolution: proj.solution,
+      projSolutionEn: proj.solutionEn,
+      projFeatures: proj.features,
+      projFeaturesEn: proj.featuresEn,
+      projTitle: proj.title,
+    }}
+  >
+    // Reveal observer
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+    revealEls.forEach(el => obs.observe(el));
+
+    // Language
+    function applyLang(lang) {
+      const isEn = lang === 'en';
+      const descEl = document.querySelector('[data-i18n-desc]');
+      const tagEl = document.querySelector('[data-i18n-tag]');
+      const challengeEl = document.querySelector('[data-i18n-challenge]');
+      const solutionEl = document.querySelector('[data-i18n-solution]');
+
+      if (descEl) descEl.textContent = isEn ? projDescEn : projDesc;
+      if (tagEl) tagEl.textContent = isEn ? projTagEn : projTag;
+      if (challengeEl) challengeEl.textContent = isEn ? projChallengeEn : projChallenge;
+      if (solutionEl) solutionEl.textContent = isEn ? projSolutionEn : projSolution;
+
+      // Features
+      const featureEls = document.querySelectorAll('[data-feature-index]');
+      const feats = isEn ? projFeaturesEn : projFeatures;
+      featureEls.forEach(el => {
+        const idx = parseInt(el.getAttribute('data-feature-index'));
+        if (feats[idx] !== undefined) el.textContent = feats[idx];
+      });
+
+      document.title = `Giralabs | ${projTitle}`;
+    }
+
+    const savedLang = localStorage.getItem('giralabs-lang');
+    if (savedLang && savedLang === 'en') applyLang('en');
+
+    document.addEventListener('giralabs:lang', (e) => {
+      applyLang(e.detail.lang);
+    });
+  </script>
+</Layout>
+
+<style>
+  /* ---- BASE BACKGROUND ---- */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-top {
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255,210,150,0.14) 0%, transparent 65%);
+    opacity: 0.06;
+  }
+
+  .glow-bottom {
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(0,240,255,0.1) 0%, transparent 70%);
+    opacity: 0.05;
+  }
+
+  /* ---- BREADCRUMB ---- */
+  .detail-breadcrumb {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 2rem 2rem;
+  }
+
+  .breadcrumb-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.55);
+    text-decoration: none;
+    padding: 0.48rem 1rem;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(0,0,0,0.06);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+
+  .breadcrumb-back svg {
+    transition: transform 0.3s ease;
+  }
+
+  .breadcrumb-back:hover {
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    border-color: rgba(0,0,0,0.1);
+    transform: translateX(-2px);
+  }
+
+  .breadcrumb-back:hover svg {
+    transform: translateX(-2px);
+  }
+
+  /* ---- HERO ---- */
+  .proj-hero {
+    position: relative;
+    z-index: 1;
+    height: 72vh;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 2rem 4rem;
+    overflow: hidden;
+    border-radius: 0 0 40px 40px;
+    margin: 0 1.5rem;
+  }
+
+  .proj-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-img);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transform: scale(1.04);
+    transition: transform 12s ease-out;
+  }
+
+  .proj-hero.visible .proj-hero-bg {
+    transform: scale(1);
+  }
+
+  .proj-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.88) 0%,
+      rgba(0,0,0,0.5) 40%,
+      rgba(0,0,0,0.1) 80%,
+      transparent 100%
+    );
+    z-index: 1;
+  }
+
+  .proj-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .proj-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .proj-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+    backdrop-filter: blur(8px);
+  }
+
+  .proj-year,
+  .proj-platform-badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+
+  .proj-platform-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.28rem 0.7rem;
+    border-radius: 100px;
+  }
+
+  .proj-hero-title {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #fff;
+    margin: 0 0 1rem;
+    line-height: 1.0;
+  }
+
+  .proj-hero-desc {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8) translateY(-4px); }
+    50% { opacity: 1; transform: scaleY(1) translateY(0); }
+  }
+
+  /* ---- MAIN DETAIL ---- */
+  .proj-detail-main {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+
+
+  /* ---- DETAIL SECTION: Challenge + Solution ---- */
+  .detail-section {
+    margin-bottom: 5rem;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .detail-glass-card {
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.75);
+    border-radius: 28px;
+    padding: 2.4rem 2.2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+    height: 100%;
+  }
+
+  .detail-glass-card--dark {
+    background: rgba(10,10,10,0.88);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  }
+
+  .detail-glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+  }
+
+  .detail-glass-card--dark:hover {
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  }
+
+  .detail-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .detail-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0,0,0,0.7);
+    flex-shrink: 0;
+  }
+
+  .dark-icon {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .detail-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin: 0;
+  }
+
+  .dark-title { color: #fff; }
+
+  .detail-card-body {
+    font-size: 0.95rem;
+    color: rgba(0,0,0,0.65);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .dark-body { color: rgba(255,255,255,0.7); }
+
+  /* ---- FEATURES SECTION ---- */
+  .features-section {
+    margin-bottom: 5rem;
+  }
+
+  .features-inner,
+  .tech-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #000;
+    margin: 0;
+  }
+
+  .features-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1.2rem 1.4rem;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.75);
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.75);
+    line-height: 1.5;
+    font-weight: 400;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    animation: featureIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) calc(var(--i) * 60ms) both;
+    opacity: 0;
+  }
+
+  .reveal.visible .feature-item {
+    opacity: 1;
+  }
+
+  @keyframes featureIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feature-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.75);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+
+  .feature-check {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0,0,0,0.7);
+    margin-top: 0.05rem;
+    transition: background 0.3s ease;
+  }
+
+  .feature-item:hover .feature-check {
+    background: rgba(0,0,0,0.1);
+  }
+
+  /* ---- TECH SECTION ---- */
+  .tech-section {
+    margin-bottom: 5rem;
+  }
+
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #111;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.08);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .tech-chip:hover {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.14);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  }
+
+  .chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    flex-shrink: 0;
+  }
+
+  /* ---- NEXT PROJECT ---- */
+  .next-proj-section {
+    margin-bottom: 6rem;
+  }
+
+  .next-proj-card {
+    display: block;
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    padding: 3.5rem 3rem;
+    text-decoration: none;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+    min-height: 180px;
+  }
+
+  .next-proj-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.14);
+  }
+
+  .next-card-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(5,5,5,0.9);
+    z-index: 0;
+  }
+
+  .next-card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.04) 0%, transparent 60%);
+    z-index: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  .next-proj-card:hover .next-card-glow {
+    opacity: 0;
+  }
+
+  .next-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .next-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    margin-bottom: 0.6rem;
+  }
+
+  .next-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #fff;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .next-arrow {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.7);
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .next-proj-card:hover .next-arrow {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    transform: rotate(45deg) scale(1.1);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    .proj-hero {
+      height: 60vh;
+      margin: 0 0.8rem;
+      border-radius: 0 0 24px 24px;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proj-detail-main {
+      padding: 0 1.2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .next-proj-card { padding: 2.5rem 1.8rem; }
+    .result-banner-inner { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
+</style>
