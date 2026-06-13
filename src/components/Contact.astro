@@ -2005,7 +2005,16 @@ const F = formTranslations[lang] || formTranslations.es;
       }
     }
 
-    const initialLang = localStorage.getItem("giralabs-lang") || document.documentElement.lang || defaultLang || "es";
+    let initialLang = 'es';
+    const savedLang = localStorage.getItem('giralabs-lang');
+    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+      initialLang = savedLang;
+    } else {
+      const browserLang = navigator.language || navigator.userLanguage;
+      if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
+        initialLang = 'en';
+      }
+    }
     updateFormTranslations(initialLang);
 
     if (window.__giralabsContactListenerAttached) {

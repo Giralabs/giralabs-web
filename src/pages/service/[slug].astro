@@ -398,8 +398,17 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
       });
     });
 
+    let initialLang = 'es';
     const savedLang = localStorage.getItem('giralabs-lang');
-    if (savedLang && (savedLang === 'es' || savedLang === 'en')) applyLang(savedLang);
+    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+      initialLang = savedLang;
+    } else {
+      const browserLang = navigator.language || navigator.userLanguage;
+      if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
+        initialLang = 'en';
+      }
+    }
+    applyLang(initialLang);
 
     document.addEventListener('giralabs:lang', (e) => applyLang(e.detail.lang));
 
