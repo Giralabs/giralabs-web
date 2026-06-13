@@ -8,6 +8,7 @@ export const translations = {
       "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
 
     // Navbar
+    nav_home: "Inicio",
     nav_services: "Servicios",
     nav_services_all: "Todos los servicios",
     nav_projects: "Proyectos",
@@ -245,6 +246,7 @@ export const translations = {
       "Giralabs is a studio specialized in mobile app development, business digitalization, and premium digital experiences.",
 
     // Navbar
+    nav_home: "Home",
     nav_services: "Services",
     nav_services_all: "All services",
     nav_projects: "Projects",

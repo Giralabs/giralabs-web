@@ -27,6 +27,7 @@ const T = translations[lang];
 
       <!-- Center nav links -->
       <ul class="nav-links" role="list">
+        <li><a href="/" class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
           <a href="/services" class="nav-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
@@ -72,6 +73,7 @@ const T = translations[lang];
         <img src={apricotSymbol.src} alt="Giralabs" width="24" height="24" />
       </a>
       <ul class="pill-links" role="list">
+        <li><a href="/" class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
           <a href="/services" class="pill-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
@@ -108,6 +110,7 @@ const T = translations[lang];
   <!-- Mobile drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <ul class="mobile-links" role="list">
+      <li><a href="/" class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
       <li class="mobile-dropdown-wrapper">
         <button class="mobile-link mobile-dropdown-toggle" type="button">
           <span data-i18n="nav_services">Servicios</span>
@@ -618,7 +621,7 @@ const T = translations[lang];
     gap: 0;
     padding: 0.6rem 1rem 0.6rem 1rem;
     border-radius: 100px;
-    min-width: 680px;
+    min-width: 740px;
 
     /* iOS 26 Liquid Glass */
     background: rgba(240, 239, 234, 0.45);

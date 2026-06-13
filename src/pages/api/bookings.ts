@@ -78,6 +78,20 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  // Verify date is at least tomorrow
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const localTodayStr = `${year}-${month}-${day}`;
+
+  if (dateISO <= localTodayStr) {
+    return new Response(
+      JSON.stringify({ error: lang === 'es' ? 'Solo se pueden reservar citas a partir de mañana.' : 'Bookings are only allowed starting from tomorrow.' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   if (!DEFAULT_SLOTS.includes(time)) {
     return new Response(JSON.stringify({ error: 'Invalid time slot' }), {
       status: 400,
