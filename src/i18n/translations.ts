@@ -3,9 +3,9 @@ export type Lang = "es" | "en";
 export const translations = {
   es: {
     // Meta
-    meta_title: "Giralabs | Estudio de Apps Móviles",
+    meta_title: "Giralabs | Empresa de Desarrollo de Software y Apps Móviles",
     meta_description:
-      "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
+      "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
 
     // Navbar
     nav_home: "Inicio",
@@ -18,10 +18,10 @@ export const translations = {
     nav_cta: "Hablemos",
 
     // Hero
-    hero_label: "Estudio de apps móviles",
-    hero_tagline: "Diseñamos y desarrollamos apps que las personas <span class='gradient-text'>aman usar</span>.",
+    hero_label: "Desarrollo de Software y Apps Móviles",
+    hero_tagline: "Desarrollo de software a medida y <span class='gradient-text'>apps móviles</span> que las personas aman usar.",
     hero_sub:
-      "De la idea al lanzamiento. Apps nativas, multiplataforma y soluciones digitales para empresas que quieren crecer.",
+      "Como empresa de desarrollo de software de servicio completo, creamos aplicaciones móviles nativas, páginas web de alto rendimiento y soluciones digitales a medida de tus objetivos.",
     hero_cta_primary: "Ver proyectos",
     hero_cta_secondary: "Conocer servicios",
 
@@ -481,9 +481,9 @@ export const translations = {
 
   en: {
     // Meta
-    meta_title: "Giralabs | Mobile App Studio",
+    meta_title: "Giralabs | Custom Software & Mobile App Development Company",
     meta_description:
-      "Giralabs is a studio specialized in mobile app development, business digitalization, and premium digital experiences.",
+      "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions.",
 
     // Navbar
     nav_home: "Home",
@@ -496,10 +496,10 @@ export const translations = {
     nav_cta: "Let's talk",
 
     // Hero
-    hero_label: "Mobile app studio",
-    hero_tagline: "We design and build apps people <span class='gradient-text'>love to use</span>.",
+    hero_label: "Software & Mobile App Development",
+    hero_tagline: "Custom software and <span class='gradient-text'>mobile apps</span> designed and built for impact.",
     hero_sub:
-      "From idea to launch. Native apps, cross-platform and digital solutions for companies ready to grow.",
+      "As a full-service software development company, we build native mobile applications, high-performance web systems, and custom digital products tailored to your goals.",
     hero_cta_primary: "View projects",
     hero_cta_secondary: "Explore services",
 
