@@ -1242,6 +1242,9 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     backdrop-filter: blur(10px);
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    color: rgba(0, 0, 0, 0.6);
   }
   .tab-btn:hover { background: rgba(255, 255, 255, 0.75); border-color: rgba(0, 0, 0, 0.15); transform: translateY(-2px); }
   .tab-btn.active {
