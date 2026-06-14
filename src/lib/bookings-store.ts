@@ -80,6 +80,26 @@ export async function getBookedSlots(dateISO: string): Promise<string[]> {
   return Object.keys(data.byDate[dateISO] ?? {});
 }
 
+/** Returns a map of dateISO -> booked time strings for multiple dates */
+export async function getBookedSlotsForDates(datesISO: string[]): Promise<Record<string, string[]>> {
+  const results: Record<string, string[]> = {};
+  if (isRedisConfigured()) {
+    const redis = await getRedis();
+    const pipeline = redis.pipeline();
+    datesISO.forEach(d => pipeline.smembers(`giralabs:booked:${d}`));
+    const resp = await pipeline.exec();
+    datesISO.forEach((d, i) => {
+      results[d] = (resp[i] as string[]) ?? [];
+    });
+    return results;
+  }
+  const data = readLocalBookings();
+  datesISO.forEach(d => {
+    results[d] = Object.keys(data.byDate[d] ?? {});
+  });
+  return results;
+}
+
 /** Returns true if the slot is already taken */
 export async function isSlotBooked(dateISO: string, time: string): Promise<boolean> {
   if (isRedisConfigured()) {

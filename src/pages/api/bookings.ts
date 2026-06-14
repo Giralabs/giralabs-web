@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getBookedSlots, isSlotBooked, saveBooking, generateCancelToken } from '../../lib/bookings-store.js';
+import { getBookedSlots, getBookedSlotsForDates, isSlotBooked, saveBooking, generateCancelToken } from '../../lib/bookings-store.js';
 import { createMeetEvent } from '../../lib/google-calendar.js';
 import { sendBookingConfirmation } from '../../lib/email-sender.js';
 
@@ -13,11 +13,29 @@ const DEFAULT_SLOTS = ['09:30', '11:00', '15:00', '16:30'];
 const MAX_GUESTS = 5;
 
 // ----------------------------------------------------------------
-// GET /api/bookings?date=YYYY-MM-DD
-// Returns { bookedSlots: string[] } for the requested date
+// GET /api/bookings?date=YYYY-MM-DD or /api/bookings?dates=YYYY-MM-DD,YYYY-MM-DD,...
+// Returns { bookedSlots: string[] } or { bookings: Record<string, string[]> }
 // ----------------------------------------------------------------
 export const GET: APIRoute = async ({ url }) => {
   const date = url.searchParams.get('date');
+  const dates = url.searchParams.get('dates');
+
+  if (dates) {
+    const datesList = dates.split(',');
+    for (const d of datesList) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+        return new Response(JSON.stringify({ error: 'Invalid date format in list (expected YYYY-MM-DD)' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    }
+    const bookings = await getBookedSlotsForDates(datesList);
+    return new Response(JSON.stringify({ bookings }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return new Response(JSON.stringify({ error: 'Invalid or missing date param (expected YYYY-MM-DD)' }), {
