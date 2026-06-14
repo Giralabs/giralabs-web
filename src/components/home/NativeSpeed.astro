@@ -8,6 +8,10 @@ import mongodbLogo from '../../assets/tech_stack/mongodb.webp';
 import supabaseLogo from '../../assets/tech_stack/supabase.webp';
 import swiftLogo from '../../assets/tech_stack/swift.webp';
 import xcodeLogo from '../../assets/tech_stack/xcode.webp';
+import springLogo from '../../assets/tech_stack/spring.webp';
+import angularLogo from '../../assets/tech_stack/angular.webp';
+import reactLogo from '../../assets/tech_stack/react.webp';
+import astroLogo from '../../assets/tech_stack/astro.webp';
 
 // Project images
 import gipsiImg from '../../assets/projects/gipsi_barber.webp';
@@ -23,14 +27,18 @@ const { lang = 'es' } = Astro.props;
 const T = translations[lang];
 
 const logos = [
-  { src: swiftLogo.src, alt: "Swift" },
-  { src: kotlinLogo.src, alt: "Kotlin" },
-  { src: flutterLogo.src, alt: "Flutter" },
-  { src: supabaseLogo.src, alt: "Supabase" },
-  { src: mongodbLogo.src, alt: "MongoDB" },
-  { src: javaLogo.src, alt: "Java" },
-  { src: androidStudioLogo.src, alt: "Android Studio" },
-  { src: xcodeLogo.src, alt: "Xcode" },
+  { src: swiftLogo.src, alt: "Swift", url: "https://www.apple.com/la/swift/" },
+  { src: kotlinLogo.src, alt: "Kotlin", url: "https://kotlinlang.org/" },
+  { src: flutterLogo.src, alt: "Flutter", url: "https://flutter.dev/" },
+  { src: supabaseLogo.src, alt: "Supabase", url: "https://supabase.com/" },
+  { src: mongodbLogo.src, alt: "MongoDB", url: "https://www.mongodb.com/" },
+  { src: javaLogo.src, alt: "Java", url: "https://www.java.com/es/" },
+  { src: androidStudioLogo.src, alt: "Android Studio", url: "https://developer.android.com/studio?hl=es-419" },
+  { src: xcodeLogo.src, alt: "Xcode", url: "https://developer.apple.com/xcode/" },
+  { src: springLogo.src, alt: "Spring", url: "https://spring.io/" },
+  { src: angularLogo.src, alt: "Angular", url: "https://angular.dev/" },
+  { src: reactLogo.src, alt: "React", url: "https://react.dev/" },
+  { src: astroLogo.src, alt: "Astro", url: "https://astro.build/" },
 ];
 
 const marqueeLogos = [...logos, ...logos, ...logos];
@@ -80,7 +88,7 @@ const projects = [
       <div class="tech-marquee">
         <div class="tech-marquee-track">
           {marqueeLogos.map((logo) => (
-            <div class="tech-logo-item">
+            <a href={logo.url} target="_blank" rel="noopener noreferrer" class="tech-logo-item" aria-label={logo.alt}>
               <img
                 src={logo.src}
                 alt={logo.alt}
@@ -89,7 +97,7 @@ const projects = [
                 width="36"
                 height="36"
               />
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -306,6 +314,7 @@ const projects = [
       0 4px 12px rgba(0, 0, 0, 0.03), 
       0 1px 0 rgba(255, 255, 255, 0.9) inset;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .tech-logo-item:hover {
@@ -553,18 +562,27 @@ const projects = [
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none; /* Firefox */
       gap: 16px;
-      margin: 0 -1.5rem;
-      padding: 0.5rem 1.5rem 1.5rem;
+      margin: 0 -2rem;
+      padding: 0.5rem 2rem 1.5rem;
     }
 
     .projects-grid::-webkit-scrollbar {
       display: none; /* Chrome/Safari */
     }
 
+    .projects-grid::after {
+      content: '';
+      flex: 0 0 2rem;
+      width: 2rem;
+      display: block;
+      pointer-events: none;
+    }
+
     .project-card {
       flex: 0 0 82vw;
       max-width: 340px;
       scroll-snap-align: start;
+      scroll-margin-left: 2rem;
       grid-column: auto !important;
       min-height: 380px;
     }
@@ -577,9 +595,18 @@ const projects = [
   @media (max-width: 600px) {
     .pioneers-section,
     .projects-section { padding: 5rem 1.5rem; }
+    .projects-grid {
+      margin: 0 -1.5rem;
+      padding: 0.5rem 1.5rem 1.5rem;
+    }
+    .projects-grid::after {
+      flex: 0 0 1.5rem;
+      width: 1.5rem;
+    }
     .project-card {
       min-height: 320px;
       border-radius: 18px;
+      scroll-margin-left: 1.5rem;
     }
     .project-card-content { padding: 1.5rem; }
   }
