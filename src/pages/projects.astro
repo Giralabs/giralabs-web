@@ -206,6 +206,8 @@ const projects = [
         if (T[key] !== undefined) {
           if (key === 'projects_title') {
             el.innerHTML = lang === 'en' ? 'Projects that<br/><em>speak for themselves.</em>' : 'Proyectos que<br/><em>hablan por sí solos.</em>';
+          } else if (T[key].includes('<') || key === 'hero_tagline') {
+            el.innerHTML = T[key];
           } else {
             el.textContent = T[key];
           }

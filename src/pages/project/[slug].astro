@@ -22,11 +22,12 @@ const projectData = {
     accentRgb: '0,0,0',
     nextSlug: 'auramovies',
     nextTitle: 'AuraMovies',
+    link: 'https://gipsi-app.com',
     desc: 'Sistema de gestión de citas y reservas diseñado específicamente para barberías modernas. Una plataforma que conecta a los clientes con sus barberos favoritos de forma fluida e inteligente.',
     descEn: 'Appointment and booking management system designed specifically for modern barbershops. A platform that connects clients with their favorite barbers seamlessly and intelligently.',
     challenge: 'Las barberías tradicionales perdían citas y clientes por procesos de reserva ineficientes. Necesitaban una solución que digitalizase su operativa sin complejidad técnica.',
     challengeEn: 'Traditional barbershops were losing appointments and clients due to inefficient booking processes. They needed a solution to digitize their operations without technical complexity.',
-    solution: 'Desarrollamos Gipsi con Flutter para ofrecer una experiencia nativa en iOS y Android. Backend robusto en Go con Supabase para la gestión en tiempo real de disponibilidad y notificaciones.',
+    solution: 'Desarrollamos Gipsi con Flutter para ofrecer una experiencia nativa en iOS and Android. Backend robusto en Go con Supabase para la gestión en tiempo real de disponibilidad y notificaciones.',
     solutionEn: 'We built Gipsi with Flutter to deliver a native experience on iOS and Android. Robust Go backend with Supabase for real-time availability management and notifications.',
     features: [
       'Reservas en tiempo real con confirmación instantánea',
@@ -58,6 +59,7 @@ const projectData = {
     accentRgb: '20,20,20',
     nextSlug: 'gipsi',
     nextTitle: 'Gipsi',
+    link: 'https://nexus-app.es',
     desc: 'Marketplace moderno de comercio electrónico con ofertas y descuentos en tiempo real. Una plataforma que redefine la experiencia de compra digital con personalización extrema.',
     descEn: 'Modern e-commerce marketplace with real-time deals and discounts. A platform that redefines the digital shopping experience with extreme personalization.',
     challenge: 'Los marketplaces existentes carecían de personalización y dinamismo en la presentación de ofertas. Los usuarios abandonaban la plataforma antes de completar su compra.',
@@ -98,7 +100,7 @@ const projectData = {
     descEn: "Your definitive movie and series backlog. Organize what you've watched, what's pending, and discover your next obsessions with smart recommendations.",
     challenge: 'Los amantes del cine y las series carecían de una herramienta única e intuitiva para gestionar su historial, wishlist y descubrimientos sin depender de múltiples apps.',
     challengeEn: 'Movie and series enthusiasts lacked a single intuitive tool to manage their history, watchlist, and discoveries without relying on multiple apps.',
-    solution: 'Rewind TV combina Flutter y Swift para la experiencia móvil nativa con Supabase para la sincronización en tiempo real entre dispositivos y un motor de recomendaciones basado en gustos.',
+    solution: 'Rewind TV cambia Flutter y Swift para la experiencia móvil nativa con Supabase para la sincronización en tiempo real entre dispositivos y un motor de recomendaciones basado en gustos.',
     solutionEn: 'Rewind TV combines Flutter and Swift for the native mobile experience with Supabase for real-time cross-device sync and a taste-based recommendation engine.',
     features: [
       'Backlog personal con estados (visto, pendiente, descartado)',
@@ -215,6 +217,18 @@ const T = translations[defaultLang];
       </div>
       <h1 class="proj-hero-title">{proj.title}</h1>
       <p class="proj-hero-desc" data-i18n-desc>{proj.desc}</p>
+      {proj.link && (
+        <div class="proj-hero-action">
+          <a href={proj.link} target="_blank" rel="noopener noreferrer" class="proj-visit-btn">
+            <span data-i18n="visit_project">{T.visit_project}</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      )}
     </div>
 
     <!-- Scroll indicator -->
@@ -337,6 +351,7 @@ const T = translations[defaultLang];
       projFeatures: proj.features,
       projFeaturesEn: proj.featuresEn,
       projTitle: proj.title,
+      translations: { es: translations['es'], en: translations['en'] },
     }}
   >
     // Reveal observer
@@ -351,6 +366,22 @@ const T = translations[defaultLang];
     // Language
     function applyLang(lang) {
       const isEn = lang === 'en';
+      const T = translations[lang];
+
+      // Translate standard elements marked with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[key] !== undefined) {
+          if (key === 'how_title' || key === 'sd_title') {
+            el.innerHTML = T[key].replace(/\n/g, '<br/>');
+          } else if (T[key].includes('<') || key === 'hero_tagline') {
+            el.innerHTML = T[key];
+          } else {
+            el.textContent = T[key];
+          }
+        }
+      });
+
       const descEl = document.querySelector('[data-i18n-desc]');
       const tagEl = document.querySelector('[data-i18n-tag]');
       const challengeEl = document.querySelector('[data-i18n-challenge]');
@@ -481,7 +512,7 @@ const T = translations[defaultLang];
     justify-content: flex-end;
     padding: 0 2rem 4rem;
     overflow: hidden;
-    border-radius: 0 0 40px 40px;
+    border-radius: 40px;
     margin: 0 1.5rem;
   }
 
@@ -574,6 +605,46 @@ const T = translations[defaultLang];
     line-height: 1.6;
     margin: 0;
     max-width: 600px;
+  }
+
+  .proj-hero-action {
+    margin-top: 1.8rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .proj-visit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: -0.01em;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+
+  .proj-visit-btn svg {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .proj-visit-btn:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+  }
+
+  .proj-visit-btn:hover svg {
+    transform: translate(2px, -2px);
   }
 
   /* Scroll indicator */

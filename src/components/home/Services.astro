@@ -292,10 +292,17 @@ const T = translations[lang];
       </a>
 
     </div>
+
+    <!-- Carousel scroll indicator (mobile only) -->
+    <div class="sd-carousel-indicator" aria-hidden="true">
+      <div class="sd-indicator-track">
+        <div class="sd-indicator-bar" id="sd-indicator-bar"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Scroll Reveal Activation & Spotlight tracking -->
+<!-- Scroll Reveal Activation, Spotlight tracking & Carousel Indicator -->
 <script>
   function initScrollReveal() {
     const cards = document.querySelectorAll('.sd-card');
@@ -326,6 +333,20 @@ const T = translations[lang];
     });
 
     cards.forEach(card => observer.observe(card));
+
+    // Handle scroll progress indicator for mobile carousel
+    const grid = document.querySelector('.sd-grid');
+    const bar = document.getElementById('sd-indicator-bar');
+    if (grid && bar) {
+      const updateIndicator = () => {
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const percentage = maxScroll > 0 ? (grid.scrollLeft / maxScroll) * 100 : 0;
+        bar.style.width = `${percentage}%`;
+      };
+      grid.addEventListener('scroll', updateIndicator, { passive: true });
+      window.addEventListener('resize', updateIndicator, { passive: true });
+      updateIndicator();
+    }
   }
 
   initScrollReveal();
@@ -1114,6 +1135,33 @@ const T = translations[lang];
     20%, 50% { fill: var(--accent-color-1); stroke: #fff; filter: drop-shadow(0 0 4px var(--accent-color-1)); }
   }
 
+  /* Mobile Carousel Indicator Styles */
+  .sd-carousel-indicator {
+    display: none;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+  .sd-indicator-track {
+    width: 80px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sd-indicator-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #F0EFEA;
+    border-radius: 10px;
+  }
+
   /* ========================================
      RESPONSIVE BREAKPOINTS
   ======================================== */
@@ -1149,6 +1197,36 @@ const T = translations[lang];
 
     .sd-card--horiz .sd-card-text {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sd-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      gap: 16px;
+      margin: 0 -1.2rem;
+      padding: 0.5rem 1.2rem 1.5rem;
+    }
+
+    .sd-grid::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    .sd-card {
+      flex: 0 0 82vw;
+      max-width: 340px;
+      scroll-snap-align: start;
+      grid-column: auto !important;
+      height: auto;
+    }
+
+    .sd-carousel-indicator {
+      display: flex;
     }
   }
 
