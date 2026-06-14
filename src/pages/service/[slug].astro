@@ -143,8 +143,8 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
                       <div class="timeline-step step-2"><span class="step-num">W2</span><span class="step-lbl">Proto</span></div>
                       <div class="timeline-step step-3"><span class="step-num">MVP</span><span class="step-lbl">€ Fixed</span></div>
                       <svg class="timeline-connector" viewBox="0 0 160 10" preserveAspectRatio="none">
-                        <path d="M 10 5 L 150 5" stroke="rgba(0,0,0,0.05)" stroke-width="2" stroke-dasharray="3,3" />
-                        <path d="M 10 5 L 150 5" stroke="var(--discovery-color-1)" stroke-width="2" class="connector-progress" />
+                        <path d="M 10 5 L 115 5" stroke="rgba(0,0,0,0.05)" stroke-width="2" stroke-dasharray="3,3" />
+                        <path d="M 10 5 L 115 5" stroke="var(--discovery-color-1)" stroke-width="2" class="connector-progress" />
                       </svg>
                     </div>
                   </div>
@@ -216,21 +216,503 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
                 </>
               )}
 
-              <!-- S2-S6 Generic Phase Switcher widgets -->
-              {index !== 1 && (
+              <!-- S2 (Web Development) animations -->
+              {index === 2 && (
+                <>
+                  {/* Phase 1: SEO & Planning Strategy */}
+                  <div class="phase-widget widget-p1 active">
+                    <div class="discovery-timeline">
+                      <div class="timeline-step step-1"><span class="step-num">SEO</span><span class="step-lbl">Research</span></div>
+                      <div class="timeline-step step-2"><span class="step-num">Map</span><span class="step-lbl">Structure</span></div>
+                      <div class="timeline-step step-3"><span class="step-num">CRO</span><span class="step-lbl">Strategy</span></div>
+                      <svg class="timeline-connector" viewBox="0 0 160 10" preserveAspectRatio="none">
+                        <path d="M 10 5 L 115 5" stroke="rgba(0,0,0,0.05)" stroke-width="2" stroke-dasharray="3,3" />
+                        <path d="M 10 5 L 115 5" stroke="var(--discovery-color-1)" stroke-width="2" class="connector-progress" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Phase 2: Wireframe/Layout */}
+                  <div class="phase-widget widget-p2">
+                    <div class="wireframe-widget">
+                      <div class="wire-grid-overlay"></div>
+                      <div class="wire-box-header"></div>
+                      <div class="wire-box-sidebar"></div>
+                      <div class="wire-box-content">
+                        <div class="wire-line-1"></div>
+                        <div class="wire-line-2"></div>
+                        <div class="wire-blocks">
+                          <div class="wire-block-item"></div>
+                          <div class="wire-block-item"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3: Terminal/Code typing */}
+                  <div class="phase-widget widget-p3">
+                    <div class="code-terminal-widget">
+                      <div class="t-dots"><span class="tdtd r-td"></span><span class="tdtd y-td"></span><span class="tdtd g-td"></span></div>
+                      <div class="terminal-body-code">
+                        <div class="code-line c-l-1">> npm run build</div>
+                        <div class="code-line c-l-2">> compiling packages...</div>
+                        <div class="code-line c-l-3">> done in 452ms <span class="blinking-cursor">_</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 4: Speedometer/Gauge check */}
+                  <div class="phase-widget widget-p4">
+                    <div class="gauge-widget">
+                      <div class="gauge-ring">
+                        <svg viewBox="0 0 100 100" width="90" height="90">
+                          <circle cx="50" cy="50" r="42" stroke="rgba(0,0,0,0.04)" stroke-width="6" fill="none" />
+                          <circle cx="50" cy="50" r="42" stroke="var(--accent-color-1)" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="264" class="gauge-progress" fill="none" />
+                        </svg>
+                        <div class="gauge-center"><span class="gauge-val">99%</span><span class="gauge-lbl">QA</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 5: Web Deployment & SSL */}
+                  <div class="phase-widget widget-p5">
+                    <div class="cloud-deploy-widget">
+                      <div class="cloud-icon-wrapper">
+                        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--accent-color-1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="2" y1="12" x2="22" y2="12"></line>
+                          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <div class="deploy-signal"></div>
+                      </div>
+                      <div class="server-node node-left">WWW</div>
+                      <div class="server-node node-right">HTTPS</div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <!-- S3 (Business Digitalization) animations -->
+              {index === 3 && (
+                <>
+                  {/* Phase 1: Process Audit Checklist */}
+                  <div class="phase-widget widget-p1 active">
+                    <div class="audit-checklist">
+                      <div class="checklist-item item-1">
+                        <svg class="check-box-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent-color-1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="checklist-txt">Audit current workflows</span>
+                      </div>
+                      <div class="checklist-item item-2">
+                        <svg class="check-box-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent-color-1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="checklist-txt">Identify bottlenecks</span>
+                      </div>
+                      <div class="checklist-item item-3">
+                        <svg class="check-box-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent-color-1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="checklist-txt">Design optimization plan</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 2: Architecture Schema */}
+                  <div class="phase-widget widget-p2">
+                    <div class="architecture-schema">
+                      <div class="schema-node db-node">DB</div>
+                      <div class="schema-lines">
+                        <svg viewBox="0 0 100 60" class="schema-svg" preserveAspectRatio="none">
+                          <path d="M 50 10 L 20 45" stroke="rgba(0,0,0,0.1)" stroke-width="1.5" />
+                          <path d="M 50 10 L 80 45" stroke="rgba(0,0,0,0.1)" stroke-width="1.5" />
+                          <circle cx="50" cy="10" r="3" fill="var(--accent-color-1)" class="schema-packet packet-1" />
+                          <circle cx="50" cy="10" r="3" fill="var(--accent-color-1)" class="schema-packet packet-2" />
+                        </svg>
+                      </div>
+                      <div class="schema-clients">
+                        <div class="schema-node client-node-1">API</div>
+                        <div class="schema-node client-node-2">Web</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3: API Connector Widget */}
+                  <div class="phase-widget widget-p3">
+                    <div class="api-connector-widget">
+                      <div class="api-client-box">Client</div>
+                      <div class="api-pipe">
+                        <div class="api-line"></div>
+                        <div class="api-packet packet-req">GET</div>
+                        <div class="api-packet packet-res">200</div>
+                      </div>
+                      <div class="api-server-box">Server</div>
+                    </div>
+                  </div>
+
+                  {/* Phase 4: Training & Onboarding */}
+                  <div class="phase-widget widget-p4">
+                    <div class="training-team-widget">
+                      <div class="member-row row-1">
+                        <span class="member-label">Admin</span>
+                        <div class="progress-bar-container"><div class="progress-bar bar-1"></div></div>
+                      </div>
+                      <div class="member-row row-2">
+                        <span class="member-label">Manager</span>
+                        <div class="progress-bar-container"><div class="progress-bar bar-2"></div></div>
+                      </div>
+                      <div class="member-row row-3">
+                        <span class="member-label">Staff</span>
+                        <div class="progress-bar-container"><div class="progress-bar bar-3"></div></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 5: System Monitor Uptime */}
+                  <div class="phase-widget widget-p5">
+                    <div class="system-monitor">
+                      <div class="monitor-header">
+                        <span class="monitor-pulse"></span>
+                        <span class="monitor-status">SYSTEM ACTIVE</span>
+                      </div>
+                      <div class="monitor-stats">
+                        <div class="stat-box">
+                          <span class="stat-val">99.9%</span>
+                          <span class="stat-lbl">Uptime</span>
+                        </div>
+                        <div class="stat-box">
+                          <span class="stat-val">34ms</span>
+                          <span class="stat-lbl">Latency</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <!-- S4 (Online Stores) animations -->
+              {index === 4 && (
+                <>
+                  {/* Phase 1: Catalog Architecture & Variants */}
+                  <div class="phase-widget widget-p1 active">
+                    <div class="catalog-card-widget">
+                      <div class="catalog-product-preview">
+                        <div class="product-image-skeleton"></div>
+                        <div class="product-info-lines">
+                          <span class="product-name-line"></span>
+                          <span class="product-price-line"></span>
+                        </div>
+                      </div>
+                      <div class="catalog-variants">
+                        <div class="variant-sizes">
+                          <span class="size-btn">S</span>
+                          <span class="size-btn active">M</span>
+                          <span class="size-btn">L</span>
+                        </div>
+                        <div class="variant-colors">
+                          <span class="color-dot dot-active"></span>
+                          <span class="color-dot"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 2: Funnel Flow Conversion */}
+                  <div class="phase-widget widget-p2">
+                    <div class="funnel-flow-widget">
+                      <svg viewBox="0 0 100 80" class="funnel-svg">
+                        {/* Funnel shape outline */}
+                        <path d="M 10 5 L 90 5 L 60 55 L 40 55 Z" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+                        <line x1="40" y1="55" x2="40" y2="75" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+                        <line x1="60" y1="55" x2="60" y2="75" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+                        
+                        {/* Flowing dots representing conversions */}
+                        <circle cx="50" cy="8" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-1" />
+                        <circle cx="35" cy="15" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-2" />
+                        <circle cx="65" cy="15" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-3" />
+                        <circle cx="50" cy="35" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-4" />
+                        <circle cx="50" cy="65" r="2.5" fill="var(--accent-color-2)" class="funnel-dot dot-success" />
+                      </svg>
+                      <div class="funnel-labels">
+                        <span class="funnel-lbl-top">Add to Cart</span>
+                        <span class="funnel-lbl-bot">Purchase</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3: Payment & Shipping */}
+                  <div class="phase-widget widget-p3">
+                    <div class="payment-shipping-widget">
+                      <div class="credit-card-mock">
+                        <div class="card-chip"></div>
+                        <div class="card-number">•••• •••• •••• 4242</div>
+                        <div class="card-status-container">
+                          <span class="card-status-spinner"></span>
+                          <span class="card-status-text">Processing</span>
+                        </div>
+                      </div>
+                      <div class="shipping-truck-box">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent-color-1)" stroke-width="2">
+                          <rect x="1" y="3" width="15" height="13"></rect>
+                          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                          <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                        <span class="shipping-status">In Transit</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 4: Checkout Testing & QA Checklist */}
+                  <div class="phase-widget widget-p4">
+                    <div class="checkout-qa-widget">
+                      <div class="qa-item item-1">
+                        <span class="qa-indicator"></span>
+                        <span class="qa-lbl">Payment Gateway</span>
+                      </div>
+                      <div class="qa-item item-2">
+                        <span class="qa-indicator"></span>
+                        <span class="qa-lbl">Stock Calculation</span>
+                      </div>
+                      <div class="qa-item item-3">
+                        <span class="qa-indicator"></span>
+                        <span class="qa-lbl">Email Confirmation</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 5: Launch & Conversion Live stats */}
+                  <div class="phase-widget widget-p5">
+                    <div class="conversion-live-widget">
+                      <div class="conversion-card">
+                        <span class="live-badge">LIVE SALES</span>
+                        <span class="conversion-rate">+3.8%</span>
+                        <span class="conversion-sub">Conversion Rate</span>
+                      </div>
+                      <div class="sales-chart-mini">
+                        <svg viewBox="0 0 100 40" class="chart-mini-svg">
+                          <path d="M 0 35 Q 25 30 50 15 T 100 5 L 100 40 L 0 40 Z" fill="rgba(var(--accent-rgb-1), 0.05)" />
+                          <path d="M 0 35 Q 25 30 50 15 T 100 5" fill="none" stroke="var(--accent-color-1)" stroke-width="2" class="chart-line-draw" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <!-- S5 (Custom Software) animations -->
+              {index === 5 && (
+                <>
+                  {/* Phase 1: Kanban Board Sprint Scoping */}
+                  <div class="phase-widget widget-p1 active">
+                    <div class="kanban-board-widget">
+                      <div class="kanban-col">
+                        <span class="kanban-col-title">Todo</span>
+                        <div class="kanban-card card-todo">User Auth</div>
+                      </div>
+                      <div class="kanban-col">
+                        <span class="kanban-col-title">Doing</span>
+                        <div class="kanban-card card-doing">API Gateway</div>
+                      </div>
+                      <div class="kanban-col">
+                        <span class="kanban-col-title">Done</span>
+                        <div class="kanban-card card-done">Db Setup</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 2: Database Table Relationship Schema */}
+                  <div class="phase-widget widget-p2">
+                    <div class="database-schema-widget">
+                      <div class="db-table table-users">
+                        <div class="table-title">users</div>
+                        <div class="table-field primary-key">id</div>
+                        <div class="table-field">email</div>
+                      </div>
+                      <div class="db-relation-line">
+                        <svg viewBox="0 0 40 40" class="relation-svg" preserveAspectRatio="none">
+                          <path d="M 0 20 L 40 20" stroke="var(--accent-color-1)" stroke-width="1.5" stroke-dasharray="3,3" class="pulse-line" />
+                          <circle cx="20" cy="20" r="3" fill="var(--accent-color-2)" class="relation-dot" />
+                        </svg>
+                      </div>
+                      <div class="db-table table-orders">
+                        <div class="table-title">orders</div>
+                        <div class="table-field primary-key">id</div>
+                        <div class="table-field foreign-key">user_id</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3: Backend Worker Queue Processor */}
+                  <div class="phase-widget widget-p3">
+                    <div class="backend-queue-widget">
+                      <div class="queue-item status-success">
+                        <span class="queue-id">Job #802</span>
+                        <span class="queue-status">COMPLETED</span>
+                      </div>
+                      <div class="queue-item status-running">
+                        <span class="queue-id">Job #803</span>
+                        <span class="queue-status">RUNNING</span>
+                      </div>
+                      <div class="queue-item status-pending">
+                        <span class="queue-id">Job #804</span>
+                        <span class="queue-status">QUEUED</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 4: Automated Testing QA Terminal */}
+                  <div class="phase-widget widget-p4">
+                    <div class="qa-tests-widget">
+                      <div class="test-terminal">
+                        <div class="test-row pass">
+                          <span class="badge-pass">PASS</span>
+                          <span class="test-name">auth.test.js</span>
+                        </div>
+                        <div class="test-row pass">
+                          <span class="badge-pass">PASS</span>
+                          <span class="test-name">db.test.js</span>
+                        </div>
+                        <div class="test-summary">
+                          <span class="summary-lbl">Tests:</span>
+                          <span class="summary-val">12 passed, 12 total</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 5: CI/CD DevOps Pipeline */}
+                  <div class="phase-widget widget-p5">
+                    <div class="devops-pipeline-widget">
+                      <div class="pipeline-stages">
+                        <div class="pipeline-stage stage-build active">Build</div>
+                        <div class="pipeline-stage stage-test">Test</div>
+                        <div class="pipeline-stage stage-deploy">Deploy</div>
+                      </div>
+                      <div class="pipeline-connector-line">
+                        <div class="pipeline-progress-bar"></div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <!-- S6 (AI Integration) animations -->
+              {index === 6 && (
+                <>
+                  {/* Phase 1: AI Feasibility scorecard bar chart */}
+                  <div class="phase-widget widget-p1 active">
+                    <div class="ai-feasibility-widget">
+                      <div class="feasibility-row">
+                        <span class="feasibility-lbl">Business Value</span>
+                        <div class="feasibility-bar"><div class="feasibility-fill fill-val"></div></div>
+                        <span class="feasibility-pct">92%</span>
+                      </div>
+                      <div class="feasibility-row">
+                        <span class="feasibility-lbl">Compute Cost</span>
+                        <div class="feasibility-bar"><div class="feasibility-fill fill-cost"></div></div>
+                        <span class="feasibility-pct">18%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 2: Vectorization & Embeddings */}
+                  <div class="phase-widget widget-p2">
+                    <div class="ai-vector-widget">
+                      <div class="vector-doc-box">Doc</div>
+                      <div class="vector-flow">
+                        <svg viewBox="0 0 80 30" class="vector-flow-svg">
+                          <path d="M 5 15 L 75 15" stroke="rgba(0,0,0,0.06)" stroke-width="1.5" stroke-linecap="round" />
+                          <circle cx="5" cy="15" r="3" fill="var(--accent-color-1)" class="flow-particle particle-a" />
+                        </svg>
+                        <span class="vector-value">[0.91, -0.24, 0.53]</span>
+                      </div>
+                      <div class="vector-db-box">Vec DB</div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3: Prompt Engineering Playground */}
+                  <div class="phase-widget widget-p3">
+                    <div class="ai-prompt-widget">
+                      <div class="prompt-box">
+                        <span class="prompt-label">SYSTEM PROMPT</span>
+                        <div class="prompt-text">You are a helpful assistant. Output JSON only.</div>
+                      </div>
+                      <div class="completion-box">
+                        <span class="completion-label">OUTPUT JSON</span>
+                        <div class="completion-text">&#123; "status": "success" &#125;<span class="blinking-cursor">_</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phase 4: Agent & Tool Calling */}
+                  <div class="phase-widget widget-p4">
+                    <div class="ai-agent-widget">
+                      <div class="agent-node">Agent</div>
+                      <div class="agent-tool-pipe">
+                        <span class="tool-call-label">tool_call</span>
+                        <svg viewBox="0 0 100 20" class="agent-svg">
+                          <line x1="5" y1="10" x2="95" y2="10" stroke="rgba(0,0,0,0.06)" stroke-width="1.5" />
+                          <circle cx="5" cy="10" r="3.5" fill="var(--accent-color-1)" class="agent-particle" />
+                        </svg>
+                      </div>
+                      <div class="tool-node">DB Tool</div>
+                    </div>
+                  </div>
+
+                  {/* Phase 5: AI Guardrails & Hallucination Check */}
+                  <div class="phase-widget widget-p5">
+                    <div class="ai-guardrail-widget">
+                      <div class="ai-guardrail-widget">
+                        <div class="guardrail-item g-item-1">
+                          <span class="guardrail-indicator"></span>
+                          <span class="guardrail-lbl">PII Leak Prevention</span>
+                        </div>
+                        <div class="guardrail-item g-item-2">
+                          <span class="guardrail-indicator"></span>
+                          <span class="guardrail-lbl">Hallucination Filter</span>
+                        </div>
+                        <div class="guardrail-item g-item-3">
+                          <span class="guardrail-indicator"></span>
+                          <span class="guardrail-lbl">Output Safety Guard</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <!-- S3-S6 Generic Phase Switcher widgets -->
+              {index !== 1 && index !== 2 && index !== 3 && index !== 4 && index !== 5 && index !== 6 && (
                 <>
                   <!-- Phase 1: Flowchart/Analysis -->
                   <div class="phase-widget widget-p1 active">
                     <div class="flowchart-widget">
-                      <div class="flowchart-box flow-box-1"><span class="flow-icon">🔍</span><span class="flow-txt">Audit</span></div>
+                      <div class="flowchart-box flow-box-1">
+                        <span class="flow-icon">
+                          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </span>
+                        <span class="flow-txt">Audit</span>
+                      </div>
                       <div class="flowchart-arrow arrow-1">
                         <svg viewBox="0 0 40 10" width="30" height="8" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2"><path d="M0,5 L30,5 M25,1 L30,5 L25,9" /></svg>
                       </div>
-                      <div class="flowchart-box flow-box-2"><span class="flow-icon">🗺️</span><span class="flow-txt">Map</span></div>
+                      <div class="flowchart-box flow-box-2">
+                        <span class="flow-icon">
+                          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+                        </span>
+                        <span class="flow-txt">Map</span>
+                      </div>
                       <div class="flowchart-arrow arrow-2">
                         <svg viewBox="0 0 40 10" width="30" height="8" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2"><path d="M0,5 L30,5 M25,1 L30,5 L25,9" /></svg>
                       </div>
-                      <div class="flowchart-box flow-box-3"><span class="flow-icon">🎯</span><span class="flow-txt">Goal</span></div>
+                      <div class="flowchart-box flow-box-3">
+                        <span class="flow-icon">
+                          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </span>
+                        <span class="flow-txt">Goal</span>
+                      </div>
                     </div>
                   </div>
 
@@ -796,7 +1278,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   }
   .step-lbl { font-size: 0.62rem; color: rgba(0, 0, 0, 0.75); font-weight: 500; }
   .timeline-connector { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 10px; z-index: 1; }
-  .connector-progress { stroke-dasharray: 140; stroke-dashoffset: 140; }
+  .connector-progress { stroke-dasharray: 105; stroke-dashoffset: 105; }
 
   .details-grid.is-active .timeline-step.step-1 { animation: step1Pulse 4s infinite ease-in-out; }
   .details-grid.is-active .timeline-step.step-2 { animation: step2Pulse 4s infinite ease-in-out; }
@@ -806,7 +1288,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   @keyframes step1Pulse { 0%, 100% { border-color: rgba(0, 0, 0, 0.08); transform: translateY(0); } 12%, 40% { border-color: rgba(0, 0, 0, 0.25); transform: translateY(-4px); } }
   @keyframes step2Pulse { 0%, 12%, 100% { border-color: rgba(0, 0, 0, 0.08); transform: translateY(0); } 24%, 52% { border-color: rgba(0, 0, 0, 0.25); transform: translateY(-4px); } }
   @keyframes step3Pulse { 0%, 24%, 100% { border-color: rgba(0, 0, 0, 0.08); transform: translateY(0); background: #fff; } 36%, 76% { border-color: var(--discovery-color-1); transform: translateY(-4px); background: rgba(var(--discovery-rgb-1), 0.03); } }
-  @keyframes lineProgress { 0%, 8% { stroke-dashoffset: 140; } 52%, 80% { stroke-dashoffset: 0; } 90%, 100% { stroke-dashoffset: 140; } }
+  @keyframes lineProgress { 0%, 8% { stroke-dashoffset: 105; } 52%, 80% { stroke-dashoffset: 0; } 90%, 100% { stroke-dashoffset: 105; } }
 
   /* W2: Design Workspace */
   .design-workspace { position: relative; width: 200px; height: 130px; background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.04); border-radius: 16px; overflow: hidden; }
@@ -1027,6 +1509,1197 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ========================================
+     S3 SPECIFIC WIDGETS (Digitalization)
+  ======================================== */
+  /* W1: Audit Checklist */
+  .audit-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 220px;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    transform: translateY(6px);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  .check-box-icon {
+    flex-shrink: 0;
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    transition: stroke-dashoffset 0.5s ease;
+  }
+  .checklist-txt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .details-grid.is-active .checklist-item.item-1 { animation: checkIn 4s infinite ease-in-out; }
+  .details-grid.is-active .checklist-item.item-2 { animation: checkIn 4s infinite ease-in-out; animation-delay: 0.8s; }
+  .details-grid.is-active .checklist-item.item-3 { animation: checkIn 4s infinite ease-in-out; animation-delay: 1.6s; }
+  
+  .details-grid.is-active .item-1 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; }
+  .details-grid.is-active .item-2 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; animation-delay: 0.8s; }
+  .details-grid.is-active .item-3 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; animation-delay: 1.6s; }
+
+  @keyframes checkIn {
+    0%, 100% { opacity: 0; transform: translateY(6px); }
+    15%, 85% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes strokeCheck {
+    0%, 15%, 100% { stroke-dashoffset: 24; }
+    30%, 85% { stroke-dashoffset: 0; }
+  }
+
+  /* W2: Architecture Schema */
+  .architecture-schema {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    position: relative;
+  }
+  .schema-node {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    z-index: 2;
+  }
+  .db-node {
+    border-color: var(--accent-color-1);
+    background: rgba(var(--accent-rgb-1), 0.02);
+  }
+  .schema-lines {
+    width: 100%;
+    height: 36px;
+    margin: -2px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .schema-svg {
+    width: 100%;
+    height: 100%;
+  }
+  .schema-clients {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+  }
+  .client-node-1, .client-node-2 {
+    width: 65px;
+    text-align: center;
+  }
+  
+  .details-grid.is-active .packet-1 { animation: packetFlowLeft 3s infinite linear; }
+  .details-grid.is-active .packet-2 { animation: packetFlowRight 3s infinite linear; }
+
+  @keyframes packetFlowLeft {
+    0% { cx: 50; cy: 10; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { cx: 20; cy: 45; opacity: 0; }
+  }
+  @keyframes packetFlowRight {
+    0% { cx: 50; cy: 10; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { cx: 80; cy: 45; opacity: 0; }
+  }
+
+  /* W3: API Connector Widget */
+  .api-connector-widget {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    justify-content: space-between;
+  }
+  .api-client-box, .api-server-box {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    z-index: 2;
+  }
+  .api-pipe {
+    flex: 1;
+    height: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .api-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: 1;
+  }
+  .api-packet {
+    position: absolute;
+    background: var(--accent-color-1);
+    color: #fff;
+    font-size: 0.5rem;
+    font-weight: 800;
+    font-family: monospace;
+    padding: 2px 5px;
+    border-radius: 4px;
+    opacity: 0;
+    z-index: 2;
+  }
+  .packet-req {
+    left: 10%;
+  }
+  .packet-res {
+    right: 10%;
+    background: var(--accent-color-2);
+  }
+
+  .details-grid.is-active .packet-req { animation: apiRequestFlow 3s infinite ease-in-out; }
+  .details-grid.is-active .packet-res { animation: apiResponseFlow 3s infinite ease-in-out; }
+
+  @keyframes apiRequestFlow {
+    0% { left: 5%; opacity: 0; }
+    15% { opacity: 1; }
+    35% { left: 85%; opacity: 1; }
+    40%, 100% { left: 85%; opacity: 0; }
+  }
+  @keyframes apiResponseFlow {
+    0%, 45% { right: 5%; opacity: 0; }
+    60% { opacity: 1; }
+    80% { right: 85%; opacity: 1; }
+    85%, 100% { right: 85%; opacity: 0; }
+  }
+
+  /* W4: Training & Onboarding */
+  .training-team-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 220px;
+  }
+  .member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .member-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.65);
+    width: 50px;
+  }
+  .progress-bar-container {
+    flex: 1;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent-color-1);
+    border-radius: 10px;
+    width: 0;
+  }
+  
+  .details-grid.is-active .bar-1 { animation: loadProgress 4s infinite ease-in-out; }
+  .details-grid.is-active .bar-2 { animation: loadProgress 4s infinite ease-in-out; animation-delay: 0.5s; }
+  .details-grid.is-active .bar-3 { animation: loadProgress 4s infinite ease-in-out; animation-delay: 1s; }
+
+  @keyframes loadProgress {
+    0%, 100% { width: 0; }
+    50%, 85% { width: 100%; }
+  }
+
+  /* W5: System Monitor */
+  .system-monitor {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 1rem;
+    width: 200px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.015);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .monitor-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .monitor-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+  }
+  .details-grid.is-active .monitor-pulse { animation: monitorPulseAnim 1.8s infinite alternate ease-in-out; }
+  
+  .monitor-status {
+    font-size: 0.58rem;
+    font-weight: 800;
+    color: #22c55e;
+    letter-spacing: 0.05em;
+  }
+  .monitor-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-val {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #000;
+  }
+  .stat-lbl {
+    font-size: 0.52rem;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  @keyframes monitorPulseAnim {
+    0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px rgba(34, 197, 94, 0.3); }
+    100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px rgba(34, 197, 94, 0.8); }
+  }
+
+  /* ========================================
+     S4 SPECIFIC WIDGETS (E-Commerce)
+  ======================================== */
+  /* W1: Catalog card */
+  .catalog-card-widget {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 10px;
+    width: 170px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.01);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .catalog-product-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .product-image-skeleton {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+  }
+  .product-info-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .product-name-line {
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    width: 80%;
+  }
+  .product-price-line {
+    height: 5px;
+    background: rgba(var(--accent-rgb-1), 0.2);
+    border-radius: 1.5px;
+    width: 40%;
+  }
+  .catalog-variants {
+    border-top: 1px dashed rgba(0, 0, 0, 0.06);
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .variant-sizes {
+    display: flex;
+    gap: 4px;
+  }
+  .size-btn {
+    font-size: 0.52rem;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  .size-btn.active {
+    background: var(--accent-color-1);
+    border-color: var(--accent-color-1);
+    color: #fff;
+  }
+  .variant-colors {
+    display: flex;
+    gap: 4px;
+  }
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .color-dot-active {
+    background: var(--accent-color-2);
+    border-color: rgba(255,255,255,0.8);
+    box-shadow: 0 0 0 1px var(--accent-color-2);
+  }
+
+  .details-grid.is-active .size-btn { animation: sizeCycle 3s infinite ease-in-out; }
+  .details-grid.is-active .color-dot { animation: colorCycle 3s infinite ease-in-out; }
+
+  @keyframes sizeCycle {
+    0%, 30%, 100% { background: transparent; border-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.5); }
+    35%, 65% { background: var(--accent-color-1); border-color: var(--accent-color-1); color: #fff; }
+  }
+  @keyframes colorCycle {
+    0%, 30%, 100% { background: var(--accent-color-2); border-color: rgba(255,255,255,0.8); box-shadow: 0 0 0 1px var(--accent-color-2); }
+    35%, 65% { background: rgba(0,0,0,0.06); border-color: transparent; box-shadow: none; }
+  }
+
+  /* W2: Funnel Flow */
+  .funnel-flow-widget {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 220px;
+    justify-content: center;
+  }
+  .funnel-svg {
+    width: 100px;
+    height: 80px;
+  }
+  .funnel-dot {
+    opacity: 0;
+  }
+  .funnel-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .funnel-lbl-top, .funnel-lbl-bot {
+    font-size: 0.52rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+  }
+  .funnel-lbl-top {
+    margin-top: 2px;
+  }
+  .funnel-lbl-bot {
+    margin-bottom: 2px;
+  }
+
+  .details-grid.is-active .dot-1 { animation: funnelFlow1 3s infinite linear; }
+  .details-grid.is-active .dot-2 { animation: funnelFlow2 3s infinite linear; }
+  .details-grid.is-active .dot-3 { animation: funnelFlow3 3s infinite linear; }
+  .details-grid.is-active .dot-4 { animation: funnelFlow4 3s infinite linear; }
+  .details-grid.is-active .dot-success { animation: funnelSuccess 3s infinite linear; }
+
+  @keyframes funnelFlow1 {
+    0% { cx: 50; cy: -5; opacity: 0; }
+    5% { opacity: 1; }
+    35% { cx: 50; cy: 25; opacity: 1; }
+    40%, 100% { cx: 50; cy: 25; opacity: 0; }
+  }
+  @keyframes funnelFlow2 {
+    0% { cx: 35; cy: -5; opacity: 0; }
+    5% { opacity: 1; }
+    30% { cx: 45; cy: 20; opacity: 1; }
+    35%, 100% { cx: 45; cy: 20; opacity: 0; }
+  }
+  @keyframes funnelFlow3 {
+    0% { cx: 65; cy: -5; opacity: 0; }
+    5% { opacity: 1; }
+    30% { cx: 55; cy: 20; opacity: 1; }
+    35%, 100% { cx: 55; cy: 20; opacity: 0; }
+  }
+  @keyframes funnelFlow4 {
+    0%, 35% { cx: 50; cy: 25; opacity: 0; }
+    40% { opacity: 1; }
+    65% { cx: 50; cy: 52; opacity: 1; }
+    70%, 100% { cx: 50; cy: 52; opacity: 0; }
+  }
+  @keyframes funnelSuccess {
+    0%, 65% { cx: 50; cy: 52; opacity: 0; }
+    70% { opacity: 1; }
+    90% { cx: 50; cy: 75; opacity: 1; }
+    100% { cx: 50; cy: 75; opacity: 0; }
+  }
+
+  /* W3: Payment & Shipping */
+  .payment-shipping-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 200px;
+    align-items: center;
+  }
+  .credit-card-mock {
+    width: 170px;
+    height: 64px;
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+  .card-chip {
+    width: 14px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2.5px;
+  }
+  .card-number {
+    font-family: monospace;
+    font-size: 0.58rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .card-status-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+  .card-status-text {
+    font-size: 0.52rem;
+    color: #fff;
+    font-weight: 700;
+  }
+  .shipping-truck-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    width: 170px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  }
+  .shipping-status {
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .details-grid.is-active .credit-card-mock { animation: cardPulse 4s infinite ease-in-out; }
+  .details-grid.is-active .shipping-truck-box { animation: truckPulse 4s infinite ease-in-out; }
+
+  @keyframes cardPulse {
+    0%, 45%, 100% { opacity: 0.3; transform: scale(0.95); }
+    10%, 40% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes truckPulse {
+    0%, 50%, 100% { opacity: 0.3; transform: scale(0.95); }
+    55%, 95% { opacity: 1; transform: scale(1); }
+  }
+
+  /* W4: Checkout Testing */
+  .checkout-qa-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+  }
+  .qa-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  }
+  .qa-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .qa-lbl {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .details-grid.is-active .qa-item.item-1 .qa-indicator { animation: indicatorSuccess 3s infinite ease-in-out; }
+  .details-grid.is-active .qa-item.item-2 .qa-indicator { animation: indicatorSuccess 3s infinite ease-in-out; animation-delay: 0.8s; }
+  .details-grid.is-active .qa-item.item-3 .qa-indicator { animation: indicatorSuccess 3s infinite ease-in-out; animation-delay: 1.6s; }
+
+  @keyframes indicatorSuccess {
+    0%, 20%, 100% { background: rgba(0, 0, 0, 0.1); box-shadow: none; }
+    35%, 85% { background: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); }
+  }
+
+  /* W5: Live sales conversion */
+  .conversion-live-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 200px;
+  }
+  .conversion-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: 0.75rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.01);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+  }
+  .live-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.45rem;
+    font-weight: 800;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    padding: 1.5px 4px;
+    border-radius: 100px;
+    animation: pulseRed 1.5s infinite alternate ease-in-out;
+  }
+  .conversion-rate {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--accent-color-1);
+  }
+  .conversion-sub {
+    font-size: 0.52rem;
+    color: rgba(0,0,0,0.45);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .sales-chart-mini {
+    height: 35px;
+    background: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .chart-mini-svg {
+    width: 100%;
+    height: 100%;
+  }
+  .chart-line-draw {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+  }
+  .details-grid.is-active .chart-line-draw { animation: chartDrawMini 4s infinite ease-in-out; }
+
+  @keyframes pulseRed {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  @keyframes chartDrawMini {
+    0% { stroke-dashoffset: 120; }
+    50%, 85% { stroke-dashoffset: 0; }
+    95%, 100% { stroke-dashoffset: 120; }
+  }
+
+  /* ========================================
+     S5 SPECIFIC WIDGETS (Custom Software)
+  ======================================== */
+  /* W1: Kanban Board */
+  .kanban-board-widget {
+    display: flex;
+    gap: 8px;
+    width: 225px;
+    justify-content: space-between;
+  }
+  .kanban-col {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px dashed rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 70px;
+  }
+  .kanban-col-title {
+    font-size: 0.52rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+    margin-bottom: 2px;
+    letter-spacing: 0.05em;
+  }
+  .kanban-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.7);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+  }
+  
+  .details-grid.is-active .card-doing { animation: kanbanMoveDoing 4s infinite ease-in-out; }
+  .details-grid.is-active .card-todo { animation: kanbanMoveTodo 4s infinite ease-in-out; }
+
+  @keyframes kanbanMoveDoing {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    40%, 60% { transform: translateY(12px); opacity: 0; }
+  }
+  @keyframes kanbanMoveTodo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* W2: Database Table Relationship Schema */
+  .database-schema-widget {
+    display: flex;
+    align-items: center;
+    width: 230px;
+    justify-content: space-between;
+  }
+  .db-table {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    width: 85px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    overflow: hidden;
+  }
+  .table-title {
+    background: rgba(var(--accent-rgb-1), 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.58rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    color: var(--accent-color-1);
+    text-align: left;
+  }
+  .table-field {
+    font-size: 0.55rem;
+    padding: 3px 8px;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: left;
+    position: relative;
+  }
+  .primary-key::after {
+    content: "PK";
+    position: absolute;
+    right: 8px;
+    font-size: 0.45rem;
+    font-weight: 800;
+    color: var(--accent-color-2);
+  }
+  .foreign-key::after {
+    content: "FK";
+    position: absolute;
+    right: 8px;
+    font-size: 0.45rem;
+    font-weight: 800;
+    color: var(--accent-color-1);
+  }
+  .db-relation-line {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .relation-svg {
+    width: 100%;
+    height: 100%;
+  }
+  .relation-dot {
+    animation: relationPulse 2s infinite alternate ease-in-out;
+  }
+  @keyframes relationPulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 1; }
+  }
+
+  /* W3: Backend Worker Queue */
+  .backend-queue-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 200px;
+  }
+  .queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  }
+  .queue-id {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .queue-status {
+    font-size: 0.5rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .status-success .queue-status {
+    background: rgba(34, 197, 94, 0.06);
+    color: #22c55e;
+  }
+  .status-running .queue-status {
+    background: rgba(var(--accent-rgb-1), 0.06);
+    color: var(--accent-color-1);
+  }
+  .status-pending .queue-status {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .details-grid.is-active .status-running .queue-status { animation: pulseActiveState 1.5s infinite alternate ease-in-out; }
+  @keyframes pulseActiveState {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* W4: QA test terminal */
+  .qa-tests-widget {
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    width: 210px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+  }
+  .test-terminal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    font-family: monospace;
+  }
+  .test-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge-pass {
+    font-size: 0.48rem;
+    font-weight: 800;
+    background: #22c55e;
+    color: #fff;
+    padding: 1.5px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .test-name {
+    font-size: 0.58rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .test-summary {
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 6px;
+    margin-top: 2px;
+    display: flex;
+    gap: 6px;
+    font-size: 0.52rem;
+  }
+  .summary-lbl {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .summary-val {
+    color: #22c55e;
+    font-weight: 700;
+  }
+  
+  .details-grid.is-active .test-row { animation: terminalTestFlow 3s infinite ease-in-out; }
+  @keyframes terminalTestFlow {
+    0%, 100% { opacity: 0; transform: translateX(-3px); }
+    20%, 90% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* W5: DevOps CI/CD Pipeline */
+  .devops-pipeline-widget {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    height: 32px;
+  }
+  .pipeline-stages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+  .pipeline-stage {
+    font-size: 0.58rem;
+    font-weight: 700;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+  .pipeline-connector-line {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 2px;
+    z-index: 1;
+  }
+  .pipeline-progress-bar {
+    height: 100%;
+    background: var(--accent-color-1);
+    width: 0;
+    border-radius: 2px;
+  }
+
+  .details-grid.is-active .pipeline-progress-bar { animation: pipelineProgressAnim 4s infinite ease-in-out; }
+  .details-grid.is-active .pipeline-stage.stage-build { animation: stageHighlight 4s infinite ease-in-out; }
+  .details-grid.is-active .pipeline-stage.stage-test { animation: stageHighlight 4s infinite ease-in-out; animation-delay: 1.33s; }
+  .details-grid.is-active .pipeline-stage.stage-deploy { animation: stageHighlight 4s infinite ease-in-out; animation-delay: 2.66s; }
+
+  @keyframes pipelineProgressAnim {
+    0%, 100% { width: 0; }
+    90% { width: 100%; }
+  }
+  @keyframes stageHighlight {
+    0% { color: rgba(0,0,0,0.4); border-color: rgba(0,0,0,0.08); background: #fff; box-shadow: none; }
+    20%, 80% { color: var(--accent-color-1); border-color: var(--accent-color-1); background: #fff; box-shadow: 0 0 10px rgba(var(--accent-rgb-1), 0.1); }
+  }
+
+  /* ========================================
+     S6 SPECIFIC WIDGETS (AI Integration)
+  ======================================== */
+  /* W1: Feasibility scorecard */
+  .ai-feasibility-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 210px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.01);
+  }
+  .feasibility-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+  }
+  .feasibility-lbl {
+    font-size: 0.58rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .feasibility-bar {
+    height: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .feasibility-fill {
+    height: 100%;
+    border-radius: 10px;
+    width: 0;
+  }
+  .fill-val {
+    background: var(--accent-color-1);
+  }
+  .fill-cost {
+    background: var(--accent-color-2);
+  }
+  .feasibility-pct {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #000;
+    margin-top: 1px;
+    text-align: left;
+  }
+
+  .details-grid.is-active .fill-val { animation: loadVal 3.5s infinite ease-in-out; }
+  .details-grid.is-active .fill-cost { animation: loadCost 3.5s infinite ease-in-out; }
+
+  @keyframes loadVal {
+    0%, 100% { width: 0; }
+    45%, 85% { width: 92%; }
+  }
+  @keyframes loadCost {
+    0%, 100% { width: 0; }
+    45%, 85% { width: 18%; }
+  }
+
+  /* W2: Vectorization & Embeddings */
+  .ai-vector-widget {
+    display: flex;
+    align-items: center;
+    width: 230px;
+    justify-content: space-between;
+  }
+  .vector-doc-box, .vector-db-box {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    z-index: 2;
+  }
+  .vector-db-box {
+    border-color: var(--accent-color-1);
+    background: rgba(var(--accent-rgb-1), 0.02);
+  }
+  .vector-flow {
+    flex: 1;
+    height: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .vector-flow-svg {
+    width: 100%;
+    height: 20px;
+  }
+  .vector-value {
+    font-family: monospace;
+    font-size: 0.45rem;
+    color: var(--accent-color-2);
+    font-weight: 700;
+    position: absolute;
+    bottom: -2px;
+    opacity: 0;
+  }
+
+  .details-grid.is-active .flow-particle { animation: particleVectorFlow 3s infinite ease-in-out; }
+  .details-grid.is-active .vector-value { animation: valueFadeInOut 3s infinite ease-in-out; }
+
+  @keyframes particleVectorFlow {
+    0% { cx: 5; cy: 15; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { cx: 75; cy: 15; opacity: 0; }
+  }
+  @keyframes valueFadeInOut {
+    0%, 100% { opacity: 0; transform: translateY(2px); }
+    30%, 75% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* W3: Prompt Engineering */
+  .ai-prompt-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 210px;
+    text-align: left;
+  }
+  .prompt-box, .completion-box {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  }
+  .completion-box {
+    background: #1e293b;
+    border-color: rgba(255,255,255,0.08);
+  }
+  .prompt-label, .completion-label {
+    font-size: 0.48rem;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05em;
+  }
+  .completion-label {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .prompt-text {
+    font-size: 0.55rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+  .completion-text {
+    font-family: monospace;
+    font-size: 0.55rem;
+    color: #22c55e;
+    margin-top: 2px;
+  }
+
+  .details-grid.is-active .prompt-box { animation: promptPulse 4s infinite ease-in-out; }
+  .details-grid.is-active .completion-box { animation: completionPulse 4s infinite ease-in-out; }
+
+  @keyframes promptPulse {
+    0%, 100% { opacity: 0.5; }
+    10%, 90% { opacity: 1; }
+  }
+  @keyframes completionPulse {
+    0%, 35%, 100% { opacity: 0; transform: translateY(2px); }
+    45%, 90% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* W4: Agent & Tool Calling */
+  .ai-agent-widget {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    justify-content: space-between;
+  }
+  .agent-node, .tool-node {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    z-index: 2;
+  }
+  .agent-node {
+    border-color: var(--accent-color-1);
+    background: rgba(var(--accent-rgb-1), 0.02);
+  }
+  .agent-tool-pipe {
+    flex: 1;
+    height: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .tool-call-label {
+    font-family: monospace;
+    font-size: 0.48rem;
+    font-weight: 800;
+    color: var(--accent-color-2);
+    position: absolute;
+    top: -4px;
+    opacity: 0;
+  }
+  .agent-svg {
+    width: 100%;
+    height: 20px;
+  }
+  .agent-particle {
+    opacity: 0;
+  }
+
+  .details-grid.is-active .agent-particle { animation: agentParticleFlow 3.5s infinite ease-in-out; }
+  .details-grid.is-active .tool-call-label { animation: toolLabelFade 3.5s infinite ease-in-out; }
+
+  @keyframes agentParticleFlow {
+    0% { cx: 5; cy: 10; opacity: 0; }
+    15% { opacity: 1; }
+    45% { cx: 95; cy: 10; opacity: 1; }
+    50%, 100% { cx: 95; cy: 10; opacity: 0; }
+  }
+  @keyframes toolLabelFade {
+    0%, 100% { opacity: 0; transform: translateY(2px); }
+    15%, 45% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* W5: AI Guardrails */
+  .ai-guardrail-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+  }
+  .guardrail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  }
+  .guardrail-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .guardrail-lbl {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.75);
+  }
+
+  .details-grid.is-active .guardrail-item.g-item-1 .guardrail-indicator { animation: indicatorSuccess 3s infinite ease-in-out; }
+  .details-grid.is-active .guardrail-item.g-item-2 .guardrail-indicator { animation: indicatorSuccess 3s infinite ease-in-out; animation-delay: 0.8s; }
+  .details-grid.is-active .guardrail-item.g-item-3 .guardrail-indicator { animation: indicatorSuccess 3s infinite ease-in-out; animation-delay: 1.6s; }
 
   @media (max-width: 860px) {
     .dashboard-tabs { overflow-x: auto; justify-content: flex-start; padding-bottom: 0.75rem; scrollbar-width: none; }
