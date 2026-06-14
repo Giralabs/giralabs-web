@@ -1614,6 +1614,7 @@ const F = formTranslations[lang] || formTranslations.es;
     let selectedDateObj   = null;
     let selectedTimeSlot  = "";
     let bookedSlotsForDate = [];   // slots already taken for the selected date
+    const availabilityCache = {};  // cache: YYYY-MM-DD -> array of booked slots
 
     // Guest counter
     let guestCount = 0;
@@ -1732,35 +1733,8 @@ const F = formTranslations[lang] || formTranslations.es;
       }
     }
 
-    async function revealTimeSlots(dateText, lang) {
-      if (!timeSlotsPanel || !timeSlotsGrid || !timeSlotsTitleLbl) return;
-
-      const activeF = formTranslations[lang] || formTranslations.es;
-      timeSlotsTitleLbl.textContent = `${activeF.booking_time_title} ${dateText.split(",")[0]}`;
-
-      timeSlotsGrid.innerHTML = "";
-      selectedTimeSlot = "";
-      bookedSlotsForDate = [];
-
-      if (confirmPanel) confirmPanel.style.display = "none";
-
-      // Show loading state
-      timeSlotsPanel.style.display = "flex";
-      timeSlotsGrid.innerHTML = `<span style="color:rgba(255,255,255,0.25);font-size:0.8rem;">Cargando disponibilidad...</span>`;
-
-      // Fetch booked slots from the API
-      try {
-        if (selectedDateISO) {
-          const res = await fetch(`/api/bookings?date=${selectedDateISO}`);
-          if (res.ok) {
-            const data = await res.json();
-            bookedSlotsForDate = data.bookedSlots || [];
-          }
-        }
-      } catch (e) {
-        console.warn("[Giralabs] Could not fetch slot availability:", e);
-      }
-
+    function renderTimeSlots(lang) {
+      if (!timeSlotsGrid) return;
       timeSlotsGrid.innerHTML = "";
 
       defaultTimeSlots.forEach(time => {
@@ -1773,6 +1747,9 @@ const F = formTranslations[lang] || formTranslations.es;
         if (isBooked) slotBtn.disabled = true;
 
         if (!isBooked) {
+          if (selectedTimeSlot === time) {
+            slotBtn.classList.add("selected");
+          }
           slotBtn.addEventListener("click", () => {
             document.querySelectorAll(".time-slot-btn.selected").forEach(el => el.classList.remove("selected"));
             slotBtn.classList.add("selected");
@@ -1783,6 +1760,63 @@ const F = formTranslations[lang] || formTranslations.es;
 
         timeSlotsGrid.appendChild(slotBtn);
       });
+    }
+
+    async function revealTimeSlots(dateText, lang) {
+      if (!timeSlotsPanel || !timeSlotsGrid || !timeSlotsTitleLbl) return;
+
+      const activeF = formTranslations[lang] || formTranslations.es;
+      timeSlotsTitleLbl.textContent = `${activeF.booking_time_title} ${dateText.split(",")[0]}`;
+
+      timeSlotsGrid.innerHTML = "";
+      selectedTimeSlot = "";
+      bookedSlotsForDate = [];
+
+      if (confirmPanel) confirmPanel.style.display = "none";
+
+      timeSlotsPanel.style.display = "flex";
+
+      if (availabilityCache[selectedDateISO]) {
+        bookedSlotsForDate = availabilityCache[selectedDateISO];
+        renderTimeSlots(lang);
+
+        // Stale-While-Revalidate: fetch in background to check for updates
+        fetch(`/api/bookings?date=${selectedDateISO}`)
+          .then(res => res.ok ? res.json() : null)
+          .then(data => {
+            if (data && data.bookedSlots) {
+              const newBooked = data.bookedSlots;
+              const hasChanged = JSON.stringify(newBooked.sort()) !== JSON.stringify(bookedSlotsForDate.sort());
+              if (hasChanged) {
+                bookedSlotsForDate = newBooked;
+                availabilityCache[selectedDateISO] = newBooked;
+                const selectedBtn = timeSlotsGrid.querySelector(".time-slot-btn.selected");
+                if (!selectedBtn || newBooked.includes(selectedTimeSlot)) {
+                  renderTimeSlots(lang);
+                }
+              }
+            }
+          })
+          .catch(e => console.warn("[Giralabs] Background revalidation failed:", e));
+      } else {
+        // Show loading state
+        timeSlotsGrid.innerHTML = `<span style="color:rgba(255,255,255,0.25);font-size:0.8rem;">Cargando disponibilidad...</span>`;
+
+        try {
+          if (selectedDateISO) {
+            const res = await fetch(`/api/bookings?date=${selectedDateISO}`);
+            if (res.ok) {
+              const data = await res.json();
+              bookedSlotsForDate = data.bookedSlots || [];
+              availabilityCache[selectedDateISO] = bookedSlotsForDate;
+            }
+          }
+        } catch (e) {
+          console.warn("[Giralabs] Could not fetch slot availability:", e);
+        }
+
+        renderTimeSlots(lang);
+      }
     }
 
     function revealConfirmPanel(lang) {
@@ -2005,6 +2039,41 @@ const F = formTranslations[lang] || formTranslations.es;
       }
     }
 
+    function getUpcomingSelectableDates(count = 14) {
+      const dates = [];
+      const tempDate = new Date();
+      // Start checking from tomorrow
+      tempDate.setDate(tempDate.getDate() + 1);
+
+      while (dates.length < count) {
+        const dayOfWeek = tempDate.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+        if (!isWeekend) {
+          const y = tempDate.getFullYear();
+          const m = String(tempDate.getMonth() + 1).padStart(2, '0');
+          const d = String(tempDate.getDate()).padStart(2, '0');
+          dates.push(`${y}-${m}-${d}`);
+        }
+        tempDate.setDate(tempDate.getDate() + 1);
+      }
+      return dates;
+    }
+
+    async function prefetchAvailability() {
+      const targetDates = getUpcomingSelectableDates(14);
+      try {
+        const res = await fetch(`/api/bookings?dates=${targetDates.join(",")}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.bookings) {
+            Object.assign(availabilityCache, data.bookings);
+          }
+        }
+      } catch (e) {
+        console.warn("[Giralabs] Could not prefetch slot availability:", e);
+      }
+    }
+
     let initialLang = 'es';
     const savedLang = localStorage.getItem('giralabs-lang');
     if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
@@ -2016,6 +2085,7 @@ const F = formTranslations[lang] || formTranslations.es;
       }
     }
     updateFormTranslations(initialLang);
+    prefetchAvailability();
 
     if (window.__giralabsContactListenerAttached) {
       document.removeEventListener("giralabs:lang", window.__giralabsContactListenerAttached);
