@@ -574,6 +574,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+    padding-right: 0.15em; /* Avoid clipping text with background-clip: text */
   }
 
   .details-desc { font-size: 1.02rem; color: rgba(0, 0, 0, 0.7); line-height: 1.6; margin: 0 0 1rem; font-weight: 500; }
