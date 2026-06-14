@@ -217,6 +217,7 @@ const T = translations[lang];
     color: #000;
     display: flex;
     overflow: hidden;
+    padding-right: 4px;
   }
 
   /* Individual letter spans */
@@ -732,6 +733,11 @@ const T = translations[lang];
   ============================================= */
   .mobile-drawer {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
     flex-direction: column;
     background: rgba(240, 239, 234, 0.97);
     backdrop-filter: blur(20px);
@@ -740,14 +746,16 @@ const T = translations[lang];
     border-top: 1px solid rgba(0,0,0,0.06);
     opacity: 0;
     transform: translateY(-8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
+    visibility: hidden;
   }
 
   .mobile-drawer.open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    visibility: visible;
   }
 
   .mobile-links {
@@ -782,6 +790,22 @@ const T = translations[lang];
     .hamburger { display: flex; }
     .mobile-drawer { display: flex; }
     .nav-pill { display: none; }
+
+    /* Mobile header stays sticky and visible */
+    :global([data-scrolled]) .nav-top-bar,
+    .nav-top-bar.hidden {
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+    }
+
+    .nav-top-bar.scrolled {
+      background: rgba(240, 239, 234, 0.45);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    }
   }
 </style>
 
@@ -793,9 +817,17 @@ const T = translations[lang];
 
   function updateNav() {
     const scrolled = window.scrollY > THRESHOLD;
-    topBar.classList.toggle('hidden', scrolled);
-    pill.classList.toggle('visible', scrolled);
-    pill.setAttribute('aria-hidden', String(!scrolled));
+    if (window.innerWidth <= 768) {
+      topBar.classList.remove('hidden');
+      topBar.classList.toggle('scrolled', scrolled);
+      pill.classList.remove('visible');
+      pill.setAttribute('aria-hidden', 'true');
+    } else {
+      topBar.classList.remove('scrolled');
+      topBar.classList.toggle('hidden', scrolled);
+      pill.classList.toggle('visible', scrolled);
+      pill.setAttribute('aria-hidden', String(!scrolled));
+    }
   }
 
   // Sync class state with the scroll position established by the head script,

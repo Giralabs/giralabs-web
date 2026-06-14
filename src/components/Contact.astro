@@ -875,12 +875,14 @@ const F = formTranslations[lang] || formTranslations.es;
     z-index: 10;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .form-overlay.show {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .success-icon-wrapper {
@@ -987,12 +989,14 @@ const F = formTranslations[lang] || formTranslations.es;
     z-index: 10;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .booking-overlay.show {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .booking-success-icon {
@@ -1087,13 +1091,19 @@ const F = formTranslations[lang] || formTranslations.es;
     font-size: 0.85rem;
     font-weight: 500;
     font-family: inherit;
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    min-height: 38px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   :global(.calendar-day-btn.empty) {

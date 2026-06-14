@@ -1205,22 +1205,30 @@ const T = translations[lang];
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none; /* Firefox */
       gap: 16px;
-      margin: 0 -1.2rem;
-      padding: 0.5rem 1.2rem 1.5rem;
+      margin: 0 -2rem;
+      padding: 0.5rem 2rem 1.5rem;
     }
 
     .sd-grid::-webkit-scrollbar {
       display: none; /* Chrome/Safari */
     }
 
+    .sd-grid::after {
+      content: '';
+      flex: 0 0 2rem;
+      width: 2rem;
+      display: block;
+      pointer-events: none;
+    }
+
     .sd-card {
       flex: 0 0 82vw;
       max-width: 340px;
       scroll-snap-align: start;
+      scroll-margin-left: 2rem;
       grid-column: auto !important;
       height: auto;
     }
@@ -1232,15 +1240,29 @@ const T = translations[lang];
 
   @media (max-width: 600px) {
     .sd-section {
-      padding: 5rem 1.2rem;
+      padding: 5rem 1.5rem;
     }
 
     .sd-header {
       margin-bottom: 2.5rem;
     }
 
+    .sd-grid {
+      margin: 0 -1.5rem;
+      padding: 0.5rem 1.5rem 1.5rem;
+    }
+
+    .sd-grid::after {
+      flex: 0 0 1.5rem;
+      width: 1.5rem;
+    }
+
     .sd-card-content {
       padding: 1.4rem;
+    }
+
+    .sd-card {
+      scroll-margin-left: 1.5rem;
     }
   }
 </style>
