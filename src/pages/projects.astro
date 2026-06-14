@@ -9,14 +9,11 @@ import nexusImg from '../assets/projects/nexus.png';
 import rewindtvImg from '../assets/projects/rewindtv.webp';
 import auramoviesImg from '../assets/projects/auramovies.webp';
 
-const acceptLang = Astro.request.headers.get('accept-language');
 const langParam = Astro.url.searchParams.get('lang');
 let lang = 'es';
 
 if (langParam === 'es' || langParam === 'en') {
   lang = langParam;
-} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
-  lang = 'en';
 }
 
 const T = translations[lang];

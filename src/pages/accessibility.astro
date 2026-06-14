@@ -4,14 +4,11 @@ import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
 import Footer from '../components/Footer.astro';
 
-const acceptLang = Astro.request.headers.get('accept-language');
 const langParam = Astro.url.searchParams.get('lang');
 let lang = 'es';
 
 if (langParam === 'es' || langParam === 'en') {
   lang = langParam;
-} else if (acceptLang && !acceptLang.toLowerCase().startsWith('es')) {
-  lang = 'en';
 }
 
 const T = translations[lang];
