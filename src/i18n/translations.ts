@@ -414,6 +414,21 @@ export const translations = {
     project_4_title: "AuraMovies",
     project_4_desc: "La red social definitiva para amantes del cine y series",
 
+    // FAQ
+    faq_label: "PREGUNTAS FRECUENTES",
+    faq_title: "Preguntas Frecuentes",
+    faq_sub: "Todo lo que necesitas saber sobre nuestros servicios de desarrollo de software y aplicaciones móviles.",
+    faq_q1: "¿Qué tipos de aplicaciones desarrolláis?",
+    faq_a1: "Desarrollamos aplicaciones móviles nativas y multiplataforma de alto rendimiento (iOS y Android) utilizando Flutter, páginas web rápidas y adaptables con tecnologías modernas (como Astro y React), y software a medida para digitalizar y automatizar los procesos de tu negocio.",
+    faq_q2: "¿Cuánto tiempo se tarda en crear una app móvil?",
+    faq_a2: "Un Producto Mínimo Viable (MVP) suele estar listo para producción en unas 16 semanas. El proceso completo abarca desde la fase de descubrimiento (2 semanas), diseño de UX/UI (3-4 semanas), desarrollo e integración (8-10 semanas) hasta las pruebas finales y publicación en las tiendas (App Store y Google Play).",
+    faq_q3: "¿Cómo se calcula el coste de mi proyecto?",
+    faq_a3: "Trabajamos con presupuestos cerrados y transparentes. Para ello, realizamos primero una fase corta de descubrimiento donde definimos el alcance técnico exacto de tu software. Así, eliminamos cualquier sorpresa y garantizamos el precio acordado.",
+    faq_q4: "¿Qué tipo de soporte ofrecéis tras el lanzamiento?",
+    faq_a4: "Ofrecemos soporte técnico continuo y monitorización de disponibilidad. Además, contamos con sprints ágiles de evolución mensual para mejorar el producto en base a datos de uso reales de tus usuarios, integrando nuevas funcionalidades y optimizando la seguridad.",
+    faq_q5: "¿Puedo integrar Inteligencia Artificial en mis sistemas?",
+    faq_a5: "Sí, somos especialistas en integrar modelos de lenguaje (LLMs), agentes autónomos de soporte y sistemas de recuperación inteligente de información (RAG) en aplicaciones existentes y nuevas para optimizar la productividad y automatizar flujos complejos.",
+
     // Footer
     footer_tagline: "Hecho con precisión en España.",
     footer_contact: "Contacto",
@@ -914,6 +929,21 @@ export const translations = {
     project_4_tag: "Social App",
     project_4_title: "AuraMovies",
     project_4_desc: "The ultimate social network for movie and series lovers",
+
+    // FAQ
+    faq_label: "FREQUENTLY ASKED QUESTIONS",
+    faq_title: "Frequently Asked Questions",
+    faq_sub: "Everything you need to know about our software and mobile app development services.",
+    faq_q1: "What types of applications do you develop?",
+    faq_a1: "We develop high-performance native and cross-platform mobile apps (iOS & Android) using Flutter, fast and responsive websites with modern stacks (like Astro and React), and custom software to digitize and automate your business operations.",
+    faq_q2: "How long does it take to build a mobile app?",
+    faq_a2: "A Minimum Viable Product (MVP) is typically ready for production in about 16 weeks. The full timeline spans from product discovery (2 weeks), UX/UI design (3-4 weeks), development & integrations (8-10 weeks), to final QA and store submission (App Store & Google Play).",
+    faq_q3: "How do you calculate the cost of my project?",
+    faq_a3: "We work with fixed, transparent budgets. To do this, we first run a brief discovery phase to outline the exact technical scope of your software. This eliminates any surprises and guarantees the agreed price.",
+    faq_q4: "What kind of post-launch support do you offer?",
+    faq_a4: "We provide ongoing technical support, security updates, and availability monitoring. Additionally, we run monthly evolution sprints to continuously improve your app based on real user metrics and feedback.",
+    faq_q5: "Can I integrate Artificial Intelligence into my systems?",
+    faq_a5: "Yes, we specialize in integrating language models (LLMs), autonomous customer support agents, and contextual business search systems (RAG) into new and existing systems to boost efficiency and automate complex workflows.",
 
     // Footer
     footer_tagline: "Crafted with precision in Spain.",
