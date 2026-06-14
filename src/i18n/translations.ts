@@ -158,7 +158,7 @@ export const translations = {
 
     // Service 2 Phases (Creación de páginas web)
     service_2_phase_1_title: "Planificación & Estrategia SEO",
-    service_2_phase_1_tag: "Fase 01",
+    service_2_phase_1_tag: "Planificación",
     service_2_phase_1_desc: "Definimos los objetivos comerciales de la web, la estructura del sitio y realizamos un estudio de palabras clave para asegurar un posicionamiento SEO óptimo desde el inicio.",
     service_2_phase_1_details: "Realizamos una auditoría inicial de competidores, analizamos las intenciones de búsqueda de tu cliente ideal y trazamos el mapa del sitio para garantizar que la arquitectura de la información sea intuitiva y esté preparada para buscadores.",
     service_2_phase_1_feature_1: "Estudio de palabras clave (Keywords).",
@@ -166,7 +166,7 @@ export const translations = {
     service_2_phase_1_feature_3: "Estrategia de conversión (CRO) inicial.",
 
     service_2_phase_2_title: "Bocetos & Prototipo UX/UI",
-    service_2_phase_2_tag: "Fase 02",
+    service_2_phase_2_tag: "Diseño",
     service_2_phase_2_desc: "Diseñamos wireframes de baja fidelidad y prototipos interactivos en Figma. Estilo visual alineado con tu marca y optimizado para la usabilidad.",
     service_2_phase_2_details: "Convertimos la estructura en diseños visuales atractivos. Trabajamos el branding, la tipografía y los flujos de interacción de la página para que la navegación sea fluida y estéticamente sorprendente.",
     service_2_phase_2_feature_1: "Wireframes interactivos de navegación.",
@@ -174,7 +174,7 @@ export const translations = {
     service_2_phase_2_feature_3: "Definición del sistema de diseño web.",
 
     service_2_phase_3_title: "Maquetación & Código Limpio",
-    service_2_phase_3_tag: "Fase 03",
+    service_2_phase_3_tag: "Código",
     service_2_phase_3_desc: "Escribimos código frontend moderno, semántico y responsive. Aseguramos que la página se visualice a la perfección en móviles, tablets y ordenadores.",
     service_2_phase_3_details: "Implementamos el diseño pixel-perfect utilizando tecnologías veloces y estándares modernos. Priorizamos la limpieza del código fuente para facilitar futuras ampliaciones y mejorar la indexación en buscadores.",
     service_2_phase_3_feature_1: "HTML semántico y CSS responsivo.",
@@ -182,7 +182,7 @@ export const translations = {
     service_2_phase_3_feature_3: "Código optimizado sin scripts innecesarios.",
 
     service_2_phase_4_title: "Optimización de Carga",
-    service_2_phase_4_tag: "Fase 04",
+    service_2_phase_4_tag: "Rendimiento",
     service_2_phase_4_desc: "Maximizamos la velocidad de carga de la web para obtener una puntuación excelente en PageSpeed Insights. Compresión de imágenes y optimización de recursos.",
     service_2_phase_4_details: "Una web rápida retiene más usuarios. Optimizamos la carga diferida (lazy loading), minimizamos los archivos JS/CSS y configuramos el almacenamiento en caché para lograr una velocidad de carga instantánea.",
     service_2_phase_4_feature_1: "Optimización de imágenes y formatos web modernos.",
@@ -190,7 +190,7 @@ export const translations = {
     service_2_phase_4_feature_3: "Configuración y auditoría PageSpeed Lighthouse.",
 
     service_2_phase_5_title: "Despliegue & Indexación",
-    service_2_phase_5_tag: "Fase 05",
+    service_2_phase_5_tag: "Lanzamiento",
     service_2_phase_5_desc: "Lanzamos la web en un servidor seguro y la damos de alta en Google Search Console para una indexación inmediata y monitorización del tráfico.",
     service_2_phase_5_details: "Realizamos las pruebas de control de calidad finales, configuramos el dominio SSL y subimos la web. Conectamos herramientas de analítica y configuramos el mapa del sitio XML para que Google empiece a indexar tus páginas.",
     service_2_phase_5_feature_1: "Configuración de hosting seguro y SSL.",
@@ -199,7 +199,7 @@ export const translations = {
 
     // Service 3 Phases (Digitalización de empresas y software a medida)
     service_3_phase_1_title: "Auditoría de Procesos",
-    service_3_phase_1_tag: "Fase 01",
+    service_3_phase_1_tag: "Auditoría",
     service_3_phase_1_desc: "Analizamos en detalle tus flujos de trabajo actuales para identificar ineficiencias, cuellos de botella y oportunidades de automatización.",
     service_3_phase_1_details: "Nos reunimos con tus equipos para mapear paso a paso cómo gestionan la información, las tareas y la comunicación, detectando dónde se pierde tiempo en tareas manuales y repetitivas.",
     service_3_phase_1_feature_1: "Mapeo detallado del flujo operativo.",
@@ -207,7 +207,7 @@ export const translations = {
     service_3_phase_1_feature_3: "Definición del plan de retorno de inversión.",
 
     service_3_phase_2_title: "Diseño de Arquitectura",
-    service_3_phase_2_tag: "Fase 02",
+    service_3_phase_2_tag: "Arquitectura",
     service_3_phase_2_desc: "Diseñamos la solución digital óptima que integrará tus bases de datos, flujos de trabajo y herramientas en una arquitectura robusta y escalable.",
     service_3_phase_2_details: "Definimos la pila tecnológica idónea y diseñamos las bases de datos y la topología de la nube para asegurar que todos los sistemas empresariales se comuniquen de forma segura y veloz.",
     service_3_phase_2_feature_1: "Modelado lógico de bases de datos.",
@@ -215,7 +215,7 @@ export const translations = {
     service_3_phase_2_feature_3: "Especificación de requerimientos técnicos.",
 
     service_3_phase_3_title: "Desarrollo & Conexión de APIs",
-    service_3_phase_3_tag: "Fase 03",
+    service_3_phase_3_tag: "Desarrollo",
     service_3_phase_3_desc: "Programamos las funcionalidades personalizadas de tu nuevo software y creamos las conexiones (APIs) necesarias con tus herramientas existentes.",
     service_3_phase_3_details: "Desarrollamos el núcleo del sistema escribiendo código backend robusto y frontend intuitivo. Conectamos tus herramientas preferidas (como ERPs, CRMs, servicios de email o facturación) para unificar la operación.",
     service_3_phase_3_feature_1: "Desarrollo del panel de administración.",
@@ -223,7 +223,7 @@ export const translations = {
     service_3_phase_3_feature_3: "Migración inicial de datos históricos.",
 
     service_3_phase_4_title: "Periodo Piloto & Formación",
-    service_3_phase_4_tag: "Fase 04",
+    service_3_phase_4_tag: "Formación",
     service_3_phase_4_desc: "Lanzamos una versión piloto controlada y formamos a tu equipo para garantizar una transición suave, sin fricciones y con el mínimo impacto diario.",
     service_3_phase_4_details: "Acompañamos a tus empleados durante sus primeras interacciones con el software. Ajustamos detalles basándonos en su feedback real y proporcionamos documentación clara para su uso.",
     service_3_phase_4_feature_1: "Lanzamiento piloto con usuarios clave.",
@@ -231,7 +231,7 @@ export const translations = {
     service_3_phase_4_feature_3: "Guías interactivas de uso del software.",
 
     service_3_phase_5_title: "Soporte & Optimización",
-    service_3_phase_5_tag: "Fase 05",
+    service_3_phase_5_tag: "Soporte",
     service_3_phase_5_desc: "Monitorizamos el rendimiento del sistema en producción y realizamos mejoras continuas para maximizar la productividad y eficiencia a largo plazo.",
     service_3_phase_5_details: "Mantenemos tu software seguro y actualizado. Realizamos optimizaciones de velocidad y base de datos de manera periódica, adaptando la plataforma a medida que tu negocio evolucione.",
     service_3_phase_5_feature_1: "Monitorización de disponibilidad y errores.",
@@ -240,7 +240,7 @@ export const translations = {
 
     // Service 4 Phases (Creación de tiendas online)
     service_4_phase_1_title: "Arquitectura de Catálogo",
-    service_4_phase_1_tag: "Fase 01",
+    service_4_phase_1_tag: "Catálogo",
     service_4_phase_1_desc: "Definimos la jerarquía de categorías, los atributos de producto y las variantes. Estructuramos la base del inventario para una navegación óptima.",
     service_4_phase_1_details: "Estructuramos la información de tus productos de manera lógica para buscadores y usuarios. Diseñamos el sistema de filtros y las relaciones entre artículos para fomentar las ventas cruzadas.",
     service_4_phase_1_feature_1: "Jerarquía de categorías y subcategorías.",
@@ -248,7 +248,7 @@ export const translations = {
     service_4_phase_1_feature_3: "Planificación de filtros y buscadores.",
 
     service_4_phase_2_title: "Diseño del Embudo & Ficha de Producto",
-    service_4_phase_2_tag: "Fase 02",
+    service_4_phase_2_tag: "Embudo",
     service_4_phase_2_desc: "Diseñamos una experiencia de usuario orientada a la venta. Optimizamos la ficha de producto, el carrito y el proceso de checkout.",
     service_4_phase_2_details: "Creamos un diseño atractivo que resalta las virtudes de tus productos. Reducimos el ruido en la página de pago para evitar el abandono del carrito de compra y maximizar el porcentaje de pedidos.",
     service_4_phase_2_feature_1: "Ficha de producto atractiva y persuasiva.",
@@ -256,7 +256,7 @@ export const translations = {
     service_4_phase_2_feature_3: "Proceso de pago simplificado (One-Page Checkout).",
 
     service_4_phase_3_title: "Pasarelas de Pago & Envíos",
-    service_4_phase_3_tag: "Fase 03",
+    service_4_phase_3_tag: "Pagos",
     service_4_phase_3_desc: "Configuramos y conectamos pasarelas de pago seguras y automatizamos el cálculo de costes de envío con empresas logísticas en tiempo real.",
     service_4_phase_3_details: "Garantizamos la seguridad de las transacciones implementando pasarelas como Stripe, PayPal o Bizum. Automatizamos las tarifas de envío según el peso, volumen o destino del pedido.",
     service_4_phase_3_feature_1: "Pasarelas Stripe, PayPal, Bizum o Apple Pay.",
@@ -264,7 +264,7 @@ export const translations = {
     service_4_phase_3_feature_3: "Cálculo automatizado de impuestos y costes.",
 
     service_4_phase_4_title: "Pruebas de Checkout & QA",
-    service_4_phase_4_tag: "Fase 04",
+    service_4_phase_4_tag: "Testing",
     service_4_phase_4_desc: "Realizamos simulaciones reales de compra en diferentes dispositivos y navegadores para asegurar que no haya fallos al pagar.",
     service_4_phase_4_details: "Probamos cada combinación posible de pago y envío. Validamos que los correos automáticos de confirmación se envíen de inmediato y que el inventario se descuente correctamente en el panel.",
     service_4_phase_4_feature_1: "Simulaciones de transacciones de pago.",
@@ -272,7 +272,7 @@ export const translations = {
     service_4_phase_4_feature_3: "Validación de notificaciones automáticas.",
 
     service_4_phase_5_title: "Lanzamiento & Conversión",
-    service_4_phase_5_tag: "Fase 05",
+    service_4_phase_5_tag: "Conversión",
     service_4_phase_5_desc: "Abrimos la tienda al público y activamos herramientas de analítica avanzada para monitorizar embudos y optimizar continuamente la conversión.",
     service_4_phase_5_details: "Publicamos la tienda online con los dominios oficiales. Configuramos herramientas como Google Analytics E-commerce y mapas de calor para analizar el comportamiento y seguir mejorando el ROI.",
     service_4_phase_5_feature_1: "Lanzamiento oficial en dominio de producción.",
@@ -281,7 +281,7 @@ export const translations = {
 
     // Service 5 Phases (Creación de software personalizado)
     service_5_phase_1_title: "Análisis de Requisitos",
-    service_5_phase_1_tag: "Fase 01",
+    service_5_phase_1_tag: "Requisitos",
     service_5_phase_1_desc: "Recopilamos y detallamos todas las necesidades técnicas y funcionales para asegurar que el software cumpla exactamente con lo esperado.",
     service_5_phase_1_details: "Traducimos tus necesidades de negocio en requerimientos de software claros. Definimos las funcionalidades prioritarias, la hoja de ruta del proyecto y los criterios de aceptación.",
     service_5_phase_1_feature_1: "Especificación de historias de usuario.",
@@ -289,7 +289,7 @@ export const translations = {
     service_5_phase_1_feature_3: "Planificación de hitos y entregas.",
 
     service_5_phase_2_title: "Diseño de BD & APIs",
-    service_5_phase_2_tag: "Fase 02",
+    service_5_phase_2_tag: "Arquitectura",
     service_5_phase_2_desc: "Modelamos la estructura de base de datos óptima y definimos el protocolo de comunicación de las APIs que alimentarán el sistema.",
     service_5_phase_2_details: "Aseguramos la integridad de los datos estructurando el modelo relacional o no relacional. Escribimos la documentación de la API (por ejemplo, OpenAPI/Swagger) para estandarizar el desarrollo.",
     service_5_phase_2_feature_1: "Modelado entidad-relación de datos.",
@@ -297,7 +297,7 @@ export const translations = {
     service_5_phase_2_feature_3: "Definición de políticas de seguridad iniciales.",
 
     service_5_phase_3_title: "Desarrollo Backend",
-    service_5_phase_3_tag: "Fase 03",
+    service_5_phase_3_tag: "Backend",
     service_5_phase_3_desc: "Programamos la lógica de negocio del servidor, procesos en segundo plano y gestiones de datos utilizando tecnologías eficientes y seguras.",
     service_5_phase_3_details: "Construimos el motor que hace funcionar la aplicación. Escribimos código backend de alto rendimiento en Go o Node.js, implementando algoritmos eficientes y garantizando tiempos de respuesta ultrarrápidos.",
     service_5_phase_3_feature_1: "Desarrollo de lógica en el servidor.",
@@ -305,7 +305,7 @@ export const translations = {
     service_5_phase_3_feature_3: "Optimización de consultas SQL/NoSQL.",
 
     service_5_phase_4_title: "Pruebas QA & Auditoría",
-    service_5_phase_4_tag: "Fase 04",
+    service_5_phase_4_tag: "QA",
     service_5_phase_4_desc: "Sometemos el código a pruebas rigurosas: unitarias, de integración y auditorías de seguridad, para erradicar errores y posibles vulnerabilidades.",
     service_5_phase_4_details: "Garantizamos la máxima estabilidad del software antes de su entrega. Ejecutamos pruebas automáticas de rendimiento y escaneo de vulnerabilidades para asegurar que el sistema resista picos de carga.",
     service_5_phase_4_feature_1: "Pruebas automáticas unitarias y de integración.",
@@ -313,7 +313,7 @@ export const translations = {
     service_5_phase_4_feature_3: "Auditoría de seguridad y parches de código.",
 
     service_5_phase_5_title: "Despliegue DevOps & Nube",
-    service_5_phase_5_tag: "Fase 05",
+    service_5_phase_5_tag: "DevOps",
     service_5_phase_5_desc: "Configuramos pipelines de integración y despliegue continuo (CI/CD) para subir el software a la nube de manera segura y automatizada.",
     service_5_phase_5_details: "Implementamos infraestructuras como código en proveedores cloud premium (AWS/GCP). Automatizamos los despliegues de modo que cada mejora de software se publique de manera invisible y segura.",
     service_5_phase_5_feature_1: "Pipelines de despliegue automatizados (CI/CD).",
@@ -322,7 +322,7 @@ export const translations = {
 
     // Service 6 Phases (Implementación de IA en las aplicaciones)
     service_6_phase_1_title: "Estudio de Viabilidad de IA",
-    service_6_phase_1_tag: "Fase 01",
+    service_6_phase_1_tag: "Viabilidad",
     service_6_phase_1_desc: "Analizamos tu caso de uso empresarial para determinar qué modelos de IA, presupuestos e integraciones aportarán un valor real a tu negocio.",
     service_6_phase_1_details: "No todas las tareas requieren IA. Identificamos las áreas de negocio donde un modelo de lenguaje, un clasificador o un agente autónomo multiplicará la eficiencia, estimando los costes de tokens y rendimiento.",
     service_6_phase_1_feature_1: "Análisis coste-beneficio de tokens.",
@@ -330,7 +330,7 @@ export const translations = {
     service_6_phase_1_feature_3: "Selección preliminar del modelo (Open vs Close Source).",
 
     service_6_phase_2_title: "Procesado & Vectorización de Datos",
-    service_6_phase_2_tag: "Fase 02",
+    service_6_phase_2_tag: "Vectorización",
     service_6_phase_2_desc: "Estructuramos, limpiamos y convertimos tus documentos e información de negocio en vectores para alimentar el motor de búsqueda inteligente.",
     service_6_phase_2_details: "Preparamos la base de conocimiento de tu empresa. Limpiamos el texto de tus manuales, bases de datos o PDFs y los indexamos en bases de datos vectoriales para una recuperación de contexto ultrarrápida.",
     service_6_phase_2_feature_1: "Extracción y limpieza de textos de PDFs/BBDD.",
@@ -338,7 +338,7 @@ export const translations = {
     service_6_phase_2_feature_3: "Carga en bases de datos vectoriales (como Pinecone o pgvector).",
 
     service_6_phase_3_title: "Ingeniería de Prompts & Ajuste",
-    service_6_phase_3_tag: "Fase 03",
+    service_6_phase_3_tag: "Prompts",
     service_6_phase_3_desc: "Diseñamos y perfeccionamos las instrucciones y el comportamiento del modelo de IA para asegurar respuestas precisas, profesionales y alineadas con tu marca.",
     service_6_phase_3_details: "Programamos las directrices operativas de la IA. Evaluamos de manera rigurosa las respuestas con diferentes enfoques de prompt (Few-shot, Chain-of-thought) para minimizar la variabilidad del output.",
     service_6_phase_3_feature_1: "Diseño de Prompts del sistema personalizados.",
@@ -346,7 +346,7 @@ export const translations = {
     service_6_phase_3_feature_3: "Reducción activa de alucinaciones del modelo.",
 
     service_6_phase_4_title: "Integración RAG & Agentes",
-    service_6_phase_4_tag: "Fase 04",
+    service_6_phase_4_tag: "RAG",
     service_6_phase_4_desc: "Conectamos el motor de IA con las bases de datos de la empresa, habilitando que la IA consulte información en tiempo real y ejecute tareas automatizadas.",
     service_6_phase_4_details: "Conectamos la IA a la acción. Mediante técnicas RAG, la IA responderá siempre con información veraz de tu negocio. Desarrollamos agentes autónomos capaces de invocar APIs externas para completar tareas complejas.",
     service_6_phase_4_feature_1: "Arquitectura Retrieval-Augmented Generation (RAG).",
@@ -354,7 +354,7 @@ export const translations = {
     service_6_phase_4_feature_3: "Flujos híbridos con intervención humana de respaldo.",
 
     service_6_phase_5_title: "Monitorización de Alucinaciones",
-    service_6_phase_5_tag: "Fase 05",
+    service_6_phase_5_tag: "Guardrails",
     service_6_phase_5_desc: "Implementamos sistemas de auditoría en tiempo real para verificar la precisión del modelo, prevenir alucinaciones y proteger los datos confidenciales.",
     service_6_phase_5_details: "Garantizamos que la IA opere de forma segura. Implementamos capas de control (Guardrails) que validan tanto las entradas del usuario como las respuestas generadas, filtrando datos sensibles o respuestas fuera de tono.",
     service_6_phase_5_feature_1: "Capas de control y filtrado de outputs (Guardrails).",
@@ -658,7 +658,7 @@ export const translations = {
 
     // Service 2 Phases (Creación de páginas web)
     service_2_phase_1_title: "Planning & SEO Strategy",
-    service_2_phase_1_tag: "Phase 01",
+    service_2_phase_1_tag: "Planning",
     service_2_phase_1_desc: "We define the commercial goals of the website, plan the site structure, and perform keyword research to ensure search engine optimization from the start.",
     service_2_phase_1_details: "We perform an initial competitor audit, analyze search intent for your ideal customer, and trace the sitemap to ensure the information architecture is intuitive and ready for search engines.",
     service_2_phase_1_feature_1: "Keyword research & strategy.",
@@ -666,7 +666,7 @@ export const translations = {
     service_2_phase_1_feature_3: "Initial conversion rate optimization (CRO) planning.",
 
     service_2_phase_2_title: "UX/UI Wireframing & Design",
-    service_2_phase_2_tag: "Phase 02",
+    service_2_phase_2_tag: "Design",
     service_2_phase_2_desc: "We design low-fidelity wireframes and high-fidelity interactive prototypes in Figma. Visual style aligned with your brand and usability.",
     service_2_phase_2_details: "We convert the layout structure into attractive visual designs. We work on brand identity, typography, and page interaction flows for a smooth and aesthetically striking experience.",
     service_2_phase_2_feature_1: "Interactive navigation wireframes.",
@@ -674,7 +674,7 @@ export const translations = {
     service_2_phase_2_feature_3: "Website design system definition.",
 
     service_2_phase_3_title: "Layout & Clean Coding",
-    service_2_phase_3_tag: "Phase 03",
+    service_2_phase_3_tag: "Code",
     service_2_phase_3_desc: "We write modern, semantic, and responsive frontend code. We make sure the site is pixel-perfect and fits mobile, tablet, and desktop viewports.",
     service_2_phase_3_details: "We implement the designs using fast technologies and modern standards. We prioritize clean source code to ease future expansions and indexation.",
     service_2_phase_3_feature_1: "Semantic HTML and responsive CSS.",
@@ -682,7 +682,7 @@ export const translations = {
     service_2_phase_3_feature_3: "Optimized source code without scripts clutter.",
 
     service_2_phase_4_title: "Page Load Speed Optimization",
-    service_2_phase_4_tag: "Phase 04",
+    service_2_phase_4_tag: "Performance",
     service_2_phase_4_desc: "We maximize web load speeds to achieve an excellent score on PageSpeed Insights. Image compression and asset minification.",
     service_2_phase_4_details: "A fast web retains more users. We optimize lazy loading, minify JavaScript/CSS bundles, and set up caching strategies to achieve instant loading speeds.",
     service_2_phase_4_feature_1: "Image optimization with modern web formats.",
@@ -690,7 +690,7 @@ export const translations = {
     service_2_phase_4_feature_3: "PageSpeed Lighthouse audit and setup.",
 
     service_2_phase_5_title: "Deployment & Search Indexing",
-    service_2_phase_5_tag: "Phase 05",
+    service_2_phase_5_tag: "Launch",
     service_2_phase_5_desc: "We deploy the website on a secure hosting environment and connect Google Search Console for immediate indexing and traffic tracking.",
     service_2_phase_5_details: "We conduct final QA checks, configure SSL domains, and go live. We link analytics tools and submit XML sitemaps so search engines index your pages.",
     service_2_phase_5_feature_1: "Secure hosting configuration and SSL setup.",
@@ -699,7 +699,7 @@ export const translations = {
 
     // Service 3 Phases (Business digitalization)
     service_3_phase_1_title: "Process Auditing",
-    service_3_phase_1_tag: "Phase 01",
+    service_3_phase_1_tag: "Audit",
     service_3_phase_1_desc: "We analyze your current operational workflows in detail to find inefficiencies, bottlenecks, and automation opportunities.",
     service_3_phase_1_details: "We meet with your team to map out how they handle data, tasks, and communications, finding where manual processes waste valuable company time.",
     service_3_phase_1_feature_1: "Detailed operational flow mapping.",
@@ -707,7 +707,7 @@ export const translations = {
     service_3_phase_1_feature_3: "ROI estimation and strategic plan.",
 
     service_3_phase_2_title: "Architecture Design",
-    service_3_phase_2_tag: "Phase 02",
+    service_3_phase_2_tag: "Architecture",
     service_3_phase_2_desc: "We design the optimal digital solution to integrate databases, workflows, and tools into a robust, scalable architecture.",
     service_3_phase_2_details: "We choose the stack and design secure databases and cloud topologies to ensure that all business systems communicate rapidly and securely.",
     service_3_phase_2_feature_1: "Logical database modeling.",
@@ -715,7 +715,7 @@ export const translations = {
     service_3_phase_2_feature_3: "Detailed technical blueprint.",
 
     service_3_phase_3_title: "Development & API Connections",
-    service_3_phase_3_tag: "Phase 03",
+    service_3_phase_3_tag: "Development",
     service_3_phase_3_desc: "We program the custom features of your new software and build the necessary API connections with your existing tools.",
     service_3_phase_3_details: "We write robust backend code and build intuitive frontend interfaces. We connect your preferred tools (ERPs, CRMs, email, billing) to unify operations.",
     service_3_phase_3_feature_1: "Custom administration dashboard development.",
@@ -723,7 +723,7 @@ export const translations = {
     service_3_phase_3_feature_3: "Initial historical data migration.",
 
     service_3_phase_4_title: "Pilot Period & Onboarding",
-    service_3_phase_4_tag: "Phase 04",
+    service_3_phase_4_tag: "Onboarding",
     service_3_phase_4_desc: "We roll out a controlled pilot version and train your staff to ensure a smooth transition with minimal disruption to daily business.",
     service_3_phase_4_details: "We guide employees during their first interactions with the system, adjust details based on user feedback, and provide clear user guides.",
     service_3_phase_4_feature_1: "Controlled rollout with key users.",
@@ -731,7 +731,7 @@ export const translations = {
     service_3_phase_4_feature_3: "Interactive software usage handbooks.",
 
     service_3_phase_5_title: "Support & Optimization",
-    service_3_phase_5_tag: "Phase 05",
+    service_3_phase_5_tag: "Support",
     service_3_phase_5_desc: "We monitor production performance and carry out continuous updates to maximize operational efficiency and productivity.",
     service_3_phase_5_details: "We keep your platform secure and up-to-date. We run optimization sprints for speed and database queries to match your company's growth.",
     service_3_phase_5_feature_1: "Uptime and error monitoring.",
@@ -740,7 +740,7 @@ export const translations = {
 
     // Service 4 Phases (Creación de tiendas online)
     service_4_phase_1_title: "Catalog Architecture",
-    service_4_phase_1_tag: "Phase 01",
+    service_4_phase_1_tag: "Catalog",
     service_4_phase_1_desc: "We define product hierarchies, attributes, and variants. We structure the inventory base for optimal shopping navigation.",
     service_4_phase_1_details: "We structure your inventory logically for search engines and shoppers. We design filtering criteria and related items to boost cross-selling.",
     service_4_phase_1_feature_1: "Category and subcategory hierarchies.",
@@ -749,7 +749,7 @@ export const translations = {
 
     // Service 4 Phases (Creación de tiendas online)
     service_4_phase_2_title: "Funnel & Product Detail Page",
-    service_4_phase_2_tag: "Phase 02",
+    service_4_phase_2_tag: "Funnel",
     service_4_phase_2_desc: "We design a sales-driven UX/UI. Optimizing product details, interactive carts, and the checkout process.",
     service_4_phase_2_details: "We build layouts that highlight product benefits. We minimize distractions during checkout to prevent cart abandonment and raise sales rates.",
     service_4_phase_2_feature_1: "Conversion-optimized product pages.",
@@ -757,7 +757,7 @@ export const translations = {
     service_4_phase_2_feature_3: "Simplified single-page checkout.",
 
     service_4_phase_3_title: "Payment Gateways & Shipping",
-    service_4_phase_3_tag: "Phase 03",
+    service_4_phase_3_tag: "Payments",
     service_4_phase_3_desc: "We configure secure payment methods and automate live shipping calculations with major courier services.",
     service_4_phase_3_details: "We protect transactions by integrating Stripe, PayPal, or Bizum. We automate courier rates based on product weights, dimensions, or target destinations.",
     service_4_phase_3_feature_1: "Stripe, PayPal, Bizum, and Apple Pay setup.",
@@ -765,7 +765,7 @@ export const translations = {
     service_4_phase_3_feature_3: "Automated calculations of taxes and duties.",
 
     service_4_phase_4_title: "Checkout Testing & QA",
-    service_4_phase_4_tag: "Phase 04",
+    service_4_phase_4_tag: "Testing",
     service_4_phase_4_desc: "We execute mock purchases across many screens and browsers to guarantee zero payment errors.",
     service_4_phase_4_details: "We test every payment and shipping combination. We verify transaction confirmation emails and make sure stocks decrease correctly in the admin panel.",
     service_4_phase_4_feature_1: "End-to-end payment simulations.",
@@ -773,7 +773,7 @@ export const translations = {
     service_4_phase_4_feature_3: "Automated notification validation.",
 
     service_4_phase_5_title: "Launch & CRO Analytics",
-    service_4_phase_5_tag: "Phase 05",
+    service_4_phase_5_tag: "Conversion",
     service_4_phase_5_desc: "We launch the live store and configure advanced analytics to track funnels and optimize conversions.",
     service_4_phase_5_details: "We publish your online store under your official domains. We set up Google Analytics E-commerce tracking to analyze behaviors and optimize ROI.",
     service_4_phase_5_feature_1: "Official production domain launch.",
@@ -782,7 +782,7 @@ export const translations = {
 
     // Service 5 Phases (Creación de software personalizado)
     service_5_phase_1_title: "Requirement Gathering",
-    service_5_phase_1_tag: "Phase 01",
+    service_5_phase_1_tag: "Requirements",
     service_5_phase_1_desc: "We gather and write down all technical and functional specifications to ensure the software matches expectations perfectly.",
     service_5_phase_1_details: "We translate business needs into software specifications. We define storyboards, backlog priorities, and acceptance criteria.",
     service_5_phase_1_feature_1: "Clear user story specifications.",
@@ -790,7 +790,7 @@ export const translations = {
     service_5_phase_1_feature_3: "Milestone planning and releases.",
 
     service_5_phase_2_title: "DB & API Design",
-    service_5_phase_2_tag: "Phase 02",
+    service_5_phase_2_tag: "Architecture",
     service_5_phase_2_desc: "We model the database schema and define communication contracts for the APIs driving the system.",
     service_5_phase_2_details: "We ensure data integrity by structuring entity relationship maps. We write API documentation (like OpenAPI/Swagger) to align teams.",
     service_5_phase_2_feature_1: "Database logical schema modeling.",
@@ -798,7 +798,7 @@ export const translations = {
     service_5_phase_2_feature_3: "Initial database access security layers.",
 
     service_5_phase_3_title: "Backend Development",
-    service_5_phase_3_tag: "Phase 03",
+    service_5_phase_3_tag: "Backend",
     service_5_phase_3_desc: "We program the core business logic, background queues, and database layers using clean, performant technologies.",
     service_5_phase_3_details: "We build the core engine. We write high-efficiency backend code in Go or Node.js, optimizing algorithms and guaranteeing low response times.",
     service_5_phase_3_feature_1: "Server-side business logic development.",
@@ -806,7 +806,7 @@ export const translations = {
     service_5_phase_3_feature_3: "SQL/NoSQL query tuning and indexing.",
 
     service_5_phase_4_title: "QA Testing & Code Audit",
-    service_5_phase_4_tag: "Phase 04",
+    service_5_phase_4_tag: "QA",
     service_5_phase_4_desc: "We submit code to strict testing: unit tests, integration tests, and security scans to fix bugs and vulnerabilities.",
     service_5_phase_4_details: "We ensure maximum stability before release. We run performance tests and vulnerability scans to check system resistance under load.",
     service_5_phase_4_feature_1: "Automated unit and integration testing.",
@@ -814,7 +814,7 @@ export const translations = {
     service_5_phase_4_feature_3: "Security auditing and vulnerability patching.",
 
     service_5_phase_5_title: "DevOps & Cloud Deploy",
-    service_5_phase_5_tag: "Phase 05",
+    service_5_phase_5_tag: "DevOps",
     service_5_phase_5_desc: "We configure continuous integration and continuous deployment pipelines (CI/CD) to release updates automatically and securely.",
     service_5_phase_5_details: "We write Infrastructure as Code for premium cloud providers (AWS/GCP), automating deployments so code changes publish invisibly.",
     service_5_phase_5_feature_1: "CI/CD deployment automated pipelines.",
@@ -823,7 +823,7 @@ export const translations = {
 
     // Service 6 Phases (Implementación de IA en las aplicaciones)
     service_6_phase_1_title: "AI Feasibility Study",
-    service_6_phase_1_tag: "Phase 01",
+    service_6_phase_1_tag: "Feasibility",
     service_6_phase_1_desc: "We analyze your business operations to determine which AI models, token costs, and integrations deliver real business value.",
     service_6_phase_1_details: "Not all workflows require AI. We pinpoint areas where language models, text classifications, or autonomous agents will multiply efficiency.",
     service_6_phase_1_feature_1: "Token usage and API cost-benefit analysis.",
@@ -831,7 +831,7 @@ export const translations = {
     service_6_phase_1_feature_3: "Model selection (Open Source vs API-based).",
 
     service_6_phase_2_title: "Data Processing & Vectorization",
-    service_6_phase_2_tag: "Phase 02",
+    service_6_phase_2_tag: "Vectorization",
     service_6_phase_2_desc: "We clean, structure, and convert corporate documents into vectors to feed your context-aware intelligent search search engines.",
     service_6_phase_2_details: "We prepare your business knowledge bases. We extract text from PDFs or databases and index them into vector databases for fast retrieval.",
     service_6_phase_2_feature_1: "Document text extraction and cleaning.",
@@ -839,7 +839,7 @@ export const translations = {
     service_6_phase_2_feature_3: "Vector database indexing (Pinecone/pgvector).",
 
     service_6_phase_3_title: "Prompt Engineering & Tuning",
-    service_6_phase_3_tag: "Phase 03",
+    service_6_phase_3_tag: "Prompts",
     service_6_phase_3_desc: "We design system instructions to ensure your AI answers are accurate, professional, and fully aligned with your brand guidelines.",
     service_6_phase_3_details: "We program your AI's rules. We evaluate model outputs using advanced techniques (Few-shot, Chain-of-thought) to reduce output variability.",
     service_6_phase_3_feature_1: "Custom system prompts design.",
@@ -847,7 +847,7 @@ export const translations = {
     service_6_phase_3_feature_3: "Active LLM hallucination mitigation.",
 
     service_6_phase_4_title: "RAG & Agent Integrations",
-    service_6_phase_4_tag: "Phase 04",
+    service_6_phase_4_tag: "RAG",
     service_6_phase_4_desc: "We connect the AI model to company databases, enabling real-time context-aware answers and automated tool execution.",
     service_6_phase_4_details: "We enable action. Using RAG, your AI will answer with true company facts. We design autonomous agents capable of calling external APIs.",
     service_6_phase_4_feature_1: "Retrieval-Augmented Generation (RAG) setup.",
@@ -855,7 +855,7 @@ export const translations = {
     service_6_phase_4_feature_3: "Hybrid workflows with human-in-the-loop fallback.",
 
     service_6_phase_5_title: "Hallucination & Guardrail Auditing",
-    service_6_phase_5_tag: "Phase 05",
+    service_6_phase_5_tag: "Guardrails",
     service_6_phase_5_desc: "We set up automated audit layers to check answer accuracy, filter out sensitive inputs, and ensure policy compliance.",
     service_6_phase_5_details: "We secure AI interactions. We configure guardrails to check user prompts and generated responses, filtering out sensitive details.",
     service_6_phase_5_feature_1: "Guardrail filter layers for inputs and outputs.",
