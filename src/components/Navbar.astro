@@ -313,14 +313,20 @@ const T = translations[lang];
     gap: 0.15rem;
   }
 
-  .nav-dropdown-menu::before {
+  .nav-dropdown-wrapper::after {
     content: '';
     position: absolute;
-    top: -24px;
+    top: 50%;
     left: 0;
     right: 0;
-    height: 24px;
+    bottom: -12px;
     background: transparent;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .nav-dropdown-wrapper:hover::after {
+    pointer-events: auto;
   }
 
   .nav-dropdown-wrapper:hover .nav-dropdown-menu {
@@ -387,14 +393,20 @@ const T = translations[lang];
     gap: 0.15rem;
   }
 
-  .pill-dropdown-menu::before {
+  .pill-dropdown-wrapper::after {
     content: '';
     position: absolute;
-    top: -24px;
+    top: 50%;
     left: 0;
     right: 0;
-    height: 24px;
+    bottom: -16px;
     background: transparent;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .pill-dropdown-wrapper:hover::after {
+    pointer-events: auto;
   }
 
   .pill-dropdown-wrapper:hover .pill-dropdown-menu {
