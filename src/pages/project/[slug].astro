@@ -470,6 +470,9 @@ const T = translations[defaultLang];
   }
 
   .breadcrumb-back {
+    position: relative;
+    z-index: 5;
+    -webkit-tap-highlight-color: transparent;
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -591,7 +594,7 @@ const T = translations[defaultLang];
   }
 
   .proj-hero-title {
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-size: clamp(2rem, 7vw, 4.5rem);
     font-weight: 800;
     letter-spacing: -0.05em;
     color: #fff;
@@ -992,6 +995,14 @@ const T = translations[defaultLang];
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 768px) {
+    .detail-breadcrumb {
+      padding: 6.5rem 1.2rem 1.5rem;
+    }
+
+    .scroll-indicator {
+      display: none;
+    }
+
     .proj-hero {
       height: 60vh;
       margin: 0 0.8rem;
@@ -1008,7 +1019,34 @@ const T = translations[defaultLang];
     }
 
     .proj-detail-main {
-      padding: 0 1.2rem;
+      padding: 3rem 1.2rem 0;
+    }
+
+    .detail-glass-card {
+      padding: 1.8rem 1.5rem;
+      border-radius: 20px;
+    }
+
+    .feature-item {
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .next-card-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .next-arrow {
+      align-self: flex-end;
+    }
+
+    .proj-visit-btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 

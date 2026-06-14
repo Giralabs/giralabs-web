@@ -986,6 +986,9 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   .details-breadcrumb { position: relative; z-index: 2; padding: 7rem 2rem 1rem; }
   .breadcrumb-inner { max-width: 1050px; margin: 0 auto; }
   .breadcrumb-back {
+    position: relative;
+    z-index: 5;
+    -webkit-tap-highlight-color: transparent;
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -1238,6 +1241,7 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
     cursor: pointer;
     backdrop-filter: blur(10px);
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    -webkit-tap-highlight-color: transparent;
   }
   .tab-btn:hover { background: rgba(255, 255, 255, 0.75); border-color: rgba(0, 0, 0, 0.15); transform: translateY(-2px); }
   .tab-btn.active {
@@ -1255,8 +1259,8 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   .fade-transition { opacity: 1; transform: translateY(0); transition: opacity 0.25s cubic-bezier(0.25, 1, 0.5, 1), transform 0.25s cubic-bezier(0.25, 1, 0.5, 1); }
   .fade-transition.fade-out { opacity: 0; transform: translateY(8px); }
 
-  .phase-widget { display: none; width: 100%; height: 100%; justify-content: center; align-items: center; opacity: 0; transform: scale(0.95); transition: opacity 0.4s ease, transform 0.4s ease; }
-  .phase-widget.active { display: flex; opacity: 1; transform: scale(1); }
+  .phase-widget { display: flex; width: 100%; height: 100%; justify-content: center; align-items: center; opacity: 0; transform: scale(0.95); transition: opacity 0.4s ease, transform 0.4s ease; position: absolute; pointer-events: none; }
+  .phase-widget.active { opacity: 1; transform: scale(1); position: relative; pointer-events: auto; }
 
   /* ========================================
      S1 SPECIFIC WIDGETS
@@ -2702,11 +2706,13 @@ const nextTitleKey = `service_${nextIndex}_title` as const;
   .details-grid.is-active .guardrail-item.g-item-3 .guardrail-indicator { animation: indicatorSuccess 3s infinite ease-in-out; animation-delay: 1.6s; }
 
   @media (max-width: 860px) {
-    .dashboard-tabs { overflow-x: auto; justify-content: flex-start; padding-bottom: 0.75rem; scrollbar-width: none; }
+    .dashboard-tabs { overflow-x: auto; justify-content: flex-start; padding-bottom: 0.75rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .dashboard-tabs::-webkit-scrollbar { display: none; }
     .tab-btn { flex: 0 0 130px; }
     .details-grid { grid-template-columns: 1fr; gap: 3.5rem; }
     .service-glass-card { padding: 3rem 2rem; }
     .details-visual-panel { order: -1; }
+    .details-container { padding: 0 1.2rem 2rem; }
+    .details-breadcrumb { padding: 6.5rem 1.2rem 1rem; }
   }
 </style>

@@ -179,22 +179,24 @@ const projects = [
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => obs.observe(el));
 
-    // Mouse-parallax effect on cards
-    document.querySelectorAll('.proj-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-        card.style.setProperty('--rx', `${y}deg`);
-        card.style.setProperty('--ry', `${-x}deg`);
-        card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-        card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    // Mouse-parallax effect on cards (only on desktop/hover devices)
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.proj-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+          card.style.setProperty('--rx', `${y}deg`);
+          card.style.setProperty('--ry', `${-x}deg`);
+          card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+        });
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--rx', '0deg');
-        card.style.setProperty('--ry', '0deg');
-      });
-    });
+    }
 
     let currentLang = document.documentElement.lang || 'es';
 
