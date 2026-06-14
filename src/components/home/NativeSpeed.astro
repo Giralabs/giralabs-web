@@ -133,8 +133,36 @@ const projects = [
         </article>
       ))}
     </div>
+
+    <!-- Carousel scroll indicator (mobile only) -->
+    <div class="projects-carousel-indicator" aria-hidden="true">
+      <div class="projects-indicator-track">
+        <div class="projects-indicator-bar" id="projects-indicator-bar"></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Script for mobile projects carousel indicator -->
+<script>
+  function initProjectsCarousel() {
+    const grid = document.querySelector('.projects-grid');
+    const bar = document.getElementById('projects-indicator-bar');
+    if (grid && bar) {
+      const updateIndicator = () => {
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const percentage = maxScroll > 0 ? (grid.scrollLeft / maxScroll) * 100 : 0;
+        bar.style.width = `${percentage}%`;
+      };
+      grid.addEventListener('scroll', updateIndicator, { passive: true });
+      window.addEventListener('resize', updateIndicator, { passive: true });
+      updateIndicator();
+    }
+  }
+
+  initProjectsCarousel();
+  document.addEventListener('astro:after-swap', initProjectsCarousel);
+</script>
 
 <style>
   /* ========================================
@@ -472,6 +500,33 @@ const projects = [
     max-width: 90%;
   }
 
+  /* Mobile Carousel Indicator Styles */
+  .projects-carousel-indicator {
+    display: none;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+  .projects-indicator-track {
+    width: 80px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .projects-indicator-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #000;
+    border-radius: 10px;
+  }
+
   @media (max-width: 960px) {
     .projects-grid {
       grid-template-columns: 1fr;
@@ -481,6 +536,36 @@ const projects = [
     .project-card--narrow {
       grid-column: span 10;
       min-height: 360px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      gap: 16px;
+      margin: 0 -1.5rem;
+      padding: 0.5rem 1.5rem 1.5rem;
+    }
+
+    .projects-grid::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    .project-card {
+      flex: 0 0 82vw;
+      max-width: 340px;
+      scroll-snap-align: start;
+      grid-column: auto !important;
+      min-height: 380px;
+    }
+
+    .projects-carousel-indicator {
+      display: flex;
     }
   }
 
