@@ -5,6 +5,20 @@ import { translations } from '../i18n/translations';
 import CTAContact from '../components/CTAContact.astro';
 import Footer from '../components/Footer.astro';
 
+// Import logos for the tech stack
+import androidStudioLogo from '../assets/tech_stack/android_studio.webp';
+import flutterLogo from '../assets/tech_stack/flutter.webp';
+import javaLogo from '../assets/tech_stack/java.webp';
+import kotlinLogo from '../assets/tech_stack/kotlin.webp';
+import mongodbLogo from '../assets/tech_stack/mongodb.webp';
+import supabaseLogo from '../assets/tech_stack/supabase.webp';
+import swiftLogo from '../assets/tech_stack/swift.webp';
+import xcodeLogo from '../assets/tech_stack/xcode.webp';
+import springLogo from '../assets/tech_stack/spring.webp';
+import angularLogo from '../assets/tech_stack/angular.webp';
+import reactLogo from '../assets/tech_stack/react.webp';
+import astroLogo from '../assets/tech_stack/astro.webp';
+
 const langParam = Astro.url.searchParams.get('lang');
 let lang = 'es';
 
@@ -13,6 +27,21 @@ if (langParam === 'es' || langParam === 'en') {
 }
 
 const T = translations[lang];
+
+const technologies = [
+  { id: "flutter", name: "Flutter", logo: flutterLogo.src, url: "https://flutter.dev/" },
+  { id: "swift", name: "Swift", logo: swiftLogo.src, url: "https://www.apple.com/la/swift/" },
+  { id: "kotlin", name: "Kotlin", logo: kotlinLogo.src, url: "https://kotlinlang.org/" },
+  { id: "react", name: "React", logo: reactLogo.src, url: "https://react.dev/" },
+  { id: "angular", name: "Angular", logo: angularLogo.src, url: "https://angular.dev/" },
+  { id: "astro", name: "Astro", logo: astroLogo.src, url: "https://astro.build/" },
+  { id: "java", name: "Java", logo: javaLogo.src, url: "https://www.java.com/es/" },
+  { id: "spring", name: "Spring", logo: springLogo.src, url: "https://spring.io/" },
+  { id: "supabase", name: "Supabase", logo: supabaseLogo.src, url: "https://supabase.com/" },
+  { id: "mongodb", name: "MongoDB", logo: mongodbLogo.src, url: "https://www.mongodb.com/" },
+  { id: "android_studio", name: "Android Studio", logo: androidStudioLogo.src, url: "https://developer.android.com/studio?hl=es-419" },
+  { id: "xcode", name: "Xcode", logo: xcodeLogo.src, url: "https://developer.apple.com/xcode/" },
+];
 ---
 
 <Layout
@@ -198,6 +227,31 @@ const T = translations[lang];
     </section>
     -->
 
+    <!-- ==================== TECHNOLOGIES SECTION ==================== -->
+    <section class="tech-section reveal">
+      <div class="section-header">
+        <span class="section-eyebrow" data-i18n="about_tech_eyebrow">{T.about_tech_eyebrow}</span>
+        <h2 class="section-heading" data-i18n="about_tech_heading">{T.about_tech_heading}</h2>
+      </div>
+
+      <div class="tech-grid">
+        {technologies.map((tech) => (
+          <a href={tech.url} target="_blank" rel="noopener noreferrer" class="tech-glass-card">
+            <div class="tech-card-effects">
+              <div class="tech-card-spotlight"></div>
+            </div>
+            <div class="tech-card-border"></div>
+            <div class="tech-card-inner">
+              <div class="tech-icon-box">
+                <img src={tech.logo} alt={tech.name} class="tech-icon" loading="lazy" width="40" height="40" />
+              </div>
+              <span class="tech-name">{tech.name}</span>
+              <p class="tech-desc" data-i18n={`tech_${tech.id}_desc`}>{T[`tech_${tech.id}_desc` as keyof typeof T]}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
 
   </main>
 
@@ -247,7 +301,7 @@ const T = translations[lang];
     });
 
     // Spotlight mouse tracking for advanced glass cards
-    document.querySelectorAll('.value-card, .team-card').forEach(card => {
+    document.querySelectorAll('.value-card, .team-card, .tech-glass-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -859,6 +913,139 @@ const T = translations[lang];
   }
 
   /* ========================================
+     TECHNOLOGIES SECTION (Glass Grid)
+     ======================================== */
+  .tech-section {
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .tech-glass-card {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    overflow: hidden;
+    box-shadow: 
+      0 6px 20px rgba(0,0,0,0.015),
+      0 0 0 0.5px rgba(0,0,0,0.01) inset,
+      0 1px 0 rgba(255,255,255,0.7) inset;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+    cursor: pointer;
+  }
+
+  .tech-glass-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 
+      0 12px 30px rgba(0,0,0,0.04),
+      0 0 0 0.5px rgba(0,0,0,0.005) inset,
+      0 1px 0 rgba(255,255,255,0.85) inset;
+  }
+
+  .tech-card-border {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 2;
+    transition: border-color 0.4s ease;
+  }
+
+  .tech-glass-card:hover .tech-card-border {
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .tech-card-effects {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .tech-card-spotlight {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(180px circle at var(--mx, 0px) var(--my, 0px), rgba(0,0,0,0.03) 0%, rgba(255,255,255,0.15) 60%, transparent 100%);
+    transition: opacity 0.4s ease;
+  }
+
+  .tech-glass-card:hover .tech-card-spotlight {
+    opacity: 1;
+  }
+
+  .tech-card-inner {
+    position: relative;
+    z-index: 2;
+    padding: 1.8rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .tech-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .tech-glass-card:hover .tech-icon-box {
+    transform: scale(1.1) translateY(-2px);
+  }
+
+  .tech-icon {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.6);
+    transition: filter 0.4s ease, opacity 0.4s ease;
+  }
+
+  .tech-glass-card:hover .tech-icon {
+    filter: grayscale(0%) opacity(1);
+  }
+
+  .tech-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.01em;
+  }
+
+  .tech-desc {
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: rgba(0, 0, 0, 0.45);
+    margin: 0;
+    transition: color 0.4s ease;
+  }
+
+  .tech-glass-card:hover .tech-desc {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  /* ========================================
      RESPONSIVE BREAKPOINTS
      ======================================== */
   @media (max-width: 960px) {
@@ -871,6 +1058,11 @@ const T = translations[lang];
     .stat-item:not(:last-child)::after { display: none; }
     .stat-item:nth-child(1)::after,
     .stat-item:nth-child(3)::after { display: none; }
+
+    .tech-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
   }
 
   @media (max-width: 600px) {
@@ -879,5 +1071,13 @@ const T = translations[lang];
     .team-inner { padding: 2rem; flex-direction: column; text-align: center; }
     .team-skills { justify-content: center; }
     .stats-inner { grid-template-columns: 1fr; gap: 2.2rem; }
+
+    .tech-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+    .tech-card-inner {
+      padding: 1.2rem 0.8rem;
+    }
   }
 </style>
