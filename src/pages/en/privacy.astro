@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import { translations } from '../i18n/translations';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { translations } from '../../i18n/translations';
+import Footer from '../../components/Footer.astro';
 
 export const prerender = true;
-const lang = 'es';
+const lang = 'en';
 const T = translations[lang];
 ---
 
 <Layout
-  title={`${T.meta_title} | ${T.legal_meta_title}`}
-  description={T.legal_meta_description}
+  title={`${T.meta_title} | ${T.privacy_meta_title}`}
+  description={T.privacy_meta_description}
   lang={lang}
 >
   <!-- Global dot-grid background -->
@@ -25,41 +25,36 @@ const T = translations[lang];
   <Navbar lang={lang} />
 
   <!-- ==================== HERO HEADER ==================== -->
-  <header class="legal-hero reveal">
+  <header class="privacy-hero reveal">
     <div class="hero-inner">
-      <span class="hero-eyebrow" data-i18n="footer_legal">{T.footer_legal}</span>
-      <h1 class="hero-title" data-i18n="legal_page_title">{T.legal_page_title}</h1>
-      <p class="hero-subtitle" data-i18n="legal_page_subtitle">{T.legal_page_subtitle}</p>
+      <span class="hero-eyebrow" data-i18n="footer_privacy">{T.footer_privacy}</span>
+      <h1 class="hero-title" data-i18n="privacy_page_title">{T.privacy_page_title}</h1>
+      <p class="hero-subtitle" data-i18n="privacy_page_subtitle">{T.privacy_page_subtitle}</p>
     </div>
   </header>
 
   <!-- ==================== CONTENT SHEET ==================== -->
-  <main class="legal-container">
-    <article class="legal-card reveal">
+  <main class="privacy-container">
+    <article class="privacy-card reveal">
       <div class="card-border"></div>
       <div class="card-effects">
         <div class="card-spotlight"></div>
       </div>
       
       <div class="card-inner">
-        <section class="legal-section">
-          <h2 class="section-title" data-i18n="legal_intro_title">{T.legal_intro_title}</h2>
-          <p class="section-text" data-i18n="legal_intro_desc">{T.legal_intro_desc}</p>
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_collect_title">{T.privacy_collect_title}</h2>
+          <p class="section-text" data-i18n="privacy_collect_desc">{T.privacy_collect_desc}</p>
         </section>
 
-        <section class="legal-section">
-          <h2 class="section-title" data-i18n="legal_terms_title">{T.legal_terms_title}</h2>
-          <p class="section-text" data-i18n="legal_terms_desc">{T.legal_terms_desc}</p>
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_purpose_title">{T.privacy_purpose_title}</h2>
+          <p class="section-text" data-i18n="privacy_purpose_desc">{T.privacy_purpose_desc}</p>
         </section>
 
-        <section class="legal-section">
-          <h2 class="section-title" data-i18n="legal_limit_title">{T.legal_limit_title}</h2>
-          <p class="section-text" data-i18n="legal_limit_desc">{T.legal_limit_desc}</p>
-        </section>
-
-        <section class="legal-section">
-          <h2 class="section-title" data-i18n="legal_jurisdiction_title">{T.legal_jurisdiction_title}</h2>
-          <p class="section-text" data-i18n="legal_jurisdiction_desc">{T.legal_jurisdiction_desc}</p>
+        <section class="privacy-section">
+          <h2 class="section-title" data-i18n="privacy_rights_title">{T.privacy_rights_title}</h2>
+          <p class="section-text" data-i18n="privacy_rights_desc">{T.privacy_rights_desc}</p>
         </section>
       </div>
     </article>
@@ -70,7 +65,7 @@ const T = translations[lang];
   <!-- ==================== INTERACTION SCRIPTS ==================== -->
   <script>
     // Spotlight mouse tracking for advanced glass card
-    const glassCard = document.querySelector('.legal-card');
+    const glassCard = document.querySelector('.privacy-card');
     if (glassCard) {
       glassCard.addEventListener('mousemove', (e) => {
         const rect = glassCard.getBoundingClientRect();
@@ -135,7 +130,7 @@ const T = translations[lang];
   /* ========================================
      HERO SEGMENT
      ======================================== */
-  .legal-hero {
+  .privacy-hero {
     position: relative;
     padding: 10rem 2rem 3rem;
     z-index: 1;
@@ -174,9 +169,9 @@ const T = translations[lang];
   }
 
   /* ========================================
-     LEGAL CONTAINER & CARD
+     PRIVACY CONTAINER & CARD
      ======================================== */
-  .legal-container {
+  .privacy-container {
     position: relative;
     z-index: 2;
     padding: 0 2rem 6rem;
@@ -184,7 +179,7 @@ const T = translations[lang];
     margin: 0 auto;
   }
 
-  .legal-card {
+  .privacy-card {
     position: relative;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.35);
@@ -223,7 +218,7 @@ const T = translations[lang];
     transition: opacity 0.5s ease;
   }
 
-  .legal-card:hover .card-spotlight {
+  .privacy-card:hover .card-spotlight {
     opacity: 1;
   }
 
@@ -239,7 +234,7 @@ const T = translations[lang];
   /* ========================================
      SECTIONS CONTROLLER
      ======================================== */
-  .legal-section {
+  .privacy-section {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
@@ -265,8 +260,8 @@ const T = translations[lang];
      RESPONSIVE BREAKPOINTS
      ======================================== */
   @media (max-width: 600px) {
-    .legal-container { padding: 0 1.5rem 4rem; }
+    .privacy-container { padding: 0 1.5rem 4rem; }
     .card-inner { padding: 3rem 2rem; gap: 2.5rem; }
-    .legal-hero { padding: 8rem 1.5rem 2.5rem; }
+    .privacy-hero { padding: 8rem 1.5rem 2.5rem; }
   }
 </style>

@@ -5,12 +5,14 @@ interface Props {
   lang?: string;
   actionUrl?: string;
   bookingActionUrl?: string;
+  isPage?: boolean;
 }
 
 const { 
   lang = "es", 
   actionUrl = "https://formspree.io/f/placeholder",
-  bookingActionUrl = "https://formspree.io/f/placeholder_booking"
+  bookingActionUrl = "https://formspree.io/f/placeholder_booking",
+  isPage = false
 } = Astro.props;
 const T = translations[lang];
 
@@ -170,7 +172,11 @@ const F = formTranslations[lang] || formTranslations.es;
         </div>
 
         <!-- Form (dynamic Formspree endpoint) -->
-        <h2 class="contact-heading">{F.title}</h2>
+        {isPage ? (
+          <h1 class="contact-heading">{F.title}</h1>
+        ) : (
+          <h2 class="contact-heading">{F.title}</h2>
+        )}
         <p class="contact-subtitle">{F.subtitle}</p>
 
         <form id="ajax-contact-form" action={actionUrl} method="POST" class="form-grid">

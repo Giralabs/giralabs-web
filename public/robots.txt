@@ -1,11 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+
+# Exclude utility and api paths
 Disallow: /cancel
 Disallow: /api/
 
-# Host
-Host: https://giralabs.es
-
-# Sitemap
-Sitemap: https://giralabs.es/sitemap.xml
+# Sitemap location
+Sitemap: https://giralabs.es/sitemap-index.xml

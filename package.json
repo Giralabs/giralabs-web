@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^10.1.4",
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^10.0.8",
     "@upstash/redis": "^1.38.0",
     "@vercel/kv": "^3.0.0",

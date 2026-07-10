@@ -1,13 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import { translations } from '../../i18n/translations';
-import CTAContact from '../../components/CTAContact.astro';
-import Footer from '../../components/Footer.astro';
-import gipsiImg from '../../assets/projects/gipsi_barber.webp';
-import nexusImg from '../../assets/projects/nexus.png';
-import rewindtvImg from '../../assets/projects/rewindtv.webp';
-import auramoviesImg from '../../assets/projects/auramovies.webp';
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import { translations } from '../../../i18n/translations';
+import CTAContact from '../../../components/CTAContact.astro';
+import Footer from '../../../components/Footer.astro';
+import gipsiImg from '../../../assets/projects/gipsi_barber.webp';
+import nexusImg from '../../../assets/projects/nexus.png';
+import rewindtvImg from '../../../assets/projects/rewindtv.webp';
+import auramoviesImg from '../../../assets/projects/auramovies.webp';
 import { getImage } from 'astro:assets';
 
 export const prerender = true;
@@ -180,7 +180,7 @@ if (!proj) {
 
 const optimizedHero = await getImage({ src: proj.image, format: 'webp', width: 1400 });
 
-const defaultLang = 'es';
+const defaultLang = 'en';
 const T = translations[defaultLang];
 
 const siteUrl = 'https://giralabs.es';
@@ -191,20 +191,20 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "Inicio",
-      "item": siteUrl
+      "name": "Home",
+      "item": `${siteUrl}/en/`
     },
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Proyectos",
-      "item": `${siteUrl}/projects`
+      "name": "Projects",
+      "item": `${siteUrl}/en/projects`
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": proj.title,
-      "item": `${siteUrl}/project/${slug}`
+      "item": `${siteUrl}/en/project/${slug}`
     }
   ]
 };

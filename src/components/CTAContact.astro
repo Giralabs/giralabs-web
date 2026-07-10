@@ -8,6 +8,16 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const T = translations[lang];
+
+// Helper to localize paths based on the current lang
+const localizedPath = (path: string) => {
+  if (lang === 'en') {
+    if (path === '/') return '/en/';
+    if (path.startsWith('/en/')) return path;
+    return `/en${path}`;
+  }
+  return path;
+};
 ---
 
 <!-- ==================== CONTACT BAND ==================== -->
@@ -21,7 +31,7 @@ const T = translations[lang];
         class="contact-email"
         id="contact-email-link">support@giralabs.es</a>
       <a
-        href="/contact"
+        href={localizedPath("/contact")}
         class="cta-primary contact-cta"
         data-i18n="nav_cta">{T.nav_cta}</a
       >

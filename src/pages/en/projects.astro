@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import { translations } from '../i18n/translations';
-import CTAContact from '../components/CTAContact.astro';
-import Footer from '../components/Footer.astro';
-import gipsiImg from '../assets/projects/gipsi_barber.webp';
-import nexusImg from '../assets/projects/nexus.png';
-import rewindtvImg from '../assets/projects/rewindtv.webp';
-import auramoviesImg from '../assets/projects/auramovies.webp';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { translations } from '../../i18n/translations';
+import CTAContact from '../../components/CTAContact.astro';
+import Footer from '../../components/Footer.astro';
+import gipsiImg from '../../assets/projects/gipsi_barber.webp';
+import nexusImg from '../../assets/projects/nexus.png';
+import rewindtvImg from '../../assets/projects/rewindtv.webp';
+import auramoviesImg from '../../assets/projects/auramovies.webp';
 import { getImage } from 'astro:assets';
 
 export const prerender = true;
-const lang = 'es';
+const lang = 'en';
 const T = translations[lang];
 
 const projectsRaw = [

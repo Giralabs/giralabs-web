@@ -7,6 +7,43 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+// Dynamic routing for lang switch
+const pathname = Astro.url.pathname;
+let esUrlPath = pathname;
+let enUrlPath = pathname;
+
+if (lang === 'en') {
+  esUrlPath = pathname.replace(/^\/en/, '') || '/';
+} else {
+  if (pathname === '/') {
+    enUrlPath = '/en/';
+  } else {
+    enUrlPath = `/en${pathname}`;
+  }
+}
+
+// Normalize trailing slash issues
+if (esUrlPath !== '/' && esUrlPath.endsWith('/')) {
+  esUrlPath = esUrlPath.slice(0, -1);
+}
+if (enUrlPath !== '/en/' && enUrlPath.endsWith('/')) {
+  enUrlPath = enUrlPath.slice(0, -1);
+}
+
+const esHref = esUrlPath === '/' ? '/' : esUrlPath;
+const enHref = enUrlPath;
+
+// Helper to localize paths based on the current lang
+const localizedPath = (path: string) => {
+  if (lang === 'en') {
+    if (path === '/') return '/en/';
+    if (path.startsWith('/#')) return `/en/${path.substring(1)}`;
+    if (path.startsWith('/en/')) return path;
+    return `/en${path}`;
+  }
+  return path;
+};
 ---
 
 <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -14,10 +51,10 @@ const T = translations[lang];
   <div class="nav-top-bar" id="nav-top-bar">
     <div class="nav-inner">
       <!-- Logo -->
-      <a href="/" class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
+      <a href={localizedPath("/")} class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
         <div class="nav-logo-wrapper">
           <div class="nav-logo-entrance">
-            <img src={apricotSymbol.src} alt="Giralabs" class="nav-logo-img" width="34" height="34" />
+            <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" />
           </div>
         </div>
         <span class="nav-brand-name" aria-label="GIRALABS">
@@ -27,38 +64,38 @@ const T = translations[lang];
 
       <!-- Center nav links -->
       <ul class="nav-links" role="list">
-        <li><a href="/" class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
+        <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
-          <a href="/services" class="nav-link dropdown-toggle">
+          <a href={localizedPath("/services")} class="nav-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="nav-dropdown-menu">
-            <a href="/services" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href={localizedPath("/services")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href="/service/mobile-apps" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href="/service/web-development" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href="/service/business-digitalization" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href="/service/online-stores" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href="/service/custom-software" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href="/service/ai-integration" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href={localizedPath("/service/mobile-apps")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href={localizedPath("/service/web-development")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href={localizedPath("/service/business-digitalization")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href={localizedPath("/service/online-stores")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href={localizedPath("/service/custom-software")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href={localizedPath("/service/ai-integration")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href="/projects" class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href="/about" class="nav-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href="/blog" class="nav-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/projects")} class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href={localizedPath("/about")} class="nav-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">Blog</a></li>
       </ul>
 
       <!-- Right -->
       <div class="nav-right">
-        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language" type="button">
-          <span id="lang-es" class="lang-opt active">ES</span>
+        <div class="lang-toggle" aria-label="Language selection">
+          <a href={esHref} id="lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`}>ES</a>
           <span class="lang-sep">/</span>
-          <span id="lang-en" class="lang-opt">EN</span>
-        </button>
-        <a href="/contact" class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+          <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
+        </div>
+        <a href={localizedPath("/contact")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
           <span></span><span></span>
         </button>
@@ -69,40 +106,40 @@ const T = translations[lang];
   <!-- Floating glass pill: appears on scroll -->
   <div class="nav-pill" id="nav-pill" aria-hidden="true">
     <div class="pill-inner">
-      <a href="/" class="pill-logo" aria-label="Giralabs home">
-        <img src={apricotSymbol.src} alt="Giralabs" width="24" height="24" />
+      <a href={localizedPath("/")} class="pill-logo" aria-label="Giralabs home">
+        <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" />
       </a>
       <ul class="pill-links" role="list">
-        <li><a href="/" class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
+        <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
-          <a href="/services" class="pill-link dropdown-toggle">
+          <a href={localizedPath("/services")} class="pill-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="pill-dropdown-menu">
-            <a href="/services" class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href={localizedPath("/services")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href="/service/mobile-apps" class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href="/service/web-development" class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href="/service/business-digitalization" class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href="/service/online-stores" class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href="/service/custom-software" class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href="/service/ai-integration" class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href={localizedPath("/service/mobile-apps")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href={localizedPath("/service/web-development")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href={localizedPath("/service/business-digitalization")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href={localizedPath("/service/online-stores")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href={localizedPath("/service/custom-software")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href={localizedPath("/service/ai-integration")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href="/projects" class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href="/about" class="pill-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href="/blog" class="pill-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/projects")} class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href={localizedPath("/about")} class="pill-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">Blog</a></li>
       </ul>
       <div class="pill-right">
-        <button id="pill-lang-toggle" class="lang-toggle pill-lang" aria-label="Toggle language" type="button">
-          <span id="pill-lang-es" class="lang-opt active">ES</span>
+        <div class="lang-toggle pill-lang" aria-label="Language selection">
+          <a href={esHref} id="pill-lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`}>ES</a>
           <span class="lang-sep">/</span>
-          <span id="pill-lang-en" class="lang-opt">EN</span>
-        </button>
-        <a href="/contact" class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+          <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
+        </div>
+        <a href={localizedPath("/contact")} class="pill-cta" data-i18n="nav_cta">Hablemos</a>
       </div>
     </div>
   </div>
@@ -110,7 +147,7 @@ const T = translations[lang];
   <!-- Mobile drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <ul class="mobile-links" role="list">
-      <li><a href="/" class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
+      <li><a href={localizedPath("/")} class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
       <li class="mobile-dropdown-wrapper">
         <button class="mobile-link mobile-dropdown-toggle" type="button">
           <span data-i18n="nav_services">Servicios</span>
@@ -119,19 +156,19 @@ const T = translations[lang];
           </svg>
         </button>
         <div class="mobile-dropdown-menu">
-          <a href="/services" class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
-          <a href="/service/mobile-apps" class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
-          <a href="/service/web-development" class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
-          <a href="/service/business-digitalization" class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
-          <a href="/service/online-stores" class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
-          <a href="/service/custom-software" class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
-          <a href="/service/ai-integration" class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
+          <a href={localizedPath("/services")} class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+          <a href={localizedPath("/service/mobile-apps")} class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
+          <a href={localizedPath("/service/web-development")} class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
+          <a href={localizedPath("/service/business-digitalization")} class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
+          <a href={localizedPath("/service/online-stores")} class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
+          <a href={localizedPath("/service/custom-software")} class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
+          <a href={localizedPath("/service/ai-integration")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
-      <li><a href="/projects" class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
-      <li><a href="/about" class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
-      <li><a href="/blog" class="mobile-link" data-i18n="nav_blog">Blog</a></li>
-      <li><a href="/contact" class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+      <li><a href={localizedPath("/projects")} class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
+      <li><a href={localizedPath("/about")} class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
+      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">Blog</a></li>
+      <li><a href={localizedPath("/contact")} class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
     </ul>
   </div>
 </nav>
@@ -543,6 +580,8 @@ const T = translations[lang];
   .lang-toggle:hover { color: #000; }
 
   .lang-opt {
+    text-decoration: none;
+    color: inherit;
     transition: color 0.2s, opacity 0.2s;
     opacity: 0.4;
   }
@@ -860,58 +899,22 @@ const T = translations[lang];
     });
   }
 
-  // ---- Language toggle (top bar) ----
-  function syncLangUI(lang) {
-    ['lang-es', 'lang-en', 'pill-lang-es', 'pill-lang-en'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const isActive = id.includes(lang === 'es' ? 'es' : 'en');
-        el.classList.toggle('active', isActive);
-      }
-    });
-  }
-
-  function handleLangToggle() {
-    const currentLang = document.documentElement.lang || 'es';
-    const newLang = currentLang === 'es' ? 'en' : 'es';
-    localStorage.setItem('giralabs-lang', newLang);
-    // Fire custom event so index.astro's i18n script can respond
-    document.dispatchEvent(new CustomEvent('giralabs:lang', { detail: { lang: newLang } }));
-    syncLangUI(newLang);
-  }
-
-  document.getElementById('lang-toggle')?.addEventListener('click', handleLangToggle);
-  document.getElementById('pill-lang-toggle')?.addEventListener('click', handleLangToggle);
-
-  // Sync lang UI and document lang on load from localStorage or browser settings
-  let initialLang = 'es';
-  const savedLang = localStorage.getItem('giralabs-lang');
-  if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-    initialLang = savedLang;
-  } else {
-    const browserLang = navigator.language || navigator.userLanguage;
-    if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
-      initialLang = 'en';
-    }
-  }
-  document.documentElement.lang = initialLang;
-  syncLangUI(initialLang);
-
   // ---- Dropdown cards smooth scroll & Sub-page Navigation ----
   function initDropdownScroll() {
-    const isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html') || window.location.pathname === '';
+    const isHomepage = window.location.pathname === '/' || window.location.pathname === '/en/' || window.location.pathname.endsWith('/index.html') || window.location.pathname === '';
 
     // Fix other header anchor links when not on homepage
     if (!isHomepage) {
+      const prefix = window.location.pathname.startsWith('/en') ? '/en' : '';
       document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
         const href = link.getAttribute('href');
         if (href) {
           if (href === '#services') {
-            link.setAttribute('href', '/services');
+            link.setAttribute('href', prefix + '/services');
           } else if (href === '#contact') {
-            link.setAttribute('href', '/contact');
+            link.setAttribute('href', prefix + '/contact');
           } else {
-            link.setAttribute('href', '/' + href);
+            link.setAttribute('href', prefix + '/' + href);
           }
         }
       });

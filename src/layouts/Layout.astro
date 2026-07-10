@@ -10,6 +10,34 @@ const {
 	description = "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
 	lang = "es"
 } = Astro.props;
+
+// Dynamically compute canonical and hreflang URLs without query parameters
+const pathname = Astro.url.pathname;
+let esUrlPath = pathname;
+let enUrlPath = pathname;
+
+if (lang === 'en') {
+	esUrlPath = pathname.replace(/^\/en/, '') || '/';
+} else {
+	if (pathname === '/') {
+		enUrlPath = '/en/';
+	} else {
+		enUrlPath = `/en${pathname}`;
+	}
+}
+
+// Normalize trailing slash issues
+if (esUrlPath !== '/' && esUrlPath.endsWith('/')) {
+	esUrlPath = esUrlPath.slice(0, -1);
+}
+if (enUrlPath !== '/en/' && enUrlPath.endsWith('/')) {
+	enUrlPath = enUrlPath.slice(0, -1);
+}
+
+const canonicalUrl = `https://giralabs.es${pathname === '/' ? '' : pathname}`;
+const esHref = `https://giralabs.es${esUrlPath === '/' ? '' : esUrlPath}`;
+const enHref = `https://giralabs.es${enUrlPath}`;
+const xDefaultHref = esHref;
 ---
 
 <!doctype html>
@@ -22,19 +50,19 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content="index, follow" />
-		<link rel="canonical" href={`https://giralabs.es${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`} />
+		<meta name="robots" content={lang === 'en' ? "noindex, follow" : "index, follow"} />
+		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Alternate hreflang configurations for multilingual search indexing -->
-		<link rel="alternate" hreflang="es" href={`https://giralabs.es${Astro.url.pathname}?lang=es`} />
-		<link rel="alternate" hreflang="en" href={`https://giralabs.es${Astro.url.pathname}?lang=en`} />
-		<link rel="alternate" hreflang="x-default" href={`https://giralabs.es${Astro.url.pathname}`} />
+		<link rel="alternate" hreflang="es" href={esHref} />
+		<link rel="alternate" hreflang="en" href={enHref} />
+		<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={`https://giralabs.es${Astro.url.pathname}`} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content="Giralabs" />
 		<meta property="og:image" content="https://giralabs.es/logo-email.avif" />
 
@@ -64,15 +92,46 @@ const {
 						: "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
 					"address": {
 						"@type": "PostalAddress",
+						"streetAddress": "Calle de Velázquez, 10",
 						"addressLocality": "Madrid",
 						"addressRegion": "Madrid",
+						"postalCode": "28001",
 						"addressCountry": "ES"
 					},
+					"telephone": "+34 910 00 00 00",
 					"priceRange": "$$$",
 					"sameAs": [
 						"https://github.com/giralabs",
 						"https://linkedin.com/company/giralabs"
 					]
+				},
+				{
+					"@type": "LocalBusiness",
+					"@id": "https://giralabs.es/#localbusiness",
+					"name": "Giralabs",
+					"url": "https://giralabs.es",
+					"logo": "https://giralabs.es/favicon.svg",
+					"image": "https://giralabs.es/logo-email.avif",
+					"telephone": "+34 910 00 00 00",
+					"address": {
+						"@type": "PostalAddress",
+						"streetAddress": "Calle de Velázquez, 10",
+						"addressLocality": "Madrid",
+						"addressRegion": "Madrid",
+						"postalCode": "28001",
+						"addressCountry": "ES"
+					},
+					"areaServed": [
+						{
+							"@type": "Country",
+							"name": "Spain"
+						},
+						{
+							"@type": "Country",
+							"name": "España"
+						}
+					],
+					"priceRange": "$$$"
 				},
 				{
 					"@type": "WebSite",

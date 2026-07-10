@@ -4,14 +4,18 @@ import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
 import Footer from '../components/Footer.astro';
 
-const langParam = Astro.url.searchParams.get('lang');
-let lang = 'es';
-
-if (langParam === 'es' || langParam === 'en') {
-  lang = langParam;
-}
-
+export const prerender = true;
+const lang = 'es';
 const T = translations[lang];
+
+const localizedPath = (path: string) => {
+  if (lang === 'en') {
+    if (path === '/') return '/en/';
+    if (path.startsWith('/en/')) return path;
+    return `/en${path}`;
+  }
+  return path;
+};
 ---
 
 <Layout
@@ -54,7 +58,7 @@ const T = translations[lang];
           <p class="error-desc" data-i18n="error_404_desc">{T.error_404_desc}</p>
           
           <div class="error-actions">
-            <a href="/" class="cta-primary home-btn" data-i18n="error_404_btn">
+            <a href={localizedPath("/")} class="cta-primary home-btn" data-i18n="error_404_btn">
               {T.error_404_btn}
             </a>
           </div>
@@ -65,56 +69,17 @@ const T = translations[lang];
 
   <Footer lang={lang} />
 
-  <!-- ==================== I18N + INTERACTION SCRIPTS ==================== -->
-  <script define:vars={{ translations: { es: translations['es'], en: translations['en'] } }}>
-    let currentLang = document.documentElement.lang || 'es';
-
-    function applyLang(lang) {
-      currentLang = lang;
-      const T = translations[lang];
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (T[key] !== undefined) {
-          if (key === 'how_title' || key === 'sd_title') {
-            el.innerHTML = T[key].replace(/\n/g, '<br/>');
-          } else if (T[key].includes('<') || key === 'hero_tagline') {
-            el.innerHTML = T[key];
-          } else {
-            el.textContent = T[key];
-          }
-        }
-      });
-      document.documentElement.lang = lang;
-      document.title = T.meta_title + " | " + T.error_404_meta_title;
-    }
-
-    // Detect and apply saved language on load, or browser settings if not saved
-    let initialLang = 'es';
-    const savedLang = localStorage.getItem('giralabs-lang');
-    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-      initialLang = savedLang;
-    } else {
-      const browserLang = navigator.language || navigator.userLanguage;
-      if (browserLang && !browserLang.toLowerCase().startsWith('es')) {
-        initialLang = 'en';
-      }
-    }
-    applyLang(initialLang);
-
-    // Listen to navbar's language changes
-    document.addEventListener('giralabs:lang', (e) => {
-      applyLang(e.detail.lang);
-    });
-
+  <!-- ==================== INTERACTION SCRIPTS ==================== -->
+  <script>
     // Spotlight mouse tracking for advanced glass card
     const glassCard = document.querySelector('.error-glass-card');
     if (glassCard) {
       glassCard.addEventListener('mousemove', (e) => {
         const rect = glassCard.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        glassCard.style.setProperty('--mx', x + 'px');
-        glassCard.style.setProperty('--my', y + 'px');
+        const x = (e as MouseEvent).clientX - rect.left;
+        const y = (e as MouseEvent).clientY - rect.top;
+        (glassCard as HTMLElement).style.setProperty('--mx', x + 'px');
+        (glassCard as HTMLElement).style.setProperty('--my', y + 'px');
       });
     }
 

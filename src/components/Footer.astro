@@ -8,6 +8,17 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const T = translations[lang];
+
+// Helper to localize paths based on the current lang
+const localizedPath = (path: string) => {
+  if (lang === 'en') {
+    if (path === '/') return '/en/';
+    if (path.startsWith('/#')) return `/en/${path.substring(1)}`;
+    if (path.startsWith('/en/')) return path;
+    return `/en${path}`;
+  }
+  return path;
+};
 ---
 
 <footer class="site-footer" id="footer" aria-label="Site footer">
@@ -15,7 +26,7 @@ const T = translations[lang];
     <div class="footer-brand">
       <img
         src={combinationMark.src}
-        alt="Giralabs"
+        alt="Identidad visual y logotipo oficial de Giralabs"
         class="footer-logo"
         width="110"
         height="38"
@@ -26,27 +37,27 @@ const T = translations[lang];
       <ul class="footer-links" role="list">
         <li>
           <a
-            href="/services"
+            href={localizedPath("/services")}
             class="footer-link"
             data-i18n="nav_services">{T.nav_services}</a>
         </li>
         <li>
           <a
-            href="/#projects"
+            href={localizedPath("/#projects")}
             class="footer-link"
             data-i18n="nav_projects">{T.nav_projects}</a>
         </li>
         <li>
-          <a href="/about" class="footer-link" data-i18n="nav_about"
+          <a href={localizedPath("/about")} class="footer-link" data-i18n="nav_about"
             >{T.nav_about}</a>
         </li>
         <li>
-          <a href="/blog" class="footer-link" data-i18n="nav_blog"
+          <a href={localizedPath("/blog")} class="footer-link" data-i18n="nav_blog"
             >{T.nav_blog}</a>
         </li>
         <li>
           <a
-            href="/contact"
+            href={localizedPath("/contact")}
             class="footer-link"
             data-i18n="footer_contact">{T.footer_contact}</a>
         </li>
@@ -57,11 +68,11 @@ const T = translations[lang];
         >{T.footer_tagline}</span
       >
       <div class="footer-bottom-links">
-        <a href="/legal" class="footer-sublink" data-i18n="footer_legal">{T.footer_legal}</a>
+        <a href={localizedPath("/legal")} class="footer-sublink" data-i18n="footer_legal">{T.footer_legal}</a>
         <span class="footer-sublink-sep">•</span>
-        <a href="/privacy" class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
+        <a href={localizedPath("/privacy")} class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
         <span class="footer-sublink-sep">•</span>
-        <a href="/accessibility" class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
+        <a href={localizedPath("/accessibility")} class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
       </div>
       <span class="footer-rights" data-i18n="footer_rights"
         >{T.footer_rights}</span
