@@ -20,6 +20,8 @@ import rewindtvImg from '../../assets/projects/rewindtv.webp';
 import auramoviesImg from '../../assets/projects/auramovies.webp';
 import { getImage } from 'astro:assets';
 
+import { getLocalizedPath } from '../../lib/paths';
+
 interface Props {
   lang?: string;
 }
@@ -28,14 +30,7 @@ const { lang = 'es' } = Astro.props;
 const T = translations[lang];
 
 // Helper to localize paths based on the current lang
-const localizedPath = (path: string) => {
-  if (lang === 'en') {
-    if (path === '/') return '/en/';
-    if (path.startsWith('/en/')) return path;
-    return `/en${path}`;
-  }
-  return path;
-};
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 
 const logos = [
   { src: swiftLogo.src, alt: "Swift", url: "https://www.apple.com/la/swift/" },
@@ -143,7 +138,7 @@ const projects = await Promise.all([
     <!-- Asymmetric Grid of Projects -->
     <div class="projects-grid reveal-stagger">
       {projects.map((proj) => (
-        <a href={localizedPath(`/project/${proj.slug}`)} class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.optimizedSrc}');${proj.bgSize ? ` --proj-bg-size: ${proj.bgSize};` : ''}${proj.bgPos ? ` --proj-bg-pos: ${proj.bgPos};` : ''}${proj.bgColor ? ` background-color: ${proj.bgColor};` : ''}`}>
+        <a href={localizedPath(`/proyecto/${proj.slug}`)} class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.optimizedSrc}');${proj.bgSize ? ` --proj-bg-size: ${proj.bgSize};` : ''}${proj.bgPos ? ` --proj-bg-pos: ${proj.bgPos};` : ''}${proj.bgColor ? ` background-color: ${proj.bgColor};` : ''}`}>
           <div class="project-card-overlay"></div>
           <div class="project-card-content">
             <div class="project-card-top">

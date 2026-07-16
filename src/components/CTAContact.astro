@@ -1,6 +1,7 @@
 ---
 import { translations } from "../i18n/translations";
 import combinationMark from "../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+import { getLocalizedPath } from "../lib/paths";
 
 interface Props {
   lang?: string;
@@ -10,14 +11,7 @@ const { lang = "es" } = Astro.props;
 const T = translations[lang];
 
 // Helper to localize paths based on the current lang
-const localizedPath = (path: string) => {
-  if (lang === 'en') {
-    if (path === '/') return '/en/';
-    if (path.startsWith('/en/')) return path;
-    return `/en${path}`;
-  }
-  return path;
-};
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
 <!-- ==================== CONTACT BAND ==================== -->
@@ -31,7 +25,7 @@ const localizedPath = (path: string) => {
         class="contact-email"
         id="contact-email-link">support@giralabs.es</a>
       <a
-        href={localizedPath("/contact")}
+        href={localizedPath("/contacto")}
         class="cta-primary contact-cta"
         data-i18n="nav_cta">{T.nav_cta}</a
       >

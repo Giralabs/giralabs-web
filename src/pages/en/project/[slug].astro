@@ -175,7 +175,7 @@ const { slug } = Astro.params;
 const proj = projectData[slug];
 
 if (!proj) {
-  return Astro.redirect('/projects');
+  return Astro.redirect('/en/projects');
 }
 
 const optimizedHero = await getImage({ src: proj.image, format: 'webp', width: 1400 });

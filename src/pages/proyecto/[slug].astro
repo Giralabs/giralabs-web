@@ -175,7 +175,7 @@ const { slug } = Astro.params;
 const proj = projectData[slug];
 
 if (!proj) {
-  return Astro.redirect('/projects');
+  return Astro.redirect('/proyectos');
 }
 
 const optimizedHero = await getImage({ src: proj.image, format: 'webp', width: 1400 });
@@ -198,13 +198,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 2,
       "name": "Proyectos",
-      "item": `${siteUrl}/projects`
+      "item": `${siteUrl}/proyectos`
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": proj.title,
-      "item": `${siteUrl}/project/${slug}`
+      "item": `${siteUrl}/proyecto/${slug}`
     }
   ]
 };
@@ -228,7 +228,7 @@ const breadcrumbSchema = {
   <!-- ==================== BREADCRUMB ==================== -->
   <nav class="detail-breadcrumb reveal" aria-label="Navegación de vuelta">
     <div class="breadcrumb-inner">
-      <a href="/projects" class="breadcrumb-back" id="proj-back-btn">
+      <a href="/proyectos" class="breadcrumb-back" id="proj-back-btn">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
@@ -349,7 +349,7 @@ const breadcrumbSchema = {
 
     <!-- ==================== NEXT PROJECT ==================== -->
     <section class="next-proj-section reveal">
-      <a href={`/project/${proj.nextSlug}`} class="next-proj-card" id="next-proj-link">
+      <a href={`/proyecto/${proj.nextSlug}`} class="next-proj-card" id="next-proj-link">
         <div class="next-card-bg" aria-hidden="true"></div>
         <div class="next-card-glow" aria-hidden="true"></div>
         <div class="next-card-content">

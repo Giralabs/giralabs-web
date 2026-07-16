@@ -8,12 +8,12 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   return [
-    { params: { slug: 'mobile-apps' }, props: { index: 1, nextSlug: 'web-development', nextIndex: 2 } },
-    { params: { slug: 'web-development' }, props: { index: 2, nextSlug: 'business-digitalization', nextIndex: 3 } },
-    { params: { slug: 'business-digitalization' }, props: { index: 3, nextSlug: 'online-stores', nextIndex: 4 } },
-    { params: { slug: 'online-stores' }, props: { index: 4, nextSlug: 'custom-software', nextIndex: 5 } },
-    { params: { slug: 'custom-software' }, props: { index: 5, nextSlug: 'ai-integration', nextIndex: 6 } },
-    { params: { slug: 'ai-integration' }, props: { index: 6, nextSlug: 'mobile-apps', nextIndex: 1 } },
+    { params: { slug: 'aplicaciones-moviles' }, props: { index: 1, nextSlug: 'paginas-web', nextIndex: 2 } },
+    { params: { slug: 'paginas-web' }, props: { index: 2, nextSlug: 'digitalizacion-empresas', nextIndex: 3 } },
+    { params: { slug: 'digitalizacion-empresas' }, props: { index: 3, nextSlug: 'tiendas-online', nextIndex: 4 } },
+    { params: { slug: 'tiendas-online' }, props: { index: 4, nextSlug: 'software-a-medida', nextIndex: 5 } },
+    { params: { slug: 'software-a-medida' }, props: { index: 5, nextSlug: 'integracion-ia', nextIndex: 6 } },
+    { params: { slug: 'integracion-ia' }, props: { index: 6, nextSlug: 'aplicaciones-moviles', nextIndex: 1 } },
   ];
 }
 
@@ -73,13 +73,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 2,
       "name": "Servicios",
-      "item": `${siteUrl}/services`
+      "item": `${siteUrl}/servicios`
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": serviceName,
-      "item": `${siteUrl}/service/${slug}`
+      "item": `${siteUrl}/servicio/${slug}`
     }
   ]
 };
@@ -103,7 +103,7 @@ const breadcrumbSchema = {
   <!-- Breadcrumb -->
   <nav class="details-breadcrumb reveal">
     <div class="breadcrumb-inner">
-      <a href="/services" class="breadcrumb-back">
+      <a href="/servicios" class="breadcrumb-back">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
@@ -170,7 +170,7 @@ const breadcrumbSchema = {
             </ul>
           </div>
 
-          <a href="/contact" class="details-btn" data-i18n="services_page_cta">{T.services_page_cta}</a>
+          <a href="/contacto" class="details-btn" data-i18n="services_page_cta">{T.services_page_cta}</a>
         </section>
 
         <!-- Premium Visual Glass Card Column -->
@@ -835,7 +835,7 @@ const breadcrumbSchema = {
   <!-- ==================== NEXT SERVICE NAV ==================== -->
   <section class="next-service-nav reveal">
     <div class="next-service-inner">
-      <a href={`/service/${nextSlug}`} class="next-service-card">
+      <a href={`/servicio/${nextSlug}`} class="next-service-card">
         <div class="next-card-bg" aria-hidden="true"></div>
         <div class="next-card-glow" aria-hidden="true"></div>
         <div class="next-card-content">

@@ -1,5 +1,6 @@
 ---
 import { translations } from '../../i18n/translations';
+import { getLocalizedPath } from '../../lib/paths';
 
 interface Props {
   lang?: string;
@@ -7,6 +8,8 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
 <!-- ==================== SERVICES BENTO GRID ==================== -->
@@ -23,7 +26,7 @@ const T = translations[lang];
     <div class="sd-grid reveal-stagger">
 
       <!-- CARD 01: Creación de aplicaciones móviles (Wide Left, Span 7) -->
-      <a href="/service/mobile-apps" class="sd-card sd-card--horiz" data-card="1">
+      <a href={localizedPath("/servicio/aplicaciones-moviles")} class="sd-card sd-card--horiz" data-card="1">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">
@@ -64,7 +67,7 @@ const T = translations[lang];
       </a>
 
       <!-- CARD 02: Creación de páginas web (Narrow Right, Span 5) -->
-      <a href="/service/web-development" class="sd-card sd-card--vert" data-card="2">
+      <a href={localizedPath("/servicio/paginas-web")} class="sd-card sd-card--vert" data-card="2">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">
@@ -111,7 +114,7 @@ const T = translations[lang];
       </a>
 
       <!-- CARD 03: Digitalización de empresas y software a medida (Narrow Left, Span 5) -->
-      <a href="/service/business-digitalization" class="sd-card sd-card--vert" data-card="3">
+      <a href={localizedPath("/servicio/digitalizacion-empresas")} class="sd-card sd-card--vert" data-card="3">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">
@@ -152,7 +155,7 @@ const T = translations[lang];
       </a>
 
       <!-- CARD 04: Creación de tiendas online (Wide Right, Span 7) -->
-      <a href="/service/online-stores" class="sd-card sd-card--horiz" data-card="4">
+      <a href={localizedPath("/servicio/tiendas-online")} class="sd-card sd-card--horiz" data-card="4">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">
@@ -199,7 +202,7 @@ const T = translations[lang];
       </a>
 
       <!-- CARD 05: Creación de software personalizado (Equal Left, Span 6) -->
-      <a href="/service/custom-software" class="sd-card sd-card--vert" data-card="5">
+      <a href={localizedPath("/servicio/software-a-medida")} class="sd-card sd-card--vert" data-card="5">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">
@@ -237,7 +240,7 @@ const T = translations[lang];
       </a>
 
       <!-- CARD 06: Implementación de IA en las aplicaciones (Equal Right, Span 6) -->
-      <a href="/service/ai-integration" class="sd-card sd-card--vert" data-card="6">
+      <a href={localizedPath("/servicio/integracion-ia")} class="sd-card sd-card--vert" data-card="6">
         <div class="sd-card-border"></div>
         <div class="sd-card-content">
           <div class="sd-card-arrow">

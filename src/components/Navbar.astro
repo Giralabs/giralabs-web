@@ -1,6 +1,7 @@
 ---
 import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
 import { translations } from '../i18n/translations';
+import { getSwitchLanguagePath, getLocalizedPath } from '../lib/paths';
 
 interface Props {
   lang?: string;
@@ -10,40 +11,14 @@ const T = translations[lang];
 
 // Dynamic routing for lang switch
 const pathname = Astro.url.pathname;
-let esUrlPath = pathname;
-let enUrlPath = pathname;
-
-if (lang === 'en') {
-  esUrlPath = pathname.replace(/^\/en/, '') || '/';
-} else {
-  if (pathname === '/') {
-    enUrlPath = '/en/';
-  } else {
-    enUrlPath = `/en${pathname}`;
-  }
-}
-
-// Normalize trailing slash issues
-if (esUrlPath !== '/' && esUrlPath.endsWith('/')) {
-  esUrlPath = esUrlPath.slice(0, -1);
-}
-if (enUrlPath !== '/en/' && enUrlPath.endsWith('/')) {
-  enUrlPath = enUrlPath.slice(0, -1);
-}
+const esUrlPath = getSwitchLanguagePath(pathname, 'es');
+const enUrlPath = getSwitchLanguagePath(pathname, 'en');
 
 const esHref = esUrlPath === '/' ? '/' : esUrlPath;
 const enHref = enUrlPath;
 
 // Helper to localize paths based on the current lang
-const localizedPath = (path: string) => {
-  if (lang === 'en') {
-    if (path === '/') return '/en/';
-    if (path.startsWith('/#')) return `/en/${path.substring(1)}`;
-    if (path.startsWith('/en/')) return path;
-    return `/en${path}`;
-  }
-  return path;
-};
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
 <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -66,25 +41,25 @@ const localizedPath = (path: string) => {
       <ul class="nav-links" role="list">
         <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
-          <a href={localizedPath("/services")} class="nav-link dropdown-toggle">
+          <a href={localizedPath("/servicios")} class="nav-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="nav-dropdown-menu">
-            <a href={localizedPath("/services")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href={localizedPath("/servicios")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href={localizedPath("/service/mobile-apps")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href={localizedPath("/service/web-development")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href={localizedPath("/service/business-digitalization")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href={localizedPath("/service/online-stores")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href={localizedPath("/service/custom-software")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href={localizedPath("/service/ai-integration")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href={localizedPath("/servicio/aplicaciones-moviles")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href={localizedPath("/servicio/paginas-web")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href={localizedPath("/servicio/digitalizacion-empresas")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href={localizedPath("/servicio/tiendas-online")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href={localizedPath("/servicio/software-a-medida")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/projects")} class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/about")} class="nav-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">Nosotros</a></li>
         <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">Blog</a></li>
       </ul>
 
@@ -95,7 +70,7 @@ const localizedPath = (path: string) => {
           <span class="lang-sep">/</span>
           <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contact")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
           <span></span><span></span>
         </button>
@@ -112,25 +87,25 @@ const localizedPath = (path: string) => {
       <ul class="pill-links" role="list">
         <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
-          <a href={localizedPath("/services")} class="pill-link dropdown-toggle">
+          <a href={localizedPath("/servicios")} class="pill-link dropdown-toggle">
             <span data-i18n="nav_services">Servicios</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
           <div class="pill-dropdown-menu">
-            <a href={localizedPath("/services")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+            <a href={localizedPath("/servicios")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
-            <a href={localizedPath("/service/mobile-apps")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
-            <a href={localizedPath("/service/web-development")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
-            <a href={localizedPath("/service/business-digitalization")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
-            <a href={localizedPath("/service/online-stores")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
-            <a href={localizedPath("/service/custom-software")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
-            <a href={localizedPath("/service/ai-integration")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
+            <a href={localizedPath("/servicio/aplicaciones-moviles")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
+            <a href={localizedPath("/servicio/paginas-web")} class="dropdown-item" data-i18n="service_2_title">{T.service_2_title}</a>
+            <a href={localizedPath("/servicio/digitalizacion-empresas")} class="dropdown-item" data-i18n="service_3_title">{T.service_3_title}</a>
+            <a href={localizedPath("/servicio/tiendas-online")} class="dropdown-item" data-i18n="service_4_title">{T.service_4_title}</a>
+            <a href={localizedPath("/servicio/software-a-medida")} class="dropdown-item" data-i18n="service_5_title">{T.service_5_title}</a>
+            <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/projects")} class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/about")} class="pill-link" data-i18n="nav_about">Nosotros</a></li>
+        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">Nosotros</a></li>
         <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">Blog</a></li>
       </ul>
       <div class="pill-right">
@@ -139,7 +114,7 @@ const localizedPath = (path: string) => {
           <span class="lang-sep">/</span>
           <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contact")} class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">Hablemos</a>
       </div>
     </div>
   </div>
@@ -156,19 +131,19 @@ const localizedPath = (path: string) => {
           </svg>
         </button>
         <div class="mobile-dropdown-menu">
-          <a href={localizedPath("/services")} class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
-          <a href={localizedPath("/service/mobile-apps")} class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
-          <a href={localizedPath("/service/web-development")} class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
-          <a href={localizedPath("/service/business-digitalization")} class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
-          <a href={localizedPath("/service/online-stores")} class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
-          <a href={localizedPath("/service/custom-software")} class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
-          <a href={localizedPath("/service/ai-integration")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
+          <a href={localizedPath("/servicios")} class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
+          <a href={localizedPath("/servicio/aplicaciones-moviles")} class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
+          <a href={localizedPath("/servicio/paginas-web")} class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
+          <a href={localizedPath("/servicio/digitalizacion-empresas")} class="mobile-sublink" data-i18n="service_3_title">{T.service_3_title}</a>
+          <a href={localizedPath("/servicio/tiendas-online")} class="mobile-sublink" data-i18n="service_4_title">{T.service_4_title}</a>
+          <a href={localizedPath("/servicio/software-a-medida")} class="mobile-sublink" data-i18n="service_5_title">{T.service_5_title}</a>
+          <a href={localizedPath("/servicio/integracion-ia")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
-      <li><a href={localizedPath("/projects")} class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
-      <li><a href={localizedPath("/about")} class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
+      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
+      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
       <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">Blog</a></li>
-      <li><a href={localizedPath("/contact")} class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
     </ul>
   </div>
 </nav>
@@ -905,14 +880,17 @@ const localizedPath = (path: string) => {
 
     // Fix other header anchor links when not on homepage
     if (!isHomepage) {
-      const prefix = window.location.pathname.startsWith('/en') ? '/en' : '';
+      const isEn = window.location.pathname.startsWith('/en');
+      const prefix = isEn ? '/en' : '';
+      const servicesPath = isEn ? '/services' : '/servicios';
+      const contactPath = isEn ? '/contact' : '/contacto';
       document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
         const href = link.getAttribute('href');
         if (href) {
           if (href === '#services') {
-            link.setAttribute('href', prefix + '/services');
+            link.setAttribute('href', servicesPath);
           } else if (href === '#contact') {
-            link.setAttribute('href', prefix + '/contact');
+            link.setAttribute('href', contactPath);
           } else {
             link.setAttribute('href', prefix + '/' + href);
           }
