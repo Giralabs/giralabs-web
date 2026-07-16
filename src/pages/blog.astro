@@ -8,6 +8,13 @@ import Footer from '../components/Footer.astro';
 export const prerender = true;
 const lang = 'es';
 const T = translations[lang];
+
+// Fetch and sort blog posts
+const postsModules = import.meta.glob('../data/blog/*.md', { eager: true });
+const posts = Object.values(postsModules);
+posts.sort((a: any, b: any) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+const images = import.meta.glob('../assets/blog/*', { eager: true });
 ---
 
 <Layout
@@ -36,8 +43,68 @@ const T = translations[lang];
 
   <!-- ==================== BLOG MAIN CONTENT ==================== -->
   <main class="blog-container">
-    <section class="blog-empty-state reveal">
-      <div class="blog-glass-card">
+    
+    <!-- Grid of blog posts -->
+    <div class="blog-posts-grid reveal-stagger">
+      {posts.map(post => {
+        const { title, description, date, tags, readingTime, image, slug } = post.frontmatter;
+        // Resolve image metadata dynamically
+        const normalizedImagePath = image.replace('../../assets/', '../assets/');
+        const imageMetadata = images[normalizedImagePath] ? (images[normalizedImagePath] as any).default : null;
+        
+        const formattedDate = new Date(date).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        const detailUrl = lang === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
+        
+        return (
+          <article class="blog-glass-card post-item-card">
+            <div class="card-border"></div>
+            <div class="card-effects">
+              <div class="card-spotlight"></div>
+              <div class="card-sweep"></div>
+            </div>
+            
+            <a href={detailUrl} class="card-link-overlay" aria-label={lang === 'en' ? `Read ${title}` : `Leer ${title}`}></a>
+            
+            <div class="post-card-inner">
+              {imageMetadata && (
+                <div class="post-card-image-wrapper">
+                  <img src={imageMetadata.src} alt={title} class="post-card-image" />
+                </div>
+              )}
+              <div class="post-card-content">
+                <div class="post-card-meta">
+                  <span class="post-card-tag">{tags ? tags[0] : 'Artículo'}</span>
+                  <span class="post-card-meta-sep">•</span>
+                  <time datetime={date}>{formattedDate}</time>
+                  <span class="post-card-meta-sep">•</span>
+                  <span>{readingTime}</span>
+                </div>
+                
+                <h2 class="post-card-title">{title}</h2>
+                <p class="post-card-excerpt">{description}</p>
+                
+                <div class="post-card-footer">
+                  <span class="read-more-text">{lang === 'en' ? 'Read article' : 'Leer artículo'}</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- Newsletter subscription card (moved below) -->
+    <section class="blog-newsletter-section reveal">
+      <div class="blog-glass-card newsletter-card">
         <div class="card-border"></div>
         <div class="card-effects">
           <div class="card-spotlight"></div>
@@ -59,13 +126,11 @@ const T = translations[lang];
             </div>
           </div>
 
-          <h2 class="empty-title" data-i18n="blog_empty_title">{T.blog_empty_title}</h2>
+          <h2 class="empty-title" data-i18n="blog_subscribe_title">{T.blog_subscribe_title}</h2>
           <p class="empty-desc" data-i18n="blog_empty_desc">{T.blog_empty_desc}</p>
           
           <!-- Subscription Form Container -->
           <div class="subscribe-panel" id="subscribe-panel">
-            <h3 class="subscribe-title" data-i18n="blog_subscribe_title">{T.blog_subscribe_title}</h3>
-            
             <form id="newsletter-form" class="newsletter-form" novalidate>
               <div class="input-wrapper">
                 <input 
@@ -109,8 +174,8 @@ const T = translations[lang];
   <!-- ==================== INTERACTIONS ==================== -->
   <script>
     // Spotlight mouse tracking for advanced glass card
-    const glassCard = document.querySelector('.blog-glass-card');
-    if (glassCard) {
+    const glassCards = document.querySelectorAll('.blog-glass-card');
+    glassCards.forEach(glassCard => {
       glassCard.addEventListener('mousemove', (e) => {
         const rect = glassCard.getBoundingClientRect();
         const x = (e as MouseEvent).clientX - rect.left;
@@ -118,7 +183,7 @@ const T = translations[lang];
         (glassCard as HTMLElement).style.setProperty('--mx', x + 'px');
         (glassCard as HTMLElement).style.setProperty('--my', y + 'px');
       });
-    }
+    });
 
     // Trigger visual scroll animations
     const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
@@ -171,22 +236,52 @@ const T = translations[lang];
           return;
         }
 
-        // Safe from errors, proceed to mock success
         emailInput.classList.remove('invalid');
         errorIndicator.classList.remove('visible');
-        
-        // Save state to local storage
-        localStorage.setItem('giralabs-subscribed', 'true');
-        
-        // Smooth transition to success
-        subscribePanel.style.opacity = '0';
-        setTimeout(() => {
-          subscribePanel.style.display = 'none';
-          successPanel.style.display = 'flex';
+
+        // Set loading state on submit button
+        const submitBtn = document.getElementById('newsletter-submit-btn');
+        if (submitBtn) {
+          submitBtn.setAttribute('disabled', 'true');
+          submitBtn.style.opacity = '0.5';
+        }
+
+        fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, lang: 'es' })
+        })
+        .then(response => {
+          if (!response.ok) throw new Error('Subscription failed');
+          return response.json();
+        })
+        .then(() => {
+          // Save state to local storage
+          localStorage.setItem('giralabs-subscribed', 'true');
+          
+          // Smooth transition to success
+          subscribePanel.style.opacity = '0';
           setTimeout(() => {
-            successPanel.style.opacity = '1';
-          }, 50);
-        }, 300);
+            subscribePanel.style.display = 'none';
+            successPanel.style.display = 'flex';
+            setTimeout(() => {
+              successPanel.style.opacity = '1';
+            }, 50);
+          }, 300);
+        })
+        .catch(err => {
+          console.error(err);
+          emailInput.classList.add('invalid');
+          setTimeout(() => {
+            emailInput.classList.remove('invalid');
+          }, 1200);
+        })
+        .finally(() => {
+          if (submitBtn) {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.style.opacity = '1';
+          }
+        });
       });
 
       emailInput.addEventListener('input', () => {
@@ -638,6 +733,134 @@ const T = translations[lang];
     max-width: 380px;
     line-height: 1.6;
     margin: 0;
+  }
+
+  /* ========================================
+     BLOG POSTS GRID STYLING
+     ======================================== */
+  .blog-posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    width: 100%;
+    margin-bottom: 5rem;
+  }
+
+  .post-item-card {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .card-link-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+  }
+
+  .post-card-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .post-card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+  }
+
+  .post-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .post-item-card:hover .post-card-image {
+    transform: scale(1.03);
+  }
+
+  .post-card-content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+  }
+
+  .post-card-meta {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .post-card-tag {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ff7d54;
+  }
+
+  .post-card-meta-sep {
+    color: rgba(0,0,0,0.2);
+  }
+
+  .post-card-title {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin: 0.2rem 0;
+    line-height: 1.25;
+    transition: color 0.2s ease;
+  }
+
+  .post-item-card:hover .post-card-title {
+    color: #ff7d54;
+  }
+
+  .post-card-excerpt {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.6;
+    margin: 0 0 1.2rem;
+  }
+
+  .post-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #000;
+    margin-top: auto;
+  }
+
+  .post-card-footer svg {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .post-item-card:hover .post-card-footer svg {
+    transform: translateX(4px);
+  }
+
+  .blog-newsletter-section {
+    width: 100%;
+  }
+
+  .newsletter-card {
+    width: 100%;
   }
 
   /* ========================================

@@ -6,9 +6,11 @@ import {
   buildInternalNotificationEmailHTML,
   buildCancellationConfirmEmailHTML,
   buildCancellationNotificationEmailHTML,
+  buildWelcomeEmailHTML,
+  buildNewPostsEmailHTML,
   type EmailTemplateParams,
   type CancellationEmailParams,
-} from './email-templates.js';
+} from './email-templates.ts';
 
 function createTransporter() {
   const user = import.meta.env.GMAIL_USER;
@@ -154,4 +156,58 @@ export async function sendCancellationEmails(params: SendCancellationParams): Pr
 
   await Promise.all(sends);
   console.log(`[Giralabs] ❌ Cancellation emails sent. Cancelled by: ${cancelledBy}`);
+}
+
+// ── NEWSLETTER EMAILS ──────────────────────────────────────────
+
+export async function sendWelcomeEmail(recipientEmail: string, lang: 'es' | 'en'): Promise<void> {
+  const transporter = createTransporter();
+  const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
+  const attachments = getAttachments();
+  const html        = buildWelcomeEmailHTML(lang);
+  const subject     = lang === 'en'
+    ? 'Welcome to the Giralabs newsletter! 🚀'
+    : '¡Te has suscrito a la newsletter de Giralabs! 🚀';
+
+  await transporter.sendMail({
+    from: `"Giralabs" <${fromUser}>`,
+    to: recipientEmail,
+    subject,
+    html,
+    attachments,
+  });
+  console.log(`[Giralabs Newsletter] Welcome email sent to: ${recipientEmail}`);
+}
+
+export async function sendNewPostsNotification(
+  subscribers: Array<{ email: string; lang: 'es' | 'en' }>,
+  newPosts: any[]
+): Promise<void> {
+  if (subscribers.length === 0 || newPosts.length === 0) return;
+
+  const transporter = createTransporter();
+  const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
+  const attachments = getAttachments();
+
+  const sends = subscribers.map(async (sub) => {
+    const html = buildNewPostsEmailHTML(newPosts, sub.lang);
+    const subject = sub.lang === 'en'
+      ? '🔔 New articles published at Giralabs'
+      : '🔔 Nuevos artículos publicados en Giralabs';
+
+    try {
+      await transporter.sendMail({
+        from: `"Giralabs" <${fromUser}>`,
+        to: sub.email,
+        subject,
+        html,
+        attachments,
+      });
+      console.log(`[Giralabs Newsletter] Notification sent to: ${sub.email} (${sub.lang})`);
+    } catch (err) {
+      console.error(`[Giralabs Newsletter] Failed to send notification to ${sub.email}:`, err);
+    }
+  });
+
+  await Promise.all(sends);
 }
