@@ -121,7 +121,7 @@ const projects = await Promise.all(
 
         return (
           <a
-            href={`/project/${proj.slug}`}
+            href={`/proyecto/${proj.slug}`}
             class={`proj-card ${proj.class}`}
             style={`--img: url('${proj.optimizedSrc}'); --accent-rgb: ${proj.accentRgb};${proj.bgScale ? ` --bg-scale: ${proj.bgScale};` : ''}${proj.bgPos ? ` --bg-pos: ${proj.bgPos};` : ''}`}
             id={`proj-card-${i + 1}`}

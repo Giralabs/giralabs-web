@@ -1,4 +1,6 @@
 ---
+import { getSwitchLanguagePath } from '../lib/paths';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -13,26 +15,8 @@ const {
 
 // Dynamically compute canonical and hreflang URLs without query parameters
 const pathname = Astro.url.pathname;
-let esUrlPath = pathname;
-let enUrlPath = pathname;
-
-if (lang === 'en') {
-	esUrlPath = pathname.replace(/^\/en/, '') || '/';
-} else {
-	if (pathname === '/') {
-		enUrlPath = '/en/';
-	} else {
-		enUrlPath = `/en${pathname}`;
-	}
-}
-
-// Normalize trailing slash issues
-if (esUrlPath !== '/' && esUrlPath.endsWith('/')) {
-	esUrlPath = esUrlPath.slice(0, -1);
-}
-if (enUrlPath !== '/en/' && enUrlPath.endsWith('/')) {
-	enUrlPath = enUrlPath.slice(0, -1);
-}
+const esUrlPath = getSwitchLanguagePath(pathname, 'es');
+const enUrlPath = getSwitchLanguagePath(pathname, 'en');
 
 const canonicalUrl = `https://giralabs.es${pathname === '/' ? '' : pathname}`;
 const esHref = `https://giralabs.es${esUrlPath === '/' ? '' : esUrlPath}`;
@@ -84,6 +68,7 @@ const xDefaultHref = esHref;
 					"@type": "ProfessionalService",
 					"@id": "https://giralabs.es/#organization",
 					"name": "Giralabs",
+					"alternateName": ["Giralab", "Girlabs"],
 					"url": "https://giralabs.es",
 					"logo": "https://giralabs.es/favicon.svg",
 					"image": "https://giralabs.es/favicon.svg",
@@ -129,6 +114,14 @@ const xDefaultHref = esHref;
 						{
 							"@type": "Country",
 							"name": "España"
+						},
+						{
+							"@type": "City",
+							"name": "Madrid"
+						},
+						{
+							"@type": "City",
+							"name": "Sevilla"
 						}
 					],
 					"priceRange": "$$$"

@@ -1,6 +1,7 @@
 ---
 import { translations } from "../i18n/translations";
 import combinationMark from "../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+import { getLocalizedPath } from "../lib/paths";
 
 interface Props {
   lang?: string;
@@ -10,15 +11,7 @@ const { lang = "es" } = Astro.props;
 const T = translations[lang];
 
 // Helper to localize paths based on the current lang
-const localizedPath = (path: string) => {
-  if (lang === 'en') {
-    if (path === '/') return '/en/';
-    if (path.startsWith('/#')) return `/en/${path.substring(1)}`;
-    if (path.startsWith('/en/')) return path;
-    return `/en${path}`;
-  }
-  return path;
-};
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
 <footer class="site-footer" id="footer" aria-label="Site footer">
@@ -37,7 +30,7 @@ const localizedPath = (path: string) => {
       <ul class="footer-links" role="list">
         <li>
           <a
-            href={localizedPath("/services")}
+            href={localizedPath("/servicios")}
             class="footer-link"
             data-i18n="nav_services">{T.nav_services}</a>
         </li>
@@ -48,7 +41,7 @@ const localizedPath = (path: string) => {
             data-i18n="nav_projects">{T.nav_projects}</a>
         </li>
         <li>
-          <a href={localizedPath("/about")} class="footer-link" data-i18n="nav_about"
+          <a href={localizedPath("/nosotros")} class="footer-link" data-i18n="nav_about"
             >{T.nav_about}</a>
         </li>
         <li>
@@ -57,7 +50,7 @@ const localizedPath = (path: string) => {
         </li>
         <li>
           <a
-            href={localizedPath("/contact")}
+            href={localizedPath("/contacto")}
             class="footer-link"
             data-i18n="footer_contact">{T.footer_contact}</a>
         </li>
@@ -70,9 +63,9 @@ const localizedPath = (path: string) => {
       <div class="footer-bottom-links">
         <a href={localizedPath("/legal")} class="footer-sublink" data-i18n="footer_legal">{T.footer_legal}</a>
         <span class="footer-sublink-sep">•</span>
-        <a href={localizedPath("/privacy")} class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
+        <a href={localizedPath("/privacidad")} class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
         <span class="footer-sublink-sep">•</span>
-        <a href={localizedPath("/accessibility")} class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
+        <a href={localizedPath("/accesibilidad")} class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
       </div>
       <span class="footer-rights" data-i18n="footer_rights"
         >{T.footer_rights}</span
