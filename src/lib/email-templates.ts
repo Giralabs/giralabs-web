@@ -440,3 +440,143 @@ export function buildCancellationNotificationEmailHTML(p: CancellationEmailParam
       : '© 2026 Giralabs · ¿Necesitas ayuda? Escríbenos a giralabs.contact@gmail.com'
   );
 }
+
+// ─────────────────────────────────────────────────────────────────
+// WELCOME NEWSLETTER EMAIL TEMPLATE
+// ─────────────────────────────────────────────────────────────────
+export function buildWelcomeEmailHTML(lang: 'es' | 'en'): string {
+  const isES = lang !== 'en';
+  const labels = isES ? {
+    subject: "¡Te has suscrito a la newsletter de Giralabs! 🚀",
+    title: "¡Te damos la bienvenida!",
+    intro: "Gracias por suscribirte a nuestro boletín. Te informaremos de las últimas novedades en desarrollo móvil, ingeniería de software y tecnología.",
+    cta: "Visitar Blog de Giralabs",
+    tip: "Añade este correo a tus remitentes seguros para no perderte ninguna actualización.",
+  } : {
+    subject: "You subscribed to the Giralabs newsletter! 🚀",
+    title: "Welcome aboard!",
+    intro: "Thank you for subscribing to our newsletter. We will keep you updated on the latest trends in mobile development, software engineering, and technology.",
+    cta: "Visit Giralabs Blog",
+    tip: "Add this email to your safe senders to ensure you never miss an update.",
+  };
+
+  return `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${labels.title} · Giralabs</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f0;">
+<tr><td align="center" style="padding:40px 16px 56px;">
+<table role="presentation" width="520" cellpadding="0" cellspacing="0" style="max-width:520px;width:100%;">
+  <tr>
+    <td style="background:#0a0a0a;border-radius:20px 20px 0 0;padding:28px 40px;">
+      ${logoBlock()}
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:40px 40px 24px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <h1 style="margin:0 0 16px;font-size:24px;font-weight:800;color:#0a0a0a;letter-spacing:-0.02em;line-height:1.2;">${labels.title}</h1>
+      <p style="margin:0 0 24px;font-size:15px;color:#555;line-height:1.65;">${labels.intro}</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 32px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;" align="center">
+      <a href="https://giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:12px;padding:15px 36px;font-size:14px;font-weight:700;">${labels.cta} →</a>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 28px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <p style="font-size:12px;color:#888;margin:0;line-height:1.6;border-top:1px solid #f0f0ec;padding-top:20px;">💡 ${labels.tip}</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#F0EFEA;border-radius:0 0 20px 20px;padding:20px 40px;border:1px solid #e8e8e3;border-top:none;">
+      <p style="color:#aaa;font-size:11px;margin:0;">© 2026 Giralabs. Todos los derechos reservados.</p>
+    </td>
+  </tr>
+</table>
+</td></tr></table>
+</body></html>`;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// NEW BLOG POSTS DIGEST EMAIL TEMPLATE
+// ─────────────────────────────────────────────────────────────────
+export function buildNewPostsEmailHTML(posts: any[], lang: 'es' | 'en'): string {
+  const isES = lang !== 'en';
+  const labels = isES ? {
+    subject: "🔔 Nuevos artículos publicados en Giralabs",
+    title: "Novedades en el Blog",
+    intro: "Hemos publicado nuevos artículos técnicos en nuestra web. Descubre las últimas ideas de nuestro equipo de ingeniería:",
+    cta: "Leer artículo",
+    readAll: "Ver todos los artículos en la web",
+    footerCopy: "© 2026 Giralabs. Todos los derechos reservados."
+  } : {
+    subject: "🔔 New articles published at Giralabs",
+    title: "Fresh from the Blog",
+    intro: "We have published new technical articles on our website. Discover the latest ideas from our engineering team:",
+    cta: "Read article",
+    readAll: "View all articles on the web",
+    footerCopy: "© 2026 Giralabs. All rights reserved."
+  };
+
+  const postsBlock = posts.map(p => {
+    const detailUrl = isES ? `https://giralabs.es/blog/${p.slug}` : `https://giralabs.es/en/blog/${p.slug}`;
+    const readingTimeLabel = isES ? 'lectura' : 'read';
+    
+    return `
+      <div style="background:#F0EFEA;border-radius:16px;padding:22px;margin-bottom:20px;border:1px solid #e2e2dd;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#ff7d54;margin-bottom:8px;">
+          ${(p.tags && p.tags[0]) || (isES ? 'Desarrollo' : 'Engineering')} · ${p.readingTime} ${readingTimeLabel}
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800;color:#0a0a0a;line-height:1.3;letter-spacing:-0.01em;">${p.title}</h3>
+        <p style="margin:0 0 16px;font-size:13px;color:#555;line-height:1.6;">${p.description}</p>
+        <a href="${detailUrl}" target="_blank" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:8px;padding:10px 20px;font-size:12px;font-weight:700;">${labels.cta} →</a>
+      </div>
+    `;
+  }).join('');
+
+  return `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${labels.title} · Giralabs</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f0;">
+<tr><td align="center" style="padding:40px 16px 56px;">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+  <tr>
+    <td style="background:#0a0a0a;border-radius:20px 20px 0 0;padding:28px 40px;">
+      ${logoBlock()}
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:40px 40px 24px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <h1 style="margin:0 0 12px;font-size:24px;font-weight:800;color:#0a0a0a;letter-spacing:-0.03em;line-height:1.2;">${labels.title}</h1>
+      <p style="margin:0;font-size:15px;color:#555;line-height:1.6;">${labels.intro}</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 10px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      ${postsBlock}
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:12px 40px 32px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;" align="center">
+      <a href="https://giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="font-size:13px;color:#0a0a0a;text-decoration:underline;font-weight:600;">${labels.readAll}</a>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#F0EFEA;border-radius:0 0 20px 20px;padding:20px 40px;border:1px solid #e8e8e3;border-top:none;">
+      <p style="color:#aaa;font-size:11px;margin:0;">${labels.footerCopy}</p>
+    </td>
+  </tr>
+</table>
+</td></tr></table>
+</body></html>`;
+}

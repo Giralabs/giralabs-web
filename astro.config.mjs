@@ -31,5 +31,19 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/en/') && !page.endsWith('/en'),
     }),
+    {
+      name: 'newsletter-notifier',
+      hooks: {
+        'astro:build:done': async () => {
+          try {
+            console.log('[Giralabs Newsletter] Executing post-build checks for new posts...');
+            const { checkAndSendNewPostNotifications } = await import('./src/lib/newsletter-notifications.ts');
+            await checkAndSendNewPostNotifications();
+          } catch (e) {
+            console.error('[Giralabs Newsletter] Error sending newsletter updates:', e);
+          }
+        }
+      }
+    }
   ],
 });
