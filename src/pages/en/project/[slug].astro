@@ -26,6 +26,12 @@ const projectData = {
     link: 'https://gipsi-app.com',
     desc: 'Sistema de gestión de citas y reservas diseñado específicamente para barberías modernas. Una plataforma que conecta a los clientes con sus barberos favoritos de forma fluida e inteligente.',
     descEn: 'Appointment and booking management system designed specifically for modern barbershops. A platform that connects clients with their favorite barbers seamlessly and intelligently.',
+    primaryService: {
+      slug: 'aplicaciones-moviles',
+      slugEn: 'mobile-apps',
+      name: 'Creación de aplicaciones móviles',
+      nameEn: 'Mobile App Development'
+    },
     challenge: 'Las barberías tradicionales perdían citas y clientes por procesos de reserva ineficientes. Necesitaban una solución que digitalizase su operativa sin complejidad técnica.',
     challengeEn: 'Traditional barbershops were losing appointments and clients due to inefficient booking processes. They needed a solution to digitize their operations without technical complexity.',
     solution: 'Desarrollamos Gipsi con Flutter para ofrecer una experiencia nativa en iOS and Android. Backend robusto en Go con Supabase para la gestión en tiempo real de disponibilidad y notificaciones.',
@@ -63,6 +69,12 @@ const projectData = {
     link: 'https://nexus-store.com',
     desc: 'Un marketplace moderno que redefine el comercio electrónico con ofertas en tiempo real y recomendación inteligente de productos.',
     descEn: 'A modern marketplace redefining e-commerce with real-time deals and intelligent product recommendations.',
+    primaryService: {
+      slug: 'aplicaciones-moviles',
+      slugEn: 'mobile-apps',
+      name: 'Creación de aplicaciones móviles',
+      nameEn: 'Mobile App Development'
+    },
     challenge: 'El e-commerce tradicional carece de interactividad en tiempo real y recomendaciones adaptadas al comportamiento inmediato del usuario.',
     challengeEn: 'Traditional e-commerce lacks real-time interactivity and recommendations tailored to the user\'s immediate behavior.',
     solution: 'Diseñamos Nexus utilizando Flutter para el frontend multiplataforma y una arquitectura basada en microservicios con Go. MongoDB para catálogo flexible y WebSockets para ofertas en directo.',
@@ -100,7 +112,13 @@ const projectData = {
     link: 'https://rewind-tv.app',
     desc: 'Tu diario personal de entretenimiento. Organiza tus series y películas pendientes, haz seguimiento de lo que estás viendo y descubre nuevos títulos recomendados.',
     descEn: 'Your personal entertainment diary. Organize your watch backlogs, track what you are watching and discover new recommended titles.',
-    challenge: 'Con la saturación de servicios de streaming, los usuarios olvidan qué quieren ver o pierden el registro de en qué temporada/episodio se quedaron.',
+    primaryService: {
+      slug: 'aplicaciones-moviles',
+      slugEn: 'mobile-apps',
+      name: 'Creación de aplicaciones móviles',
+      nameEn: 'Mobile App Development'
+    },
+    challenge: 'Con la saturación de servicios de streaming, los usuarios olviden qué quieren ver o pierden el registro de en qué temporada/episodio se quedaron.',
     challengeEn: 'With the saturation of streaming services, users forget what they want to watch or lose track of which season/episode they left off.',
     solution: 'Desarrollamos una app móvil nativa rápida con Swift y Flutter. Sincronización en la nube con Supabase y base de datos local SQLite para soporte offline completo.',
     solutionEn: 'We developed a fast native mobile app with Swift and Flutter. Cloud synchronization with Supabase and SQLite local database for complete offline support.',
@@ -136,9 +154,15 @@ const projectData = {
     nextTitle: 'Rewind TV',
     desc: 'La red social definitiva para amantes del cine y las series. Comparte tu opinión, sigue a críticos, descubre tendencias y conecta con una comunidad apasionada.',
     descEn: 'The ultimate social network for movie and series lovers. Share your opinion, follow critics, discover trends and connect with a passionate community.',
+    primaryService: {
+      slug: 'aplicaciones-moviles',
+      slugEn: 'mobile-apps',
+      name: 'Creación de aplicaciones móviles',
+      nameEn: 'Mobile App Development'
+    },
     challenge: 'La comunidad cinéfila estaba fragmentada en múltiples plataformas con contenido de baja calidad. Faltaba un espacio de calidad donde la pasión por el cine fuera el centro.',
     challengeEn: 'The film community was fragmented across multiple platforms with low-quality content. A quality space where passion for cinema was at the center was missing.',
-    solution: 'AuraMovies fue construido con Flutter y Go, con una arquitectura escalable sobre Kubernetes que soporta el alto volumen de contenido generado por usuarios en tiempo real.',
+    solution: 'AuraMovies fue construido con Flutter y Go, con una arquitectura scalable sobre Kubernetes que soporta el alto volumen de contenido generado por usuarios en tiempo real.',
     solutionEn: 'AuraMovies was built with Flutter and Go, with a scalable architecture on Kubernetes that handles the high volume of real-time user-generated content.',
     features: [
       'Feed personalizado de reseñas y críticas',
@@ -226,14 +250,21 @@ const breadcrumbSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <!-- ==================== BREADCRUMB ==================== -->
-  <nav class="detail-breadcrumb reveal" aria-label="Navegación de vuelta">
+  <nav class="detail-breadcrumb reveal" aria-label="Breadcrumb">
     <div class="breadcrumb-inner">
-      <a href="/projects" class="breadcrumb-back" id="proj-back-btn">
+      <div class="breadcrumb-hierarchy">
+        <a href={defaultLang === 'es' ? '/' : '/en'} class="breadcrumb-link">{defaultLang === 'es' ? 'Inicio' : 'Home'}</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <a href={defaultLang === 'es' ? '/proyectos' : '/en/projects'} class="breadcrumb-link">{defaultLang === 'es' ? 'Proyectos' : 'Projects'}</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <span class="breadcrumb-current">{proj.title}</span>
+      </div>
+      <a href={defaultLang === 'es' ? '/proyectos' : '/en/projects'} class="breadcrumb-back" id="proj-back-btn">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
-        <span>Todos los proyectos</span>
+        <span>{defaultLang === 'es' ? 'Todos los proyectos' : 'All projects'}</span>
       </a>
     </div>
   </nav>
@@ -347,13 +378,39 @@ const breadcrumbSchema = {
       </div>
     </section>
 
+    <!-- ==================== PRIMARY SERVICE LINK ==================== -->
+    <section class="service-link-section reveal">
+      <div class="service-link-inner">
+        <span class="section-eyebrow">{defaultLang === 'es' ? 'SERVICIO RELACIONADO' : 'RELATED SERVICE'}</span>
+        <div class="service-link-card">
+          <div class="service-link-card-content">
+            <div class="service-link-info">
+              <h3 class="service-link-title">
+                {defaultLang === 'es' ? 'Desarrollado bajo el servicio:' : 'Developed under our service:'}
+              </h3>
+              <p class="service-link-name">
+                {defaultLang === 'es' ? proj.primaryService.name : proj.primaryService.nameEn}
+              </p>
+            </div>
+            <a href={defaultLang === 'es' ? `/servicio/${proj.primaryService.slug}` : `/en/service/${proj.primaryService.slugEn}`} class="service-link-btn">
+              <span>{defaultLang === 'es' ? 'Ver detalles del servicio' : 'View service details'}</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== NEXT PROJECT ==================== -->
     <section class="next-proj-section reveal">
-      <a href={`/project/${proj.nextSlug}`} class="next-proj-card" id="next-proj-link">
+      <a href={`/en/project/${proj.nextSlug}`} class="next-proj-card" id="next-proj-link">
         <div class="next-card-bg" aria-hidden="true"></div>
         <div class="next-card-glow" aria-hidden="true"></div>
         <div class="next-card-content">
-          <span class="next-label">SIGUIENTE PROYECTO</span>
+          <span class="next-label">NEXT PROJECT</span>
           <h3 class="next-title">{proj.nextTitle}</h3>
           <div class="next-arrow">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -464,6 +521,115 @@ const breadcrumbSchema = {
 
   .breadcrumb-back:hover svg {
     transform: translateX(-2px);
+  }
+
+  /* ---- SERVICE LINK CARD ---- */
+  .service-link-section {
+    margin-bottom: 4rem;
+  }
+  .service-link-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+  }
+  .service-link-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .service-link-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.4rem;
+  }
+  .service-link-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #000;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .service-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.4rem;
+    background: #000;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+  }
+  .service-link-btn:hover {
+    background: #ff7d54;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 125, 84, 0.25);
+  }
+  .service-link-btn svg {
+    transition: transform 0.3s ease;
+  }
+  .service-link-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ---- BREADCRUMBS HIERARCHY ---- */
+  .breadcrumb-hierarchy {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.45);
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-link {
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    transition: color 0.22s ease;
+  }
+  .breadcrumb-link:hover {
+    color: #ff7d54;
+  }
+  .breadcrumb-sep {
+    color: rgba(0, 0, 0, 0.25);
+  }
+  .breadcrumb-current {
+    font-weight: 600;
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    .service-link-card {
+      padding: 1.8rem;
+    }
+    .service-link-card-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+    .service-link-name {
+      font-size: 1.2rem;
+    }
+    .service-link-btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   /* ---- HERO ---- */

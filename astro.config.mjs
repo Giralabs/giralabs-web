@@ -29,7 +29,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/en/') && !page.endsWith('/en'),
+      filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/en/') && !page.endsWith('/en') && !page.includes('/api/') && !page.endsWith('/api'),
     }),
     {
       name: 'newsletter-notifier',

@@ -430,6 +430,10 @@ export const translations = {
     faq_a5: "Sí, somos especialistas en integrar modelos de lenguaje (LLMs), agentes autónomos de soporte y sistemas de recuperación inteligente de información (RAG) en aplicaciones existentes y nuevas para optimizar la productividad y automatizar flujos complejos.",
     faq_q6: "¿Es lo mismo Giralabs, Giralab o Girlabs?",
     faq_a6: "Sí, son erratas frecuentes para referirse a nosotros. El nombre oficial y correcto de nuestra empresa es Giralabs.",
+    faq_q7: "¿Qué ventajas ofrece el desarrollo web a medida frente a plantillas genéricas?",
+    faq_a7: "El desarrollo web a medida (usando Astro, React o Next.js) garantiza una velocidad de carga óptima, un SEO técnico impecable y una total libertad de diseño. Esto se traduce en una mejor conversión de clientes y la eliminación de limitaciones técnicas asociadas a plataformas rígidas.",
+    faq_q8: "¿Cuándo es recomendable desarrollar un software a medida para mi empresa?",
+    faq_a8: "Es ideal cuando tus procesos operativos son únicos y las herramientas comerciales genéricas te obligan a cambiar tu forma de trabajar, o cuando los costes recurrentes por licencias de usuario penalizan el crecimiento de tu negocio.",
 
     // Footer
     footer_tagline: "Hecho con precisión en España.",
@@ -531,6 +535,82 @@ export const translations = {
     accessibility_features_desc: "Este sitio incluye marcado HTML semántico riguroso para lectores de pantalla, soporte para zoom de texto nativo sin deformaciones del layout, combinaciones cromáticas de alto contraste, y atajos de teclado completos para una navegación libre de ratón.",
     accessibility_feedback_title: "3. Contacto y Sugerencias",
     accessibility_feedback_desc: "Si encuentras barreras de accesibilidad técnica, tienes dificultades para realizar alguna operación o quieres realizarnos alguna sugerencia de mejora, por favor ponte en contacto con nosotros escribiendo a support@giralabs.es.",
+
+    // Service-specific FAQs (ES)
+    // Service 1
+    service_1_faq_q1: "¿Qué tecnología utilizáis para el desarrollo de aplicaciones móviles?",
+    service_1_faq_a1: "Utilizamos Flutter, la tecnología líder de Google, que nos permite desarrollar aplicaciones para iOS y Android escribiendo un único código base. Esto reduce a la mitad el tiempo de desarrollo y los costes de mantenimiento, ofreciendo al mismo tiempo un rendimiento nativo impecable y una interfaz sumamente fluida.",
+    service_1_faq_q2: "¿Cuánto tiempo se tarda en desarrollar una aplicación móvil a medida?",
+    service_1_faq_a2: "Un proyecto típico de aplicación móvil a medida suele tardar entre 12 y 20 semanas. Esto incluye la fase inicial de descubrimiento de producto (2 semanas), diseño visual UX/UI (4 semanas), y finalmente la fase de desarrollo, testing y publicación en las tiendas App Store y Google Play.",
+    service_1_faq_q3: "¿Cuál es el precio orientativo para crear una app y qué factores influyen en el coste?",
+    service_1_faq_a3: "El coste depende de la complejidad técnica, el número de pantallas, las integraciones con APIs externas y el sistema de administración necesario. Por eso no damos una cifra cerrada sin conocer el proyecto: en una primera llamada analizamos tus necesidades y te preparamos un presupuesto personalizado y sin compromiso. ¿Hablamos? Puedes escribirnos a través de nuestra sección de <a href=\"/contacto\">contacto</a>.",
+    service_1_faq_q4: "¿Publicáis la aplicación en App Store y Google Play?",
+    service_1_faq_a4: "Sí, nuestro servicio incluye la preparación de todo el material gráfico, la configuración de las cuentas de desarrollador y la gestión de todo el proceso de revisión técnica y publicación en ambas tiendas de aplicaciones, asegurando que se cumplan las estrictas directrices de Apple y Google.",
+    service_1_faq_q5: "¿Qué ocurre después del lanzamiento? ¿Ofrecéis soporte técnico?",
+    service_1_faq_a5: "Sí, ofrecemos planes de mantenimiento preventivo y evolutivo para garantizar que la app siga funcionando perfectamente con las nuevas actualizaciones de los sistemas operativos iOS y Android. Además, monitorizamos servidores y solucionamos incidencias técnicas de forma proactiva.",
+
+    // Service 2
+    service_2_faq_q1: "¿Qué tecnologías utilizáis para el desarrollo de páginas web?",
+    service_2_faq_a1: "Utilizamos frameworks modernos como React, Next.js y Astro para garantizar que la página web sea rápida, segura y altamente optimizada para buscadores (SEO). Evitamos el uso de maquetadores visuales pesados que ralentizan la carga y penalizan el posicionamiento técnico.",
+    service_2_faq_q2: "¿Cuánto tiempo tarda el desarrollo de una web corporativa o portal web?",
+    service_2_faq_a2: "El plazo habitual para una web corporativa premium oscila entre 4 y 8 semanas. Si se trata de un portal web interactivo más complejo o con áreas privadas para clientes, el plazo puede extenderse a entre 10 y 14 semanas, dependiendo de los requisitos funcionales.",
+    service_2_faq_q3: "¿Qué incluye el servicio de diseño y desarrollo web?",
+    service_2_faq_a3: "Nuestro servicio es de llave en mano: incluye el estudio SEO de palabras clave, diseño UX/UI personalizado en Figma, desarrollo a medida, optimización para móviles, configuración de hosting seguro, conexión con analítica (Google Analytics) y la indexación inicial en Google.",
+    service_2_faq_q4: "¿La página web será fácil de gestionar y actualizar por mí mismo?",
+    service_2_faq_a4: "Sí, integramos gestores de contenido (CMS) intuitivos y adaptados a tus necesidades. Podrás actualizar textos, imágenes, proyectos del portfolio o artículos del blog sin depender de un programador y con total autonomía.",
+    service_2_faq_q5: "¿Cuánto cuesta crear una web a medida y de qué depende el precio?",
+    service_2_faq_a5: "El precio oscila según la cantidad de páginas únicas, la complejidad visual de las animaciones y la necesidad de paneles de administración avanzados. En lugar de ofrecer cifras genéricas, preferimos definir juntos el alcance en una primera reunión y facilitarte una valoración a medida y sin compromiso. Escríbenos a través de nuestro formulario de <a href=\"/contacto\">contacto</a> para empezar.",
+
+    // Service 3
+    service_3_faq_q1: "¿Qué es la digitalización de empresas y en qué se diferencia de instalar programas genéricos?",
+    service_3_faq_a1: "La digitalización de empresas consiste en automatizar flujos operativos reales de tu negocio. A diferencia del software comercial genérico, nuestras soluciones se adaptan a tu forma única de trabajar, conectando tus herramientas actuales y eliminando tareas manuales repetitivas en hojas de cálculo inconexas.",
+    service_3_faq_q2: "¿Qué procesos de negocio se pueden automatizar y digitalizar?",
+    service_3_faq_a2: "Prácticamente cualquier flujo de información: gestión de pedidos y logística, reservas de citas y calendarios, seguimiento de presupuestos y clientes (CRM), automatización de facturación y cobros, y paneles de visualización de datos de negocio para la toma de decisiones.",
+    service_3_faq_q3: "¿Cuál es el plazo medio para implementar un proyecto de digitalización?",
+    service_3_faq_a3: "El plazo medio oscila entre 8 y 16 semanas. Se inicia con una fase de auditoría operativa para mapear los procesos existentes, seguida del diseño de la base de datos, el desarrollo de las integraciones y finalmente un periodo piloto para formar a los empleados.",
+    service_3_faq_q4: "¿Podéis integrar nuestras herramientas actuales en el nuevo sistema?",
+    service_3_faq_a4: "Sí, conectamos tu nuevo panel de gestión con tus herramientas favoritas (como ERPs, CRMs, pasarelas de pago, centralitas de telefonía o software de email marketing) a través de APIs, logrando que los datos fluyan automáticamente sin duplicar esfuerzos.",
+    service_3_faq_q5: "¿Qué costes orientativos tiene un proyecto de digitalización a medida?",
+    service_3_faq_a5: "El coste depende del número de procesos a automatizar y de las herramientas a integrar. Tras una auditoría previa y gratuita de tus flujos de trabajo, elaboramos un presupuesto cerrado adaptado al retorno de inversión (ROI) que generará la automatización.",
+
+    // Service 4
+    service_4_faq_q1: "¿Qué plataformas y tecnologías recomendáis para crear un e-commerce?",
+    service_4_faq_a1: "Depende de las necesidades del negocio. Para comercios que están empezando o requieren una administración sencilla, utilizamos Shopify o WooCommerce. Para proyectos altamente personalizados que buscan máxima velocidad de carga y escalabilidad, desarrollamos arquitecturas e-commerce a medida.",
+    service_4_faq_q2: "¿Cuánto tiempo se tarda en lanzar una tienda online premium?",
+    service_4_faq_a2: "Una tienda online estándar con pasarelas de pago configuradas suele tardar entre 6 y 10 semanas. Si requiere integraciones complejas con sistemas de inventario externos (ERP), sincronización en tiempo real y flujos personalizados, el plazo oscila entre 12 y 16 semanas.",
+    service_4_faq_q3: "¿Qué pasarelas de pago y sistemas de envío se pueden integrar?",
+    service_4_faq_a3: "Integramos todas las opciones principales: Bizum, tarjetas bancarias tradicionales (Redsýs), Stripe, PayPal, Apple Pay y Google Pay. En cuanto a logística, conectamos la tienda con los transportistas (Correos, SEUR, DHL) para automatizar el cálculo de tarifas y etiquetas de envío.",
+    service_4_faq_q4: "¿La tienda online estará optimizada para captar clientes en buscadores (SEO)?",
+    service_4_faq_a4: "Sí, el posicionamiento en buscadores es un pilar del desarrollo. Diseñamos la jerarquía del catálogo, las categorías y fichas de producto con una estructura limpia y optimizada para buscadores, garantizando además una velocidad de carga óptima que favorece las conversiones.",
+    service_4_faq_q5: "¿Qué coste orientativo tiene la creación de un e-commerce a medida?",
+    service_4_faq_a5: "Cada tienda online tiene necesidades únicas, desde el catálogo de productos inicial hasta las conexiones requeridas con tus almacenes y sistemas ERP. Para darte una propuesta realista, preferimos analizar tu canal de ventas y entregarte un presupuesto personalizado y sin compromiso. Ponte en <a href=\"/contacto\">contacto</a> con nosotros para programar una llamada.",
+
+    // Service 5
+    service_5_faq_q1: "¿Cuándo es necesario desarrollar un software a medida en lugar de usar uno ya de mercado?",
+    service_5_faq_a1: "Cuando las soluciones estándar no se adaptan a tus reglas de negocio y te obligan a cambiar tu forma de operar, o cuando las licencias de usuarios de programas ya existentes suponen un coste recurrente insostenible a medida que tu empresa crece.",
+    service_5_faq_q2: "¿Qué tecnologías utilizáis para desarrollar software personalizado?",
+    service_5_faq_a2: "Para el backend, utilizamos lenguajes robustos y eficientes como Go o Spring Boot, junto con bases de datos como PostgreSQL o MongoDB. Para el frontend, desarrollamos paneles intuitivos en React. Desplegamos todo en infraestructuras cloud escalables y seguras.",
+    service_5_faq_q3: "¿Cómo garantizáis la seguridad del software a medida y de los datos?",
+    service_5_faq_a3: "Aplicamos el principio de 'secure by design'. Utilizamos protocolos estándar de autenticación (OAuth2, JWT), ciframos los datos sensibles en reposo y en tránsito, realizamos validaciones estrictas en el servidor y configuramos firewalls específicos en la nube.",
+    service_5_faq_q4: "¿Cuál es el proceso habitual de desarrollo y en qué momentos participo?",
+    service_5_faq_a4: "Trabajamos de forma transparente. Participarás en la definición inicial del alcance, revisarás los prototipos en Figma y, durante el desarrollo, te mostraremos avances cada dos semanas en reuniones de demostración para validar el rumbo de forma continua.",
+    service_5_faq_q5: "¿Qué plazos y precios orientativos tienen estos proyectos de software?",
+    service_5_faq_a5: "Los proyectos de software a medida suelen requerir entre 3 y 6 meses de desarrollo. Los precios varían significativamente según las funcionalidades del sistema. Ofrecemos presupuestos cerrados y por fases para que puedas validar la inversión tecnológica paso a paso.",
+
+    // Service 6
+    service_6_faq_q1: "¿Qué beneficios reales aporta integrar Inteligencia Artificial en mis sistemas?",
+    service_6_faq_a1: "La IA permite automatizar tareas complejas que antes requerían análisis humano, como responder consultas complejas de clientes con contexto corporativo, analizar y extraer datos clave de miles de documentos de texto, o clasificar y enrutar incidencias de forma automática.",
+    service_6_faq_q2: "¿Utilizáis modelos de IA comerciales o desarrollos propios?",
+    service_6_faq_a2: "Combinamos lo mejor de ambos mundos. Integramos modelos de lenguaje líderes mediante APIs (OpenAI, Anthropic, Google Gemini) aplicando técnicas de contextualización (como RAG - Generación Recuperada con Contexto), e implementamos modelos locales de código abierto si los datos requieren privacidad absoluta.",
+    service_6_faq_q3: "¿Cómo garantizáis la privacidad de los datos sensibles al usar IA?",
+    service_6_faq_a3: "Garantizar la privacidad es prioritario. Diseñamos sistemas RAG con bases de datos vectoriales locales que no exponen tu información corporativa. Si es necesario, implementamos modelos de código abierto locales en servidores privados para asegurar que ningún dato salga de tu infraestructura.",
+    service_6_faq_q4: "¿Cuánto tiempo se tarda en implementar una solución inteligente o chatbot?",
+    service_6_faq_a4: "Un proyecto inicial de integración de IA o un chatbot inteligente para asistencia con contexto corporativo se puede implementar y validar en un plazo de entre 4 y 8 semanas, funcionando como un piloto operativo integrado en tu sitio web o canal de comunicación.",
+    service_6_faq_q5: "¿Qué coste medio tiene integrar Inteligencia Artificial en una pyme?",
+    service_6_faq_a5: "Integrar inteligencia artificial depende del volumen de consultas, el tipo de modelos de lenguaje seleccionados y si es necesaria una base de datos vectorial para tu información corporativa. Analizamos el retorno de inversión de tu caso específico y te preparamos un presupuesto adaptado y sin compromiso. Consúltanos en nuestro apartado de <a href=\"/contacto\">contacto</a> y estudiaremos la viabilidad de tu idea.",
+
+    faq_title_service: "Preguntas Frecuentes del Servicio",
+    faq_label_service: "Preguntas Frecuentes",
   },
 
   en: {
@@ -961,8 +1041,12 @@ export const translations = {
     faq_a4: "We provide ongoing technical support, security updates, and availability monitoring. Additionally, we run monthly evolution sprints to continuously improve your app based on real user metrics and feedback.",
     faq_q5: "Can I integrate Artificial Intelligence into my systems?",
     faq_a5: "Yes, we specialize in integrating language models (LLMs), autonomous customer support agents, and contextual business search systems (RAG) into new and existing systems to boost efficiency and automate complex workflows.",
-    faq_q6: "Is it the same Giralabs, Giralab, or Girlabs?",
+    faq_q6: "What is the difference between Giralabs, Giralab, or Girlabs?",
     faq_a6: "Yes, those are common misspellings of our brand name. The correct and official name of our company is Giralabs.",
+    faq_q7: "What are the benefits of custom web development over templates?",
+    faq_a7: "Custom web development (using Astro, React, or Next.js) guarantees optimal loading speeds, flawless technical SEO, and complete design freedom. This translates to better conversion rates and the elimination of constraints imposed by rigid platforms.",
+    faq_q8: "When is it recommended to build custom software for my business?",
+    faq_a8: "It is ideal when your operational workflows are unique and generic SaaS tools force you to alter your operations, or when recurring user licensing fees become a bottleneck to your growth.",
 
     // Footer
     footer_tagline: "Crafted with precision in Spain.",
@@ -1064,6 +1148,82 @@ export const translations = {
     accessibility_features_desc: "This site features structural semantic HTML markup optimized for screen readers, native text zooming without layout breaks, high-contrast color pairings, and full keyboard navigation support.",
     accessibility_feedback_title: "3. Contact and Feedback",
     accessibility_feedback_desc: "If you encounter any technical accessibility barriers or would like to suggest usability improvements, please contact us at support@giralabs.es.",
+
+    // Service-specific FAQs (EN)
+    // Service 1
+    service_1_faq_q1: "What technology do you use for mobile app development?",
+    service_1_faq_a1: "We use Flutter, Google's leading cross-platform framework, which allows us to develop apps for both iOS and Android from a single codebase. This cuts development time and maintenance costs in half while providing native performance and fluid UI.",
+    service_1_faq_q2: "How long does it take to develop a custom mobile app?",
+    service_1_faq_a2: "A typical custom mobile app project takes between 12 and 20 weeks. This includes product discovery (2 weeks), UX/UI design (4 weeks), and mobile/backend engineering, testing, and deployment to the App Store and Google Play.",
+    service_1_faq_q3: "What is the approximate price to create an app, and what factors influence the cost?",
+    service_1_faq_a3: "The cost depends on functional complexity, integrations, design screens, and backend administration. Because every project is unique, we do not offer rigid estimates: in an initial call, we analyze your requirements and provide a custom, no-obligation proposal. Let's talk! Get in touch with us through our <a href=\"/en/contact\">contact</a> page.",
+    service_1_faq_q4: "Do you publish the application to the App Store and Google Play?",
+    service_1_faq_a4: "Yes, our service includes graphic asset preparation, developer account setup, and submission management to guarantee approval under the strict guidelines of Apple and Google.",
+    service_1_faq_q5: "What happens after launch? Do you offer post-launch support?",
+    service_1_faq_a5: "Yes, we offer ongoing maintenance plans to ensure compatibility with iOS and Android updates, along with proactive cloud server monitoring and technical bug fixes.",
+
+    // Service 2
+    service_2_faq_q1: "What technologies do you use for web development?",
+    service_2_faq_a1: "We build high-performance websites using React, Next.js, and Astro. We focus on clean code and static compilation to ensure lightning-fast page speed and search engine crawl optimization (SEO). We avoid bulky builders.",
+    service_2_faq_q2: "How long does a corporate website or web portal take?",
+    service_2_faq_a2: "A premium corporate website usually takes between 4 and 8 weeks. More complex portals with private client areas or internal custom integrations can take from 10 to 14 weeks.",
+    service_2_faq_q3: "What does the web design and development service include?",
+    service_2_faq_a3: "Our service is full-cycle, covering SEO keyword research, custom UX/UI design in Figma, clean coding, mobile optimizations, secure hosting setup, Google Analytics connection, and initial index submission.",
+    service_2_faq_q4: "Will the website be easy to update and manage?",
+    service_2_faq_a4: "Yes, we integrate intuitive Content Management Systems (CMS) tailored to your workflows. You can easily manage portfolios, blogs, and texts without needing technical knowledge.",
+    service_2_faq_q5: "How much does a custom website cost, and what does it depend on?",
+    service_2_faq_a5: "Cost varies based on unique page count, custom animations, and specific functional complexity. Rather than using generic pricing, we prefer to define the technical scope together and deliver a tailored, no-obligation budget. You can send us a message via our <a href=\"/en/contact\">contact</a> form to get started.",
+
+    // Service 3
+    service_3_faq_q1: "What is business digitalization and how does it differ from generic software?",
+    service_3_faq_a1: "Business digitalization is about automating your real, specific workflows. Unlike generic commercial software, our custom solutions adapt to your team's way of working, connecting existing tools and removing manual tasks.",
+    service_3_faq_q2: "Which business processes can be automated and digitalized?",
+    service_3_faq_a2: "Nearly any operational flow: order fulfillment, scheduling, calendar management, client tracking (CRM), invoicing, and business intelligence dashboard integrations.",
+    service_3_faq_q3: "What is the average timeline to implement a digitalization project?",
+    service_3_faq_a3: "It ranges from 8 to 16 weeks. We start with process auditing, design data structures, develop API integrations, and guide a pilot phase to ensure smooth employee onboarding.",
+    service_3_faq_q4: "Can you integrate our current tools into the new system?",
+    service_3_faq_a4: "Yes, we connect your management dashboard with third-party software (ERPs, CRMs, payment gateways, email marketing) using robust custom APIs to prevent duplicate work.",
+    service_3_faq_q5: "What are the approximate costs of a custom digitalization project?",
+    service_3_faq_a5: "Pricing is calculated based on processes automated and tools integrated. After a free initial audit of your operations, we provide a fixed-price estimate aligned with expected ROI.",
+
+    // Service 4
+    service_4_faq_q1: "What e-commerce platforms and tech do you recommend?",
+    service_4_faq_a1: "It depends on scale. For standard shops, we use Shopify or WooCommerce. For large-scale projects requiring custom logic and maximum loading speed, we develop custom e-commerce architectures.",
+    service_4_faq_q2: "How long does it take to launch a premium online store?",
+    service_4_faq_a2: "A standard online store with basic checkouts takes 6 to 10 weeks. If it requires complex synchronizations with local ERP inventories or wholesale flows, it takes 12 to 16 weeks.",
+    service_4_faq_q3: "Which payment gateways and shipping integrations do you support?",
+    service_4_faq_a3: "We integrate all major systems: Bizum, Redsys card payments, Stripe, PayPal, Apple Pay, and Google Pay. We also sync shipping APIs (Correos, SEUR, DHL) to automate label creation.",
+    service_4_faq_q4: "Will my store be optimized for search engine indexing (SEO)?",
+    service_4_faq_a4: "Yes, SEO is built-in. We optimize your catalog hierarchy, product category mapping, speed performance, and metadata tagging to improve visibility and increase user conversion.",
+    service_4_faq_q5: "What is the approximate cost of creating a custom e-commerce site?",
+    service_4_faq_a5: "Every e-commerce store has distinct requirements, from the initial product catalog size to local ERP inventory integrations and custom checkouts. To give you a realistic estimate, we evaluate your sales flow and prepare a custom, no-obligation budget. Please visit our <a href=\"/en/contact\">contact</a> page to schedule a call.",
+
+    // Service 5
+    service_5_faq_q1: "When should I choose custom software over off-the-shelf options?",
+    service_5_faq_a1: "When off-the-shelf software forces you to change how you work, or when recurring licensing fees become prohibitive as your user count grows.",
+    service_5_faq_q2: "What technologies do you use to build custom software?",
+    service_5_faq_a2: "For backend, we use robust languages like Go or Spring Boot alongside databases like PostgreSQL or MongoDB. Frontends are built in React, all hosted on secure cloud providers.",
+    service_5_faq_q3: "How do you guarantee custom software and database security?",
+    service_5_faq_a3: "We follow secure-by-design principles: data authentication (OAuth2, JWT), database encryption (at rest and transit), strict backend validation, and cloud firewalls.",
+    service_5_faq_q4: "What is the development process like and how do I participate?",
+    service_5_faq_a4: "We work transparently. You review Figma design systems, define requirements in early phases, and validate progress every two weeks in our sprint demo sessions.",
+    service_5_faq_q5: "What are the typical timelines and costs for custom software?",
+    service_5_faq_a5: "Developments usually take 3 to 6 months. Budget depends entirely on functional scope. We offer phased, fixed-price budgets to mitigate your risk step-by-step.",
+
+    // Service 6
+    service_6_faq_q1: "What are the real business benefits of integrating Artificial Intelligence?",
+    service_6_faq_a1: "AI allows you to automate cognitive tasks: context-aware client support, data extraction from unstructured PDFs, or automatic ticket tagging and routing.",
+    service_6_faq_q2: "Do you integrate third-party AI models or build local ones?",
+    service_6_faq_a2: "We combine both. We integrate leading LLMs (OpenAI, Anthropic, Gemini) using RAG (Retrieval-Augmented Generation) frameworks, and run local open-source models for total privacy.",
+    service_6_faq_q3: "How do you guarantee privacy of sensitive data when using AI?",
+    service_6_faq_a3: "We build isolated vector databases for corporate context. When required, we host open-source LLMs on secure private instances so no information leaves your control.",
+    service_6_faq_q4: "How long does it take to implement an AI chatbot or smart agent?",
+    service_6_faq_a4: "A context-aware smart chatbot pilot connected to your business documents takes between 4 and 8 weeks, fully integrated into your site or support channel.",
+    service_6_faq_q5: "What is the average cost of integrating AI for an SME?",
+    service_6_faq_a5: "Integrating Artificial Intelligence depends on query volume, the specific language models selected, and the need for vector databases for local context. We analyze the technical viability and provide a custom, no-obligation estimate for your pilot. Reach out to us through our <a href=\"/en/contact\">contact</a> page and we'll evaluate your project.",
+
+    faq_title_service: "Service FAQ",
+    faq_label_service: "FAQ",
   },
 } as const;
 

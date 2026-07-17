@@ -10,7 +10,7 @@ const lang = 'en';
 const T = translations[lang];
 
 // Fetch and sort blog posts
-const postsModules = import.meta.glob('../../data/blog/*.md', { eager: true });
+const postsModules = import.meta.glob('../../data/blog/en/*.md', { eager: true });
 const posts = Object.values(postsModules);
 posts.sort((a: any, b: any) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
 
@@ -46,7 +46,7 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
     
     <!-- Grid of blog posts -->
     <div class="blog-posts-grid reveal-stagger">
-      {posts.map(post => {
+      {posts.map((post, idx) => {
         const { title, description, date, tags, readingTime, image, slug } = post.frontmatter;
         // Resolve image metadata dynamically
         const imageMetadata = images[image] ? (images[image] as any).default : null;
@@ -60,7 +60,7 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
         const detailUrl = lang === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
         
         return (
-          <article class="blog-glass-card post-item-card">
+          <article class={`blog-glass-card post-item-card ${idx === 0 ? 'featured-post-card' : 'standard-post-card'}`}>
             <div class="card-border"></div>
             <div class="card-effects">
               <div class="card-spotlight"></div>
@@ -384,7 +384,7 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
     position: relative;
     z-index: 2;
     padding: 0 2rem 6rem;
-    max-width: 780px;
+    max-width: 1300px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -407,6 +407,14 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
       0 0 0 0.5px rgba(0,0,0,0.02) inset,
       0 1px 0 rgba(255,255,255,0.7) inset;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+  }
+
+  .blog-glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 20px 48px rgba(0,0,0,0.06),
+      0 0 0 0.5px rgba(0,0,0,0.02) inset,
+      0 1px 0 rgba(255,255,255,0.85) inset;
   }
 
   .card-border {
@@ -739,10 +747,50 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
      ======================================== */
   .blog-posts-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.2rem;
     width: 100%;
-    margin-bottom: 5rem;
+    margin-bottom: 5.5rem;
+  }
+
+  .featured-post-card {
+    grid-column: span 2;
+  }
+
+  .featured-post-card .post-card-inner {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .featured-post-card .post-card-image-wrapper {
+    width: 50%;
+    aspect-ratio: 16/10;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 32px;
+    border-top-right-radius: 0;
+  }
+
+  .featured-post-card .post-card-content {
+    width: 50%;
+    padding: 3rem;
+  }
+
+  .featured-post-card .post-card-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+  }
+
+  .standard-post-card {
+    grid-column: span 1;
+  }
+
+  .standard-post-card .post-card-content {
+    padding: 2.2rem 2.2rem 2.5rem;
+  }
+
+  .standard-post-card .post-card-title {
+    font-size: clamp(1.3rem, 2.5vw, 1.5rem);
   }
 
   .post-item-card {
@@ -865,10 +913,38 @@ const images = import.meta.glob('../../assets/blog/*', { eager: true });
   /* ========================================
      RESPONSIVE BREAKPOINTS
      ======================================== */
+  @media (max-width: 992px) {
+    .featured-post-card .post-card-inner {
+      flex-direction: column;
+    }
+    .featured-post-card .post-card-image-wrapper {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 32px;
+    }
+    .featured-post-card .post-card-content {
+      width: 100%;
+      padding: 2.2rem;
+    }
+  }
+
   @media (max-width: 768px) {
     .blog-container { padding: 0 1.5rem 4rem; }
     .card-inner { padding: 4rem 2rem; }
     .newsletter-form { flex-direction: column; gap: 0.8rem; }
     .newsletter-btn { justify-content: center; width: 100%; }
+    .blog-posts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    .featured-post-card {
+      grid-column: span 1;
+    }
+    .standard-post-card {
+      grid-column: span 1;
+    }
   }
 </style>
