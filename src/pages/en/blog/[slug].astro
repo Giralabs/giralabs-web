@@ -8,7 +8,7 @@ import { translations } from '../../../i18n/translations';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const posts = import.meta.glob('../../../data/blog/*.md', { eager: true });
+  const posts = import.meta.glob('../../../data/blog/en/*.md', { eager: true });
   return Object.values(posts).map((post: any) => ({
     params: { slug: post.frontmatter.slug },
     props: { post }
@@ -63,6 +63,31 @@ const schema = {
   "image": schemaImageUrl
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": lang === 'es' ? "Inicio" : "Home",
+      "item": lang === 'es' ? "https://giralabs.es" : "https://giralabs.es/en"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": lang === 'es' ? "https://giralabs.es/blog" : "https://giralabs.es/en/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": lang === 'es' ? `https://giralabs.es/blog/${post.frontmatter.slug}` : `https://giralabs.es/en/blog/${post.frontmatter.slug}`
+    }
+  ]
+};
+
 // Localized translation helper
 const T_detail = {
   backToBlog: "Back to blog",
@@ -84,7 +109,7 @@ const T_detail = {
 const blogImages = import.meta.glob('../../../assets/blog/*', { eager: true });
 const projectImages = import.meta.glob('../../../assets/projects/*', { eager: true });
 
-const allPosts = Object.values(import.meta.glob('../../../data/blog/*.md', { eager: true })) as any[];
+const allPosts = Object.values(import.meta.glob('../../../data/blog/en/*.md', { eager: true })) as any[];
 const otherPosts = allPosts
   .filter((p: any) => p.frontmatter.slug !== post.frontmatter.slug)
   .sort((a: any, b: any) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
@@ -148,7 +173,7 @@ for (const proj of fallbackProjects) {
 ---
 
 <Layout
-  title={`${title.substring(0, 48)}... | Giralabs`}
+  title={`${title.substring(0, 44)}... | Giralabs`}
   description={description}
   lang={lang}
 >
@@ -165,6 +190,7 @@ for (const proj of fallbackProjects) {
 
   <!-- Schema JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <!-- Floating Reader Header -->
   <div class="floating-read-header" id="floating-header" aria-hidden="true">
@@ -194,10 +220,12 @@ for (const proj of fallbackProjects) {
   <!-- ==================== ARTICLE HERO ==================== -->
   <header class="post-hero reveal">
     <div class="hero-inner">
-      <nav class="post-breadcrumb">
-        <a href="/en/blog" class="breadcrumb-link">Blog</a>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-current">{tags ? tags[0] : 'Article'}</span>
+      <nav class="post-breadcrumb" aria-label="Breadcrumb">
+        <a href={lang === 'es' ? '/' : '/en'} class="breadcrumb-link">{lang === 'es' ? 'Inicio' : 'Home'}</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <a href={lang === 'es' ? '/blog' : '/en/blog'} class="breadcrumb-link">Blog</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <span class="breadcrumb-current">{title}</span>
       </nav>
       
       <h1 class="post-title">{title}</h1>

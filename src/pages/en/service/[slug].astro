@@ -3,6 +3,13 @@ import Layout from '../../../layouts/Layout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import { translations } from '../../../i18n/translations';
 import Footer from '../../../components/Footer.astro';
+import Faq from '../../../components/home/Faq.astro';
+import { getImage } from 'astro:assets';
+
+import gipsiImg from '../../../assets/projects/gipsi_barber.webp';
+import nexusImg from '../../../assets/projects/nexus.png';
+import rewindtvImg from '../../../assets/projects/rewindtv.webp';
+import auramoviesImg from '../../../assets/projects/auramovies.webp';
 
 export const prerender = true;
 
@@ -83,6 +90,75 @@ const breadcrumbSchema = {
     }
   ]
 };
+
+const projectsRaw = [
+  {
+    slug: 'gipsi',
+    image: gipsiImg,
+    title: 'Gipsi',
+    tag: 'App Móvil',
+    tagEn: 'Mobile App',
+    desc: 'Gestión inteligente de citas y reservas para barberías.',
+    descEn: 'Appointment and booking management system designed specifically for barbershops.',
+    tech: ['Flutter', 'Go', 'Supabase', 'PostgreSQL', 'Firebase']
+  },
+  {
+    slug: 'nexus',
+    image: nexusImg,
+    title: 'Nexus',
+    tag: 'E-commerce',
+    tagEn: 'E-commerce',
+    desc: 'Marketplace moderno de comercio electrónico y ofertas en tiempo real.',
+    descEn: 'A modern marketplace redefining e-commerce with real-time deals.',
+    tech: ['Flutter', 'Go', 'MongoDB', 'Redis', 'Docker', 'WebSockets']
+  },
+  {
+    slug: 'rewind-tv',
+    image: rewindtvImg,
+    title: 'Rewind TV',
+    tag: 'Entretenimiento',
+    tagEn: 'Entertainment',
+    desc: 'Backlog inteligente de películas y series para organizar tu colección.',
+    descEn: 'Intelligent backlog of movies and series to organize your collection.',
+    tech: ['Flutter', 'Swift', 'Supabase', 'SQLite', 'TMDB API']
+  },
+  {
+    slug: 'auramovies',
+    image: auramoviesImg,
+    title: 'AuraMovies',
+    tag: 'Red Social',
+    tagEn: 'Social App',
+    desc: 'La red social definitiva para amantes del cine y las series.',
+    descEn: 'The ultimate social network for movie and series lovers.',
+    tech: ['Flutter', 'Go', 'MongoDB', 'Kubernetes', 'Firebase']
+  }
+];
+
+
+
+const faqItems = [1, 2, 3, 4, 5].map(num => {
+  const qKey = `service_${index}_faq_q${num}` as const;
+  const aKey = `service_${index}_faq_a${num}` as const;
+  return {
+    q: T[qKey] as string,
+    a: T[aKey] as string,
+    key: qKey,
+    aKey
+  };
+});
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
 ---
 
 <Layout
@@ -99,11 +175,19 @@ const breadcrumbSchema = {
   <!-- Structured Data JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Breadcrumb -->
   <nav class="details-breadcrumb reveal">
     <div class="breadcrumb-inner">
-      <a href="/services" class="breadcrumb-back">
+      <div class="breadcrumb-hierarchy">
+        <a href={defaultLang === 'es' ? '/' : '/en'} class="breadcrumb-link">{defaultLang === 'es' ? 'Inicio' : 'Home'}</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <a href={defaultLang === 'es' ? '/servicios' : '/en/services'} class="breadcrumb-link">{defaultLang === 'es' ? 'Servicios' : 'Services'}</a>
+        <span class="breadcrumb-sep">&gt;</span>
+        <span class="breadcrumb-current">{T[titleKey]}</span>
+      </div>
+      <a href={defaultLang === 'es' ? '/servicios' : '/en/services'} class="breadcrumb-back">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
@@ -855,6 +939,11 @@ const breadcrumbSchema = {
       </a>
     </div>
   </section>
+
+
+
+  <!-- ==================== FAQ SECTION ==================== -->
+  <Faq lang={defaultLang} items={faqItems} title={T.faq_title_service} eyebrow={T.faq_label_service} />
 
   <Footer lang={defaultLang} />
 
@@ -2730,5 +2819,162 @@ const breadcrumbSchema = {
     .details-visual-panel { order: -1; }
     .details-container { padding: 0 1.2rem 2rem; }
     .details-breadcrumb { padding: 6.5rem 1.2rem 1rem; }
+  }
+
+  /* ---- BREADCRUMBS HIERARCHY ---- */
+  .breadcrumb-hierarchy {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.45);
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-link {
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    transition: color 0.22s ease;
+  }
+  .breadcrumb-link:hover {
+    color: #ff7d54;
+  }
+  .breadcrumb-sep {
+    color: rgba(0, 0, 0, 0.25);
+  }
+  .breadcrumb-current {
+    font-weight: 600;
+    color: #000;
+  }
+
+  /* ---- RELATED PROJECTS ---- */
+  .related-projects-section {
+    padding: 5rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .related-projects-inner {
+    width: 100%;
+  }
+  .related-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .related-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #ff7d54;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .related-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 850;
+    letter-spacing: -0.04em;
+    color: #000;
+    margin: 0 0 0.8rem;
+    line-height: 1.1;
+  }
+  .related-subtitle {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(0, 0, 0, 0.55);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .related-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  .related-project-card {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    padding: 3.5rem 3rem;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+  }
+  .related-project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+  }
+  .related-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transform: scale(1.02);
+    transition: transform 6s ease-out;
+  }
+  .related-project-card:hover .related-card-bg {
+    transform: scale(1.0);
+  }
+  .related-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+  }
+  .related-card-content {
+    position: relative;
+    z-index: 2;
+  }
+  .related-card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .related-card-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.02em;
+  }
+  .related-card-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin: 0 0 1.5rem;
+  }
+  .related-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ff7d54;
+    text-decoration: none;
+  }
+  .related-card-link svg {
+    transition: transform 0.3s ease;
+  }
+  .related-card-link:hover svg {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 768px) {
+    .related-projects-grid {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    .related-project-card {
+      padding: 2.5rem 2rem;
+      min-height: 240px;
+    }
   }
 </style>

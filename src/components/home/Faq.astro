@@ -3,44 +3,74 @@ import { translations } from '../../i18n/translations';
 
 interface Props {
   lang?: string;
+  items?: { q: string; a: string; key: string; aKey: string }[];
+  title?: string;
+  eyebrow?: string;
 }
 
-const { lang = 'es' } = Astro.props;
+const { lang = 'es', items, title, eyebrow } = Astro.props;
 const T = translations[lang] as any;
 
 // FAQ items mapping
-const faqItems = [
+const defaultFaqItems = [
   {
     q: T.faq_q1,
     a: T.faq_a1,
-    key: "faq_q1"
+    key: "faq_q1",
+    aKey: "faq_a1"
   },
   {
     q: T.faq_q2,
     a: T.faq_a2,
-    key: "faq_q2"
+    key: "faq_q2",
+    aKey: "faq_a2"
   },
   {
     q: T.faq_q3,
     a: T.faq_a3,
-    key: "faq_q3"
+    key: "faq_q3",
+    aKey: "faq_a3"
   },
   {
     q: T.faq_q4,
     a: T.faq_a4,
-    key: "faq_q4"
+    key: "faq_q4",
+    aKey: "faq_a4"
   },
   {
     q: T.faq_q5,
     a: T.faq_a5,
-    key: "faq_q5"
+    key: "faq_q5",
+    aKey: "faq_a5"
   },
   {
     q: T.faq_q6,
     a: T.faq_a6,
-    key: "faq_q6"
+    key: "faq_q6",
+    aKey: "faq_a6"
+  },
+  {
+    q: T.faq_q7,
+    a: T.faq_a7,
+    key: "faq_q7",
+    aKey: "faq_a7"
+  },
+  {
+    q: T.faq_q8,
+    a: T.faq_a8,
+    key: "faq_q8",
+    aKey: "faq_a8"
   }
 ];
+
+const faqItems = items || defaultFaqItems;
+const faqTitle = title || T.faq_title;
+const faqEyebrow = eyebrow || T.faq_label;
+
+// Helper to strip HTML tags for schema JSON-LD
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>/g, '');
+}
 
 // Schema JSON-LD data
 const schemaData = {
@@ -51,7 +81,7 @@ const schemaData = {
     "name": item.q,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": item.a
+      "text": stripHtml(item.a)
     }
   }))
 };
@@ -62,9 +92,9 @@ const schemaData = {
     
     <!-- Header -->
     <header class="faq-header">
-      <span class="faq-eyebrow" data-i18n="faq_label">{T.faq_label}</span>
-      <h2 class="faq-title" data-i18n="faq_title">{T.faq_title}</h2>
-      <p class="faq-subtitle" data-i18n="faq_sub">{T.faq_sub}</p>
+      <span class="faq-eyebrow" data-i18n={eyebrow ? undefined : "faq_label"}>{faqEyebrow}</span>
+      <h2 class="faq-title" data-i18n={title ? undefined : "faq_title"}>{faqTitle}</h2>
+      {!items && <p class="faq-subtitle" data-i18n="faq_sub">{T.faq_sub}</p>}
     </header>
 
     <!-- Accordion List -->
@@ -92,7 +122,7 @@ const schemaData = {
             aria-labelledby={`faq-item-${index + 1}`}
           >
             <div class="faq-answer-content">
-              <p data-i18n={`faq_a${index + 1}`}>{item.a}</p>
+              <p data-i18n={item.aKey} set:html={item.a}></p>
             </div>
           </div>
         </div>
