@@ -5,7 +5,7 @@ description: "Discover how mandatory electronic invoicing in Spain will affect y
 date: "2026-07-17"
 tags: ["Digitalization", "Regulations", "Custom Software"]
 readingTime: "8 min"
-image: "../../assets/blog/electronic_invoicing.png"
+image: "../../assets/blog/electronic_invoicing.webp"
 ---
 
 Over the last decade, administrative digitalization has been a progressive and voluntary process for the vast majority of small and medium-sized Spanish companies. Each business advanced at its own pace: some adopted cloud tools to manage accounts, while others preferred to issue invoices in traditional formats or send simple PDF files by email. However, this era of digitalization a la carte is coming to an end.
