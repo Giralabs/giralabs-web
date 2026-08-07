@@ -14,10 +14,7 @@ const urlMapEStoEN: Record<string, string> = {
   '/servicio/tiendas-online': '/service/online-stores',
   '/servicio/software-a-medida': '/service/custom-software',
   '/servicio/integracion-ia': '/service/ai-integration',
-  '/proyecto/gipsi': '/project/gipsi',
-  '/proyecto/nexus': '/project/nexus',
-  '/proyecto/rewind-tv': '/project/rewind-tv',
-  '/proyecto/auramovies': '/project/auramovies',
+  '/proyecto/bipsy': '/project/bipsy',
 };
 
 // Inverse map for translating from English back to Spanish

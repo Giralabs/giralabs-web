@@ -22,10 +22,17 @@ export default defineConfig({
     '/service/online-stores': { status: 301, destination: '/servicio/tiendas-online' },
     '/service/custom-software': { status: 301, destination: '/servicio/software-a-medida' },
     '/service/ai-integration': { status: 301, destination: '/servicio/integracion-ia' },
-    '/project/gipsi': { status: 301, destination: '/proyecto/gipsi' },
-    '/project/nexus': { status: 301, destination: '/proyecto/nexus' },
-    '/project/rewind-tv': { status: 301, destination: '/proyecto/rewind-tv' },
-    '/project/auramovies': { status: 301, destination: '/proyecto/auramovies' }
+    '/project/bipsy': { status: 301, destination: '/proyecto/bipsy' },
+    // Gipsi was renamed to Bipsy: keep the old URLs pointing at the new project
+    '/proyecto/gipsi': { status: 301, destination: '/proyecto/bipsy' },
+    '/project/gipsi': { status: 301, destination: '/proyecto/bipsy' },
+    // Retired projects: send any remaining link equity to the projects index
+    '/proyecto/nexus': { status: 301, destination: '/proyectos' },
+    '/project/nexus': { status: 301, destination: '/proyectos' },
+    '/proyecto/rewind-tv': { status: 301, destination: '/proyectos' },
+    '/project/rewind-tv': { status: 301, destination: '/proyectos' },
+    '/proyecto/auramovies': { status: 301, destination: '/proyectos' },
+    '/project/auramovies': { status: 301, destination: '/proyectos' }
   },
   integrations: [
     sitemap({
