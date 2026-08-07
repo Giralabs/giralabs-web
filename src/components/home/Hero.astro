@@ -1,6 +1,7 @@
 ---
 import { translations } from "../../i18n/translations";
 import combinationMark from "../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+import { getLocalizedPath } from "../../lib/paths";
 
 interface Props {
   lang?: string;
@@ -8,6 +9,9 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const T = translations[lang];
+
+// Helper to localize paths based on the current lang
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
 <!-- ==================== HERO ==================== -->
@@ -43,13 +47,13 @@ const T = translations[lang];
     <!-- CTAs -->
     <div class="hero-ctas">
       <a
-        href="/projects"
+        href={localizedPath("/proyectos")}
         class="cta-primary"
         id="hero-cta-primary"
         data-i18n="hero_cta_primary">{T.hero_cta_primary}</a
       >
       <a
-        href="/services"
+        href={localizedPath("/servicios")}
         class="cta-secondary"
         id="hero-cta-secondary"
         data-i18n="hero_cta_secondary">{T.hero_cta_secondary}</a
