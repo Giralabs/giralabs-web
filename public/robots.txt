@@ -5,5 +5,32 @@ Allow: /
 Disallow: /cancel
 Disallow: /api/
 
+# AI answer engines. Access is already granted by the wildcard above; these are
+# listed explicitly so the intent is unambiguous. Switch any of them to
+# "Disallow: /" to opt out of that crawler.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Sitemap location
 Sitemap: https://giralabs.es/sitemap-index.xml

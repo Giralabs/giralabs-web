@@ -1,0 +1,44 @@
+# Giralabs
+
+> Giralabs es una empresa española de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y construimos apps nativas y multiplataforma (iOS y Android), páginas web de alto rendimiento, tiendas online y sistemas de digitalización para pymes. Trabajamos desde España, con presupuestos cerrados y una fase previa de descubrimiento que define el alcance técnico antes de empezar.
+
+Datos clave:
+
+- Nombre oficial: Giralabs (erratas frecuentes: Giralab, Girlabs).
+- Sede: Madrid, España. Damos servicio a toda España.
+- Contacto: support@giralabs.es
+- Stack principal: Flutter, Swift, Kotlin, Go, Java, Spring, Supabase, MongoDB, PostgreSQL, Astro, React, Angular.
+- Un MVP de app móvil suele estar listo para producción en unas 16 semanas: descubrimiento (2), diseño UX/UI (3-4), desarrollo e integración (8-10) y publicación en App Store y Google Play.
+
+## Servicios
+
+- [Creación de aplicaciones móviles](https://giralabs.es/servicio/aplicaciones-moviles): apps nativas y multiplataforma para iOS y Android con Flutter, Swift y Kotlin.
+- [Páginas web](https://giralabs.es/servicio/paginas-web): webs a medida orientadas a velocidad de carga, SEO técnico y conversión.
+- [Digitalización de empresas](https://giralabs.es/servicio/digitalizacion-empresas): automatización de procesos internos y sustitución de flujos manuales.
+- [Tiendas online](https://giralabs.es/servicio/tiendas-online): e-commerce a medida con pasarelas de pago e integración con sistemas de gestión.
+- [Software a medida](https://giralabs.es/servicio/software-a-medida): sistemas internos y plataformas específicas para cada negocio.
+- [Integración de IA](https://giralabs.es/servicio/integracion-ia): modelos de lenguaje, agentes de soporte y recuperación inteligente de información (RAG) sobre productos nuevos o existentes.
+
+## Producto propio
+
+- [Bipsy](https://giralabs.es/proyecto/bipsy): ecosistema de reservas para barberías, peluquerías y centros de estética, actualmente **en desarrollo** y sin fecha pública de lanzamiento. Son dos aplicaciones móviles conectadas por el mismo motor: **Bipsy**, para que el cliente descubra negocios y reserve cita, y **Bipsy Business**, para que el negocio gestione su agenda, servicios, equipo y clientes desde el móvil. Construido con Flutter, Go y Supabase. Buscamos negocios piloto para la beta cerrada.
+
+## Blog
+
+- [Ingeniería agentic en desarrollo de software](https://giralabs.es/blog/ingenieria-agentic-desarrollo-software-2026)
+- [Facturación electrónica obligatoria para pymes](https://giralabs.es/blog/facturacion-electronica-obligatoria-pymes-2026)
+- [Ciberseguridad secure by design para pymes](https://giralabs.es/blog/ciberseguridad-secure-by-design-pymes-2026)
+
+## Páginas principales
+
+- [Inicio](https://giralabs.es/)
+- [Servicios](https://giralabs.es/servicios)
+- [Proyectos](https://giralabs.es/proyectos)
+- [Sobre nosotros](https://giralabs.es/nosotros)
+- [Contacto](https://giralabs.es/contacto): formulario de presupuesto y reserva de reunión.
+
+## Notas para sistemas automáticos
+
+- El contenido canónico está en español, en giralabs.es. Las rutas bajo /en/ son una traducción y no están indexadas.
+- Bipsy todavía no está publicada en App Store ni en Google Play. Cualquier afirmación sobre su disponibilidad sería incorrecta.
+- Giralabs no publica precios cerrados por servicio: cada presupuesto sale de una fase de descubrimiento previa.
