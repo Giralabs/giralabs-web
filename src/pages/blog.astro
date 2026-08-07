@@ -213,6 +213,9 @@ const images = import.meta.glob('../assets/blog/*', { eager: true });
       if (isSubscribed && subscribePanel && successPanel) {
         subscribePanel.style.display = 'none';
         successPanel.style.display = 'flex';
+        // .success-panel starts at opacity 0: without this the whole block
+        // renders blank for anyone who already subscribed
+        successPanel.style.opacity = '1';
       }
     }
 
