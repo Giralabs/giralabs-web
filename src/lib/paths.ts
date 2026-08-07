@@ -15,7 +15,21 @@ const urlMapEStoEN: Record<string, string> = {
   '/servicio/software-a-medida': '/service/custom-software',
   '/servicio/integracion-ia': '/service/ai-integration',
   '/proyecto/bipsy': '/project/bipsy',
+  // Blog slugs are translated, so without these pairs every post declared an
+  // hreflang pointing at /en/blog/<spanish-slug>, which does not exist
+  '/blog/ciberseguridad-secure-by-design-pymes-2026': '/blog/cybersecurity-secure-by-design-smes-2026',
+  '/blog/facturacion-electronica-obligatoria-pymes-2026': '/blog/mandatory-electronic-invoicing-smes-2026',
+  '/blog/ingenieria-agentic-desarrollo-software-2026': '/blog/agentic-engineering-custom-software-2026',
 };
+
+// Pages that exist in one language only must not advertise a translation.
+// Anything outside the blog is mirrored, so only posts need checking.
+export function hasEnglishAlternate(path: string): boolean {
+  const clean = path !== '/' && path.endsWith('/') ? path.slice(0, -1) : path;
+  if (!clean.startsWith('/blog/') && !clean.startsWith('/en/blog/')) return true;
+  if (clean.startsWith('/en/blog/')) return true;
+  return clean in urlMapEStoEN;
+}
 
 // Inverse map for translating from English back to Spanish
 const urlMapENtoES: Record<string, string> = Object.entries(urlMapEStoEN).reduce((acc, [es, en]) => {

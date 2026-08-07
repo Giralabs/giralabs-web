@@ -1,5 +1,5 @@
 ---
-import { getSwitchLanguagePath } from '../lib/paths';
+import { getSwitchLanguagePath, hasEnglishAlternate } from '../lib/paths';
 
 interface Props {
 	title?: string;
@@ -17,6 +17,8 @@ const {
 const pathname = Astro.url.pathname;
 const esUrlPath = getSwitchLanguagePath(pathname, 'es');
 const enUrlPath = getSwitchLanguagePath(pathname, 'en');
+
+const showEnglishAlternate = hasEnglishAlternate(pathname);
 
 const canonicalUrl = `https://giralabs.es${pathname === '/' ? '' : pathname}`;
 const esHref = `https://giralabs.es${esUrlPath === '/' ? '' : esUrlPath}`;
@@ -39,9 +41,11 @@ const xDefaultHref = esHref;
 		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href={canonicalUrl} />
 		
-		<!-- Alternate hreflang configurations for multilingual search indexing -->
+		<!-- Alternate hreflang configurations for multilingual search indexing.
+		     The English link is omitted when no translation exists: pointing it at a
+		     404 invalidates the whole annotation for the page. -->
 		<link rel="alternate" hreflang="es" href={esHref} />
-		<link rel="alternate" hreflang="en" href={enHref} />
+		{showEnglishAlternate && <link rel="alternate" hreflang="en" href={enHref} />}
 		<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
 		<!-- Open Graph / Facebook -->
@@ -93,54 +97,22 @@ const xDefaultHref = esHref;
 						: "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
 					"address": {
 						"@type": "PostalAddress",
-						"streetAddress": "Calle de Velázquez, 10",
-						"addressLocality": "Madrid",
-						"addressRegion": "Madrid",
-						"postalCode": "28001",
+						"addressLocality": "Sevilla",
+						"addressRegion": "Andalucía",
 						"addressCountry": "ES"
 					},
-					"telephone": "+34 910 00 00 00",
+					"telephone": "+34 722 62 52 88",
+					"email": "support@giralabs.es",
+					"areaServed": [
+						{ "@type": "City", "name": "Sevilla" },
+						{ "@type": "AdministrativeArea", "name": "Andalucía" },
+						{ "@type": "Country", "name": "España" }
+					],
 					"priceRange": "$$$",
 					"sameAs": [
 						"https://github.com/giralabs",
 						"https://linkedin.com/company/giralabs"
 					]
-				},
-				{
-					"@type": "LocalBusiness",
-					"@id": "https://giralabs.es/#localbusiness",
-					"name": "Giralabs",
-					"url": "https://giralabs.es",
-					"logo": "https://giralabs.es/logo.png",
-					"image": "https://giralabs.es/og-image.png",
-					"telephone": "+34 910 00 00 00",
-					"address": {
-						"@type": "PostalAddress",
-						"streetAddress": "Calle de Velázquez, 10",
-						"addressLocality": "Madrid",
-						"addressRegion": "Madrid",
-						"postalCode": "28001",
-						"addressCountry": "ES"
-					},
-					"areaServed": [
-						{
-							"@type": "Country",
-							"name": "Spain"
-						},
-						{
-							"@type": "Country",
-							"name": "España"
-						},
-						{
-							"@type": "City",
-							"name": "Madrid"
-						},
-						{
-							"@type": "City",
-							"name": "Sevilla"
-						}
-					],
-					"priceRange": "$$$"
 				},
 				{
 					"@type": "WebSite",

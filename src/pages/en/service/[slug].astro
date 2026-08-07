@@ -48,17 +48,14 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": serviceName,
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Giralabs",
-    "image": "https://giralabs.es/logo.png",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Madrid",
-      "addressCountry": "ES"
-    }
-  },
-  "areaServed": "ES",
+  // Points at the organization declared in Layout instead of restating it,
+  // so provider details cannot drift out of sync across pages
+  "provider": { "@id": "https://giralabs.es/#organization" },
+  "areaServed": [
+    { "@type": "City", "name": "Sevilla" },
+    { "@type": "AdministrativeArea", "name": "Andalucía" },
+    { "@type": "Country", "name": "España" }
+  ],
   "description": serviceDesc
 };
 
