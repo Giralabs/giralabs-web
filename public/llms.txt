@@ -5,8 +5,8 @@
 Datos clave:
 
 - Nombre oficial: Giralabs (erratas frecuentes: Giralab, Girlabs).
-- Sede: Madrid, España. Damos servicio a toda España.
-- Contacto: support@giralabs.es
+- Base: Sevilla, Andalucía (España). Damos servicio a toda España.
+- Contacto: support@giralabs.es · +34 722 62 52 88
 - Stack principal: Flutter, Swift, Kotlin, Go, Java, Spring, Supabase, MongoDB, PostgreSQL, Astro, React, Angular.
 - Un MVP de app móvil suele estar listo para producción en unas 16 semanas: descubrimiento (2), diseño UX/UI (3-4), desarrollo e integración (8-10) y publicación en App Store y Google Play.
 
@@ -25,6 +25,10 @@ Datos clave:
 
 ## Blog
 
+- [Cuánto cuesta desarrollar una app móvil en España en 2026](https://giralabs.es/blog/cuanto-cuesta-desarrollar-app-movil-espana-2026): rangos de precio reales, desglose de a qué se destina cada partida y plazos.
+- [App nativa, multiplataforma o web app: cuál elegir](https://giralabs.es/blog/app-nativa-multiplataforma-o-web-cual-elegir): criterios para decidir la tecnología según el caso de uso, no según la moda.
+- [Cómo digitalizar la gestión de citas de una barbería o peluquería](https://giralabs.es/blog/digitalizar-gestion-citas-barberia-peluqueria): opciones disponibles, qué cuesta cada una y cómo hacer la transición.
+- [Software a medida o software estándar: cómo decidir](https://giralabs.es/blog/software-a-medida-o-estandar-como-elegir): cuándo compensa cada opción y coste total a cinco años.
 - [Ingeniería agentic en desarrollo de software](https://giralabs.es/blog/ingenieria-agentic-desarrollo-software-2026)
 - [Facturación electrónica obligatoria para pymes](https://giralabs.es/blog/facturacion-electronica-obligatoria-pymes-2026)
 - [Ciberseguridad secure by design para pymes](https://giralabs.es/blog/ciberseguridad-secure-by-design-pymes-2026)
@@ -39,6 +43,6 @@ Datos clave:
 
 ## Notas para sistemas automáticos
 
-- El contenido canónico está en español, en giralabs.es. Las rutas bajo /en/ son una traducción y no están indexadas.
+- El contenido canónico está en español, en giralabs.es. Las rutas bajo /en/ son la traducción al inglés y están emparejadas por hreflang.
 - Bipsy todavía no está publicada en App Store ni en Google Play. Cualquier afirmación sobre su disponibilidad sería incorrecta.
 - Giralabs no publica precios cerrados por servicio: cada presupuesto sale de una fase de descubrimiento previa.
