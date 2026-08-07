@@ -6,10 +6,6 @@ import Footer from '../../../components/Footer.astro';
 import Faq from '../../../components/home/Faq.astro';
 import { getImage } from 'astro:assets';
 
-import gipsiImg from '../../../assets/projects/gipsi_barber.webp';
-import nexusImg from '../../../assets/projects/nexus.png';
-import rewindtvImg from '../../../assets/projects/rewindtv.webp';
-import auramoviesImg from '../../../assets/projects/auramovies.webp';
 
 export const prerender = true;
 
@@ -91,48 +87,7 @@ const breadcrumbSchema = {
   ]
 };
 
-const projectsRaw = [
-  {
-    slug: 'gipsi',
-    image: gipsiImg,
-    title: 'Gipsi',
-    tag: 'App Móvil',
-    tagEn: 'Mobile App',
-    desc: 'Gestión inteligente de citas y reservas para barberías.',
-    descEn: 'Appointment and booking management system designed specifically for barbershops.',
-    tech: ['Flutter', 'Go', 'Supabase', 'PostgreSQL', 'Firebase']
-  },
-  {
-    slug: 'nexus',
-    image: nexusImg,
-    title: 'Nexus',
-    tag: 'E-commerce',
-    tagEn: 'E-commerce',
-    desc: 'Marketplace moderno de comercio electrónico y ofertas en tiempo real.',
-    descEn: 'A modern marketplace redefining e-commerce with real-time deals.',
-    tech: ['Flutter', 'Go', 'MongoDB', 'Redis', 'Docker', 'WebSockets']
-  },
-  {
-    slug: 'rewind-tv',
-    image: rewindtvImg,
-    title: 'Rewind TV',
-    tag: 'Entretenimiento',
-    tagEn: 'Entertainment',
-    desc: 'Backlog inteligente de películas y series para organizar tu colección.',
-    descEn: 'Intelligent backlog of movies and series to organize your collection.',
-    tech: ['Flutter', 'Swift', 'Supabase', 'SQLite', 'TMDB API']
-  },
-  {
-    slug: 'auramovies',
-    image: auramoviesImg,
-    title: 'AuraMovies',
-    tag: 'Red Social',
-    tagEn: 'Social App',
-    desc: 'La red social definitiva para amantes del cine y las series.',
-    descEn: 'The ultimate social network for movie and series lovers.',
-    tech: ['Flutter', 'Go', 'MongoDB', 'Kubernetes', 'Firebase']
-  }
-];
+
 
 
 

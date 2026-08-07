@@ -1,0 +1,320 @@
+---
+import { getImage } from 'astro:assets';
+import { translations } from '../../i18n/translations';
+import { getLocalizedPath } from '../../lib/paths';
+// Bip ships grey in the light capture: this derived copy repaints him with the
+// exact mint sampled from the dark capture, keeping the light UI theme
+import bipsyApp from '../../assets/bipsy/derived/bipsy_light_mint.webp';
+import bipsyBusinessApp from '../../assets/bipsy/assets_apps/bipsy_business_light.webp';
+import bipsyMark from '../../assets/bipsy/lockups/bipsy_lockup.webp';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+const T = translations[lang];
+
+const href = getLocalizedPath('/proyecto/bipsy', lang);
+
+const [clientShot, businessShot, mark] = await Promise.all([
+  getImage({ src: bipsyApp, format: 'webp', width: 820 }),
+  getImage({ src: bipsyBusinessApp, format: 'webp', width: 820 }),
+  getImage({ src: bipsyMark, format: 'webp', width: 420 }),
+]);
+---
+
+<a href={href} class="bf-card" aria-label={`${T.project_bipsy_title} — ${T.project_bipsy_status}`}>
+  <div class="bf-aura" aria-hidden="true"></div>
+  <div class="bf-shine" aria-hidden="true"></div>
+
+  <!-- ---------- CONTENT ---------- -->
+  <div class="bf-content">
+    <span class="bf-status">{T.project_bipsy_status}</span>
+
+    <div class="bf-identity">
+      <img src={mark.src} alt={T.project_bipsy_title} class="bf-mark" width="1582" height="444" loading="lazy" />
+      <span class="bf-tag">{T.project_bipsy_tag}</span>
+    </div>
+
+    <p class="bf-desc">{T.project_bipsy_desc}</p>
+
+    <ul class="bf-apps" role="list">
+      <li class="bf-app">{T.projects_app_client}</li>
+      <li class="bf-app">{T.projects_app_business}</li>
+    </ul>
+
+    <div class="bf-foot">
+      <span class="bf-cta">
+        <span>{T.project_bipsy_cta}</span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </span>
+      <span class="bf-meta">{T.project_bipsy_meta}</span>
+    </div>
+  </div>
+
+  <!-- ---------- VISUAL: the two apps stacked ---------- -->
+  <div class="bf-visual" aria-hidden="true">
+    <div class="bf-shot bf-shot--back">
+      <img src={businessShot.src} alt="" width="820" height="627" loading="lazy" />
+    </div>
+    <div class="bf-shot bf-shot--front">
+      <img src={clientShot.src} alt="" width="820" height="627" loading="lazy" />
+    </div>
+  </div>
+</a>
+
+<style>
+  .bf-card {
+    --mint: #c0ebd1;
+    --mint-deep: #3f8c66;
+    --slate: #6d7174;
+
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.02fr;
+    align-items: center;
+    gap: 2rem;
+    overflow: hidden;
+    padding: 3rem 3rem 3rem 3.2rem;
+    border-radius: 34px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    box-shadow:
+      0 14px 44px rgba(0, 0, 0, 0.04),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    transition:
+      transform 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+      background 0.55s ease,
+      border-color 0.55s ease;
+  }
+
+  .bf-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      0 34px 70px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  .bf-aura {
+    position: absolute;
+    top: -45%;
+    right: -12%;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.75) 0%, rgba(192, 235, 209, 0) 66%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Slow light sweep across the glass */
+  .bf-shine {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .bf-shine::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -55%;
+    width: 45%;
+    height: 220%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transform: rotate(14deg);
+    animation: bfShine 9s ease-in-out 2s infinite;
+  }
+
+  @keyframes bfShine {
+    0% { left: -55%; }
+    35%, 100% { left: 135%; }
+  }
+
+  /* ---------- CONTENT ---------- */
+  .bf-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .bf-status {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3f8c66;
+  }
+
+  .bf-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-top: 0.5rem;
+  }
+
+  .bf-mark {
+    width: 132px;
+    height: auto;
+  }
+
+  .bf-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .bf-desc {
+    font-size: 0.94rem;
+    line-height: 1.72;
+    color: rgba(0, 0, 0, 0.58);
+    margin: 0.2rem 0 0;
+    max-width: 44ch;
+  }
+
+  .bf-apps {
+    list-style: none;
+    padding: 0;
+    margin: 0.6rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .bf-app {
+    font-size: 0.83rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .bf-foot {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+
+  .bf-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    background: #000;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bf-cta svg { transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); }
+
+  .bf-card:hover .bf-cta {
+    background: #31373c;
+    box-shadow: 0 10px 26px rgba(49, 55, 60, 0.25);
+  }
+
+  .bf-card:hover .bf-cta svg { transform: translateX(4px); }
+
+  .bf-meta {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.34);
+  }
+
+  /* ---------- VISUAL ---------- */
+  .bf-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+  }
+
+  .bf-shot {
+    position: absolute;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.65s ease;
+  }
+
+  .bf-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Bipsy Business sits behind, tilted */
+  .bf-shot--back {
+    width: 78%;
+    transform: translate(-11%, -13%) rotate(-5deg);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Bipsy (client) leads in front */
+  .bf-shot--front {
+    width: 82%;
+    transform: translate(10%, 11%) rotate(2.5deg);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.11);
+  }
+
+  .bf-card:hover .bf-shot--back {
+    transform: translate(-14%, -16%) rotate(-6.5deg);
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.09);
+  }
+
+  .bf-card:hover .bf-shot--front {
+    transform: translate(12%, 13%) rotate(3.5deg);
+    box-shadow: 0 30px 62px rgba(0, 0, 0, 0.14);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 960px) {
+    .bf-card {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+      padding: 2.4rem 2rem;
+      border-radius: 26px;
+    }
+    .bf-visual { order: -1; min-height: 260px; }
+    .bf-shot--back { width: 72%; transform: translate(-14%, -13%) rotate(-5deg); }
+    .bf-shot--front { width: 76%; transform: translate(13%, 11%) rotate(2.5deg); }
+  }
+
+  @media (max-width: 600px) {
+    .bf-card { padding: 1.8rem 1.4rem; border-radius: 22px; }
+    .bf-visual { min-height: 210px; }
+    .bf-mark { width: 116px; }
+    .bf-foot { width: 100%; }
+    .bf-cta { width: 100%; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bf-shine::after { animation: none; }
+  }
+</style>

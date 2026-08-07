@@ -13,12 +13,7 @@ import angularLogo from '../../assets/tech_stack/angular.webp';
 import reactLogo from '../../assets/tech_stack/react.webp';
 import astroLogo from '../../assets/tech_stack/astro.webp';
 
-// Project images
-import gipsiImg from '../../assets/projects/gipsi_barber.webp';
-import nexusImg from '../../assets/projects/nexus.png';
-import rewindtvImg from '../../assets/projects/rewindtv.webp';
-import auramoviesImg from '../../assets/projects/auramovies.webp';
-import { getImage } from 'astro:assets';
+import BipsyFeaturedCard from '../bipsy/BipsyFeaturedCard.astro';
 
 import { getLocalizedPath } from '../../lib/paths';
 
@@ -48,49 +43,6 @@ const logos = [
 ];
 
 const marqueeLogos = [...logos, ...logos, ...logos];
-
-const projects = await Promise.all([
-  {
-    slug: "gipsi",
-    image: gipsiImg,
-    tagKey: "project_1_tag",
-    titleKey: "project_1_title",
-    descKey: "project_1_desc",
-    class: "project-card--wide",
-  },
-  {
-    slug: "nexus",
-    image: nexusImg,
-    tagKey: "project_2_tag",
-    titleKey: "project_2_title",
-    descKey: "project_2_desc",
-    class: "project-card--narrow",
-    bgSize: "contain",
-    bgColor: "#EACCE4",
-  },
-  {
-    slug: "rewind-tv",
-    image: rewindtvImg,
-    tagKey: "project_3_tag",
-    titleKey: "project_3_title",
-    descKey: "project_3_desc",
-    class: "project-card--narrow",
-  },
-  {
-    slug: "auramovies",
-    image: auramoviesImg,
-    tagKey: "project_4_tag",
-    titleKey: "project_4_title",
-    descKey: "project_4_desc",
-    class: "project-card--wide",
-  },
-].map(async (proj) => {
-  const optimized = await getImage({ src: proj.image, format: 'webp', width: 800 });
-  return {
-    ...proj,
-    optimizedSrc: optimized.src,
-  };
-}));
 ---
 
 <!-- ==================== PIONEERS / FLUTTER SECTION ==================== -->
@@ -126,67 +78,32 @@ const projects = await Promise.all([
   </div>
 </section>
 
-<!-- ==================== PROJECTS SUMMARY SECTION ==================== -->
-<section class="projects-section" id="projects" aria-label="Casos de éxito">
+<!-- ==================== FEATURED PROJECT SECTION ==================== -->
+<section class="projects-section" id="projects" aria-label="Bipsy">
   <div class="projects-inner">
     <!-- Section Header -->
     <div class="projects-header reveal">
       <p class="projects-eyebrow" data-i18n="projects_eyebrow">{T.projects_eyebrow}</p>
       <h2 class="projects-title" data-i18n="projects_title">{T.projects_title}</h2>
+      <p class="projects-sub" data-i18n="projects_home_sub">{T.projects_home_sub}</p>
     </div>
 
-    <!-- Asymmetric Grid of Projects -->
-    <div class="projects-grid reveal-stagger">
-      {projects.map((proj) => (
-        <a href={localizedPath(`/proyecto/${proj.slug}`)} class={`project-card ${proj.class}`} style={`--proj-bg: url('${proj.optimizedSrc}');${proj.bgSize ? ` --proj-bg-size: ${proj.bgSize};` : ''}${proj.bgPos ? ` --proj-bg-pos: ${proj.bgPos};` : ''}${proj.bgColor ? ` background-color: ${proj.bgColor};` : ''}`}>
-          <div class="project-card-overlay"></div>
-          <div class="project-card-content">
-            <div class="project-card-top">
-              <span class="project-card-tag" data-i18n={proj.tagKey}>{T[proj.tagKey]}</span>
-              <div class="project-card-arrow">
-                <svg viewBox="0 0 14 14" fill="none" width="13" height="13">
-                  <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-            <div class="project-card-bottom">
-              <h3 class="project-card-name" data-i18n={proj.titleKey}>{T[proj.titleKey]}</h3>
-              <p class="project-card-desc" data-i18n={proj.descKey}>{T[proj.descKey]}</p>
-            </div>
-          </div>
-        </a>
-      ))}
+    <!-- Bipsy, our in-house product -->
+    <div class="projects-stage reveal">
+      <BipsyFeaturedCard lang={lang} />
     </div>
 
-    <!-- Carousel scroll indicator (mobile only) -->
-    <div class="projects-carousel-indicator" aria-hidden="true">
-      <div class="projects-indicator-track">
-        <div class="projects-indicator-bar" id="projects-indicator-bar"></div>
-      </div>
+    <div class="projects-more reveal">
+      <a href={localizedPath('/proyectos')} class="projects-more-link" data-i18n="nav_projects">
+        <span>{T.nav_projects}</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
-
-<!-- Script for mobile projects carousel indicator -->
-<script>
-  function initProjectsCarousel() {
-    const grid = document.querySelector('.projects-grid');
-    const bar = document.getElementById('projects-indicator-bar');
-    if (grid && bar) {
-      const updateIndicator = () => {
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        const percentage = maxScroll > 0 ? (grid.scrollLeft / maxScroll) * 100 : 0;
-        bar.style.width = `${percentage}%`;
-      };
-      grid.addEventListener('scroll', updateIndicator, { passive: true });
-      window.addEventListener('resize', updateIndicator, { passive: true });
-      updateIndicator();
-    }
-  }
-
-  initProjectsCarousel();
-  document.addEventListener('astro:after-swap', initProjectsCarousel);
-</script>
 
 <style>
   /* ========================================
@@ -397,229 +314,45 @@ const projects = await Promise.all([
     max-width: 620px;
   }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 20px;
+  .projects-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #666;
+    margin: 1.1rem 0 0;
+    max-width: 560px;
   }
 
-  .project-card--wide { grid-column: span 6; }
-  .project-card--narrow { grid-column: span 4; }
+  .projects-stage {
+    width: 100%;
+  }
 
-  .project-card {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    min-height: 420px;
-    cursor: pointer;
+  /* Link back to the full projects page */
+  .projects-more {
     display: flex;
-    flex-direction: column;
     justify-content: flex-end;
-    text-decoration: none;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
-                box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-top: 1.6rem;
   }
 
-  .project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: var(--proj-bg);
-    background-size: var(--proj-bg-size, cover);
-    background-position: var(--proj-bg-pos, center);
-    background-repeat: no-repeat;
-    z-index: 0;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .project-card:hover::before { transform: scale(1.04); }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-  }
-
-  .project-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.05) 100%);
-    z-index: 1;
-  }
-
-  .project-card-content {
-    position: relative;
-    z-index: 2;
-    padding: 2.2rem;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: inherit;
-  }
-
-  .project-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: auto;
-    width: 100%;
-  }
-
-  .project-card-tag {
+  .projects-more-link {
     display: inline-flex;
-    padding: 0.35rem 0.85rem;
-    border-radius: 100px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-  }
-
-  .project-card-arrow {
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.12);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    transition: color 0.25s ease;
   }
 
-  .project-card:hover .project-card-arrow {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.25);
-    transform: rotate(45deg);
-  }
-
-  .project-card-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    margin-top: auto;
-  }
-
-  .project-card-name {
-    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #fff;
-    margin: 0;
-    line-height: 1.15;
-  }
-
-  .project-card-desc {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.5;
-    margin: 0;
-    font-weight: 400;
-    max-width: 90%;
-  }
-
-  /* Mobile Carousel Indicator Styles */
-  .projects-carousel-indicator {
-    display: none;
-    justify-content: center;
-    margin-top: 2rem;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-  }
-  .projects-indicator-track {
-    width: 80px;
-    height: 2px;
-    background: rgba(0, 0, 0, 0.08);
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-  }
-  .projects-indicator-bar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0%;
-    background: #000;
-    border-radius: 10px;
-  }
-
-  @media (max-width: 960px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-    .project-card--wide,
-    .project-card--narrow {
-      grid-column: span 10;
-      min-height: 360px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
-      gap: 16px;
-      margin: 0 -2rem;
-      padding: 0.5rem 2rem 1.5rem;
-    }
-
-    .projects-grid::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
-    }
-
-    .projects-grid::after {
-      content: '';
-      flex: 0 0 2rem;
-      width: 2rem;
-      display: block;
-      pointer-events: none;
-    }
-
-    .project-card {
-      flex: 0 0 82vw;
-      max-width: 340px;
-      scroll-snap-align: start;
-      scroll-margin-left: 2rem;
-      grid-column: auto !important;
-      min-height: 380px;
-    }
-
-    .projects-carousel-indicator {
-      display: flex;
-    }
-  }
+  .projects-more-link svg { transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+  .projects-more-link:hover { color: #000; }
+  .projects-more-link:hover svg { transform: translateX(3px); }
 
   @media (max-width: 600px) {
     .pioneers-section,
     .projects-section { padding: 5rem 1.5rem; }
-    .projects-grid {
-      margin: 0 -1.5rem;
-      padding: 0.5rem 1.5rem 1.5rem;
-    }
-    .projects-grid::after {
-      flex: 0 0 1.5rem;
-      width: 1.5rem;
-    }
-    .project-card {
-      min-height: 320px;
-      border-radius: 18px;
-      scroll-margin-left: 1.5rem;
-    }
-    .project-card-content { padding: 1.5rem; }
+    .projects-header { margin-bottom: 2.4rem; }
+    .projects-more { justify-content: center; }
   }
 </style>
