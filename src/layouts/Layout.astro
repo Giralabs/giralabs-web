@@ -205,10 +205,20 @@ const xDefaultHref = esHref;
 		transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 	}
 
-	.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+	/* Every child becomes visible. Previously the reveal was bundled into the
+	   per-child delay rules, which only went up to six, so any grid with more
+	   items than that left the rest permanently at opacity 0. */
+	.reveal-stagger.visible > * {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* The delay is what staggers, and it only needs to cover the first screenful */
+	.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+	.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+	.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+	.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+	.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+	.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+	.reveal-stagger.visible > *:nth-child(n + 7) { transition-delay: 0.6s; }
 </style>
