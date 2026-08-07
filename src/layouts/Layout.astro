@@ -34,7 +34,9 @@ const xDefaultHref = esHref;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content={lang === 'en' ? "noindex, follow" : "index, follow"} />
+		<!-- Both languages are indexable. The hreflang block below is what keeps a
+		     Spanish searcher on the Spanish URL and an English one on /en/ -->
+		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Alternate hreflang configurations for multilingual search indexing -->

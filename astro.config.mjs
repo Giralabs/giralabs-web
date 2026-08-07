@@ -36,7 +36,10 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/en/') && !page.endsWith('/en') && !page.includes('/api/') && !page.endsWith('/api'),
+      // English pages stay in: they are indexable and paired by hreflang.
+      // Slugs are translated (/servicios vs /en/services), so the pairing lives
+      // in the page head, not in the sitemap's own i18n option.
+      filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/api/') && !page.endsWith('/api'),
     }),
     {
       name: 'newsletter-notifier',
