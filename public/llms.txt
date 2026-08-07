@@ -29,6 +29,13 @@ Datos clave:
 - [App nativa, multiplataforma o web app: cuál elegir](https://giralabs.es/blog/app-nativa-multiplataforma-o-web-cual-elegir): criterios para decidir la tecnología según el caso de uso, no según la moda.
 - [Cómo digitalizar la gestión de citas de una barbería o peluquería](https://giralabs.es/blog/digitalizar-gestion-citas-barberia-peluqueria): opciones disponibles, qué cuesta cada una y cómo hacer la transición.
 - [Software a medida o software estándar: cómo decidir](https://giralabs.es/blog/software-a-medida-o-estandar-como-elegir): cuándo compensa cada opción y coste total a cinco años.
+- [Desarrollo de software en Sevilla: cómo elegir proveedor](https://giralabs.es/blog/desarrollo-software-sevilla-como-elegir-proveedor): qué preguntar, cómo comparar presupuestos y señales de alarma.
+- [Cuánto cuesta una página web para una empresa en 2026](https://giralabs.es/blog/cuanto-cuesta-una-pagina-web-para-empresa-2026): los cuatro rangos de precio y qué incluye cada uno.
+- [Qué es un MVP y cómo definir el alcance](https://giralabs.es/blog/que-es-un-mvp-y-como-definir-el-alcance): método para decidir qué entra en la primera versión.
+- [Siete errores caros al encargar una app móvil](https://giralabs.es/blog/errores-al-encargar-una-app-movil): fallos de expectativas y de contrato, no técnicos.
+- [Tienda online: plataforma o desarrollo a medida](https://giralabs.es/blog/tienda-online-a-medida-o-plataforma): costes, comisiones y cuándo compensa cada opción.
+- [Integrar IA en una pyme: por dónde empezar](https://giralabs.es/blog/integrar-ia-en-una-pyme-por-donde-empezar): casos con retorno real y los que no compensan.
+- [Publicar una app en App Store y Google Play](https://giralabs.es/blog/publicar-app-store-google-play-requisitos-rechazos): requisitos, plazos y motivos de rechazo frecuentes.
 - [Ingeniería agentic en desarrollo de software](https://giralabs.es/blog/ingenieria-agentic-desarrollo-software-2026)
 - [Facturación electrónica obligatoria para pymes](https://giralabs.es/blog/facturacion-electronica-obligatoria-pymes-2026)
 - [Ciberseguridad secure by design para pymes](https://giralabs.es/blog/ciberseguridad-secure-by-design-pymes-2026)
