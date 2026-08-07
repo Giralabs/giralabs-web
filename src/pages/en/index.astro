@@ -9,6 +9,7 @@ import NativeSpeed from '../../components/home/NativeSpeed.astro';
 import Faq from '../../components/home/Faq.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
+import BipsyAnnounce from '../../components/bipsy/BipsyAnnounce.astro';
 import { translations } from '../../i18n/translations';
 
 export const prerender = true;
@@ -43,6 +44,9 @@ const T = translations[lang];
   />
   <Faq lang={lang} />
   <Footer lang={lang} />
+
+  <!-- ==================== BIPSY IN-DEVELOPMENT NOTICE ==================== -->
+  <BipsyAnnounce lang={lang} />
 
 </Layout>
 
