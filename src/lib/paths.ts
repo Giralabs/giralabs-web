@@ -52,7 +52,9 @@ export function getLocalizedPath(path: string, lang: string): string {
   }
 }
 
-// Function to translate pathname for the language switcher
+// Translates a pathname into the requested language. Used by the language
+// switcher and by the hreflang annotations, so it must be idempotent: asking
+// for the language a path is already in has to return that same path.
 export function getSwitchLanguagePath(currentPathname: string, targetLang: string): string {
   // Normalize pathname (remove trailing slash except for root / and /en/)
   let path = currentPathname;
@@ -60,19 +62,22 @@ export function getSwitchLanguagePath(currentPathname: string, targetLang: strin
     path = path.slice(0, -1);
   }
 
+  // Resolve to the Spanish path first, whatever language we came from.
+  // Without this, an English path asking for English gets prefixed twice
+  // (/en/projects -> /en/en/projects) and every hreflang on the English
+  // pages points at a URL that does not exist.
+  let esPath = path;
+  if (path === '/en' || path === '/en/' || path.startsWith('/en/')) {
+    const stripped = path.replace(/^\/en/, '') || '/';
+    const normalized = stripped === '' ? '/' : stripped;
+    esPath = urlMapENtoES[normalized] || normalized;
+  }
+
   if (targetLang === 'en') {
-    // Switching from ES to EN
-    const enPath = urlMapEStoEN[path] || path;
+    const enPath = urlMapEStoEN[esPath] || esPath;
     if (enPath === '/') return '/en/';
     return `/en${enPath}`;
-  } else {
-    // Switching from EN to ES
-    let cleanPath = path;
-    if (path.startsWith('/en/')) {
-      cleanPath = path.replace(/^\/en/, '') || '/';
-    } else if (path.startsWith('/en')) {
-      cleanPath = path.substring(3) || '/';
-    }
-    return urlMapENtoES[cleanPath] || cleanPath;
   }
+
+  return esPath;
 }
