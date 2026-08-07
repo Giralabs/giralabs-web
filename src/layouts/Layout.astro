@@ -66,10 +66,16 @@ const xDefaultHref = esHref;
 		<meta name="twitter:image" content="https://giralabs.es/og-image.png" />
 		<meta name="twitter:image:alt" content="Giralabs" />
 
-		<!-- Google Fonts for premium fallback typography -->
+		<!-- Google Fonts for premium fallback typography.
+		     Outfit is only the fallback for locally installed Gilroy, so it must not
+		     block the first paint: loaded asynchronously via the media swap trick. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+		<noscript>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+		</noscript>
 		<!-- JSON-LD Schema Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
