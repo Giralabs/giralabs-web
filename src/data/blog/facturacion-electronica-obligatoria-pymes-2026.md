@@ -5,7 +5,7 @@ description: "Descubre cómo afectará la facturación electrónica obligatoria 
 date: "2026-07-17"
 tags: ["Digitalización", "Normativa", "Software a Medida"]
 readingTime: "8 min"
-image: "../../assets/blog/electronic_invoicing.png"
+image: "../../assets/blog/electronic_invoicing.webp"
 ---
 
 Durante la última década, la digitalización en el ámbito administrativo ha sido, para la gran mayoría de las pequeñas y medianas empresas españolas, un proceso progresivo y voluntario. Cada negocio avanzaba a su propio ritmo: algunos adoptaban herramientas en la nube para gestionar sus cuentas, mientras otros preferían seguir emitiendo facturas en formatos tradicionales o enviando archivos PDF simples por correo electrónico. Sin embargo, este escenario de digitalización a la carta está llegando a su fin. 

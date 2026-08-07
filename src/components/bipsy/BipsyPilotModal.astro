@@ -1,0 +1,505 @@
+---
+interface Props {
+  lang?: string;
+  actionUrl?: string;
+}
+
+const { lang = 'es', actionUrl = 'https://formspree.io/f/xvznwgob' } = Astro.props;
+const isEs = lang !== 'en';
+
+const t = isEs
+  ? {
+      eyebrow: 'BETA DE BIPSY BUSINESS',
+      title: 'Apúntate como negocio piloto',
+      intro: 'Déjanos tres datos y te escribimos cuando abramos la beta. Sin coste y sin compromiso.',
+      venue: 'Nombre del local',
+      venuePlaceholder: 'Tu local',
+      phone: 'Teléfono',
+      phonePlaceholder: 'Tu teléfono',
+      email: 'Correo electrónico',
+      emailPlaceholder: 'Tu correo',
+      submit: 'Enviar solicitud',
+      sending: 'Enviando…',
+      close: 'Cerrar formulario',
+      errorRequired: 'Rellena los tres campos para continuar.',
+      errorEmail: 'Revisa el correo electrónico.',
+      errorPhone: 'Revisa el número de teléfono.',
+      errorSend: 'No hemos podido enviar la solicitud. Inténtalo de nuevo o escríbenos a support@giralabs.es.',
+      successTitle: '¡Anotado!',
+      successBody: 'Te avisaremos en cuanto abramos la beta de Bipsy Business.',
+      successClose: 'Cerrar',
+      subject: 'Bipsy — Nueva solicitud de negocio piloto',
+    }
+  : {
+      eyebrow: 'BIPSY BUSINESS BETA',
+      title: 'Sign up as a pilot venue',
+      intro: 'Leave us three details and we will write to you when the beta opens. No cost, no commitment.',
+      venue: 'Venue name',
+      venuePlaceholder: 'Your venue',
+      phone: 'Phone',
+      phonePlaceholder: 'Your phone',
+      email: 'Email',
+      emailPlaceholder: 'Your email',
+      submit: 'Send request',
+      sending: 'Sending…',
+      close: 'Close form',
+      errorRequired: 'Please fill in all three fields to continue.',
+      errorEmail: 'Please check the email address.',
+      errorPhone: 'Please check the phone number.',
+      errorSend: 'We could not send your request. Try again or email us at support@giralabs.es.',
+      successTitle: 'All set!',
+      successBody: 'We will let you know as soon as the Bipsy Business beta opens.',
+      successClose: 'Close',
+      subject: 'Bipsy — New pilot venue request',
+    };
+---
+
+<div class="pilot" data-pilot-modal hidden>
+  <div class="pilot-backdrop" data-pilot-close aria-hidden="true"></div>
+
+  <div class="pilot-card" role="dialog" aria-modal="true" aria-labelledby="pilot-title" data-pilot-card tabindex="-1">
+    <div class="pilot-glow" aria-hidden="true"></div>
+
+    <button type="button" class="pilot-close" data-pilot-close aria-label={t.close}>
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- ---------- FORM ---------- -->
+    <div class="pilot-body" data-pilot-body>
+      <p class="pilot-eyebrow">{t.eyebrow}</p>
+      <h2 class="pilot-title" id="pilot-title">{t.title}</h2>
+      <p class="pilot-intro">{t.intro}</p>
+
+      <form class="pilot-form" action={actionUrl} method="POST" data-pilot-form novalidate>
+        <input type="hidden" name="_subject" value={t.subject} />
+        <input type="hidden" name="origen" value="Bipsy — landing de producto" />
+        <!-- Formspree honeypot -->
+        <input type="text" name="_gotcha" class="pilot-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <label class="pilot-field">
+          <span class="pilot-label">{t.venue}</span>
+          <input type="text" name="local" required autocomplete="organization" placeholder={t.venuePlaceholder} data-pilot-venue />
+        </label>
+
+        <label class="pilot-field">
+          <span class="pilot-label">{t.phone}</span>
+          <input type="tel" name="telefono" required autocomplete="tel" placeholder={t.phonePlaceholder} data-pilot-phone />
+        </label>
+
+        <label class="pilot-field">
+          <span class="pilot-label">{t.email}</span>
+          <input type="email" name="email" required autocomplete="email" placeholder={t.emailPlaceholder} data-pilot-email />
+        </label>
+
+        <p class="pilot-error" data-pilot-error role="alert"></p>
+
+        <button type="submit" class="pilot-submit" data-pilot-submit>
+          <span data-pilot-submit-text>{t.submit}</span>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- ---------- SUCCESS ---------- -->
+    <div class="pilot-success" data-pilot-success hidden>
+      <span class="pilot-success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </span>
+      <h2 class="pilot-title">{t.successTitle}</h2>
+      <p class="pilot-intro">{t.successBody}</p>
+      <button type="button" class="pilot-submit" data-pilot-close>{t.successClose}</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ strings: t }}>
+  (function () {
+    function initPilotModal() {
+      const modal = document.querySelector('[data-pilot-modal]');
+      if (!modal || modal.dataset.pilotReady === 'true') return;
+      modal.dataset.pilotReady = 'true';
+
+      const card = modal.querySelector('[data-pilot-card]');
+      const form = modal.querySelector('[data-pilot-form]');
+      const body = modal.querySelector('[data-pilot-body]');
+      const success = modal.querySelector('[data-pilot-success]');
+      const errorEl = modal.querySelector('[data-pilot-error]');
+      const submitBtn = modal.querySelector('[data-pilot-submit]');
+      const submitText = modal.querySelector('[data-pilot-submit-text]');
+      let lastTrigger = null;
+
+      const open = (trigger) => {
+        lastTrigger = trigger || null;
+        modal.hidden = false;
+        requestAnimationFrame(() => modal.classList.add('is-open'));
+        document.documentElement.classList.add('pilot-open');
+        modal.querySelector('[data-pilot-venue]')?.focus();
+      };
+
+      const close = () => {
+        modal.classList.remove('is-open');
+        document.documentElement.classList.remove('pilot-open');
+        window.setTimeout(() => {
+          modal.hidden = true;
+          // reset back to the form so a second visit starts clean
+          body.hidden = false;
+          success.hidden = true;
+          errorEl.textContent = '';
+        }, 300);
+        lastTrigger?.focus();
+      };
+
+      document.querySelectorAll('[data-pilot-open]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          open(btn);
+        });
+      });
+      modal.querySelectorAll('[data-pilot-close]').forEach((el) => el.addEventListener('click', close));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.hidden) close();
+      });
+
+      // Keep focus inside the dialog
+      card.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const focusables = card.querySelectorAll('input:not([tabindex="-1"]), button');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const venue = form.querySelector('[data-pilot-venue]');
+        const phone = form.querySelector('[data-pilot-phone]');
+        const email = form.querySelector('[data-pilot-email]');
+
+        const fail = (message, field) => {
+          errorEl.textContent = message;
+          field?.focus();
+        };
+
+        if (!venue.value.trim() || !phone.value.trim() || !email.value.trim()) {
+          const empty = !venue.value.trim() ? venue : !phone.value.trim() ? phone : email;
+          return fail(strings.errorRequired, empty);
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
+          return fail(strings.errorEmail, email);
+        }
+        // 7+ digits, allowing spaces, dashes, dots, parens and a leading +
+        if (!/^\+?[\d\s().-]{7,}$/.test(phone.value.trim())) {
+          return fail(strings.errorPhone, phone);
+        }
+
+        errorEl.textContent = '';
+        submitBtn.disabled = true;
+        submitText.textContent = strings.sending;
+
+        try {
+          const response = await fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          if (!response.ok) throw new Error('Formspree submission failed');
+          form.reset();
+          body.hidden = true;
+          success.hidden = false;
+          success.querySelector('button')?.focus();
+        } catch (err) {
+          console.error('Pilot request error:', err);
+          errorEl.textContent = strings.errorSend;
+        } finally {
+          submitBtn.disabled = false;
+          submitText.textContent = strings.submit;
+        }
+      });
+    }
+
+    initPilotModal();
+    document.addEventListener('astro:after-swap', initPilotModal);
+  })();
+</script>
+
+<style>
+  .pilot {
+    --mint: #c0ebd1;
+    --mint-deep: #3f8c66;
+    --carbon: #31373c;
+
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .pilot.is-open { opacity: 1; }
+
+  /* display:flex above would beat the UA [hidden] rule and leave an
+     invisible overlay swallowing every click on the page */
+  .pilot[hidden] { display: none; }
+
+  .pilot-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 24, 22, 0.5);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+
+  /* ---- GLASS CARD ---- */
+  .pilot-card {
+    position: relative;
+    width: min(430px, 100%);
+    margin: auto;
+    overflow: hidden;
+    padding: 2.4rem 2.2rem;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.66);
+    backdrop-filter: blur(34px) saturate(180%);
+    -webkit-backdrop-filter: blur(34px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.88);
+    box-shadow:
+      0 40px 90px rgba(0, 0, 0, 0.24),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+    outline: none;
+  }
+
+  .pilot.is-open .pilot-card { transform: translateY(0) scale(1); }
+
+  .pilot-glow {
+    position: absolute;
+    top: -30%;
+    right: -25%;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.7) 0%, transparent 66%);
+    filter: blur(44px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pilot-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.45);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: color 0.25s ease, background 0.25s ease, transform 0.3s ease;
+  }
+
+  .pilot-close:hover {
+    color: #000;
+    background: rgba(255, 255, 255, 0.92);
+    transform: rotate(90deg);
+  }
+
+  .pilot-body,
+  .pilot-success {
+    position: relative;
+    z-index: 1;
+  }
+
+  .pilot-eyebrow {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mint-deep);
+    margin: 0 0 0.7rem;
+  }
+
+  .pilot-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    color: #000;
+    margin: 0 0 0.6rem;
+  }
+
+  .pilot-intro {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0 0 1.6rem;
+  }
+
+  /* ---- FORM ---- */
+  .pilot-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .pilot-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .pilot-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .pilot-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .pilot-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #000;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .pilot-field input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-weight: 400;
+  }
+
+  .pilot-field input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.68);
+    border-color: rgba(192, 235, 209, 0.95);
+    box-shadow: 0 0 0 3px rgba(192, 235, 209, 0.45);
+  }
+
+  .pilot-error {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #b3402c;
+    margin: 0;
+    min-height: 0;
+  }
+
+  .pilot-error:empty { display: none; }
+
+  .pilot-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 0.3rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #24503b;
+    background: rgba(192, 235, 209, 0.55);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(192, 235, 209, 0.95);
+    box-shadow:
+      0 8px 22px rgba(63, 140, 102, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .pilot-submit svg { transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+
+  .pilot-submit:hover:not(:disabled) {
+    background: rgba(192, 235, 209, 0.8);
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 30px rgba(63, 140, 102, 0.2),
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  .pilot-submit:hover:not(:disabled) svg { transform: translateX(3px); }
+
+  .pilot-submit:disabled { opacity: 0.6; cursor: default; }
+
+  /* ---- SUCCESS ---- */
+  .pilot-success {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Same trap as .pilot[hidden]: display must be reset for [hidden] to win */
+  .pilot-body[hidden],
+  .pilot-success[hidden] { display: none; }
+
+  .pilot-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 1.2rem;
+    border-radius: 15px;
+    color: var(--mint-deep);
+    background: rgba(192, 235, 209, 0.45);
+    backdrop-filter: blur(14px) saturate(170%);
+    -webkit-backdrop-filter: blur(14px) saturate(170%);
+    border: 1px solid rgba(192, 235, 209, 0.9);
+  }
+
+  :global(html.pilot-open) { overflow: hidden; }
+
+  @media (max-width: 520px) {
+    .pilot { padding: 1rem; }
+    .pilot-card { padding: 2rem 1.4rem; border-radius: 24px; }
+    .pilot-submit { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pilot,
+    .pilot-card { transition-duration: 0.01ms; }
+  }
+</style>

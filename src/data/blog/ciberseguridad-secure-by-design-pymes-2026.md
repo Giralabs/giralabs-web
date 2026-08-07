@@ -5,7 +5,7 @@ description: "Descubre qué es la ciberseguridad secure by design y cómo esta n
 date: "2026-07-17"
 tags: ["Ciberseguridad", "Secure by Design", "Software a Medida"]
 readingTime: "8 min"
-image: "../../assets/blog/secure_by_design.png"
+image: "../../assets/blog/secure_by_design.webp"
 ---
 
 El desarrollo de software empresarial ha cambiado radicalmente. Durante mucho tiempo, la ciberseguridad se percibió como un elemento secundario, un escudo añadido a la aplicación al final. En el contexto empresarial, era habitual encargar un desarrollo y, justo antes del lanzamiento, plantear la seguridad como un trámite menor: un certificado SSL, un plugin básico y confiar en la suerte.

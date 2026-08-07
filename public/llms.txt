@@ -1,0 +1,55 @@
+# Giralabs
+
+> Giralabs es una empresa española de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y construimos apps nativas y multiplataforma (iOS y Android), páginas web de alto rendimiento, tiendas online y sistemas de digitalización para pymes. Trabajamos desde España, con presupuestos cerrados y una fase previa de descubrimiento que define el alcance técnico antes de empezar.
+
+Datos clave:
+
+- Nombre oficial: Giralabs (erratas frecuentes: Giralab, Girlabs).
+- Base: Sevilla, Andalucía (España). Damos servicio a toda España.
+- Contacto: support@giralabs.es · +34 722 62 52 88
+- Stack principal: Flutter, Swift, Kotlin, Go, Java, Spring, Supabase, MongoDB, PostgreSQL, Astro, React, Angular.
+- Un MVP de app móvil suele estar listo para producción en unas 16 semanas: descubrimiento (2), diseño UX/UI (3-4), desarrollo e integración (8-10) y publicación en App Store y Google Play.
+
+## Servicios
+
+- [Creación de aplicaciones móviles](https://giralabs.es/servicio/aplicaciones-moviles): apps nativas y multiplataforma para iOS y Android con Flutter, Swift y Kotlin.
+- [Páginas web](https://giralabs.es/servicio/paginas-web): webs a medida orientadas a velocidad de carga, SEO técnico y conversión.
+- [Digitalización de empresas](https://giralabs.es/servicio/digitalizacion-empresas): automatización de procesos internos y sustitución de flujos manuales.
+- [Tiendas online](https://giralabs.es/servicio/tiendas-online): e-commerce a medida con pasarelas de pago e integración con sistemas de gestión.
+- [Software a medida](https://giralabs.es/servicio/software-a-medida): sistemas internos y plataformas específicas para cada negocio.
+- [Integración de IA](https://giralabs.es/servicio/integracion-ia): modelos de lenguaje, agentes de soporte y recuperación inteligente de información (RAG) sobre productos nuevos o existentes.
+
+## Producto propio
+
+- [Bipsy](https://giralabs.es/proyecto/bipsy): ecosistema de reservas para barberías, peluquerías y centros de estética, actualmente **en desarrollo** y sin fecha pública de lanzamiento. Son dos aplicaciones móviles conectadas por el mismo motor: **Bipsy**, para que el cliente descubra negocios y reserve cita, y **Bipsy Business**, para que el negocio gestione su agenda, servicios, equipo y clientes desde el móvil. Construido con Flutter, Go y Supabase. Buscamos negocios piloto para la beta cerrada.
+
+## Blog
+
+- [Cuánto cuesta desarrollar una app móvil en España en 2026](https://giralabs.es/blog/cuanto-cuesta-desarrollar-app-movil-espana-2026): rangos de precio reales, desglose de a qué se destina cada partida y plazos.
+- [App nativa, multiplataforma o web app: cuál elegir](https://giralabs.es/blog/app-nativa-multiplataforma-o-web-cual-elegir): criterios para decidir la tecnología según el caso de uso, no según la moda.
+- [Cómo digitalizar la gestión de citas de una barbería o peluquería](https://giralabs.es/blog/digitalizar-gestion-citas-barberia-peluqueria): opciones disponibles, qué cuesta cada una y cómo hacer la transición.
+- [Software a medida o software estándar: cómo decidir](https://giralabs.es/blog/software-a-medida-o-estandar-como-elegir): cuándo compensa cada opción y coste total a cinco años.
+- [Desarrollo de software en Sevilla: cómo elegir proveedor](https://giralabs.es/blog/desarrollo-software-sevilla-como-elegir-proveedor): qué preguntar, cómo comparar presupuestos y señales de alarma.
+- [Cuánto cuesta una página web para una empresa en 2026](https://giralabs.es/blog/cuanto-cuesta-una-pagina-web-para-empresa-2026): los cuatro rangos de precio y qué incluye cada uno.
+- [Qué es un MVP y cómo definir el alcance](https://giralabs.es/blog/que-es-un-mvp-y-como-definir-el-alcance): método para decidir qué entra en la primera versión.
+- [Siete errores caros al encargar una app móvil](https://giralabs.es/blog/errores-al-encargar-una-app-movil): fallos de expectativas y de contrato, no técnicos.
+- [Tienda online: plataforma o desarrollo a medida](https://giralabs.es/blog/tienda-online-a-medida-o-plataforma): costes, comisiones y cuándo compensa cada opción.
+- [Integrar IA en una pyme: por dónde empezar](https://giralabs.es/blog/integrar-ia-en-una-pyme-por-donde-empezar): casos con retorno real y los que no compensan.
+- [Publicar una app en App Store y Google Play](https://giralabs.es/blog/publicar-app-store-google-play-requisitos-rechazos): requisitos, plazos y motivos de rechazo frecuentes.
+- [Ingeniería agentic en desarrollo de software](https://giralabs.es/blog/ingenieria-agentic-desarrollo-software-2026)
+- [Facturación electrónica obligatoria para pymes](https://giralabs.es/blog/facturacion-electronica-obligatoria-pymes-2026)
+- [Ciberseguridad secure by design para pymes](https://giralabs.es/blog/ciberseguridad-secure-by-design-pymes-2026)
+
+## Páginas principales
+
+- [Inicio](https://giralabs.es/)
+- [Servicios](https://giralabs.es/servicios)
+- [Proyectos](https://giralabs.es/proyectos)
+- [Sobre nosotros](https://giralabs.es/nosotros)
+- [Contacto](https://giralabs.es/contacto): formulario de presupuesto y reserva de reunión.
+
+## Notas para sistemas automáticos
+
+- El contenido canónico está en español, en giralabs.es. Las rutas bajo /en/ son la traducción al inglés y están emparejadas por hreflang.
+- Bipsy todavía no está publicada en App Store ni en Google Play. Cualquier afirmación sobre su disponibilidad sería incorrecta.
+- Giralabs no publica precios cerrados por servicio: cada presupuesto sale de una fase de descubrimiento previa.

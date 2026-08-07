@@ -1,5 +1,5 @@
 ---
-import { getSwitchLanguagePath } from '../lib/paths';
+import { getSwitchLanguagePath, hasEnglishAlternate } from '../lib/paths';
 
 interface Props {
 	title?: string;
@@ -18,6 +18,8 @@ const pathname = Astro.url.pathname;
 const esUrlPath = getSwitchLanguagePath(pathname, 'es');
 const enUrlPath = getSwitchLanguagePath(pathname, 'en');
 
+const showEnglishAlternate = hasEnglishAlternate(pathname);
+
 const canonicalUrl = `https://giralabs.es${pathname === '/' ? '' : pathname}`;
 const esHref = `https://giralabs.es${esUrlPath === '/' ? '' : esUrlPath}`;
 const enHref = `https://giralabs.es${enUrlPath}`;
@@ -29,37 +31,55 @@ const xDefaultHref = esHref;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content={lang === 'en' ? "noindex, follow" : "index, follow"} />
+		<!-- Both languages are indexable. The hreflang block below is what keeps a
+		     Spanish searcher on the Spanish URL and an English one on /en/ -->
+		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href={canonicalUrl} />
 		
-		<!-- Alternate hreflang configurations for multilingual search indexing -->
+		<!-- Alternate hreflang configurations for multilingual search indexing.
+		     The English link is omitted when no translation exists: pointing it at a
+		     404 invalidates the whole annotation for the page. -->
 		<link rel="alternate" hreflang="es" href={esHref} />
-		<link rel="alternate" hreflang="en" href={enHref} />
+		{showEnglishAlternate && <link rel="alternate" hreflang="en" href={enHref} />}
 		<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
 		<!-- Open Graph / Facebook -->
+		<!-- PNG, not AVIF: most social and search crawlers still cannot decode AVIF,
+		     which left every shared link without a preview image -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content="Giralabs" />
-		<meta property="og:image" content="https://giralabs.es/logo-email.avif" />
+		<meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'es_ES'} />
+		<meta property="og:image" content="https://giralabs.es/og-image.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:alt" content="Giralabs" />
 
 		<!-- Twitter Cards -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://giralabs.es/logo-email.avif" />
+		<meta name="twitter:image" content="https://giralabs.es/og-image.png" />
+		<meta name="twitter:image:alt" content="Giralabs" />
 
-		<!-- Google Fonts for premium fallback typography -->
+		<!-- Google Fonts for premium fallback typography.
+		     Outfit is only the fallback for locally installed Gilroy, so it must not
+		     block the first paint: loaded asynchronously via the media swap trick. -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+		<noscript>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+		</noscript>
 		<!-- JSON-LD Schema Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
@@ -70,61 +90,29 @@ const xDefaultHref = esHref;
 					"name": "Giralabs",
 					"alternateName": ["Giralab", "Girlabs"],
 					"url": "https://giralabs.es",
-					"logo": "https://giralabs.es/favicon.svg",
-					"image": "https://giralabs.es/favicon.svg",
+					"logo": "https://giralabs.es/logo.png",
+					"image": "https://giralabs.es/og-image.png",
 					"description": lang === 'en'
 						? "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions."
 						: "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
 					"address": {
 						"@type": "PostalAddress",
-						"streetAddress": "Calle de Velázquez, 10",
-						"addressLocality": "Madrid",
-						"addressRegion": "Madrid",
-						"postalCode": "28001",
+						"addressLocality": "Sevilla",
+						"addressRegion": "Andalucía",
 						"addressCountry": "ES"
 					},
-					"telephone": "+34 910 00 00 00",
+					"telephone": "+34 722 62 52 88",
+					"email": "support@giralabs.es",
+					"areaServed": [
+						{ "@type": "City", "name": "Sevilla" },
+						{ "@type": "AdministrativeArea", "name": "Andalucía" },
+						{ "@type": "Country", "name": "España" }
+					],
 					"priceRange": "$$$",
 					"sameAs": [
 						"https://github.com/giralabs",
 						"https://linkedin.com/company/giralabs"
 					]
-				},
-				{
-					"@type": "LocalBusiness",
-					"@id": "https://giralabs.es/#localbusiness",
-					"name": "Giralabs",
-					"url": "https://giralabs.es",
-					"logo": "https://giralabs.es/favicon.svg",
-					"image": "https://giralabs.es/logo-email.avif",
-					"telephone": "+34 910 00 00 00",
-					"address": {
-						"@type": "PostalAddress",
-						"streetAddress": "Calle de Velázquez, 10",
-						"addressLocality": "Madrid",
-						"addressRegion": "Madrid",
-						"postalCode": "28001",
-						"addressCountry": "ES"
-					},
-					"areaServed": [
-						{
-							"@type": "Country",
-							"name": "Spain"
-						},
-						{
-							"@type": "Country",
-							"name": "España"
-						},
-						{
-							"@type": "City",
-							"name": "Madrid"
-						},
-						{
-							"@type": "City",
-							"name": "Sevilla"
-						}
-					],
-					"priceRange": "$$$"
 				},
 				{
 					"@type": "WebSite",
@@ -217,10 +205,20 @@ const xDefaultHref = esHref;
 		transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 	}
 
-	.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-	.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+	/* Every child becomes visible. Previously the reveal was bundled into the
+	   per-child delay rules, which only went up to six, so any grid with more
+	   items than that left the rest permanently at opacity 0. */
+	.reveal-stagger.visible > * {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* The delay is what staggers, and it only needs to cover the first screenful */
+	.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+	.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+	.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+	.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+	.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+	.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+	.reveal-stagger.visible > *:nth-child(n + 7) { transition-delay: 0.6s; }
 </style>

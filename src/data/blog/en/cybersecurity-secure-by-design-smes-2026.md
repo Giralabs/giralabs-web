@@ -5,7 +5,7 @@ description: "Discover what secure-by-design cybersecurity is and how this Europ
 date: "2026-07-17"
 tags: ["Cybersecurity", "Secure by Design", "Custom Software"]
 readingTime: "8 min"
-image: "../../assets/blog/secure_by_design.png"
+image: "../../assets/blog/secure_by_design.webp"
 ---
 
 The development of business software has changed radically. For a long time, cybersecurity was perceived as a secondary element, a shield added to the application at the very end. In the business context, it was common to request development and, just before the launch, raise security as a minor process: a basic SSL certificate, a simple plugin, and relying on luck.

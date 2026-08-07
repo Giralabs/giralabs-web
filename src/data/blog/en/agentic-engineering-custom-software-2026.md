@@ -5,7 +5,7 @@ description: "Discover how agentic engineering and autonomous AI agents in 2026 
 date: "2026-07-16"
 tags: ["AI", "Agentic Engineering", "Custom Software"]
 readingTime: "7 min"
-image: "../../assets/blog/agentic_engineering.png"
+image: "../../assets/blog/agentic_engineering.webp"
 ---
 
 Software development is experiencing the most profound transformation in its history. Looking back, only a few years separate us from the time when Artificial Intelligence in coding was limited to reactive code autocomplete tools. Back then, solutions like GitHub Copilot acted as an advanced spellchecker: suggesting the next line of code or completing a predictable function based on what the developer was already writing.

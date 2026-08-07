@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import BipsyProject from '../../components/bipsy/BipsyProject.astro';
+import CTAContact from '../../components/CTAContact.astro';
+import Footer from '../../components/Footer.astro';
+
+export const prerender = true;
+
+const lang = 'es';
+const siteUrl = 'https://giralabs.es';
+
+const metaTitle = 'Bipsy | App de reservas para barberías, peluquerías y estética | Giralabs';
+const metaDescription =
+  'Bipsy es el ecosistema de reservas que estamos desarrollando en Giralabs: una app para clientes y Bipsy Business para los negocios de belleza y bienestar. Producto propio en desarrollo.';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${siteUrl}/proyectos` },
+    { '@type': 'ListItem', position: 3, name: 'Bipsy', item: `${siteUrl}/proyecto/bipsy` },
+  ],
+};
+
+// Two unreleased apps: declared without offers or ratings on purpose
+const appsSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${siteUrl}/proyecto/bipsy#bipsy`,
+      name: 'Bipsy',
+      applicationCategory: 'LifestyleApplication',
+      operatingSystem: 'iOS, Android',
+      inLanguage: 'es',
+      description:
+        'App de reservas para clientes de barberías, peluquerías y centros de estética: descubrimiento por categoría, disponibilidad real, recordatorios e historial de citas.',
+      author: { '@id': 'https://giralabs.es/#organization' },
+      publisher: { '@id': 'https://giralabs.es/#organization' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${siteUrl}/proyecto/bipsy#bipsy-business`,
+      name: 'Bipsy Business',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'iOS, Android',
+      inLanguage: 'es',
+      description:
+        'App de gestión para barberías, peluquerías y centros de estética: agenda diaria, confirmación de citas, servicios, equipo y ficha de cliente.',
+      author: { '@id': 'https://giralabs.es/#organization' },
+      publisher: { '@id': 'https://giralabs.es/#organization' },
+    },
+  ],
+};
+---
+
+<Layout title={metaTitle} description={metaDescription} lang={lang}>
+  <!-- Dot grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <Navbar lang={lang} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(appsSchema)} />
+
+  <BipsyProject lang={lang} />
+
+  <CTAContact lang={lang} />
+  <Footer lang={lang} />
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.06, rootMargin: '0px 0px -30px 0px' }
+    );
+    revealEls.forEach((el) => obs.observe(el));
+  </script>
+</Layout>
+
+<style>
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Mint ambient: the page borrows the Bipsy palette */
+  .glow-top {
+    top: -220px;
+    right: -120px;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.55) 0%, transparent 66%);
+    opacity: 0.5;
+  }
+
+  .glow-bottom {
+    bottom: -260px;
+    left: -160px;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.35) 0%, transparent 70%);
+    opacity: 0.35;
+  }
+</style>

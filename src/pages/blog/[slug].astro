@@ -107,7 +107,7 @@ const T_detail = {
 
 // Eagerly glob all files to find images for recommendation cards
 const blogImages = import.meta.glob('../../assets/blog/*', { eager: true });
-const projectImages = import.meta.glob('../../assets/projects/*', { eager: true });
+const projectImages = import.meta.glob('../../assets/bipsy/assets_apps/*', { eager: true });
 
 const allPosts = Object.values(import.meta.glob('../../data/blog/*.md', { eager: true })) as any[];
 const otherPosts = allPosts
@@ -136,22 +136,13 @@ for (const p of otherPosts) {
 // Fallback project data if there aren't enough blog posts
 const fallbackProjects = [
   {
-    title: "Gipsi",
-    description: "Gestión inteligente de citas y reservas para barberías. Aplicación móvil construida para optimizar operaciones con una experiencia de usuario sobresaliente.",
-    tags: ["Flutter", "UX/UI"],
-    url: "/proyecto/gipsi",
-    imageKey: "../../assets/projects/gipsi_barber.webp",
+    title: "Bipsy",
+    description: "Nuestro ecosistema de reservas para barberías, peluquerías y centros de estética: una app para el cliente y Bipsy Business para el negocio. En desarrollo.",
+    tags: ["Flutter", "Producto"],
+    url: "/proyecto/bipsy",
+    imageKey: "../../assets/bipsy/assets_apps/bipsy_light.webp",
     isProject: true,
-    badgeText: 'Caso de Éxito'
-  },
-  {
-    title: "Nexus",
-    description: "Marketplace moderno de comercio electrónico y ofertas. Plataforma web de alto rendimiento orientada al SEO técnico y la conversión ágil.",
-    tags: ["React", "Web"],
-    url: "/proyecto/nexus",
-    imageKey: "../../assets/projects/nexus.png",
-    isProject: true,
-    badgeText: 'Caso de Éxito'
+    badgeText: 'Producto propio'
   }
 ];
 

@@ -1,7 +1,7 @@
 ---
 import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
 import { translations } from '../i18n/translations';
-import { getSwitchLanguagePath, getLocalizedPath } from '../lib/paths';
+import { getSwitchLanguagePath, getLocalizedPath, hasEnglishAlternate } from '../lib/paths';
 
 interface Props {
   lang?: string;
@@ -15,7 +15,9 @@ const esUrlPath = getSwitchLanguagePath(pathname, 'es');
 const enUrlPath = getSwitchLanguagePath(pathname, 'en');
 
 const esHref = esUrlPath === '/' ? '/' : esUrlPath;
-const enHref = enUrlPath;
+// Posts published only in Spanish have no English URL: send the switcher to the
+// English blog index rather than to a 404
+const enHref = hasEnglishAlternate(pathname) ? enUrlPath : '/en/blog';
 
 // Helper to localize paths based on the current lang
 const localizedPath = (path: string) => getLocalizedPath(path, lang);

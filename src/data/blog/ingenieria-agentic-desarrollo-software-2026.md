@@ -5,7 +5,7 @@ description: "Descubre cómo la ingeniería agéntica y los agentes autónomos d
 date: "2026-07-16"
 tags: ["IA", "Ingeniería Agéntica", "Software a Medida"]
 readingTime: "7 min"
-image: "../../assets/blog/agentic_engineering.png"
+image: "../../assets/blog/agentic_engineering.webp"
 ---
 
 El desarrollo de software está viviendo la transformación más profunda de su historia. Si echamos la vista atrás, apenas unos años nos separan de la época en la que la Inteligencia Artificial en programación se limitaba a herramientas reactivas de autocompletado de código. En aquel entonces, soluciones como GitHub Copilot actuaban como una especie de corrector ortográfico avanzado: sugerían la siguiente línea de código o completaban una función predecible a partir de lo que el programador ya estaba escribiendo.

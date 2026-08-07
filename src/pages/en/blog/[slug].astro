@@ -107,7 +107,7 @@ const T_detail = {
 
 // Eagerly glob all files to find images for recommendation cards
 const blogImages = import.meta.glob('../../../assets/blog/*', { eager: true });
-const projectImages = import.meta.glob('../../../assets/projects/*', { eager: true });
+const projectImages = import.meta.glob('../../../assets/bipsy/assets_apps/*', { eager: true });
 
 const allPosts = Object.values(import.meta.glob('../../../data/blog/en/*.md', { eager: true })) as any[];
 const otherPosts = allPosts
@@ -136,22 +136,13 @@ for (const p of otherPosts) {
 // Fallback project data if there aren't enough blog posts
 const fallbackProjects = [
   {
-    title: "Gipsi",
-    description: "Smart booking and scheduling platform for barber shops. Mobile application built to optimize operations with an outstanding user experience.",
-    tags: ["Flutter", "UX/UI"],
-    url: "/en/project/gipsi",
-    imageKey: "../../../assets/projects/gipsi_barber.webp",
+    title: "Bipsy",
+    description: "Our booking ecosystem for barbershops, hair salons and beauty studios: an app for the client and Bipsy Business for the venue. Currently in development.",
+    tags: ["Flutter", "Product"],
+    url: "/en/project/bipsy",
+    imageKey: "../../../assets/bipsy/assets_apps/bipsy_light.webp",
     isProject: true,
-    badgeText: 'Case Study'
-  },
-  {
-    title: "Nexus",
-    description: "Modern e-commerce marketplace and offers board. A high-performance web platform designed for technical SEO and agile conversion.",
-    tags: ["React", "Web"],
-    url: "/en/project/nexus",
-    imageKey: "../../../assets/projects/nexus.png",
-    isProject: true,
-    badgeText: 'Case Study'
+    badgeText: 'In-house product'
   }
 ];
 
