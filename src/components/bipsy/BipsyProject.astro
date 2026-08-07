@@ -1,0 +1,1946 @@
+---
+import { getImage } from 'astro:assets';
+import { getLocalizedPath } from '../../lib/paths';
+import BipsyPilotModal from './BipsyPilotModal.astro';
+
+// Bip (mascot) renders
+import bipBooking from '../../assets/bipsy/bip_assets/bip_booking.webp';
+import bipSupport from '../../assets/bipsy/bip_assets/bip_support.webp';
+import bipHello from '../../assets/bipsy/bip_assets/bip_hello.png';
+import bipRecool from '../../assets/bipsy/bip_assets/bip_recool.png';
+import bipPockets from '../../assets/bipsy/bip_assets/big_pockets.png';
+import bipLaughing from '../../assets/bipsy/bip_assets/bip_laughing.png';
+
+// App key visuals
+// Bip ships grey in the light capture: this derived copy repaints him with the
+// exact mint sampled from the dark capture, keeping the light UI theme
+import bipsyApp from '../../assets/bipsy/derived/bipsy_light_mint.webp';
+import bipsyBusinessApp from '../../assets/bipsy/assets_apps/bipsy_business_light.webp';
+
+// Brand lockups
+import bipsyMark from '../../assets/bipsy/lockups/bipsy_lockup.webp';
+import bipsyBusinessMark from '../../assets/bipsy/lockups/bipsy_business_lockup.webp';
+
+interface Props {
+  lang?: string;
+  formActionUrl?: string;
+}
+
+const { lang = 'es', formActionUrl = 'https://formspree.io/f/xvznwgob' } = Astro.props;
+const isEs = lang !== 'en';
+
+const localizedPath = (path: string) => getLocalizedPath(path, lang);
+
+// ---- Optimized assets -------------------------------------------------------
+const [heroVisual, supportVisual, appClient, appBusiness, markClient, markBusiness] = await Promise.all([
+  getImage({ src: bipBooking, format: 'webp', width: 900 }),
+  getImage({ src: bipSupport, format: 'webp', width: 620 }),
+  getImage({ src: bipsyApp, format: 'webp', width: 900 }),
+  getImage({ src: bipsyBusinessApp, format: 'webp', width: 900 }),
+  getImage({ src: bipsyMark, format: 'webp', width: 560 }),
+  getImage({ src: bipsyBusinessMark, format: 'webp', width: 560 }),
+]);
+
+const poseSources = [bipHello, bipRecool, bipPockets, bipLaughing];
+const poses = await Promise.all(
+  poseSources.map((src) => getImage({ src, format: 'webp', width: 340 }))
+);
+// Full-size copies for the pose viewer
+const posesLarge = await Promise.all(
+  poseSources.map((src) => getImage({ src, format: 'webp', width: 900 }))
+);
+
+// ---- Copy -------------------------------------------------------------------
+const copy = {
+  es: {
+    breadcrumbHome: 'Inicio',
+    breadcrumbProjects: 'Proyectos',
+    back: 'Todos los proyectos',
+    status: 'En desarrollo',
+    heroEyebrow: 'PRODUCTO PROPIO DE GIRALABS',
+    heroLead: 'Reservar en tu barbería, peluquería o centro de estética debería costar dos toques. Gestionarlo, ninguno más.',
+    heroDesc:
+      'Bipsy es el ecosistema de reservas que estamos construyendo puertas adentro: dos aplicaciones móviles unidas por el mismo motor, una para quien reserva y otra para quien gestiona. Todavía no está publicada — está en pleno desarrollo, y lo contamos en abierto.',
+    storesLabel: 'Próximamente en',
+    storeApple: 'App Store',
+    storeGoogle: 'Google Play',
+    poseViewerClose: 'Cerrar la imagen',
+    poseViewerOpen: 'Ver la ilustración de Bip a tamaño grande',
+    heroImgAlt: 'Bip, la mascota de Bipsy, con el móvil frente a una barbería',
+
+    challengeLabel: 'El punto de partida',
+    challengeBody:
+      'En la mayoría de barberías, peluquerías y centros de estética la agenda sigue viviendo en un cuaderno, en un WhatsApp a deshora o en una llamada que nadie coge mientras hay un cliente en la silla. El negocio pierde huecos que jamás sabrá que perdió; el cliente pierde la paciencia.',
+    solutionLabel: 'Nuestra apuesta',
+    solutionBody:
+      'Un único ecosistema y cero fricción: el cliente descubre, reserva y recuerda su cita desde el móvil; el negocio ve el día entero en una pantalla y confirma con un gesto. Sin panel de escritorio, sin manual de instrucciones y sin cambiar cómo trabaja.',
+
+    ecoEyebrow: 'EL ECOSISTEMA',
+    ecoTitle: 'Dos aplicaciones, un mismo motor.',
+    ecoSub: 'Cada lado del mostrador tiene su app. Comparten catálogo, disponibilidad y estado de la cita en tiempo real.',
+    apps: [
+      {
+        name: 'Bipsy',
+        audience: 'Para quien reserva',
+        accent: 'mint',
+        desc: 'La app de cliente. Encuentra el sitio, elige servicio y profesional, y confirma la hora sin escribir a nadie.',
+        alt: 'Pantalla de descubrimiento de la app Bipsy junto a Bip',
+        features: [
+          'Descubrimiento por categoría: barbería, peluquería, estética',
+          'Disponibilidad real y reserva en dos toques',
+          'Recordatorios antes de la cita, sin llamadas',
+          'Historial para repetir la última reserva',
+          'Profesional habitual y negocios favoritos',
+          'Valoraciones verificadas tras el servicio',
+        ],
+      },
+      {
+        name: 'Bipsy Business',
+        audience: 'Para el negocio',
+        accent: 'slate',
+        desc: 'La app del salón. La agenda del día entera en una pantalla, con todo lo necesario para confirmar, mover o cerrar un hueco.',
+        alt: 'Pantalla de agenda de la app Bipsy Business junto a Bip',
+        features: [
+          'Agenda de hoy, pendientes y próximos días',
+          'Confirmar o cancelar una cita con un gesto',
+          'Servicios con duración y precio propios',
+          'Equipo, turnos y horarios por profesional',
+          'Ficha del cliente con notas e historial',
+          'Huecos libres siempre a la vista',
+        ],
+      },
+    ],
+
+    flowEyebrow: 'CÓMO FUNCIONA',
+    flowTitle: 'Del alta a la silla, en cuatro pasos.',
+    flow: [
+      { title: 'El negocio se da de alta', body: 'Desde Bipsy Business, en el móvil: datos del salón, equipo y zona horaria.' },
+      { title: 'Publica servicios y horarios', body: 'Cada servicio con su duración, su precio y los profesionales que lo realizan.' },
+      { title: 'El cliente reserva', body: 'Encuentra el salón en Bipsy, ve los huecos reales y confirma su cita al instante.' },
+      { title: 'Ambos ven lo mismo', body: 'La cita aparece en la agenda del negocio y en el móvil del cliente, sincronizada.' },
+    ],
+
+    bipEyebrow: 'IDENTIDAD',
+    bipTitle: 'Conoce a Bip.',
+    bipBody:
+      'Bip es la cara de Bipsy. Aparece cuando la pantalla está vacía, cuando algo se rompe y cuando hay algo que celebrar. No es un adorno: es el tono de voz del producto convertido en personaje, y el motivo por el que una app de reservas puede caer bien.',
+    bipNote: 'Cuatro de sus poses del sistema de ilustración.',
+    bipSupportAlt: 'Bip con auriculares atendiendo desde un escritorio',
+    bipTraits: [
+      { title: 'Cercano, nunca infantil', body: 'Acompaña sin estorbar: aparece en los momentos en que el usuario duda.' },
+      { title: 'Un sistema, no un sticker', body: 'Poses, expresiones y escenarios definidos para cubrir todo el producto.' },
+      { title: 'Coherente en las dos apps', body: 'El mismo personaje, distinto vestuario: sudadera en Bipsy, traje en Business.' },
+    ],
+
+    roadmapEyebrow: 'ESTADO DEL DESARROLLO',
+    roadmapTitle: '¿Por dónde va Bipsy?',
+    roadmapSub: 'Actualizamos esta sección conforme avanzamos. Ahora mismo estamos aquí:',
+    roadmap: [
+      { phase: 'Descubrimiento y validación', state: 'done', stateLabel: 'Completado', body: 'Entrevistas con barberías y peluquerías para entender cómo gestionan hoy su agenda.' },
+      { phase: 'Identidad y sistema de diseño', state: 'done', stateLabel: 'Completado', body: 'Marca, Bip, paleta y librería de componentes compartida por las dos apps.' },
+      { phase: 'Desarrollo de las dos apps', state: 'active', stateLabel: 'En curso', body: 'Motor de reservas, agenda en tiempo real y las dos aplicaciones en Flutter.' },
+      { phase: 'Beta cerrada con negocios piloto', state: 'next', stateLabel: 'Siguiente', body: 'Un grupo reducido de salones usando Bipsy en su día a día real.' },
+      { phase: 'Publicación en App Store y Google Play', state: 'planned', stateLabel: 'Planificado', body: 'Lanzamiento público de Bipsy y Bipsy Business.' },
+    ],
+
+    stackEyebrow: 'TECNOLOGÍA',
+    stackTitle: 'Stack técnico',
+    stackSub: 'Elegido para que dos apps compartan motor sin duplicar equipo ni deuda técnica.',
+    stack: ['Flutter', 'Dart', 'Go', 'Supabase', 'PostgreSQL', 'Firebase', 'Realtime', 'Figma'],
+
+    brandEyebrow: 'SISTEMA DE MARCA',
+    brandTitle: 'Una identidad, dos aplicaciones.',
+    brandSub: 'Bipsy habla en menta; Bipsy Business, en grafito. Mismo símbolo, misma tipografía, distinta temperatura.',
+    brandColorsLabel: 'Paleta',
+    colors: [
+      { name: 'Mint', hex: '#C0EBD1', note: 'Bipsy' },
+      { name: 'Carbon', hex: '#31373C', note: 'Texto y símbolo' },
+      { name: 'Slate', hex: '#6D7174', note: 'Bipsy Business' },
+      { name: 'Cloud', hex: '#F5F6F5', note: 'Fondos' },
+    ],
+    brandLockups: [
+      { label: 'Aplicación de cliente', caption: 'Bipsy' },
+      { label: 'Aplicación de negocio', caption: 'Bipsy Business' },
+    ],
+
+    pilotEyebrow: 'BUSCAMOS PILOTOS',
+    pilotTitle: '¿Tienes un salón y te apetece probarlo antes que nadie?',
+    pilotBody:
+      'Estamos cerrando el grupo de negocios que estrenarán Bipsy Business en la beta. Sin coste, con acompañamiento nuestro y con tu opinión metida directamente en el producto.',
+    pilotCta: 'Quiero ser piloto',
+    pilotSecondary: 'Hablar con el equipo',
+
+    serviceEyebrow: 'SERVICIO RELACIONADO',
+    serviceIntro: 'Desarrollado bajo el servicio:',
+    serviceName: 'Creación de aplicaciones móviles',
+    serviceCta: 'Ver detalles del servicio',
+    serviceSlug: '/servicio/aplicaciones-moviles',
+  },
+  en: {
+    breadcrumbHome: 'Home',
+    breadcrumbProjects: 'Projects',
+    back: 'All projects',
+    status: 'In development',
+    heroEyebrow: 'AN IN-HOUSE GIRALABS PRODUCT',
+    heroLead: 'Booking at your barbershop, hair salon or beauty studio should take two taps. Running it, none at all.',
+    heroDesc:
+      'Bipsy is the booking ecosystem we are building in-house: two mobile apps sharing one engine, one for the person booking and one for the person running the place. It is not published yet — it is in active development, and we are building it out in the open.',
+    storesLabel: 'Coming soon on',
+    storeApple: 'App Store',
+    storeGoogle: 'Google Play',
+    poseViewerClose: 'Close the image',
+    poseViewerOpen: 'View the Bip illustration at full size',
+    heroImgAlt: 'Bip, the Bipsy mascot, holding a phone in front of a barbershop',
+
+    challengeLabel: 'The starting point',
+    challengeBody:
+      'In most barbershops, hair salons and beauty studios the calendar still lives in a notebook, in a late-night WhatsApp or in a call nobody picks up while a client is in the chair. The venue loses slots it will never know it lost; the client loses patience.',
+    solutionLabel: 'Our bet',
+    solutionBody:
+      'One ecosystem and zero friction: the client discovers, books and remembers the appointment from the phone; the venue sees the whole day on one screen and confirms with a single gesture. No desktop panel, no manual, no change in how they already work.',
+
+    ecoEyebrow: 'THE ECOSYSTEM',
+    ecoTitle: 'Two apps, one engine.',
+    ecoSub: 'Each side of the counter gets its own app. They share catalogue, availability and appointment state in real time.',
+    apps: [
+      {
+        name: 'Bipsy',
+        audience: 'For the client',
+        accent: 'mint',
+        desc: 'The client app. Find the place, pick service and professional, and lock the time without messaging anyone.',
+        alt: 'Discovery screen of the Bipsy app next to Bip',
+        features: [
+          'Discovery by category: barbershop, hair salon, beauty',
+          'Real availability and booking in two taps',
+          'Reminders before the appointment, no calls',
+          'History to repeat your last booking',
+          'Preferred professional and favourite venues',
+          'Verified reviews after the service',
+        ],
+      },
+      {
+        name: 'Bipsy Business',
+        audience: 'For the venue',
+        accent: 'slate',
+        desc: 'The salon app. The entire day on one screen, with everything needed to confirm, move or fill a slot.',
+        alt: 'Agenda screen of the Bipsy Business app next to Bip',
+        features: [
+          'Today, pending and upcoming days at a glance',
+          'Confirm or cancel an appointment in one gesture',
+          'Services with their own duration and price',
+          'Team, shifts and schedule per professional',
+          'Client profile with notes and history',
+          'Open slots always in sight',
+        ],
+      },
+    ],
+
+    flowEyebrow: 'HOW IT WORKS',
+    flowTitle: 'From sign-up to the chair, in four steps.',
+    flow: [
+      { title: 'The venue signs up', body: 'Straight from Bipsy Business on the phone: venue details, team and time zone.' },
+      { title: 'It publishes services and hours', body: 'Every service with its duration, its price and the professionals who deliver it.' },
+      { title: 'The client books', body: 'They find the salon on Bipsy, see the real open slots and confirm instantly.' },
+      { title: 'Both see the same thing', body: 'The appointment lands on the venue agenda and on the client phone, in sync.' },
+    ],
+
+    bipEyebrow: 'IDENTITY',
+    bipTitle: 'Meet Bip.',
+    bipBody:
+      'Bip is the face of Bipsy. It shows up when a screen is empty, when something breaks and when there is something to celebrate. Not decoration: it is the product tone of voice turned into a character, and the reason a booking app can actually be likeable.',
+    bipNote: 'Four poses from the illustration system.',
+    bipSupportAlt: 'Bip wearing a headset, working at a desk',
+    bipTraits: [
+      { title: 'Warm, never childish', body: 'It keeps you company without getting in the way: it appears exactly where people hesitate.' },
+      { title: 'A system, not a sticker', body: 'Poses, expressions and scenes defined to cover the whole product.' },
+      { title: 'Consistent across both apps', body: 'Same character, different wardrobe: hoodie on Bipsy, suit on Business.' },
+    ],
+
+    roadmapEyebrow: 'DEVELOPMENT STATUS',
+    roadmapTitle: 'Where is Bipsy right now?',
+    roadmapSub: 'We update this section as we move forward. Right now we are here:',
+    roadmap: [
+      { phase: 'Discovery and validation', state: 'done', stateLabel: 'Done', body: 'Interviews with barbershops and hair salons to understand how they run their calendar today.' },
+      { phase: 'Identity and design system', state: 'done', stateLabel: 'Done', body: 'Brand, Bip, palette and a component library shared by both apps.' },
+      { phase: 'Building both apps', state: 'active', stateLabel: 'In progress', body: 'Booking engine, real-time agenda and the two Flutter applications.' },
+      { phase: 'Closed beta with pilot venues', state: 'next', stateLabel: 'Next', body: 'A small group of salons running Bipsy on their real working day.' },
+      { phase: 'App Store and Google Play release', state: 'planned', stateLabel: 'Planned', body: 'Public launch of Bipsy and Bipsy Business.' },
+    ],
+
+    stackEyebrow: 'TECHNOLOGY',
+    stackTitle: 'Tech stack',
+    stackSub: 'Chosen so two apps can share one engine without duplicating team or technical debt.',
+    stack: ['Flutter', 'Dart', 'Go', 'Supabase', 'PostgreSQL', 'Firebase', 'Realtime', 'Figma'],
+
+    brandEyebrow: 'BRAND SYSTEM',
+    brandTitle: 'One identity, two applications.',
+    brandSub: 'Bipsy speaks in mint; Bipsy Business, in graphite. Same symbol, same typeface, different temperature.',
+    brandColorsLabel: 'Palette',
+    colors: [
+      { name: 'Mint', hex: '#C0EBD1', note: 'Bipsy' },
+      { name: 'Carbon', hex: '#31373C', note: 'Type and symbol' },
+      { name: 'Slate', hex: '#6D7174', note: 'Bipsy Business' },
+      { name: 'Cloud', hex: '#F5F6F5', note: 'Surfaces' },
+    ],
+    brandLockups: [
+      { label: 'Client application', caption: 'Bipsy' },
+      { label: 'Business application', caption: 'Bipsy Business' },
+    ],
+
+    pilotEyebrow: 'LOOKING FOR PILOTS',
+    pilotTitle: 'Run a salon and want to try it before anyone else?',
+    pilotBody:
+      'We are closing the group of venues that will run Bipsy Business during the beta. No cost, hands-on support from us, and your feedback going straight into the product.',
+    pilotCta: 'I want to be a pilot',
+    pilotSecondary: 'Talk to the team',
+
+    serviceEyebrow: 'RELATED SERVICE',
+    serviceIntro: 'Developed under our service:',
+    serviceName: 'Mobile App Development',
+    serviceCta: 'View service details',
+    serviceSlug: '/servicio/aplicaciones-moviles',
+  },
+} as const;
+
+const c = isEs ? copy.es : copy.en;
+const appVisuals = [appClient, appBusiness];
+
+// The rail is filled up to the phase currently under way
+const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
+---
+
+<!-- ==================== BREADCRUMB ==================== -->
+<nav class="bp-breadcrumb reveal" aria-label="Breadcrumb">
+  <div class="bp-breadcrumb-inner">
+    <div class="bp-breadcrumb-trail">
+      <a href={localizedPath('/')} class="bp-crumb-link">{c.breadcrumbHome}</a>
+      <span class="bp-crumb-sep" aria-hidden="true">&gt;</span>
+      <a href={localizedPath('/proyectos')} class="bp-crumb-link">{c.breadcrumbProjects}</a>
+      <span class="bp-crumb-sep" aria-hidden="true">&gt;</span>
+      <span class="bp-crumb-current">Bipsy</span>
+    </div>
+    <a href={localizedPath('/proyectos')} class="bp-back">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>{c.back}</span>
+    </a>
+  </div>
+</nav>
+
+<main class="bp-main">
+  <!-- ==================== HERO ==================== -->
+  <header class="bp-hero reveal">
+    <div class="bp-hero-glass">
+      <div class="bp-hero-aura" aria-hidden="true"></div>
+
+      <div class="bp-hero-content">
+        <p class="bp-hero-eyebrow">
+          {c.heroEyebrow}<span class="bp-hero-status"> — {c.status}</span>
+        </p>
+
+        <h1 class="bp-hero-title">Bipsy</h1>
+
+        <p class="bp-hero-lead">{c.heroLead}</p>
+        <p class="bp-hero-desc">{c.heroDesc}</p>
+
+        <div class="bp-stores">
+          <p class="bp-stores-label">{c.storesLabel}</p>
+          <div class="bp-stores-badges">
+            <span class="bp-badge">
+              <svg class="bp-badge-glyph" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+              </svg>
+              <span class="bp-badge-name">{c.storeApple}</span>
+            </span>
+            <span class="bp-badge">
+              <svg class="bp-badge-glyph" viewBox="0 0 512 512" width="19" height="19" aria-hidden="true">
+                <path fill="#00D0FF" d="M47.6 24.1C42.5 29.5 39.5 37.9 39.5 48.7v414.6c0 10.9 3 19.2 8.1 24.6l1.4 1.4 232.3-232.3v-5.5L49 23.2z"/>
+                <path fill="#FFD500" d="M357.7 343.4l-77.4-77.4v-5.5l77.4-77.4 1.7 1L451.7 236c26.2 14.8 26.2 39.2 0 54.2l-92.3 52.4z"/>
+                <path fill="#FF3A44" d="M359.4 342.6L280.3 263.5 47.6 496.2c8.7 9.2 22.9 10.3 39.1 1.1z"/>
+                <path fill="#00F076" d="M359.4 184.4L86.7 30.1C70.5 20.8 56.3 22 47.6 31.2l232.7 232.3z"/>
+              </svg>
+              <span class="bp-badge-name">{c.storeGoogle}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-hero-visual">
+        <div class="bp-hero-visual-glow" aria-hidden="true"></div>
+        <img
+          src={heroVisual.src}
+          alt={c.heroImgAlt}
+          class="bp-hero-img"
+          width="900"
+          height="900"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== CONTEXT ==================== -->
+  <section class="bp-section bp-context reveal" aria-label={c.challengeLabel}>
+    <div class="bp-context-col">
+      <p class="bp-context-label">{c.challengeLabel}</p>
+      <p class="bp-context-body">{c.challengeBody}</p>
+    </div>
+    <div class="bp-context-col bp-context-col--answer">
+      <p class="bp-context-label">{c.solutionLabel}</p>
+      <p class="bp-context-body">{c.solutionBody}</p>
+    </div>
+  </section>
+
+  <!-- ==================== THE TWO APPS ==================== -->
+  <section class="bp-section reveal" id="apps">
+    <div class="bp-head">
+      <p class="bp-eyebrow">{c.ecoEyebrow}</p>
+      <h2 class="bp-title">{c.ecoTitle}</h2>
+      <p class="bp-sub">{c.ecoSub}</p>
+    </div>
+
+    <div class="bp-apps">
+      {c.apps.map((app, i) => (
+        <article class={`bp-glass bp-app bp-app--${app.accent}`}>
+          <div class="bp-app-glow" aria-hidden="true"></div>
+
+          <header class="bp-app-head">
+            <img
+              src={i === 0 ? markClient.src : markBusiness.src}
+              alt={app.name}
+              class={`bp-app-mark bp-app-mark--${app.accent}`}
+              width="1582"
+              height={i === 0 ? 444 : 547}
+              loading="lazy"
+            />
+            <span class="bp-app-audience">{app.audience}</span>
+          </header>
+
+          <p class="bp-app-desc">{app.desc}</p>
+
+          <div class="bp-app-shot">
+            <img src={appVisuals[i].src} alt={app.alt} width="900" height="688" loading="lazy" />
+          </div>
+
+          <ul class="bp-app-features" role="list">
+            {app.features.map((feature) => (
+              <li class="bp-feature">
+                <span class="bp-feature-check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="bp-section reveal">
+    <div class="bp-head">
+      <p class="bp-eyebrow">{c.flowEyebrow}</p>
+      <h2 class="bp-title">{c.flowTitle}</h2>
+    </div>
+
+    <ol class="bp-flow" role="list">
+      {c.flow.map((step, i) => (
+        <li class="bp-glass bp-flow-step" style={`--i: ${i}`}>
+          <span class="bp-flow-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="bp-flow-title">{step.title}</h3>
+          <p class="bp-flow-body">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ==================== MEET BIP ==================== -->
+  <section class="bp-section reveal" id="bip">
+    <div class="bp-glass bp-bip">
+      <div class="bp-bip-aura" aria-hidden="true"></div>
+
+      <div class="bp-bip-intro">
+        <p class="bp-eyebrow">{c.bipEyebrow}</p>
+        <h2 class="bp-title">{c.bipTitle}</h2>
+        <p class="bp-bip-body">{c.bipBody}</p>
+
+        <ul class="bp-bip-traits" role="list">
+          {c.bipTraits.map((trait) => (
+            <li class="bp-trait">
+              <h3 class="bp-trait-title">{trait.title}</h3>
+              <p class="bp-trait-body">{trait.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="bp-bip-visual">
+        <img src={supportVisual.src} alt={c.bipSupportAlt} class="bp-bip-hero-img" width="620" height="620" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="bp-poses">
+      {poses.map((pose, i) => (
+        <button
+          type="button"
+          class="bp-pose"
+          style={`--i: ${i}`}
+          data-pose-open
+          data-pose-src={posesLarge[i].src}
+          aria-label={c.poseViewerOpen}
+        >
+          <img src={pose.src} alt="" width="340" height="340" loading="lazy" aria-hidden="true" />
+          <span class="bp-pose-zoom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="16.2" y1="16.2" x2="21" y2="21"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
+      ))}
+    </div>
+    <p class="bp-poses-note">{c.bipNote}</p>
+  </section>
+
+  <!-- ==================== ROADMAP ==================== -->
+  <section class="bp-section reveal" id="roadmap">
+    <div class="bp-head">
+      <p class="bp-eyebrow">{c.roadmapEyebrow}</p>
+      <h2 class="bp-title">{c.roadmapTitle}</h2>
+      <p class="bp-sub">{c.roadmapSub}</p>
+    </div>
+
+    <ol class="bp-track" role="list">
+      {c.roadmap.map((phase, i) => (
+        <li class={`bp-step bp-step--${phase.state}`}>
+          <span class="bp-step-rail" aria-hidden="true">
+            <span class="bp-step-node">
+              {phase.state === 'done' && (
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              )}
+            </span>
+            <span class={`bp-step-line${i < activeIndex ? ' is-filled' : ''}`}></span>
+          </span>
+
+          <p class="bp-step-state">{phase.stateLabel}</p>
+          <h3 class="bp-step-title">{phase.phase}</h3>
+          <p class="bp-step-body">{phase.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ==================== STACK ==================== -->
+  <section class="bp-section reveal">
+    <div class="bp-head">
+      <p class="bp-eyebrow">{c.stackEyebrow}</p>
+      <h2 class="bp-title">{c.stackTitle}</h2>
+      <p class="bp-sub">{c.stackSub}</p>
+    </div>
+
+    <div class="bp-stack">
+      {c.stack.map((tech) => (
+        <span class="bp-tech">{tech}</span>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==================== BRAND SYSTEM ==================== -->
+  <section class="bp-section reveal" id="brand">
+    <div class="bp-head">
+      <p class="bp-eyebrow">{c.brandEyebrow}</p>
+      <h2 class="bp-title">{c.brandTitle}</h2>
+      <p class="bp-sub">{c.brandSub}</p>
+    </div>
+
+    <div class="bp-brand">
+      <div class="bp-brand-lockups">
+        {c.brandLockups.map((lockup, i) => (
+          <figure class={`bp-glass bp-lockup ${i === 0 ? 'bp-lockup--mint' : 'bp-lockup--slate'}`}>
+            <img src={i === 0 ? markClient.src : markBusiness.src} alt={lockup.caption} class="bp-lockup-img" width="1582" height={i === 0 ? 444 : 547} loading="lazy" />
+            <figcaption class="bp-lockup-label">{lockup.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="bp-glass bp-palette">
+        <p class="bp-palette-label">{c.brandColorsLabel}</p>
+        <ul class="bp-swatches" role="list">
+          {c.colors.map((color) => (
+            <li class="bp-swatch">
+              <span class="bp-swatch-chip" style={`background: ${color.hex}`} aria-hidden="true"></span>
+              <span class="bp-swatch-meta">
+                <span class="bp-swatch-name">{color.name}</span>
+                <span class="bp-swatch-hex">{color.hex}</span>
+                <span class="bp-swatch-note">{color.note}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PILOT CTA ==================== -->
+  <section class="bp-section reveal">
+    <div class="bp-pilot">
+      <div class="bp-pilot-glow" aria-hidden="true"></div>
+      <div class="bp-pilot-content">
+        <p class="bp-eyebrow bp-eyebrow--light">{c.pilotEyebrow}</p>
+        <h2 class="bp-pilot-title">{c.pilotTitle}</h2>
+        <p class="bp-pilot-body">{c.pilotBody}</p>
+        <div class="bp-pilot-actions">
+          <button type="button" class="bp-pilot-cta" data-pilot-open>
+            <span>{c.pilotCta}</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <a href={localizedPath('/contacto')} class="bp-pilot-ghost">{c.pilotSecondary}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RELATED SERVICE ==================== -->
+  <section class="bp-section bp-section--last reveal">
+    <p class="bp-eyebrow">{c.serviceEyebrow}</p>
+    <div class="bp-glass bp-service">
+      <div class="bp-service-info">
+        <h2 class="bp-service-intro">{c.serviceIntro}</h2>
+        <p class="bp-service-name">{c.serviceName}</p>
+      </div>
+      <a href={localizedPath(c.serviceSlug)} class="bp-service-cta">
+        <span>{c.serviceCta}</span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- Overlays sit outside <main>: .bp-main is a stacking context (position:relative
+     + z-index) and would trap them underneath the navbar. The .reveal sections
+     would also turn their position:fixed into position:absolute. -->
+<div class="bp-viewer" data-pose-viewer hidden>
+  <div class="bp-viewer-backdrop" data-pose-close></div>
+  <button type="button" class="bp-viewer-close" data-pose-close aria-label={c.poseViewerClose}>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+  <figure class="bp-viewer-figure">
+    <img src="" alt="" data-pose-image width="900" height="900" />
+  </figure>
+</div>
+
+<BipsyPilotModal lang={lang} actionUrl={formActionUrl} />
+
+<script>
+  function initPoseViewer() {
+    const viewer = document.querySelector<HTMLElement>('[data-pose-viewer]');
+    const image = viewer?.querySelector<HTMLImageElement>('[data-pose-image]');
+    if (!viewer || !image || viewer.dataset.poseReady === 'true') return;
+    viewer.dataset.poseReady = 'true';
+
+    let lastTrigger: HTMLElement | null = null;
+
+    const open = (trigger: HTMLElement) => {
+      const src = trigger.dataset.poseSrc;
+      if (!src) return;
+      lastTrigger = trigger;
+      image.src = src;
+      viewer.hidden = false;
+      // next frame, so the transition runs from the hidden state
+      requestAnimationFrame(() => viewer.classList.add('is-open'));
+      document.documentElement.classList.add('bp-viewer-open');
+      viewer.querySelector<HTMLElement>('.bp-viewer-close')?.focus();
+    };
+
+    const close = () => {
+      viewer.classList.remove('is-open');
+      document.documentElement.classList.remove('bp-viewer-open');
+      window.setTimeout(() => {
+        viewer.hidden = true;
+        image.src = '';
+      }, 300);
+      lastTrigger?.focus();
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-pose-open]').forEach((btn) => {
+      btn.addEventListener('click', () => open(btn));
+    });
+    viewer.querySelectorAll<HTMLElement>('[data-pose-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !viewer.hidden) close();
+    });
+  }
+
+  initPoseViewer();
+  document.addEventListener('astro:after-swap', initPoseViewer);
+</script>
+
+<style>
+  /* =============================================
+     TOKENS
+  ============================================= */
+  .bp-main,
+  .bp-breadcrumb {
+    --mint: #c0ebd1;
+    --mint-deep: #3f8c66;
+    --carbon: #31373c;
+    --slate: #6d7174;
+    --glass: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.8);
+  }
+
+  .bp-main {
+    position: relative;
+    z-index: 1;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* =============================================
+     BREADCRUMB
+  ============================================= */
+  .bp-breadcrumb {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 2rem 1.8rem;
+  }
+
+  .bp-breadcrumb-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .bp-breadcrumb-trail {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.45);
+    margin-bottom: 1.1rem;
+  }
+
+  .bp-crumb-link {
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    transition: color 0.22s ease;
+  }
+
+  .bp-crumb-link:hover { color: var(--mint-deep); }
+  .bp-crumb-sep { color: rgba(0, 0, 0, 0.25); }
+  .bp-crumb-current { font-weight: 600; color: #000; }
+
+  .bp-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+    padding: 0.48rem 1rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .bp-back svg { transition: transform 0.3s ease; }
+  .bp-back:hover { color: #000; background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.1); transform: translateX(-2px); }
+  .bp-back:hover svg { transform: translateX(-2px); }
+
+  /* =============================================
+     SHARED GLASS + HEADINGS
+  ============================================= */
+  .bp-glass {
+    position: relative;
+    background: var(--glass);
+    backdrop-filter: blur(24px) saturate(165%);
+    -webkit-backdrop-filter: blur(24px) saturate(165%);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    box-shadow:
+      0 8px 34px rgba(0, 0, 0, 0.035),
+      0 1px 0 rgba(255, 255, 255, 0.85) inset;
+  }
+
+
+  .bp-section { margin-bottom: 6rem; }
+  .bp-section--last { margin-bottom: 5rem; }
+
+  .bp-head {
+    max-width: 640px;
+    margin-bottom: 2.6rem;
+  }
+
+  .bp-eyebrow {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 0 0 0.7rem;
+  }
+
+  .bp-eyebrow--light { color: rgba(255, 255, 255, 0.42); }
+
+  .bp-title {
+    font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+    color: #000;
+    margin: 0;
+  }
+
+  .bp-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0.9rem 0 0;
+  }
+
+  /* =============================================
+     HERO
+  ============================================= */
+  .bp-hero { margin-bottom: 6rem; }
+
+  .bp-hero-glass {
+    position: relative;
+    overflow: hidden;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.58);
+    backdrop-filter: blur(30px) saturate(170%);
+    -webkit-backdrop-filter: blur(30px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 3.4rem 3.2rem;
+  }
+
+  .bp-hero-aura {
+    position: absolute;
+    top: -35%;
+    right: -10%;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.75) 0%, rgba(192, 235, 209, 0) 66%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bp-hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .bp-hero-status {
+    color: #3f8c66;
+  }
+
+  .bp-hero-eyebrow {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 0.4rem 0 0;
+  }
+
+  .bp-hero-title {
+    font-size: clamp(2.8rem, 7vw, 4.6rem);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 1;
+    color: #000;
+    margin: 0;
+  }
+
+  .bp-hero-lead {
+    font-size: clamp(1rem, 2.1vw, 1.18rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.78);
+    margin: 0.4rem 0 0;
+    max-width: 30ch;
+  }
+
+  .bp-hero-desc {
+    font-size: 0.93rem;
+    line-height: 1.72;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  /* ---- Store badges (official artwork, never recoloured) ---- */
+  .bp-stores {
+    margin-top: 1.6rem;
+  }
+
+  .bp-stores-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 0 0 0.75rem;
+  }
+
+  .bp-stores-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  /* Not published yet: these read as destinations, not as download links */
+  .bp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 48px;
+    padding: 0 1.25rem;
+    border-radius: 16px;
+    color: var(--carbon);
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px) saturate(175%);
+    -webkit-backdrop-filter: blur(20px) saturate(175%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.05),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bp-badge:hover {
+    background: rgba(255, 255, 255, 0.68);
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.07),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  .bp-badge-glyph { flex-shrink: 0; }
+
+  .bp-badge-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .bp-hero-meta {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 1.1rem 0 0;
+  }
+
+  .bp-hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .bp-hero-visual-glow {
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    width: 78%;
+    height: 78%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.6) 0%, rgba(192, 235, 209, 0) 68%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+
+  .bp-hero-img {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.16));
+    animation: bpFloat 7s ease-in-out 0.6s infinite;
+  }
+
+  @keyframes bpFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(0.8deg); }
+  }
+
+  /* =============================================
+     CONTEXT DUO
+  ============================================= */
+  .bp-context {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 2.6rem;
+  }
+
+  .bp-context-col { padding-right: 3.5rem; }
+
+  .bp-context-col--answer {
+    padding-right: 0;
+    padding-left: 3.5rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .bp-context-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 0 0 1.1rem;
+  }
+
+  .bp-context-col--answer .bp-context-label { color: var(--mint-deep); }
+
+  .bp-context-body {
+    font-size: 1.02rem;
+    line-height: 1.78;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+
+  /* The answer carries slightly more weight than the problem */
+  .bp-context-col--answer .bp-context-body { color: rgba(0, 0, 0, 0.78); }
+
+  /* =============================================
+     THE TWO APPS
+  ============================================= */
+  .bp-apps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .bp-app {
+    overflow: hidden;
+    padding: 2.2rem 2rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease;
+  }
+
+  .bp-app:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 54px rgba(0, 0, 0, 0.07);
+  }
+
+  .bp-app-glow {
+    position: absolute;
+    top: -40%;
+    right: -25%;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    filter: blur(48px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bp-app--mint .bp-app-glow {
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.75) 0%, transparent 68%);
+  }
+
+  .bp-app--slate .bp-app-glow {
+    background: radial-gradient(circle, rgba(109, 113, 116, 0.22) 0%, transparent 68%);
+  }
+
+  .bp-app > *:not(.bp-app-glow) { position: relative; z-index: 1; }
+
+  .bp-app-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Both lockups share the same trimmed width, so matching widths keeps
+     the "Bipsy" wordmark optically identical across the two cards */
+  .bp-app-mark {
+    width: 138px;
+    height: auto;
+  }
+
+  .bp-app-audience {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .bp-app--mint .bp-app-audience { color: #3f8c66; }
+  .bp-app--slate .bp-app-audience { color: var(--slate); }
+
+  .bp-app-desc {
+    font-size: 0.92rem;
+    line-height: 1.68;
+    color: rgba(0, 0, 0, 0.58);
+    margin: 0;
+  }
+
+  .bp-app-shot {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .bp-app-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .bp-app:hover .bp-app-shot img { transform: scale(1.03); }
+
+  .bp-app-features {
+    list-style: none;
+    padding: 0;
+    margin: 0.2rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .bp-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .bp-feature-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 0.08rem;
+    border-radius: 7px;
+  }
+
+  .bp-app--mint .bp-feature-check {
+    background: rgba(192, 235, 209, 0.55);
+    color: #2f6b4d;
+  }
+
+  .bp-app--slate .bp-feature-check {
+    background: rgba(109, 113, 116, 0.14);
+    color: #4c5053;
+  }
+
+  /* =============================================
+     FLOW
+  ============================================= */
+  .bp-flow {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+    counter-reset: bp-flow;
+  }
+
+  .bp-flow-step {
+    padding: 1.9rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s ease;
+  }
+
+  .bp-flow-step:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .bp-flow-num {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--mint-deep);
+  }
+
+  .bp-flow-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #000;
+    margin: 0;
+  }
+
+  .bp-flow-body {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0;
+  }
+
+  /* =============================================
+     MEET BIP
+  ============================================= */
+  .bp-bip {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 3rem 3rem 3rem;
+  }
+
+  .bp-bip-aura {
+    position: absolute;
+    bottom: -45%;
+    right: -8%;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.7) 0%, rgba(192, 235, 209, 0) 66%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bp-bip-intro,
+  .bp-bip-visual { position: relative; z-index: 1; }
+
+  .bp-bip-body {
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: rgba(0, 0, 0, 0.58);
+    margin: 1rem 0 0;
+    max-width: 48ch;
+  }
+
+  .bp-bip-traits {
+    list-style: none;
+    padding: 0;
+    margin: 1.8rem 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bp-trait {
+    padding: 1rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  .bp-trait:last-child { padding-bottom: 0; }
+
+  .bp-trait-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #000;
+    margin: 0 0 0.2rem;
+  }
+
+  .bp-trait-body {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.52);
+    margin: 0;
+  }
+
+  .bp-bip-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bp-bip-hero-img {
+    width: 100%;
+    max-width: 330px;
+    height: auto;
+    filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.14));
+    animation: bpFloat 8s ease-in-out 1.2s infinite;
+  }
+
+  /* ---- Pose strip ---- */
+  .bp-poses {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1.4rem;
+  }
+
+  .bp-pose {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), background 0.45s ease, border-color 0.45s ease;
+  }
+
+  .bp-pose::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 78%, rgba(192, 235, 209, 0.5) 0%, transparent 62%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .bp-pose { position: relative; }
+
+  .bp-pose {
+    padding: 0;
+    cursor: zoom-in;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bp-pose-zoom {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.5, 0.64, 1);
+  }
+
+  .bp-pose:hover .bp-pose-zoom,
+  .bp-pose:focus-visible .bp-pose-zoom {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .bp-pose:hover { transform: translateY(-6px); background: rgba(255, 255, 255, 0.68); }
+  .bp-pose:hover::before { opacity: 1; }
+
+  .bp-pose img {
+    position: relative;
+    width: 82%;
+    height: auto;
+    transform: translateY(4%);
+    filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.1));
+    transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .bp-pose:hover img { transform: translateY(0) scale(1.05); }
+
+  /* ---- Pose viewer ---- */
+  .bp-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .bp-viewer.is-open { opacity: 1; }
+
+  /* display:flex above would beat the UA [hidden] rule and leave an
+     invisible overlay swallowing every click on the page */
+  .bp-viewer[hidden] { display: none; }
+
+  .bp-viewer-backdrop {
+    position: absolute;
+    inset: 0;
+    cursor: zoom-out;
+    background: rgba(20, 24, 22, 0.55);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+  }
+
+  .bp-viewer-close {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: color 0.25s ease, background 0.25s ease, transform 0.3s ease;
+  }
+
+  .bp-viewer-close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.22);
+    transform: rotate(90deg);
+  }
+
+  .bp-viewer-figure {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: min(560px, 100%);
+    transform: scale(0.92);
+    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .bp-viewer.is-open .bp-viewer-figure { transform: scale(1); }
+
+  .bp-viewer-figure img {
+    width: 100%;
+    height: auto;
+    max-height: 82vh;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+  }
+
+  :global(html.bp-viewer-open) { overflow: hidden; }
+
+  .bp-poses-note {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    margin: 1rem 0 0;
+  }
+
+  /* =============================================
+     ROADMAP
+  ============================================= */
+  .bp-track {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .bp-step { padding-right: 1.6rem; }
+
+  /* Continuous rail: every step draws the segment to its right */
+  .bp-step-rail {
+    display: flex;
+    align-items: center;
+    margin: 0 -1.6rem 1.4rem 0;
+  }
+
+  .bp-step-node {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    color: transparent;
+  }
+
+  .bp-step-line {
+    flex: 1;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.09);
+  }
+
+  .bp-step-line.is-filled { background: var(--mint-deep); }
+  .bp-step:last-child .bp-step-line { background: transparent; }
+
+  .bp-step--done .bp-step-node {
+    color: #fff;
+    background: var(--mint-deep);
+    border-color: var(--mint-deep);
+  }
+
+  /* The phase under way gets a halo so the eye lands on it first */
+  .bp-step--active .bp-step-node {
+    background: var(--mint);
+    border-color: var(--mint-deep);
+    box-shadow: 0 0 0 5px rgba(192, 235, 209, 0.55);
+  }
+
+  .bp-step-state {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.3);
+    margin: 0 0 0.45rem;
+  }
+
+  .bp-step--done .bp-step-state,
+  .bp-step--active .bp-step-state { color: var(--mint-deep); }
+
+  .bp-step-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    color: #000;
+    margin: 0 0 0.5rem;
+  }
+
+  .bp-step--next .bp-step-title,
+  .bp-step--planned .bp-step-title { color: rgba(0, 0, 0, 0.55); }
+
+  .bp-step-body {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+
+  /* =============================================
+     STACK
+  ============================================= */
+  .bp-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .bp-tech {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.68rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #111;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.025);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bp-tech:hover {
+    transform: translateY(-2px);
+    border-color: rgba(63, 140, 102, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  /* =============================================
+     BRAND SYSTEM
+  ============================================= */
+  .bp-brand {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    align-items: stretch;
+  }
+
+  .bp-brand-lockups {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.4rem;
+  }
+
+  .bp-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 2.2rem;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .bp-lockup::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -30%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(44px);
+    pointer-events: none;
+  }
+
+  .bp-lockup--mint::before { background: radial-gradient(circle, rgba(192, 235, 209, 0.8) 0%, transparent 68%); }
+  .bp-lockup--slate::before { background: radial-gradient(circle, rgba(109, 113, 116, 0.2) 0%, transparent 68%); }
+
+  .bp-lockup-img {
+    position: relative;
+    width: 190px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .bp-lockup-label {
+    position: relative;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  .bp-palette { padding: 2rem 2.2rem; }
+
+  .bp-palette-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 0 0 1.4rem;
+  }
+
+  .bp-swatches {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .bp-swatch {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .bp-swatch-chip {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .bp-swatch-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .bp-swatch-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #000;
+  }
+
+  .bp-swatch-hex {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(0, 0, 0, 0.42);
+  }
+
+  .bp-swatch-note {
+    font-size: 0.72rem;
+    color: rgba(0, 0, 0, 0.33);
+  }
+
+  /* =============================================
+     PILOT CTA
+  ============================================= */
+  .bp-pilot {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    background: rgba(10, 12, 13, 0.93);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.2);
+    padding: 3.6rem 3.2rem;
+  }
+
+  .bp-pilot-glow {
+    position: absolute;
+    top: -40%;
+    right: -12%;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192, 235, 209, 0.24) 0%, transparent 66%);
+    filter: blur(46px);
+    pointer-events: none;
+  }
+
+  .bp-pilot-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+  }
+
+  .bp-pilot-title {
+    font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.18;
+    color: #fff;
+    margin: 0 0 1rem;
+  }
+
+  .bp-pilot-body {
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: rgba(255, 255, 255, 0.62);
+    margin: 0 0 2rem;
+  }
+
+  .bp-pilot-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .bp-pilot-cta {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 100px;
+    background: var(--mint);
+    color: #1c2a22;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+  }
+
+  .bp-pilot-cta svg { transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
+
+  .bp-pilot-cta:hover {
+    background: #d6f2e2;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(192, 235, 209, 0.25);
+  }
+
+  .bp-pilot-cta:hover svg { transform: translateX(3px); }
+
+  .bp-pilot-ghost {
+    padding: 0.85rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: color 0.28s ease, background 0.28s ease, border-color 0.28s ease;
+  }
+
+  .bp-pilot-ghost:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  /* =============================================
+     RELATED SERVICE
+  ============================================= */
+  .bp-service {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 2rem 2.2rem;
+    border-radius: 22px;
+  }
+
+  .bp-service-intro {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+    margin: 0 0 0.4rem;
+  }
+
+  .bp-service-name {
+    font-size: 1.32rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin: 0;
+  }
+
+  .bp-service-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 100px;
+    background: #000;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bp-service-cta svg { transition: transform 0.3s ease; }
+
+  .bp-service-cta:hover {
+    background: var(--carbon);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(49, 55, 60, 0.25);
+  }
+
+  .bp-service-cta:hover svg { transform: translateX(3px); }
+
+  /* =============================================
+     RESPONSIVE
+  ============================================= */
+  @media (max-width: 1024px) {
+    .bp-flow { grid-template-columns: repeat(2, 1fr); }
+    /* The rail only reads horizontally when every step fits on one row */
+    .bp-track { grid-template-columns: 1fr; gap: 1.9rem; }
+    .bp-step { padding-right: 0; padding-left: 2.4rem; position: relative; }
+    .bp-step-rail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: -1.9rem;
+      flex-direction: column;
+      margin: 0;
+    }
+    .bp-step-line { width: 2px; height: auto; flex: 1; }
+    .bp-step:last-child .bp-step-rail { bottom: 0; }
+  }
+
+  @media (max-width: 900px) {
+    .bp-context { grid-template-columns: 1fr; padding-top: 2rem; }
+    .bp-context-col { padding-right: 0; }
+    .bp-context-col--answer {
+      padding-left: 0;
+      margin-top: 2.2rem;
+      padding-top: 2.2rem;
+      border-left: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .bp-hero-glass {
+      grid-template-columns: 1fr;
+      padding: 2.6rem 2rem;
+      gap: 2rem;
+    }
+    .bp-hero-visual { order: -1; }
+    .bp-hero-img { max-width: 300px; }
+    .bp-apps,
+    .bp-brand { grid-template-columns: 1fr; }
+    .bp-bip {
+      grid-template-columns: 1fr;
+      padding: 2.4rem 2rem;
+      gap: 2rem;
+    }
+    .bp-bip-visual { order: -1; }
+    .bp-bip-hero-img { max-width: 240px; }
+  }
+
+  @media (max-width: 768px) {
+    .bp-main { padding: 0 1.2rem; }
+    .bp-breadcrumb { padding: 6.5rem 1.2rem 1.4rem; }
+    .bp-section { margin-bottom: 4.5rem; }
+    .bp-hero { margin-bottom: 4.5rem; }
+    .bp-hero-glass { border-radius: 26px; }
+    .bp-glass { border-radius: 22px; }
+    .bp-app { padding: 1.8rem 1.5rem; }
+    .bp-palette,
+    .bp-lockup { padding: 1.8rem 1.5rem; }
+    .bp-pilot { border-radius: 24px; padding: 2.4rem 1.7rem; }
+    .bp-service { padding: 1.7rem 1.5rem; }
+    .bp-service-cta { width: 100%; justify-content: center; }
+    .bp-app-mark { width: 120px; }
+    .bp-lockup-img { width: 160px; }
+    .bp-poses { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .bp-pose { border-radius: 20px; }
+  }
+
+  @media (max-width: 560px) {
+    .bp-flow { grid-template-columns: 1fr; }
+    .bp-pilot-cta,
+    .bp-pilot-ghost { width: 100%; justify-content: center; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bp-hero-img,
+    .bp-bip-hero-img { animation: none; }
+  }
+</style>
