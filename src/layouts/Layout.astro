@@ -1,5 +1,6 @@
 ---
 import { getSwitchLanguagePath, hasEnglishAlternate } from '../lib/paths';
+import { absoluteUrl, canonicalPath } from '../lib/site';
 
 interface Props {
 	title?: string;
@@ -20,9 +21,9 @@ const enUrlPath = getSwitchLanguagePath(pathname, 'en');
 
 const showEnglishAlternate = hasEnglishAlternate(pathname);
 
-const canonicalUrl = `https://giralabs.es${pathname === '/' ? '' : pathname}`;
-const esHref = `https://giralabs.es${esUrlPath === '/' ? '' : esUrlPath}`;
-const enHref = `https://giralabs.es${enUrlPath}`;
+const canonicalUrl = absoluteUrl(canonicalPath(pathname));
+const esHref = absoluteUrl(canonicalPath(esUrlPath));
+const enHref = absoluteUrl(canonicalPath(enUrlPath));
 const xDefaultHref = esHref;
 ---
 
@@ -57,7 +58,7 @@ const xDefaultHref = esHref;
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content="Giralabs" />
 		<meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'es_ES'} />
-		<meta property="og:image" content="https://giralabs.es/og-image.png" />
+		<meta property="og:image" content="https://www.giralabs.es/og-image.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:type" content="image/png" />
@@ -67,7 +68,7 @@ const xDefaultHref = esHref;
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://giralabs.es/og-image.png" />
+		<meta name="twitter:image" content="https://www.giralabs.es/og-image.png" />
 		<meta name="twitter:image:alt" content="Giralabs" />
 
 		<!-- Outfit is the fallback for locally installed Gilroy, which almost no
@@ -81,12 +82,12 @@ const xDefaultHref = esHref;
 			"@graph": [
 				{
 					"@type": "ProfessionalService",
-					"@id": "https://giralabs.es/#organization",
+					"@id": "https://www.giralabs.es/#organization",
 					"name": "Giralabs",
 					"alternateName": ["Giralab", "Girlabs"],
-					"url": "https://giralabs.es",
-					"logo": "https://giralabs.es/logo.png",
-					"image": "https://giralabs.es/og-image.png",
+					"url": "https://www.giralabs.es",
+					"logo": "https://www.giralabs.es/logo.png",
+					"image": "https://www.giralabs.es/og-image.png",
 					"description": lang === 'en'
 						? "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions."
 						: "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
@@ -111,11 +112,11 @@ const xDefaultHref = esHref;
 				},
 				{
 					"@type": "WebSite",
-					"@id": "https://giralabs.es/#website",
-					"url": "https://giralabs.es",
+					"@id": "https://www.giralabs.es/#website",
+					"url": "https://www.giralabs.es",
 					"name": "Giralabs",
 					"publisher": {
-						"@id": "https://giralabs.es/#organization"
+						"@id": "https://www.giralabs.es/#organization"
 					}
 				}
 			]

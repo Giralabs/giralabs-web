@@ -484,7 +484,7 @@ export function buildWelcomeEmailHTML(lang: 'es' | 'en'): string {
   </tr>
   <tr>
     <td style="background:#ffffff;padding:0 40px 32px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;" align="center">
-      <a href="https://giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:12px;padding:15px 36px;font-size:14px;font-weight:700;">${labels.cta} →</a>
+      <a href="https://www.giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:12px;padding:15px 36px;font-size:14px;font-weight:700;">${labels.cta} →</a>
     </td>
   </tr>
   <tr>
@@ -524,7 +524,7 @@ export function buildNewPostsEmailHTML(posts: any[], lang: 'es' | 'en'): string 
   };
 
   const postsBlock = posts.map(p => {
-    const detailUrl = isES ? `https://giralabs.es/blog/${p.slug}` : `https://giralabs.es/en/blog/${p.slug}`;
+    const detailUrl = isES ? `https://www.giralabs.es/blog/${p.slug}` : `https://www.giralabs.es/en/blog/${p.slug}`;
     const readingTimeLabel = isES ? 'lectura' : 'read';
     
     return `
@@ -568,7 +568,7 @@ export function buildNewPostsEmailHTML(posts: any[], lang: 'es' | 'en'): string 
   </tr>
   <tr>
     <td style="background:#ffffff;padding:12px 40px 32px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;" align="center">
-      <a href="https://giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="font-size:13px;color:#0a0a0a;text-decoration:underline;font-weight:600;">${labels.readAll}</a>
+      <a href="https://www.giralabs.es/${isES ? 'blog' : 'en/blog'}" target="_blank" style="font-size:13px;color:#0a0a0a;text-decoration:underline;font-weight:600;">${labels.readAll}</a>
     </td>
   </tr>
   <tr>

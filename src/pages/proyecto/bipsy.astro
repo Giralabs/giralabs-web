@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { SITE_ORIGIN } from '../../lib/site';
 import Navbar from '../../components/Navbar.astro';
 import BipsyProject from '../../components/bipsy/BipsyProject.astro';
 import CTAContact from '../../components/CTAContact.astro';
@@ -8,7 +9,7 @@ import Footer from '../../components/Footer.astro';
 export const prerender = true;
 
 const lang = 'es';
-const siteUrl = 'https://giralabs.es';
+const siteUrl = SITE_ORIGIN;
 
 const metaTitle = 'Bipsy | App de reservas para barberías, peluquerías y estética | Giralabs';
 const metaDescription =
@@ -37,8 +38,8 @@ const appsSchema = {
       inLanguage: 'es',
       description:
         'App de reservas para clientes de barberías, peluquerías y centros de estética: descubrimiento por categoría, disponibilidad real, recordatorios e historial de citas.',
-      author: { '@id': 'https://giralabs.es/#organization' },
-      publisher: { '@id': 'https://giralabs.es/#organization' },
+      author: { '@id': `${SITE_ORIGIN}/#organization` },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
     },
     {
       '@type': 'SoftwareApplication',
@@ -49,8 +50,8 @@ const appsSchema = {
       inLanguage: 'es',
       description:
         'App de gestión para barberías, peluquerías y centros de estética: agenda diaria, confirmación de citas, servicios, equipo y ficha de cliente.',
-      author: { '@id': 'https://giralabs.es/#organization' },
-      publisher: { '@id': 'https://giralabs.es/#organization' },
+      author: { '@id': `${SITE_ORIGIN}/#organization` },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
     },
   ],
 };

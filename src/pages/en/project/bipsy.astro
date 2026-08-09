@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { SITE_ORIGIN } from '../../../lib/site';
 import Navbar from '../../../components/Navbar.astro';
 import BipsyProject from '../../../components/bipsy/BipsyProject.astro';
 import CTAContact from '../../../components/CTAContact.astro';
@@ -8,7 +9,7 @@ import Footer from '../../../components/Footer.astro';
 export const prerender = true;
 
 const lang = 'en';
-const siteUrl = 'https://giralabs.es';
+const siteUrl = SITE_ORIGIN;
 
 const metaTitle = 'Bipsy | Booking app for barbershops, hair salons and beauty studios | Giralabs';
 const metaDescription =
@@ -37,8 +38,8 @@ const appsSchema = {
       inLanguage: 'en',
       description:
         'Booking app for clients of barbershops, hair salons and beauty studios: discovery by category, real availability, reminders and appointment history.',
-      author: { '@id': 'https://giralabs.es/#organization' },
-      publisher: { '@id': 'https://giralabs.es/#organization' },
+      author: { '@id': `${SITE_ORIGIN}/#organization` },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
     },
     {
       '@type': 'SoftwareApplication',
@@ -49,8 +50,8 @@ const appsSchema = {
       inLanguage: 'en',
       description:
         'Management app for barbershops, hair salons and beauty studios: daily agenda, appointment confirmation, services, team and client profiles.',
-      author: { '@id': 'https://giralabs.es/#organization' },
-      publisher: { '@id': 'https://giralabs.es/#organization' },
+      author: { '@id': `${SITE_ORIGIN}/#organization` },
+      publisher: { '@id': `${SITE_ORIGIN}/#organization` },
     },
   ],
 };
