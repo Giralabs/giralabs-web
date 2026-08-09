@@ -82,13 +82,18 @@ const localizedPath = (path: string) => {
 
     // Trigger visual scroll animations
     const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+    // A ratio threshold measures a share of the target's own height, and these
+    // reveal targets are whole sections that are often taller than the viewport,
+    // so the share could never be met and the section stayed invisible. The
+    // negative bottom rootMargin is what delays the reveal until it is properly
+    // in view.
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => observer.observe(el));
   </script>
 </Layout>
