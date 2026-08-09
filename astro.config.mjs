@@ -45,6 +45,13 @@ export default defineConfig({
       name: 'newsletter-notifier',
       hooks: {
         'astro:build:done': async () => {
+          // Only the deploy build may notify. A local `npm run build` picks up the
+          // real Gmail/Upstash credentials from .env and would mail every subscriber
+          // and burn the slugs as "already notified".
+          if (!process.env.VERCEL && process.env.NEWSLETTER_NOTIFY !== '1') {
+            console.log('[Giralabs Newsletter] Local build detected, skipping notifications.');
+            return;
+          }
           try {
             console.log('[Giralabs Newsletter] Executing post-build checks for new posts...');
             const { checkAndSendNewPostNotifications } = await import('./src/lib/newsletter-notifications.ts');
