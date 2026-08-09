@@ -44,7 +44,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
         <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
           <a href={localizedPath("/servicios")} class="nav-link dropdown-toggle">
-            <span data-i18n="nav_services">Servicios</span>
+            <span data-i18n="nav_services">{T.nav_services}</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -60,9 +60,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
       </ul>
 
       <!-- Right -->
@@ -72,7 +72,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <span class="lang-sep">/</span>
           <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">{T.nav_cta}</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
           <span></span><span></span>
         </button>
@@ -90,7 +90,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
         <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
           <a href={localizedPath("/servicios")} class="pill-link dropdown-toggle">
-            <span data-i18n="nav_services">Servicios</span>
+            <span data-i18n="nav_services">{T.nav_services}</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -106,9 +106,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
       </ul>
       <div class="pill-right">
         <div class="lang-toggle pill-lang" aria-label="Language selection">
@@ -116,7 +116,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <span class="lang-sep">/</span>
           <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">{T.nav_cta}</a>
       </div>
     </div>
   </div>
@@ -127,7 +127,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       <li><a href={localizedPath("/")} class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
       <li class="mobile-dropdown-wrapper">
         <button class="mobile-link mobile-dropdown-toggle" type="button">
-          <span data-i18n="nav_services">Servicios</span>
+          <span data-i18n="nav_services">{T.nav_services}</span>
           <svg class="mobile-chevron-icon" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
@@ -142,10 +142,10 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <a href={localizedPath("/servicio/integracion-ia")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
-      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
-      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
-      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">Blog</a></li>
-      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">{T.nav_about}</a></li>
+      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
+      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">{T.nav_cta}</a></li>
     </ul>
   </div>
 </nav>

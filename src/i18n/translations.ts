@@ -385,7 +385,7 @@ export const translations = {
     statement_sub:
       "Sin saber qué construir ni para quién. Sin el equipo adecuado ni estrategia detrás.",
     statement_sub2:
-      "En Giralabs unimos estrategia de producto, diseño e ingeniería. Para convertir ideas con potencial en apps que la gente elige usar.",
+      "En Giralabs unimos estrategia de producto, diseño e ingeniería. Para convertir <strong>ideas con potencial</strong> en apps que la gente elige usar.",
     statement_cta: "HABLEMOS ANTES DEL PRIMER COMMIT",
 
     // Manifesto
@@ -455,6 +455,8 @@ export const translations = {
     about_intro_p1: "En Giralabs creemos que el software excelente no surge por accidente. Nace de la combinación perfecta entre estrategia de negocio, diseño intuitivo e ingeniería de alto rendimiento.",
     about_intro_p2: "No somos una consultora masiva. Somos un equipo boutique enfocado en la calidad, la transparencia y el impacto real. Trabajamos codo con codo con fundadores y líderes de producto para convertir visiones ambiciosas en aplicaciones memorables.",
     about_intro_p3: "Trabajamos desde Sevilla y colaboramos estrechamente con clientes y empresas de toda España, ofreciendo un servicio de proximidad y alta calidad.",
+    about_values_eyebrow: "CÓMO PENSAMOS",
+    about_values_heading: "Nuestros pilares fundamentales",
     about_value_1_title: "Precisión de Ingeniería",
     about_value_1_desc: "Escribimos código limpio, robusto y escalable. Optimizamos el rendimiento al milisegundo y tratamos la seguridad como una prioridad absoluta.",
     about_value_2_title: "Diseño de Vanguardia",
@@ -1005,7 +1007,7 @@ export const translations = {
     statement_sub:
       "Without knowing what to build or for whom. Without the right team or strategy behind.",
     statement_sub2:
-      "At Giralabs we combine product strategy, design and engineering. To turn ideas with potential into apps people choose to use.",
+      "At Giralabs we combine product strategy, design and engineering. To turn <strong>ideas with potential</strong> into apps people choose to use.",
     statement_cta: "LET'S TALK BEFORE THE FIRST COMMIT",
 
     // Manifesto
@@ -1075,6 +1077,8 @@ export const translations = {
     about_intro_p1: "At Giralabs, we believe excellent software doesn't happen by accident. It is born from the perfect blend of business strategy, intuitive design, and high-performance engineering.",
     about_intro_p2: "We are not a mass-market consultancy. We are a boutique team focused on quality, transparency, and real impact. We work hand-in-hand with founders and product leaders to turn ambitious visions into memorable applications.",
     about_intro_p3: "We work out of Seville and collaborate closely with clients and companies across Spain, offering high-quality, local service.",
+    about_values_eyebrow: "HOW WE THINK",
+    about_values_heading: "Our founding pillars",
     about_value_1_title: "Engineering Precision",
     about_value_1_desc: "We write clean, robust, and scalable code. We optimize performance to the millisecond and treat security as an absolute priority.",
     about_value_2_title: "Vanguard Design",

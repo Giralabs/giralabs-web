@@ -71,7 +71,8 @@ const technologies = [
         <div class="panel-inner">
           <div class="intro-grid">
             <div class="intro-left">
-              <h2 class="section-title" data-i18n="how_title">Un proceso claro,<br/>resultados concretos.</h2>
+              <h2 class="section-title" data-i18n="how_title" set:html={T.how_title.replace('
+', '<br/>')}></h2>
             </div>
             <div class="intro-right">
               <p class="intro-p lead-p" data-i18n="about_intro_p1">{T.about_intro_p1}</p>
@@ -86,8 +87,8 @@ const technologies = [
     <!-- ==================== VALUES SECTION ==================== -->
     <section class="values-section">
       <div class="section-header reveal">
-        <span class="section-eyebrow">CÓMO PENSAMOS</span>
-        <h2 class="section-heading">Nuestros pilares fundamentales</h2>
+        <span class="section-eyebrow" data-i18n="about_values_eyebrow">{T.about_values_eyebrow}</span>
+        <h2 class="section-heading" data-i18n="about_values_heading">{T.about_values_heading}</h2>
       </div>
       
       <div class="values-grid reveal-stagger">
