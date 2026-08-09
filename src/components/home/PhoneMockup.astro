@@ -1,6 +1,12 @@
 ---
+import { Picture } from 'astro:assets';
 import { translations } from '../../i18n/translations';
 import { getLocalizedPath } from '../../lib/paths';
+// Rasterised from the old 1 MB phone-mockup.svg. The multiply blend against the
+// page background is baked into the RGB channels (alpha untouched), which is the
+// same pixel result, so the CSS blend mode — and the per-frame re-rasterisation
+// of a filtered SVG it forced during phoneIdle — is no longer needed.
+import phoneMockup from '../../assets/phone-mockup.png';
 
 interface Props {
   lang?: string;
@@ -29,12 +35,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     <!-- Right: phone mockup -->
     <div class="statement-visual">
       <div class="phone-wrapper">
-        <img
-          src="/phone-mockup.svg"
+        <Picture
+          src={phoneMockup}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[380, 760, 1140, 1520]}
+          sizes="(max-width: 960px) 380px, 760px"
           alt="App example on phone"
           class="phone-img"
           loading="lazy"
-          width="480"
+          decoding="async"
         />
         <div class="phone-shadow" aria-hidden="true"></div>
       </div>
@@ -124,14 +134,22 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     margin-right: -4rem;
   }
 
+  /* The <picture> wrapper must not become the flex item, or it would size the
+     image instead of these rules */
+  .phone-wrapper picture {
+    display: contents;
+  }
+
   .phone-img {
     width: 100%;
     max-width: 950px;
     height: auto;
     display: block;
-    mix-blend-mode: multiply;
     animation: phoneIdle 5s ease-in-out 1s infinite;
     transform-origin: center center;
+    /* phoneIdle runs forever, so the layer promotion is permanent by design */
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .phone-wrapper:hover .phone-img {

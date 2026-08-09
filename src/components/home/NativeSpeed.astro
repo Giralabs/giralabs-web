@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import { translations } from '../../i18n/translations';
 import androidStudioLogo from '../../assets/tech_stack/android_studio.webp';
 import flutterLogo from '../../assets/tech_stack/flutter.webp';
@@ -27,20 +28,32 @@ const T = translations[lang];
 // Helper to localize paths based on the current lang
 const localizedPath = (path: string) => getLocalizedPath(path, lang);
 
-const logos = [
-  { src: swiftLogo.src, alt: "Swift", url: "https://www.apple.com/la/swift/" },
-  { src: kotlinLogo.src, alt: "Kotlin", url: "https://kotlinlang.org/" },
-  { src: flutterLogo.src, alt: "Flutter", url: "https://flutter.dev/" },
-  { src: supabaseLogo.src, alt: "Supabase", url: "https://supabase.com/" },
-  { src: mongodbLogo.src, alt: "MongoDB", url: "https://www.mongodb.com/" },
-  { src: javaLogo.src, alt: "Java", url: "https://www.java.com/es/" },
-  { src: androidStudioLogo.src, alt: "Android Studio", url: "https://developer.android.com/studio?hl=es-419" },
-  { src: xcodeLogo.src, alt: "Xcode", url: "https://developer.apple.com/xcode/" },
-  { src: springLogo.src, alt: "Spring", url: "https://spring.io/" },
-  { src: angularLogo.src, alt: "Angular", url: "https://angular.dev/" },
-  { src: reactLogo.src, alt: "React", url: "https://react.dev/" },
-  { src: astroLogo.src, alt: "Astro", url: "https://astro.build/" },
+// The marquee paints these at 36x36. Shipping the masters meant ~700 kB of logo
+// for ~430 px of pixels on screen, so each one is resampled to 2x the slot.
+const LOGO_RENDER_WIDTH = 72;
+
+const logoSources = [
+  { src: swiftLogo, alt: "Swift", url: "https://www.apple.com/la/swift/" },
+  { src: kotlinLogo, alt: "Kotlin", url: "https://kotlinlang.org/" },
+  { src: flutterLogo, alt: "Flutter", url: "https://flutter.dev/" },
+  { src: supabaseLogo, alt: "Supabase", url: "https://supabase.com/" },
+  { src: mongodbLogo, alt: "MongoDB", url: "https://www.mongodb.com/" },
+  { src: javaLogo, alt: "Java", url: "https://www.java.com/es/" },
+  { src: androidStudioLogo, alt: "Android Studio", url: "https://developer.android.com/studio?hl=es-419" },
+  { src: xcodeLogo, alt: "Xcode", url: "https://developer.apple.com/xcode/" },
+  { src: springLogo, alt: "Spring", url: "https://spring.io/" },
+  { src: angularLogo, alt: "Angular", url: "https://angular.dev/" },
+  { src: reactLogo, alt: "React", url: "https://react.dev/" },
+  { src: astroLogo, alt: "Astro", url: "https://astro.build/" },
 ];
+
+const logos = await Promise.all(
+  logoSources.map(async (logo) => ({
+    src: (await getImage({ src: logo.src, format: 'webp', width: LOGO_RENDER_WIDTH })).src,
+    alt: logo.alt,
+    url: logo.url,
+  }))
+);
 
 const marqueeLogos = [...logos, ...logos, ...logos];
 ---
