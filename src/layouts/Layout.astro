@@ -201,6 +201,19 @@ const xDefaultHref = esHref;
 		overflow-x: clip;
 	}
 
+	/* Every page paints the same three fixed decorative layers: a tiled dot grid
+	   and two blurred ambient glows. Being position:fixed they were re-rasterised
+	   on every scroll frame — the blurs especially. Promoting them to their own
+	   compositor layer rasterises each once and lets scrolling be a pure GPU
+	   transform. Declared here (and nowhere in the page-scoped blocks) so the
+	   single rule reaches all of them without a specificity fight. */
+	.grid-bg,
+	.ambient-top,
+	.ambient-bottom,
+	.ambient-glow {
+		will-change: transform;
+	}
+
 	/* Scroll reveal utility */
 	.reveal {
 		opacity: 0;
