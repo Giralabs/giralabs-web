@@ -71,7 +71,7 @@ const technologies = [
         <div class="panel-inner">
           <div class="intro-grid">
             <div class="intro-left">
-              <h2 class="section-title" data-i18n="how_title">Un proceso claro,<br/>resultados concretos.</h2>
+              <h2 class="section-title" data-i18n="how_title" set:html={T.how_title.replace('\n', '<br/>')}></h2>
             </div>
             <div class="intro-right">
               <p class="intro-p lead-p" data-i18n="about_intro_p1">{T.about_intro_p1}</p>
@@ -85,8 +85,8 @@ const technologies = [
     <!-- ==================== VALUES SECTION ==================== -->
     <section class="values-section">
       <div class="section-header reveal">
-        <span class="section-eyebrow">CÓMO PENSAMOS</span>
-        <h2 class="section-heading">Nuestros pilares fundamentales</h2>
+        <span class="section-eyebrow" data-i18n="about_values_eyebrow">{T.about_values_eyebrow}</span>
+        <h2 class="section-heading" data-i18n="about_values_heading">{T.about_values_heading}</h2>
       </div>
       
       <div class="values-grid reveal-stagger">
@@ -194,16 +194,9 @@ const technologies = [
 
   <!-- ==================== INTERACTION SCRIPTS ==================== -->
   <script>
-    // Spotlight mouse tracking for advanced glass cards
-    document.querySelectorAll('.value-card, .team-card, .tech-glass-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e as MouseEvent).clientX - rect.left;
-        const y = (e as MouseEvent).clientY - rect.top;
-        (card as HTMLElement).style.setProperty('--mx', x + 'px');
-        (card as HTMLElement).style.setProperty('--my', y + 'px');
-      });
-    });
+    import { initSpotlight } from '../../lib/spotlight';
+    // Pointer-following spotlight: rect cached on entry, one write per frame
+    initSpotlight('.value-card, .team-card, .tech-glass-card');
 
     // Trigger visual scroll animations
     const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');

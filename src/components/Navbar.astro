@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
 import { translations } from '../i18n/translations';
 import { getSwitchLanguagePath, getLocalizedPath, hasEnglishAlternate } from '../lib/paths';
@@ -8,6 +9,10 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+// The symbol is painted at 34px (top bar) and 24px (scrolled pill); one 68px
+// render covers both at 2x instead of shipping the full-size master.
+const navSymbol = await getImage({ src: apricotSymbol, format: 'webp', width: 68 });
 
 // Dynamic routing for lang switch
 const pathname = Astro.url.pathname;
@@ -31,7 +36,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       <a href={localizedPath("/")} class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
         <div class="nav-logo-wrapper">
           <div class="nav-logo-entrance">
-            <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" />
+            <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" fetchpriority="high" decoding="async" />
           </div>
         </div>
         <span class="nav-brand-name" aria-label="GIRALABS">
@@ -44,7 +49,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
         <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
           <a href={localizedPath("/servicios")} class="nav-link dropdown-toggle">
-            <span data-i18n="nav_services">Servicios</span>
+            <span data-i18n="nav_services">{T.nav_services}</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -60,9 +65,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
       </ul>
 
       <!-- Right -->
@@ -72,7 +77,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <span class="lang-sep">/</span>
           <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">{T.nav_cta}</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
           <span></span><span></span>
         </button>
@@ -84,13 +89,13 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   <div class="nav-pill" id="nav-pill" aria-hidden="true">
     <div class="pill-inner">
       <a href={localizedPath("/")} class="pill-logo" aria-label="Giralabs home">
-        <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" />
+        <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" decoding="async" />
       </a>
       <ul class="pill-links" role="list">
         <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
           <a href={localizedPath("/servicios")} class="pill-link dropdown-toggle">
-            <span data-i18n="nav_services">Servicios</span>
+            <span data-i18n="nav_services">{T.nav_services}</span>
             <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -106,9 +111,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">Proyectos</a></li>
-        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">Nosotros</a></li>
-        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">Blog</a></li>
+        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
       </ul>
       <div class="pill-right">
         <div class="lang-toggle pill-lang" aria-label="Language selection">
@@ -116,7 +121,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <span class="lang-sep">/</span>
           <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">Hablemos</a>
+        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">{T.nav_cta}</a>
       </div>
     </div>
   </div>
@@ -127,7 +132,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       <li><a href={localizedPath("/")} class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
       <li class="mobile-dropdown-wrapper">
         <button class="mobile-link mobile-dropdown-toggle" type="button">
-          <span data-i18n="nav_services">Servicios</span>
+          <span data-i18n="nav_services">{T.nav_services}</span>
           <svg class="mobile-chevron-icon" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
@@ -142,10 +147,10 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <a href={localizedPath("/servicio/integracion-ia")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
-      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">Proyectos</a></li>
-      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">Nosotros</a></li>
-      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">Blog</a></li>
-      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">Hablemos</a></li>
+      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
+      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">{T.nav_about}</a></li>
+      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
+      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">{T.nav_cta}</a></li>
     </ul>
   </div>
 </nav>
@@ -831,9 +836,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   const pill = document.getElementById('nav-pill');
   const THRESHOLD = 80;
 
+  // window.innerWidth was read on every scroll event, which forces the browser to
+  // flush layout before it can answer. matchMedia caches the same answer and only
+  // recomputes when the breakpoint is actually crossed.
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+  let ticking = false;
+
   function updateNav() {
+    ticking = false;
     const scrolled = window.scrollY > THRESHOLD;
-    if (window.innerWidth <= 768) {
+    if (mobileQuery.matches) {
       topBar.classList.remove('hidden');
       topBar.classList.toggle('scrolled', scrolled);
       pill.classList.remove('visible');
@@ -853,7 +865,17 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     document.documentElement.removeAttribute('data-scrolled');
   });
 
-  window.addEventListener('scroll', updateNav, { passive: true });
+  // Scroll fires far more often than the screen repaints; coalesce to one class
+  // update per frame.
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateNav);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Crossing the breakpoint swaps which bar is in charge, so re-run then too
+  mobileQuery.addEventListener('change', updateNav);
 
   // ---- Mobile hamburger ----
   const hamburgerBtn = document.getElementById('hamburger-btn');

@@ -70,16 +70,11 @@ const xDefaultHref = esHref;
 		<meta name="twitter:image" content="https://giralabs.es/og-image.png" />
 		<meta name="twitter:image:alt" content="Giralabs" />
 
-		<!-- Google Fonts for premium fallback typography.
-		     Outfit is only the fallback for locally installed Gilroy, so it must not
-		     block the first paint: loaded asynchronously via the media swap trick. -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
-		<noscript>
-			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
-		</noscript>
+		<!-- Outfit is the fallback for locally installed Gilroy, which almost no
+		     visitor has, so in practice it is the font that renders. Self-hosted as a
+		     single variable woff2 covering 100-900: one same-origin request instead of
+		     two cross-origin handshakes plus seven static weight files. -->
+		<link rel="preload" as="font" type="font/woff2" href="/fonts/outfit-latin.woff2" crossorigin>
 		<!-- JSON-LD Schema Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
@@ -138,6 +133,26 @@ const xDefaultHref = esHref;
 </html>
 
 <style is:global>
+	/* Self-hosted Outfit variable font. `font-weight: 100 900` means a single file
+	   serves every weight the site uses (300-900), and unicode-range keeps the
+	   latin-ext file from downloading unless a page actually needs those glyphs. */
+	@font-face {
+		font-family: 'Outfit';
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+		src: url('/fonts/outfit-latin.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	}
+	@font-face {
+		font-family: 'Outfit';
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+		src: url('/fonts/outfit-latin-ext.woff2') format('woff2');
+		unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	}
+
 	/* Register Gilroy font if installed locally, and fallback to Outfit */
 	@font-face {
 		font-family: 'Gilroy';
@@ -184,6 +199,35 @@ const xDefaultHref = esHref;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		overflow-x: clip;
+	}
+
+	/* Every page paints the same three fixed decorative layers: a tiled dot grid
+	   and two blurred ambient glows. Being position:fixed they were re-rasterised
+	   on every scroll frame — the blurs especially. Promoting them to their own
+	   compositor layer rasterises each once and lets scrolling be a pure GPU
+	   transform. Declared here (and nowhere in the page-scoped blocks) so the
+	   single rule reaches all of them without a specificity fight. */
+	.grid-bg,
+	.ambient-top,
+	.ambient-bottom,
+	.ambient-glow {
+		will-change: transform;
+	}
+
+	/* Honour the OS "reduce motion" setting: keep the layout and the final state
+	   of every effect, drop the movement. */
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
 	}
 
 	/* Scroll reveal utility */

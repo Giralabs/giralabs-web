@@ -40,6 +40,24 @@ const p1F3Key = `service_${index}_phase_1_feature_3` as const;
 
 const nextTitleKey = `service_${nextIndex}_title` as const;
 
+// Copy for the five dashboard phases, resolved at build time. The client script
+// used to receive both complete language dictionaries through define:vars —
+// ~107 kB of inline JSON on a page that reads 35 strings in a single language.
+const PHASE_COUNT = 5;
+const phaseCopy = Array.from({ length: PHASE_COUNT }, (_, i) => {
+  const prefix = `service_${index}_phase_${i + 1}`;
+  const read = (field: string) => T[`${prefix}_${field}` as keyof typeof T] ?? '';
+  return {
+    tag: read('tag'),
+    title: read('title'),
+    desc: read('desc'),
+    details: read('details'),
+    feature_1: read('feature_1'),
+    feature_2: read('feature_2'),
+    feature_3: read('feature_3'),
+  };
+});
+
 const siteUrl = 'https://giralabs.es';
 const serviceName = T[titleKey];
 const serviceDesc = T[detailsKey] || T.meta_description;
@@ -900,32 +918,31 @@ const faqSchema = {
   <Footer lang={defaultLang} />
 
   <!-- Interaction / Tab Switcher Client Script -->
-  <script define:vars={{ translations: { es: translations['es'], en: translations['en'] }, index, nextIndex }}>
-    let currentLang = document.documentElement.lang || 'es';
+  <!-- Phase copy as data, so the script below stays a bundled, minified module -->
+  <script type="application/json" id="phase-copy" set:html={JSON.stringify(phaseCopy)} />
+  <script>
+    const phaseCopyEl = document.getElementById('phase-copy');
+    const phaseCopy = phaseCopyEl ? JSON.parse(phaseCopyEl.textContent || '[]') : [];
+
     let currentPhase = 1;
 
-    function updatePhaseText(lang, phaseNum) {
-      const T = translations[lang];
-      const prefix = `service_${index}_phase_${phaseNum}`;
-      
-      const tagDisplay = document.getElementById('phase-tag-display');
-      const titleDisplay = document.getElementById('phase-title-display');
-      const descDisplay = document.getElementById('phase-desc-display');
-      const detailsDisplay = document.getElementById('phase-details-display');
-      const f1Display = document.getElementById('phase-feature-1-display');
-      const f2Display = document.getElementById('phase-feature-2-display');
-      const f3Display = document.getElementById('phase-feature-3-display');
+    function updatePhaseText(phaseNum) {
+      const copy = phaseCopy[phaseNum - 1];
+      if (!copy) return;
 
-      if (tagDisplay) { tagDisplay.textContent = T[`${prefix}_tag`] || ''; }
-      if (titleDisplay) { titleDisplay.textContent = T[`${prefix}_title`] || ''; }
-      if (descDisplay) { descDisplay.textContent = T[`${prefix}_desc`] || ''; }
-      if (detailsDisplay) { detailsDisplay.textContent = T[`${prefix}_details`] || ''; }
-      if (f1Display) { f1Display.textContent = T[`${prefix}_feature_1`] || ''; }
-      if (f2Display) { f2Display.textContent = T[`${prefix}_feature_2`] || ''; }
-      if (f3Display) { f3Display.textContent = T[`${prefix}_feature_3`] || ''; }
-      
-      const numDisplay = document.getElementById('phase-num-display');
-      if (numDisplay) numDisplay.textContent = `0${phaseNum}`;
+      const set = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value || '';
+      };
+
+      set('phase-tag-display', copy.tag);
+      set('phase-title-display', copy.title);
+      set('phase-desc-display', copy.desc);
+      set('phase-details-display', copy.details);
+      set('phase-feature-1-display', copy.feature_1);
+      set('phase-feature-2-display', copy.feature_2);
+      set('phase-feature-3-display', copy.feature_3);
+      set('phase-num-display', `0${phaseNum}`);
     }
 
     // Tab switcher events
@@ -950,19 +967,50 @@ const faqSchema = {
         currentPhase = targetPhase;
 
         setTimeout(() => {
-          updatePhaseText(currentLang, currentPhase);
+          updatePhaseText(currentPhase);
           if (infoPanel) infoPanel.classList.remove('fade-out');
         }, 220);
       });
     });
 
-    document.querySelectorAll('.service-glass-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+    // Pointer-following spotlight. define:vars forces this script to stay inline,
+    // so it cannot import the shared helper; the batching is the same. The rect is
+    // taken on entry and the custom properties are written once per frame instead
+    // of measuring and writing on every mousemove.
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.querySelectorAll('.service-glass-card').forEach(card => {
+        let rect = null;
+        let frame = 0;
+        let pointerX = 0;
+        let pointerY = 0;
+
+        const paint = () => {
+          frame = 0;
+          if (!rect) return;
+          card.style.setProperty('--mx', (pointerX - rect.left) + 'px');
+          card.style.setProperty('--my', (pointerY - rect.top) + 'px');
+        };
+
+        card.addEventListener('mouseenter', () => {
+          rect = card.getBoundingClientRect();
+        }, { passive: true });
+
+        card.addEventListener('mousemove', (e) => {
+          pointerX = e.clientX;
+          pointerY = e.clientY;
+          if (!rect) rect = card.getBoundingClientRect();
+          if (!frame) frame = requestAnimationFrame(paint);
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+          if (frame) {
+            cancelAnimationFrame(frame);
+            frame = 0;
+          }
+          rect = null;
+        }, { passive: true });
       });
-    });
+    }
 
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {

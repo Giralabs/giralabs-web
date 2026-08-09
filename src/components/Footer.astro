@@ -1,7 +1,11 @@
 ---
+import { getImage } from "astro:assets";
 import { translations } from "../i18n/translations";
 import combinationMark from "../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
 import { getLocalizedPath } from "../lib/paths";
+
+// Painted at 110px wide; the master is 1849px. 2x is plenty here.
+const footerMark = await getImage({ src: combinationMark, format: 'webp', width: 220 });
 
 interface Props {
   lang?: string;
@@ -17,13 +21,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
 <footer class="site-footer" id="footer" aria-label="Site footer">
   <div class="footer-inner">
     <div class="footer-brand">
+      <!-- height matches the real 1849x1384 aspect ratio: the old 38 reserved the
+           wrong box and shifted the footer once the image decoded -->
       <img
-        src={combinationMark.src}
+        src={footerMark.src}
         alt="Identidad visual y logotipo oficial de Giralabs"
         class="footer-logo"
         width="110"
-        height="38"
+        height="82"
         loading="lazy"
+        decoding="async"
       />
     </div>
     <nav aria-label="Footer navigation">

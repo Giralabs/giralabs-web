@@ -1,7 +1,9 @@
 ---
 import { translations } from '../../i18n/translations';
 import { getLocalizedPath } from '../../lib/paths';
-import bipHello from '../../assets/bipsy/bip_assets/bip_hello_animated.webp';
+// 135x240 variant of the 400x711 master: the mascot never renders taller than
+// 118 CSS px, so the full-size 48-frame animation was ~190 kB of unused pixels
+import bipHello from '../../assets/bipsy/bip_assets/bip_hello_animated_135.webp';
 
 interface Props {
   lang?: string;
@@ -26,7 +28,8 @@ const bipSrc = bipHello.src;
     <!-- Bip stands behind the card -->
     <div class="bipsy-mascot" aria-hidden="true">
       <span class="bipsy-mascot-halo"></span>
-      <img src={bipSrc} alt="" class="bipsy-mascot-img" width="200" height="350" />
+      <!-- Decorative and only revealed after 1.1s: must not compete with the LCP -->
+      <img src={bipSrc} alt="" class="bipsy-mascot-img" width="135" height="240" loading="lazy" decoding="async" fetchpriority="low" />
     </div>
 
     <div class="bipsy-card">
@@ -58,7 +61,7 @@ const bipSrc = bipHello.src;
   <!-- Collapsed state: a small pill that brings the notice back -->
   <button class="bipsy-pill" type="button" data-bipsy-reopen aria-label={T.bipsy_announce_title}>
     <span class="bipsy-pill-avatar" aria-hidden="true">
-      <img src={bipSrc} alt="" width="60" height="105" />
+      <img src={bipSrc} alt="" width="60" height="107" loading="lazy" decoding="async" fetchpriority="low" />
     </span>
     <span class="bipsy-pill-text">
       <span class="bipsy-pill-name">Bipsy</span>

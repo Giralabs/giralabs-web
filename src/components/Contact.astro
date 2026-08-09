@@ -424,6 +424,15 @@ const F = formTranslations[lang] || formTranslations.es;
     </div>
 
   </div>
+
+  <!-- Form copy for the active language, handed to the script below as data.
+       Passing it with define:vars instead would force that script to stay inline
+       and unminified in every page that renders this section. -->
+  <script
+    type="application/json"
+    id="contact-form-copy"
+    set:html={JSON.stringify(formTranslations[lang] || formTranslations.es)}
+  />
 </section>
 
 <style>
@@ -1586,7 +1595,15 @@ const F = formTranslations[lang] || formTranslations.es;
 </style>
 
 <!-- ==================== CLIENT SIDE FORM + CALENDAR INTERACTION ==================== -->
-<script define:vars={{ formTranslations, defaultLang: lang }}>
+<script>
+  // Read from the JSON block above rather than through define:vars. define:vars
+  // pins a script inline, which meant ~40 kB of unminified source in the HTML of
+  // every page carrying this form; as a plain module it is bundled, minified and
+  // cached once across pages. Only the active language is serialised, since every
+  // lookup here resolves through document.documentElement.lang, fixed at build.
+  const formCopyEl = document.getElementById('contact-form-copy');
+  const formCopy = formCopyEl ? JSON.parse(formCopyEl.textContent || '{}') : {};
+
   function initContactBooking() {
     // ----------------------------------------
     // 1. SELECTORS & STATE
@@ -1638,19 +1655,50 @@ const F = formTranslations[lang] || formTranslations.es;
     // ----------------------------------------
     // 2. MOUSE SPOTLIGHT ACTIONS
     // ----------------------------------------
-    const handleSpotlight = (cardEl, e) => {
-      const rect = cardEl.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      cardEl.style.setProperty("--mx", `${x}px`);
-      cardEl.style.setProperty("--my", `${y}px`);
+    // Coalesced to one write per frame, and measured on pointer entry instead of
+    // on every move: reading the rect right after writing a custom property made
+    // each mousemove force a synchronous layout. Touch devices never hover, so
+    // they skip the tracking entirely.
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    const trackSpotlight = (cardEl) => {
+      if (!cardEl) return;
+
+      let rect = null;
+      let frame = 0;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      const paint = () => {
+        frame = 0;
+        if (!rect) return;
+        cardEl.style.setProperty("--mx", `${pointerX - rect.left}px`);
+        cardEl.style.setProperty("--my", `${pointerY - rect.top}px`);
+      };
+
+      cardEl.addEventListener("mouseenter", () => {
+        rect = cardEl.getBoundingClientRect();
+      }, { passive: true });
+
+      cardEl.addEventListener("mousemove", (e) => {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+        if (!rect) rect = cardEl.getBoundingClientRect();
+        if (!frame) frame = requestAnimationFrame(paint);
+      }, { passive: true });
+
+      cardEl.addEventListener("mouseleave", () => {
+        if (frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
+        rect = null;
+      }, { passive: true });
     };
 
-    if (contactCard) {
-      contactCard.addEventListener("mousemove", (e) => handleSpotlight(contactCard, e));
-    }
-    if (bookingCard) {
-      bookingCard.addEventListener("mousemove", (e) => handleSpotlight(bookingCard, e));
+    if (finePointer) {
+      trackSpotlight(contactCard);
+      trackSpotlight(bookingCard);
     }
 
     // ----------------------------------------
@@ -1661,7 +1709,7 @@ const F = formTranslations[lang] || formTranslations.es;
     }
 
     function renderCalendarWidget(lang) {
-      const activeF = formTranslations[lang] || formTranslations.es;
+      const activeF = formCopy;
 
       // Render month year label
       if (calendarMonthYearLbl) {
@@ -1781,7 +1829,7 @@ const F = formTranslations[lang] || formTranslations.es;
     async function revealTimeSlots(dateText, lang) {
       if (!timeSlotsPanel || !timeSlotsGrid || !timeSlotsTitleLbl) return;
 
-      const activeF = formTranslations[lang] || formTranslations.es;
+      const activeF = formCopy;
       timeSlotsTitleLbl.textContent = `${activeF.booking_time_title} ${dateText.split(",")[0]}`;
 
       timeSlotsGrid.innerHTML = "";
@@ -1890,7 +1938,7 @@ const F = formTranslations[lang] || formTranslations.es;
     // 4. TRANSLATIONS GLOBAL EVENT LISTENER
     // ----------------------------------------
     function updateFormTranslations(lang) {
-      const activeF = formTranslations[lang] || formTranslations.es;
+      const activeF = formCopy;
 
       // Form Header
       const titleEl = document.querySelector(".contact-heading");
@@ -2109,7 +2157,7 @@ const F = formTranslations[lang] || formTranslations.es;
       event.preventDefault();
       
       const currentLang = document.documentElement.lang || "es";
-      const activeF = formTranslations[currentLang] || formTranslations.es;
+      const activeF = formCopy;
 
       // Reset state
       contactErrorMsg.classList.remove("error");
@@ -2180,7 +2228,7 @@ const F = formTranslations[lang] || formTranslations.es;
       // Update counter in label span (shows e.g. "(3/5)")
       const span = document.getElementById("lbl-add-guest-btn");
       if (span) {
-        const activeF = formTranslations[lang] || formTranslations.es;
+        const activeF = formCopy;
         span.textContent = count > 0
           ? `${activeF.booking_add_guest_btn} (${count}/${MAX_GUESTS})`
           : activeF.booking_add_guest_btn;
@@ -2194,7 +2242,7 @@ const F = formTranslations[lang] || formTranslations.es;
 
         guestCount++;
         const lang = document.documentElement.lang || "es";
-        const activeF = formTranslations[lang] || formTranslations.es;
+        const activeF = formCopy;
 
         const row = document.createElement("div");
         row.className = "booking-guest-row";
@@ -2227,7 +2275,7 @@ const F = formTranslations[lang] || formTranslations.es;
     if (bookingSubmitBtn) {
       bookingSubmitBtn.addEventListener("click", async () => {
         const currentLang = document.documentElement.lang || "es";
-        const activeF = formTranslations[currentLang] || formTranslations.es;
+        const activeF = formCopy;
 
         // Collect form values
         const name    = document.getElementById("booking-name-input")?.value?.trim();
@@ -2419,7 +2467,7 @@ const F = formTranslations[lang] || formTranslations.es;
         options.forEach(opt => opt.classList.remove("selected"));
 
         const currentLang = document.documentElement.lang || "es";
-        const activeF = formTranslations[currentLang] || formTranslations.es;
+        const activeF = formCopy;
         if (nativeSelect.id === "form-how-heard") {
           valSpan.textContent = activeF.select_how;
         } else if (nativeSelect.id === "form-service") {
@@ -2429,11 +2477,36 @@ const F = formTranslations[lang] || formTranslations.es;
     });
   }
 
+  // This whole widget — listeners, custom selects and a full month of calendar
+  // DOM — used to be built during page load, while the contact section sits well
+  // below the fold. It is now set up only once the section gets close to the
+  // viewport, which keeps that work off the critical path.
+  function scheduleContactBooking() {
+    const section = document.getElementById("contact");
+
+    // No section, or no observer support: fall back to initialising right away
+    if (!section || typeof IntersectionObserver === "undefined") {
+      initContactBooking();
+      return;
+    }
+
+    // 600px of lead time means the form is always ready before it is reachable,
+    // including when the page is opened straight on #contact (the observer
+    // reports the current intersection state as soon as it starts observing).
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      initContactBooking();
+    }, { rootMargin: "600px 0px" });
+
+    observer.observe(section);
+  }
+
   // Support both standard page loads and View Transitions (astro:page-load)
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initContactBooking);
+    document.addEventListener("DOMContentLoaded", scheduleContactBooking);
   } else {
-    initContactBooking();
+    scheduleContactBooking();
   }
-  document.addEventListener("astro:page-load", initContactBooking);
+  document.addEventListener("astro:page-load", scheduleContactBooking);
 </script>

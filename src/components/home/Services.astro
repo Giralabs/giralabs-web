@@ -325,16 +325,51 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   function initScrollReveal() {
     const cards = document.querySelectorAll('.sd-card');
     
-    // Spotlight mouse tracking
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mx', x + 'px');
-        card.style.setProperty('--my', y + 'px');
+    // Spotlight mouse tracking. Skipped on touch devices, which never hover, and
+    // batched into one write per frame: reading the rect straight after writing a
+    // custom property forced a synchronous layout on every single mousemove.
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (finePointer) {
+      let spotlightFrame = 0;
+      let spotlightCard = null;
+      let spotlightRect = null;
+      let spotlightX = 0;
+      let spotlightY = 0;
+
+      const paintSpotlight = () => {
+        spotlightFrame = 0;
+        if (!spotlightCard || !spotlightRect) return;
+        spotlightCard.style.setProperty('--mx', (spotlightX - spotlightRect.left) + 'px');
+        spotlightCard.style.setProperty('--my', (spotlightY - spotlightRect.top) + 'px');
+      };
+
+      cards.forEach(card => {
+        // Measured on entry rather than per move: the card cannot shift while the
+        // pointer is travelling across it
+        card.addEventListener('mouseenter', () => {
+          spotlightCard = card;
+          spotlightRect = card.getBoundingClientRect();
+        }, { passive: true });
+
+        card.addEventListener('mousemove', (e) => {
+          spotlightX = e.clientX;
+          spotlightY = e.clientY;
+          if (spotlightCard !== card) {
+            spotlightCard = card;
+            spotlightRect = card.getBoundingClientRect();
+          }
+          if (!spotlightFrame) spotlightFrame = requestAnimationFrame(paintSpotlight);
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+          if (spotlightCard === card) {
+            spotlightCard = null;
+            spotlightRect = null;
+          }
+        }, { passive: true });
       });
-    });
+    }
 
     // IntersectionObserver to activate cards and sweep animations on scroll
     const observer = new IntersectionObserver((entries) => {
@@ -357,32 +392,42 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     const arrowLeft = document.getElementById('sd-arrow-left');
     const arrowRight = document.getElementById('sd-arrow-right');
 
+    // Same reasoning as above: cached instead of read per scroll event
+    const carouselQuery = window.matchMedia('(max-width: 768px)');
+
     function getActiveDotIndex() {
       if (!grid) return 0;
-      const isMobile = window.innerWidth <= 768;
-      if (isMobile) {
+      if (carouselQuery.matches) {
         // In mobile carousel mode: snap scroll, cards are visible one at a time
         const cardWidth = grid.scrollWidth / cards.length;
         return Math.round(grid.scrollLeft / cardWidth);
       } else {
-        // Desktop bento grid: highlight based on which section is closest to center-left
-        const gridRect = grid.getBoundingClientRect();
+        // Desktop bento grid: highlight based on which section is closest to
+        // center-left. offsetLeft is a cached layout value, so this no longer
+        // triggers a rect measurement per card on every scroll event.
         let closestIdx = 0;
         let closestDist = Infinity;
         cards.forEach((card, i) => {
-          const rect = card.getBoundingClientRect();
-          const dist = Math.abs(rect.left - gridRect.left);
+          const dist = Math.abs(card.offsetLeft - grid.offsetLeft - grid.scrollLeft);
           if (dist < closestDist) { closestDist = dist; closestIdx = i; }
         });
         return closestIdx;
       }
     }
 
+    let dotsFrame = 0;
     function updateDots() {
+      dotsFrame = 0;
       const activeIdx = getActiveDotIndex();
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === activeIdx);
       });
+    }
+
+    // Scroll and resize both fire in bursts; one recalculation per frame is enough
+    function scheduleUpdateDots() {
+      if (dotsFrame) return;
+      dotsFrame = requestAnimationFrame(updateDots);
     }
 
     function scrollToCard(index) {
@@ -417,8 +462,8 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           grid.scrollBy({ left: 300, behavior: 'smooth' });
         }
       });
-      grid.addEventListener('scroll', updateDots, { passive: true });
-      window.addEventListener('resize', updateDots, { passive: true });
+      grid.addEventListener('scroll', scheduleUpdateDots, { passive: true });
+      window.addEventListener('resize', scheduleUpdateDots, { passive: true });
       updateDots();
     }
   }

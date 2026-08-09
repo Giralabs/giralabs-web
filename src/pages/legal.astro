@@ -69,17 +69,9 @@ const T = translations[lang];
 
   <!-- ==================== INTERACTION SCRIPTS ==================== -->
   <script>
-    // Spotlight mouse tracking for advanced glass card
-    const glassCard = document.querySelector('.legal-card');
-    if (glassCard) {
-      glassCard.addEventListener('mousemove', (e) => {
-        const rect = glassCard.getBoundingClientRect();
-        const x = (e as MouseEvent).clientX - rect.left;
-        const y = (e as MouseEvent).clientY - rect.top;
-        (glassCard as HTMLElement).style.setProperty('--mx', x + 'px');
-        (glassCard as HTMLElement).style.setProperty('--my', y + 'px');
-      });
-    }
+    import { initSpotlight } from '../lib/spotlight';
+    // Pointer-following spotlight: rect cached on entry, one write per frame
+    initSpotlight('.legal-card');
 
     // Trigger visual scroll animations
     const revealEls = document.querySelectorAll('.reveal');
