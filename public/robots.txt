@@ -33,4 +33,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap location
-Sitemap: https://giralabs.es/sitemap-index.xml
+Sitemap: https://www.giralabs.es/sitemap-index.xml

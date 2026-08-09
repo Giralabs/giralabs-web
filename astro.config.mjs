@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://giralabs.es',
+  site: 'https://www.giralabs.es',
   // SSR mode: required for API endpoints (/api/bookings)
   output: 'server',
   adapter: vercel(),
@@ -58,6 +58,8 @@ export default defineConfig({
       // Slugs are translated (/servicios vs /en/services), so the pairing lives
       // in the page head, not in the sitemap's own i18n option.
       filter: (page) => !page.endsWith('/cancel') && !page.endsWith('/cancel/') && !page.includes('/api/') && !page.endsWith('/api'),
+      // Drop the trailing slash so sitemap entries match the canonical tags
+      serialize: (item) => ({ ...item, url: item.url.replace(/(.+)\/$/, '$1') }),
     }),
     {
       name: 'newsletter-notifier',

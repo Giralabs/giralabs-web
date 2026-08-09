@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { SITE_ORIGIN } from '../../lib/site';
 import Navbar from '../../components/Navbar.astro';
 import { translations } from '../../i18n/translations';
 import CTAContact from '../../components/CTAContact.astro';
@@ -11,7 +12,7 @@ export const prerender = true;
 const lang = 'en';
 const T = translations[lang];
 
-const siteUrl = 'https://giralabs.es';
+const siteUrl = SITE_ORIGIN;
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

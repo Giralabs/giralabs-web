@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { SITE_ORIGIN } from '../../lib/site';
 import Navbar from '../../components/Navbar.astro';
 import { translations } from '../../i18n/translations';
 import Footer from '../../components/Footer.astro';
@@ -58,7 +59,7 @@ const phaseCopy = Array.from({ length: PHASE_COUNT }, (_, i) => {
   };
 });
 
-const siteUrl = 'https://giralabs.es';
+const siteUrl = SITE_ORIGIN;
 const serviceName = T[titleKey];
 const serviceDesc = T[detailsKey] || T.meta_description;
 
@@ -68,7 +69,7 @@ const serviceSchema = {
   "name": serviceName,
   // Points at the organization declared in Layout instead of restating it,
   // so provider details cannot drift out of sync across pages
-  "provider": { "@id": "https://giralabs.es/#organization" },
+  "provider": { "@id": `${SITE_ORIGIN}/#organization` },
   "areaServed": [
     { "@type": "City", "name": "Sevilla" },
     { "@type": "AdministrativeArea", "name": "Andalucía" },
