@@ -9,6 +9,24 @@ export default defineConfig({
   // SSR mode: required for API endpoints (/api/bookings)
   output: 'server',
   adapter: vercel(),
+  // Internal links warm their page on hover/focus, which makes desktop navigation
+  // feel instant. Deliberately not the 'viewport' strategy: with a nav and footer
+  // full of links that pulled several whole pages down on a phone before the
+  // visitor had chosen anything, and mobile bandwidth is the scarce resource here.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
+  build: {
+    // Small per-component stylesheets ride along in the HTML; the big ones stay
+    // external so they can be cached across pages.
+    inlineStylesheets: 'auto',
+  },
+  vite: {
+    build: {
+      cssMinify: 'esbuild',
+    },
+  },
   redirects: {
     '/services': { status: 301, destination: '/servicios' },
     '/projects': { status: 301, destination: '/proyectos' },
