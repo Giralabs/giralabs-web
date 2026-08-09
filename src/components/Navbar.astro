@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import apricotSymbol from '../assets/brand_marks/apricot_symbol_nobackground.avif';
 import { translations } from '../i18n/translations';
 import { getSwitchLanguagePath, getLocalizedPath, hasEnglishAlternate } from '../lib/paths';
@@ -8,6 +9,10 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+// The symbol is painted at 34px (top bar) and 24px (scrolled pill); one 68px
+// render covers both at 2x instead of shipping the full-size master.
+const navSymbol = await getImage({ src: apricotSymbol, format: 'webp', width: 68 });
 
 // Dynamic routing for lang switch
 const pathname = Astro.url.pathname;
@@ -31,7 +36,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       <a href={localizedPath("/")} class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
         <div class="nav-logo-wrapper">
           <div class="nav-logo-entrance">
-            <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" />
+            <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" fetchpriority="high" decoding="async" />
           </div>
         </div>
         <span class="nav-brand-name" aria-label="GIRALABS">
@@ -84,7 +89,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   <div class="nav-pill" id="nav-pill" aria-hidden="true">
     <div class="pill-inner">
       <a href={localizedPath("/")} class="pill-logo" aria-label="Giralabs home">
-        <img src={apricotSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" />
+        <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" decoding="async" />
       </a>
       <ul class="pill-links" role="list">
         <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
@@ -831,9 +836,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   const pill = document.getElementById('nav-pill');
   const THRESHOLD = 80;
 
+  // window.innerWidth was read on every scroll event, which forces the browser to
+  // flush layout before it can answer. matchMedia caches the same answer and only
+  // recomputes when the breakpoint is actually crossed.
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+  let ticking = false;
+
   function updateNav() {
+    ticking = false;
     const scrolled = window.scrollY > THRESHOLD;
-    if (window.innerWidth <= 768) {
+    if (mobileQuery.matches) {
       topBar.classList.remove('hidden');
       topBar.classList.toggle('scrolled', scrolled);
       pill.classList.remove('visible');
@@ -853,7 +865,17 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     document.documentElement.removeAttribute('data-scrolled');
   });
 
-  window.addEventListener('scroll', updateNav, { passive: true });
+  // Scroll fires far more often than the screen repaints; coalesce to one class
+  // update per frame.
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateNav);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Crossing the breakpoint swaps which bar is in charge, so re-run then too
+  mobileQuery.addEventListener('change', updateNav);
 
   // ---- Mobile hamburger ----
   const hamburgerBtn = document.getElementById('hamburger-btn');

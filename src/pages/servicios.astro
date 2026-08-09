@@ -500,16 +500,9 @@ const T = translations[lang];
 
   <!-- ==================== INTERACTION SCRIPTS ==================== -->
   <script>
-    // Spotlight mouse tracking for advanced glass cards
-    document.querySelectorAll('.service-glass-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e as MouseEvent).clientX - rect.left;
-        const y = (e as MouseEvent).clientY - rect.top;
-        (card as HTMLElement).style.setProperty('--mx', x + 'px');
-        (card as HTMLElement).style.setProperty('--my', y + 'px');
-      });
-    });
+    import { initSpotlight } from '../lib/spotlight';
+    // Pointer-following spotlight: rect cached on entry, one write per frame
+    initSpotlight('.service-glass-card');
 
     // Handle hash scrolling on page load
     window.addEventListener('load', () => {

@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import { translations } from "../../i18n/translations";
 import combinationMark from "../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
 import { getLocalizedPath } from "../../lib/paths";
@@ -21,12 +22,19 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     <div class="hero-mark-wrap">
       <div class="hero-mark-glow" aria-hidden="true"></div>
       <div class="hero-mark-entrance">
-        <img
-          src={combinationMark.src}
+        {/* LCP element: eager + high priority, and sized to the clamp() below so
+            the browser stops fetching a 1849px master for a 460px slot. */}
+        <Picture
+          src={combinationMark}
+          formats={["avif", "webp"]}
+          fallbackFormat="webp"
+          widths={[290, 460, 580, 920]}
+          sizes="(max-width: 580px) 290px, (max-width: 920px) 50vw, 460px"
           alt="Giralabs - Estudio de desarrollo de aplicaciones móviles y desarrollo de software a medida"
           class="hero-combination-mark"
-          width="400"
-          height="auto"
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
         />
       </div>
     </div>
@@ -118,6 +126,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     animation: liquidGlow 12s ease-in-out infinite alternate;
     pointer-events: none;
     transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Runs forever: keep the blurred gradient cached as a compositor texture
+       instead of re-rasterising it each frame */
+    will-change: transform;
   }
 
   .hero-mark-entrance {
@@ -126,6 +137,12 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     position: relative;
     z-index: 2;
     transform-style: preserve-3d;
+  }
+
+  /* <picture> must stay out of the box model so the clamp() below still sizes
+     the image itself */
+  .hero-mark-entrance picture {
+    display: contents;
   }
 
   .hero-combination-mark {
@@ -407,22 +424,23 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     }
   }
 
+  /* The blur radius used to be keyframed 40 -> 45 -> 35 -> 40px, which forced a
+     fresh gaussian pass over the whole 620x420 glow on every frame, forever,
+     right where the hero paints. The radius now stays at the 40px set on the
+     element and only the transform animates, so the same motion runs entirely on
+     the compositor. Under a gradient this soft the 5px wobble was not visible. */
   @keyframes liquidGlow {
     0% {
       transform: translate(0, 0) scale(1) rotate(0deg);
-      filter: blur(40px);
     }
     33% {
       transform: translate(15px, -10px) scale(1.05) rotate(120deg);
-      filter: blur(45px);
     }
     66% {
       transform: translate(-10px, 15px) scale(0.95) rotate(240deg);
-      filter: blur(35px);
     }
     100% {
       transform: translate(0, 0) scale(1) rotate(360deg);
-      filter: blur(40px);
     }
   }
 </style>
@@ -433,11 +451,25 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   const card = hero ? hero.querySelector(".hero-mark-wrap") : (null as any);
   const glow = hero ? hero.querySelector(".hero-mark-glow") : (null as any);
 
-  if (hero && card) {
-    hero.addEventListener("mousemove", (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+  // A coarse pointer never produces the hover this effect is built on, so phones
+  // and tablets skip the listeners entirely.
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (hero && card && finePointer) {
+    // Pointer position is sampled on every mousemove but written once per frame:
+    // mousemove can fire faster than the display refreshes, and each write
+    // followed by the next getBoundingClientRect() forced a synchronous layout.
+    let pointerX = 0;
+    let pointerY = 0;
+    let rect: DOMRect | null = null;
+    let frame = 0;
+
+    const applyTransform = () => {
+      frame = 0;
+      if (!rect) return;
+
+      const x = pointerX - rect.left - rect.width / 2;
+      const y = pointerY - rect.top - rect.height / 2;
 
       // Calculate rotation angles (max 10 degrees)
       const rotateX = -(y / (rect.height / 2)) * 10;
@@ -450,9 +482,33 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
         // Shift the glow position slightly to match the 3D depth
         glow.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0) scale(1.05)`;
       }
-    });
+    };
+
+    hero.addEventListener(
+      "mousemove",
+      (e) => {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+        // Measured once per pointer entry, then only on resize/scroll below
+        if (!rect) rect = hero.getBoundingClientRect();
+        if (!frame) frame = requestAnimationFrame(applyTransform);
+      },
+      { passive: true }
+    );
+
+    // The cached rect is only valid while the hero stays where it was measured
+    const invalidateRect = () => {
+      rect = null;
+    };
+    window.addEventListener("resize", invalidateRect, { passive: true });
+    window.addEventListener("scroll", invalidateRect, { passive: true });
 
     hero.addEventListener("mouseleave", () => {
+      if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+      rect = null;
       // Smooth reset on mouse leave
       card.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
       if (glow) {

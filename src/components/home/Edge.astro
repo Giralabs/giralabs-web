@@ -131,17 +131,29 @@ const T = translations[lang];
   // ----- TRIGGER --------------------
 
   // Fires the animation once when the section top crosses 78% of the viewport.
-  // The scroll listener removes itself after firing to avoid unnecessary calls.
+  // This used to measure the section with getBoundingClientRect() on every scroll
+  // event, which forces a layout flush each time; IntersectionObserver reports the
+  // same crossing off the main thread and detaches itself once it has fired.
+  let viewportObserver: IntersectionObserver | null = null;
+
   function checkViewport() {
     if (fired) return;
     const section = document.querySelector<HTMLElement>('.manifesto-section');
     if (!section) return;
-    const rect = section.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.78) {
+
+    viewportObserver?.disconnect();
+    // A bottom margin of -22% reproduces the old "top above 78% of the viewport"
+    // trigger point.
+    viewportObserver = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      viewportObserver?.disconnect();
+      viewportObserver = null;
+      if (fired) return;
       fired = true;
-      window.removeEventListener('scroll', checkViewport);
       runTypewriterSequence();
-    }
+    }, { rootMargin: '0px 0px -22% 0px' });
+
+    viewportObserver.observe(section);
   }
 
   // ----- INIT --------------------
@@ -152,7 +164,6 @@ const T = translations[lang];
 
   const initialLang = document.documentElement.lang || 'es';
   buildManifestoDOM(initialLang);
-  window.addEventListener('scroll', checkViewport, { passive: true });
   checkViewport();
 </script>
 
