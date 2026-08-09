@@ -214,6 +214,22 @@ const xDefaultHref = esHref;
 		will-change: transform;
 	}
 
+	/* Honour the OS "reduce motion" setting: keep the layout and the final state
+	   of every effect, drop the movement. */
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+
 	/* Scroll reveal utility */
 	.reveal {
 		opacity: 0;
