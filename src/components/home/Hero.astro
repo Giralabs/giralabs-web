@@ -402,7 +402,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     content: "";
     position: absolute;
     top: 0;
-    left: -100%;
+    /* Anchored at 0 so the keyframes below can express the whole travel as a
+       transform; the offset now lives in translateX percentages of this box */
+    left: 0;
     width: 50%;
     height: 100%;
     background: linear-gradient(
@@ -415,12 +417,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     animation-delay: 2s;
   }
 
+  /* Driven by transform rather than `left`. Animating an offset property runs
+     layout on every frame for as long as the animation lives, and this one never
+     ends, so the main thread never went idle on the homepage. The travel is the
+     same: the element starts at left:0 and moves across its own 50%-wide box. */
   @keyframes lineShimmer {
     0% {
-      left: -100%;
+      transform: translateX(-200%);
     }
     100% {
-      left: 150%;
+      transform: translateX(300%);
     }
   }
 
