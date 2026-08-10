@@ -1373,6 +1373,18 @@ const faqSchema = {
   .phase-widget { display: flex; width: 100%; height: 100%; justify-content: center; align-items: center; opacity: 0; transform: scale(0.95); transition: opacity 0.4s ease, transform 0.4s ease; position: absolute; pointer-events: none; }
   .phase-widget.active { opacity: 1; transform: scale(1); position: relative; pointer-events: auto; }
 
+  /* Only one phase is on screen at a time. The other four stay in the DOM at
+     opacity 0 and kept every loop inside them running — background-position,
+     border-colour, stroke-dashoffset — so the page paid five widgets' worth of
+     style and paint per frame to show one. !important because the animation
+     shorthand on those rules resets play-state to running. */
+  .phase-widget:not(.active),
+  .phase-widget:not(.active) *,
+  .phase-widget:not(.active) *::before,
+  .phase-widget:not(.active) *::after {
+    animation-play-state: paused !important;
+  }
+
   /* ========================================
      S1 SPECIFIC WIDGETS
   ======================================== */

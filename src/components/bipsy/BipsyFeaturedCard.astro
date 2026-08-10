@@ -131,17 +131,21 @@ const [clientShot, businessShot, mark] = await Promise.all([
     content: '';
     position: absolute;
     top: -60%;
-    left: -55%;
+    /* Anchored at 0 and moved with a transform: sweeping `left` forever kept the
+       main thread running layout on every frame. The box is 45% of the parent, so
+       -55%/135% of the parent become -122%/300% of the box. */
+    left: 0;
     width: 45%;
     height: 220%;
     background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
-    transform: rotate(14deg);
+    transform: translateX(-122.22%) rotate(14deg);
     animation: bfShine 9s ease-in-out 2s infinite;
   }
 
+  /* translateX before rotate, so the sweep still travels along the card's axis */
   @keyframes bfShine {
-    0% { left: -55%; }
-    35%, 100% { left: 135%; }
+    0% { transform: translateX(-122.22%) rotate(14deg); }
+    35%, 100% { transform: translateX(300%) rotate(14deg); }
   }
 
   /* ---------- CONTENT ---------- */

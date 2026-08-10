@@ -130,6 +130,12 @@ const xDefaultHref = esHref;
 	</head>
 	<body>
 		<slot />
+		<script>
+			import { idleOffscreenAnimations } from '../lib/idle-offscreen';
+
+			idleOffscreenAnimations();
+			document.addEventListener('astro:page-load', () => idleOffscreenAnimations());
+		</script>
 	</body>
 </html>
 
@@ -213,6 +219,19 @@ const xDefaultHref = esHref;
 	.ambient-bottom,
 	.ambient-glow {
 		will-change: transform;
+	}
+
+	/* Sections that are off screen stop animating. Several loops here animate
+	   properties that cannot be composited (background-position, border-color,
+	   color, stroke-dashoffset), so they re-run style — and sometimes layout —
+	   every frame for as long as they are alive, whether or not anyone can see
+	   them. Only animations are paused; transitions, and therefore the scroll
+	   reveal, are unaffected. */
+	.anim-idle,
+	.anim-idle *,
+	.anim-idle *::before,
+	.anim-idle *::after {
+		animation-play-state: paused !important;
 	}
 
 	/* Honour the OS "reduce motion" setting: keep the layout and the final state
