@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { addSubscriber } from '../../lib/newsletter-store.js';
-import { sendWelcomeEmail } from '../../lib/email-sender.js';
+// nodemailer is imported at its call site, not here: this function is cold on
+// almost every request (the rest of the site is prerendered), and evaluating
+// the mail stack on start-up delayed the read-only paths too.
 
 export const prerender = false;
 
@@ -40,6 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Try sending welcoming email (non-blocking for registration itself)
     try {
+      const { sendWelcomeEmail } = await import('../../lib/email-sender.js');
       await sendWelcomeEmail(email, lang);
     } catch (err) {
       console.error('[Giralabs Newsletter] Welcome email delivery failed:', err);
