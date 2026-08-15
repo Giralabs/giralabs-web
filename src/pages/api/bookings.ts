@@ -1,7 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getBookedSlots, getBookedSlotsForDates, isSlotBooked, saveBooking, generateCancelToken } from '../../lib/bookings-store.js';
-import { createMeetEvent } from '../../lib/google-calendar.js';
-import { sendBookingConfirmation } from '../../lib/email-sender.js';
+
+// googleapis and nodemailer are imported where they are used, not here. Every
+// page on this site is prerendered, so the serverless function only ever runs
+// for /api/*, which means it is almost always cold — and a top-level import made
+// each cold start evaluate the entire googleapis package (every Google service,
+// not just Calendar) plus nodemailer, even for the availability lookup that only
+// reads Redis. That lookup is the one a visitor waits on when picking a date.
 
 // Disable static prerendering — this route must always run server-side
 export const prerender = false;
@@ -137,6 +142,8 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     // ── Step 1: Create Google Meet event ──────────────────
+    // Loaded here rather than at the top of the file: see the note by the imports
+    const { createMeetEvent } = await import('../../lib/google-calendar.js');
     const meetLink = await createMeetEvent({ dateISO, time, name, email, company, allEmails });
 
     // ── Step 2: Generate cancel token & persist booking ──
@@ -159,6 +166,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // ── Step 4: Send confirmation emails ──────────────────────
     try {
+      const { sendBookingConfirmation } = await import('../../lib/email-sender.js');
       await sendBookingConfirmation({
         recipientEmail: email,
         bookerEmail: email,

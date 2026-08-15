@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getBookingByToken, cancelBookingByToken } from '../../lib/bookings-store.js';
-import { sendCancellationEmails } from '../../lib/email-sender.js';
+// nodemailer is imported at its call site, not here: this function is cold on
+// almost every request (the rest of the site is prerendered), and evaluating
+// the mail stack on start-up delayed the read-only paths too.
 
 export const prerender = false;
 
@@ -71,6 +73,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Send cancellation emails (non-fatal)
   try {
+    const { sendCancellationEmails } = await import('../../lib/email-sender.js');
     await sendCancellationEmails({
       cancelledBy,
       name: cancelled.info.name,

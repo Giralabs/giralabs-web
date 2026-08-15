@@ -1,8 +1,12 @@
-import { google } from 'googleapis';
-
 // ----------------------------------------------------------------
 // Google Calendar API integration — creates a real Google Meet
 // event and returns the unique hangout link.
+//
+// Talks to the REST API with fetch rather than through the googleapis SDK.
+// The SDK ships a generated client for every Google service — compute,
+// aiplatform, discoveryengine and the rest — which is roughly 40 MB in the
+// deployed function and 1.6s to evaluate, all to make the two calls below:
+// refresh an access token, and insert one event.
 //
 // Required env vars (set in .env):
 //   GOOGLE_CLIENT_ID      — OAuth2 client ID
@@ -10,6 +14,9 @@ import { google } from 'googleapis';
 //   GOOGLE_REFRESH_TOKEN  — Long-lived refresh token
 //   GMAIL_USER            — e.g. giralabs.contact@gmail.com
 // ----------------------------------------------------------------
+
+const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
+const CALENDAR_API = 'https://www.googleapis.com/calendar/v3/calendars';
 
 export interface MeetEventParams {
   dateISO: string;       // "YYYY-MM-DD"
@@ -30,6 +37,32 @@ function toLocalISO(d: Date) {
 }
 
 /**
+ * Exchanges the long-lived refresh token for a short-lived access token.
+ * This is the whole of the OAuth dance the SDK was doing for us.
+ */
+async function getAccessToken(clientId: string, clientSecret: string, refreshToken: string): Promise<string> {
+  const response = await fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Google token refresh failed (${response.status}): ${detail}`);
+  }
+
+  const data = (await response.json()) as { access_token?: string };
+  if (!data.access_token) throw new Error('Google token refresh returned no access_token');
+  return data.access_token;
+}
+
+/**
  * Creates a Google Calendar event with a Meet link and returns the hangoutLink.
  * Falls back to "https://meet.google.com/new" if credentials are not configured.
  */
@@ -46,11 +79,6 @@ export async function createMeetEvent(params: MeetEventParams): Promise<string> 
     );
     return `https://meet.google.com/new`;
   }
-
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
-  oauth2Client.setCredentials({ refresh_token: refreshToken });
-
-  const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
   // Build start/end Date objects in local time (Spain: UTC+2 in summer)
   const [year, month, day] = params.dateISO.split('-').map(Number);
@@ -97,14 +125,29 @@ export async function createMeetEvent(params: MeetEventParams): Promise<string> 
     },
   };
 
-  const response = await calendar.events.insert({
-    calendarId: organizer,
-    conferenceDataVersion: 1,
-    resource: event,
-    sendNotifications: false, // We send our own branded emails
+  const accessToken = await getAccessToken(clientId, clientSecret, refreshToken);
+
+  // conferenceDataVersion=1 is what makes Calendar honour the Meet createRequest.
+  // sendUpdates=none is the current spelling of the SDK's sendNotifications:false —
+  // Giralabs sends its own branded emails.
+  const url = `${CALENDAR_API}/${encodeURIComponent(organizer)}/events?conferenceDataVersion=1&sendUpdates=none`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(event),
   });
 
-  const meetLink = response.data.hangoutLink;
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Google Calendar event insert failed (${response.status}): ${detail}`);
+  }
+
+  const data = (await response.json()) as { hangoutLink?: string };
+  const meetLink = data.hangoutLink;
   if (!meetLink) throw new Error('Google Calendar API did not return a Meet link');
 
   return meetLink;
