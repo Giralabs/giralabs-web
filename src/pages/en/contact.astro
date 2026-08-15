@@ -77,7 +77,10 @@ const T = translations[lang];
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    filter: blur(120px);
+    /* No filter: blur() here. The background is already a soft radial
+       gradient, so the blur was costing a full-size gaussian every frame
+       for a difference measured at 0.5/255 — and WebKit pays that on the
+       CPU, which put mobile Safari at roughly one frame per second. */
     pointer-events: none;
     z-index: 0;
     opacity: 0.08;

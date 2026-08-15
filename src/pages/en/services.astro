@@ -593,7 +593,10 @@ const T = translations[lang];
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    filter: blur(120px);
+    /* No filter: blur() here. The background is already a soft radial
+       gradient, so the blur was costing a full-size gaussian every frame
+       for a difference measured at 0.5/255 — and WebKit pays that on the
+       CPU, which put mobile Safari at roughly one frame per second. */
     pointer-events: none;
     z-index: 0;
     opacity: 0.08;
@@ -817,11 +820,13 @@ const T = translations[lang];
 
   /* Dual Lava-Glow Background Blobs */
   .service-card-glow {
+    /* Grown from 250px and given a gradient instead of a 70px blur: same
+     blob, no per-frame gaussian. Offsets below shift by the same 150px
+     so the centre does not move. */
     position: absolute;
-    width: 250px;
-    height: 250px;
+    width: 550px;
+    height: 550px;
     border-radius: 50%;
-    filter: blur(70px);
     pointer-events: none;
     z-index: 0;
     opacity: 0;
@@ -837,16 +842,16 @@ const T = translations[lang];
   }
 
   .service-card-glow-1 {
-    background: var(--accent-color-1);
-    top: -50px;
-    right: -50px;
+    background: radial-gradient(circle closest-side, var(--accent-color-1) 0%, transparent 75%);
+    top: -200px;
+    right: -200px;
     animation: serviceFloatBlob1 15s infinite alternate ease-in-out;
   }
 
   .service-card-glow-2 {
-    background: var(--accent-color-2);
-    bottom: -60px;
-    left: -40px;
+    background: radial-gradient(circle closest-side, var(--accent-color-2) 0%, transparent 75%);
+    bottom: -210px;
+    left: -190px;
     animation: serviceFloatBlob2 12s infinite alternate ease-in-out;
   }
 

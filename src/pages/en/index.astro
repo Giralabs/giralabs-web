@@ -90,7 +90,10 @@ const T = translations[lang];
     background: radial-gradient(circle, rgba(255, 210, 150, 0.15) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
-    filter: blur(60px);
+    /* No filter: blur() here. The background is already a soft radial
+       gradient, so the blur was costing a full-size gaussian every frame
+       for a difference measured at 0.5/255 — and WebKit pays that on the
+       CPU, which put mobile Safari at roughly one frame per second. */
   }
 
   .ambient-bottom {
@@ -102,7 +105,10 @@ const T = translations[lang];
     background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
-    filter: blur(50px);
+    /* No filter: blur() here. The background is already a soft radial
+       gradient, so the blur was costing a full-size gaussian every frame
+       for a difference measured at 0.5/255 — and WebKit pays that on the
+       CPU, which put mobile Safari at roughly one frame per second. */
   }
 
   /* ========================================

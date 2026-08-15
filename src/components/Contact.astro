@@ -491,7 +491,8 @@ const F = formTranslations[lang] || formTranslations.es;
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    filter: blur(130px);
+    /* No filter: blur(): .glow-1/.glow-2 already paint a radial gradient.
+       A 130px gaussian over a 500px box, every frame, for no visible gain. */
     z-index: 1;
     pointer-events: none;
     opacity: 0.12;
