@@ -580,10 +580,8 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
     document.getElementById('apply-dialog-close')?.addEventListener('click', closeDialog);
     document.getElementById('apply-success-close')?.addEventListener('click', closeDialog);
 
-    // A click on the backdrop lands on the dialog element itself
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) closeDialog();
-    });
+    // Deliberately no close on backdrop click: a stray click outside would throw
+    // away a half-filled application. It closes with the X button or Escape.
 
     // Links shared with #aplicar / #apply / ?apply open the form straight away
     if (/^#(aplicar|apply)$/.test(window.location.hash) || params.has('apply')) {
