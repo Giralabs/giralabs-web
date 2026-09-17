@@ -696,7 +696,7 @@ export function buildApplicationConfirmEmailHTML(params: { name: string; jobTitl
           'Si encajas, te propondremos una primera videollamada de 30 minutos.',
         ],
         cta: 'Ver la oferta',
-        footer: '© 2026 Giralabs · Si no has enviado esta candidatura o quieres retirarla, responde a este correo o escríbenos a support@giralabs.es.',
+        footer: '© 2026 Giralabs · Si no has enviado esta candidatura o quieres retirarla, responde a este correo o escríbenos a soporte@giralabs.es.',
       }
     : {
         title: 'We have received your application!',
@@ -708,7 +708,7 @@ export function buildApplicationConfirmEmailHTML(params: { name: string; jobTitl
           'If you are a good fit, we will suggest a first 30-minute video call.',
         ],
         cta: 'View the job',
-        footer: '© 2026 Giralabs · If you did not send this application or want to withdraw it, reply to this email or write to support@giralabs.es.',
+        footer: '© 2026 Giralabs · If you did not send this application or want to withdraw it, reply to this email or write to soporte@giralabs.es.',
       };
 
   const steps = labels.steps

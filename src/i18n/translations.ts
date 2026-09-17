@@ -447,7 +447,7 @@ export const translations = {
     footer_tagline: "Hecho con precisión en España.",
     footer_contact: "Contacto",
     footer_rights: "© 2026 Giralabs. Todos los derechos reservados.",
-    footer_email: "support@giralabs.es",
+    footer_email: "soporte@giralabs.es",
 
     // About Page
     about_page_title: "Nosotros",
@@ -518,7 +518,7 @@ export const translations = {
     legal_page_title: "Aviso Legal",
     legal_page_subtitle: "Términos, condiciones y aspectos legales de Giralabs.",
     legal_intro_title: "1. Información General",
-    legal_intro_desc: "Este sitio web es operado por Giralabs Estudio de Software S.L., con domicilio social en Sevilla, España. Para cualquier consulta, comunicación o ejercicio de derechos, puede ponerse en contacto con nuestro equipo técnico y de soporte a través de la dirección de correo electrónico support@giralabs.es.",
+    legal_intro_desc: "Este sitio web es operado por Giralabs Estudio de Software S.L., con domicilio social en Sevilla, España. Para cualquier consulta, comunicación o ejercicio de derechos, puede ponerse en contacto con nuestro equipo técnico y de soporte a través de la dirección de correo electrónico soporte@giralabs.es.",
     legal_terms_title: "2. Propiedad Intelectual",
     legal_terms_desc: "Todo el software, código fuente, interfaces, sistemas de diseño, animaciones, wireframes, textos y elementos gráficos que componen esta web o nuestros productos son propiedad exclusiva de Giralabs, estando estrictamente prohibida su copia, distribución o ingeniería inversa sin consentimiento previo por escrito.",
     legal_limit_title: "3. Limitación de Responsabilidad",
@@ -534,7 +534,7 @@ export const translations = {
     privacy_purpose_title: "2. Finalidad del Tratamiento",
     privacy_purpose_desc: "Los datos recopilados se procesan para gestionar presupuestos, responder preguntas de soporte y enviar información del blog/newsletter si ha dado su consentimiento explícito. Si nos envía su candidatura a una oferta de empleo, sus datos y su CV se utilizan únicamente para ese proceso de selección y se conservan un máximo de 12 meses. Los datos no se venderán, cederán ni alquilarán a terceros bajo ningún concepto, siendo almacenados de forma segura bajo cifrado SSL.",
     privacy_rights_title: "3. Tus Derechos",
-    privacy_rights_desc: "Bajo el Reglamento General de Protección de Datos (RGPD), usted dispone de los derechos de acceso, rectificación, supresión (olvido), limitación del tratamiento, portabilidad y oposición de sus datos personales. Puede ejercer cualquiera de ellos escribiéndonos a support@giralabs.es.",
+    privacy_rights_desc: "Bajo el Reglamento General de Protección de Datos (RGPD), usted dispone de los derechos de acceso, rectificación, supresión (olvido), limitación del tratamiento, portabilidad y oposición de sus datos personales. Puede ejercer cualquiera de ellos escribiéndonos a soporte@giralabs.es.",
 
     // Accessibility Page
     accessibility_page_title: "Declaración de Accesibilidad",
@@ -544,7 +544,7 @@ export const translations = {
     accessibility_features_title: "2. Características de Accesibilidad",
     accessibility_features_desc: "Este sitio incluye marcado HTML semántico riguroso para lectores de pantalla, soporte para zoom de texto nativo sin deformaciones del layout, combinaciones cromáticas de alto contraste, y atajos de teclado completos para una navegación libre de ratón.",
     accessibility_feedback_title: "3. Contacto y Sugerencias",
-    accessibility_feedback_desc: "Si encuentras barreras de accesibilidad técnica, tienes dificultades para realizar alguna operación o quieres realizarnos alguna sugerencia de mejora, por favor ponte en contacto con nosotros escribiendo a support@giralabs.es.",
+    accessibility_feedback_desc: "Si encuentras barreras de accesibilidad técnica, tienes dificultades para realizar alguna operación o quieres realizarnos alguna sugerencia de mejora, por favor ponte en contacto con nosotros escribiendo a soporte@giralabs.es.",
 
     // Service-specific FAQs (ES)
     // Service 1
@@ -1070,7 +1070,7 @@ export const translations = {
     footer_tagline: "Crafted with precision in Spain.",
     footer_contact: "Contact",
     footer_rights: "© 2026 Giralabs. All rights reserved.",
-    footer_email: "support@giralabs.es",
+    footer_email: "soporte@giralabs.es",
 
     // About Page
     about_page_title: "About Us",
@@ -1141,7 +1141,7 @@ export const translations = {
     legal_page_title: "Legal Notice",
     legal_page_subtitle: "Terms, conditions, and legal aspects of Giralabs.",
     legal_intro_title: "1. General Information",
-    legal_intro_desc: "This website is operated by Giralabs Software Studio S.L., with registered offices in Seville, Spain. For any inquiry, communication, or exercise of legal rights, you may contact our engineering and support team directly at support@giralabs.es.",
+    legal_intro_desc: "This website is operated by Giralabs Software Studio S.L., with registered offices in Seville, Spain. For any inquiry, communication, or exercise of legal rights, you may contact our engineering and support team directly at soporte@giralabs.es.",
     legal_terms_title: "2. Intellectual Property",
     legal_terms_desc: "All software, source code, user interfaces, design systems, animations, wireframes, text, and visual assets comprising this site are the intellectual property of Giralabs. Copying, distribution, or reverse-engineering without written consent is strictly prohibited.",
     legal_limit_title: "3. Limitation of Liability",
@@ -1157,7 +1157,7 @@ export const translations = {
     privacy_purpose_title: "2. Purpose of Processing",
     privacy_purpose_desc: "The collected data is processed to manage pricing estimates, reply to inquiries, and send blog updates if you opt-in. If you apply for a job opening, your details and CV are used only for that hiring process and kept for up to 12 months. Your data will never be sold, leased, or shared with third parties, and it is stored securely using SSL/TLS encryption.",
     privacy_rights_title: "3. Your Rights",
-    privacy_rights_desc: "Under the General Data Protection Regulation (GDPR), you hold the right to access, rectify, erase, restrict processing, request portability, and object to the processing of your personal data. You can exercise these rights at support@giralabs.es.",
+    privacy_rights_desc: "Under the General Data Protection Regulation (GDPR), you hold the right to access, rectify, erase, restrict processing, request portability, and object to the processing of your personal data. You can exercise these rights at soporte@giralabs.es.",
 
     // Accessibility Page
     accessibility_page_title: "Accessibility Statement",
@@ -1167,7 +1167,7 @@ export const translations = {
     accessibility_features_title: "2. Accessibility Features",
     accessibility_features_desc: "This site features structural semantic HTML markup optimized for screen readers, native text zooming without layout breaks, high-contrast color pairings, and full keyboard navigation support.",
     accessibility_feedback_title: "3. Contact and Feedback",
-    accessibility_feedback_desc: "If you encounter any technical accessibility barriers or would like to suggest usability improvements, please contact us at support@giralabs.es.",
+    accessibility_feedback_desc: "If you encounter any technical accessibility barriers or would like to suggest usability improvements, please contact us at soporte@giralabs.es.",
 
     // Service-specific FAQs (EN)
     // Service 1

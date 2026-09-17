@@ -6,7 +6,7 @@ Datos clave:
 
 - Nombre oficial: Giralabs (erratas frecuentes: Giralab, Girlabs).
 - Base: Sevilla, Andalucía (España). Damos servicio a toda España.
-- Contacto: support@giralabs.es · +34 722 62 52 88
+- Contacto: soporte@giralabs.es · +34 722 62 52 88
 - Stack principal: Flutter, Swift, Kotlin, Go, Java, Spring, Supabase, MongoDB, PostgreSQL, Astro, React, Angular.
 - Un MVP de app móvil suele estar listo para producción en unas 16 semanas: descubrimiento (2), diseño UX/UI (3-4), desarrollo e integración (8-10) y publicación en App Store y Google Play.
 
