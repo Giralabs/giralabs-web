@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import {
   buildBookingEmailHTML,
   buildInternalNotificationEmailHTML,
@@ -30,19 +28,6 @@ function createTransporter() {
   });
 }
 
-function getLogoAttachment() {
-  const logoPath = join(process.cwd(), 'public', 'logo-email.avif');
-  if (existsSync(logoPath)) {
-    return { filename: 'logo.avif', path: logoPath, cid: 'giralabs-logo', contentType: 'image/avif' };
-  }
-  return null;
-}
-
-function getAttachments() {
-  const logo = getLogoAttachment();
-  return logo ? [logo] : [];
-}
-
 export interface SendBookingEmailParams extends EmailTemplateParams {
   recipientEmail: string;
   clientCancelUrl?: string;   // cancel URL for client emails
@@ -55,7 +40,6 @@ export async function sendBookingConfirmation(params: SendBookingEmailParams): P
   const transporter  = createTransporter();
   const fromUser     = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
   const isES         = params.lang !== 'en';
-  const attachments  = getAttachments();
 
   const clientSubject = isES
     ? `✅ Reunión confirmada · ${params.dateFormatted} a las ${params.time} — Giralabs`
@@ -75,7 +59,6 @@ export async function sendBookingConfirmation(params: SendBookingEmailParams): P
       to: recipient,
       subject: clientSubject,
       html,
-      attachments,
       text: `${params.name}, tu videollamada con Giralabs está confirmada para el ${params.dateFormatted} a las ${params.time}.\nMeet: ${params.meetLink}`,
     });
   });
@@ -97,7 +80,6 @@ export async function sendBookingConfirmation(params: SendBookingEmailParams): P
     to: fromUser,
     subject: internalSubject,
     html: internalHtml,
-    attachments,
     text: `Nueva reunión:\n${params.name} <${params.recipientEmail}>\nFecha: ${params.dateFormatted} ${params.time}\nMeet: ${params.meetLink}`,
   });
 
@@ -115,7 +97,6 @@ export interface SendCancellationParams extends CancellationEmailParams {
 export async function sendCancellationEmails(params: SendCancellationParams): Promise<void> {
   const transporter = createTransporter();
   const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
-  const attachments = getAttachments();
 
   const { cancelledBy, name, email, company, dateFormatted, time, guests = [] } = params;
   const isClientCancelled = cancelledBy === 'client';
@@ -145,7 +126,6 @@ export async function sendCancellationEmails(params: SendCancellationParams): Pr
       to: cancellerEmail,
       subject: confirmSubject,
       html: confirmHtml,
-      attachments,
     }),
     ...notifyRecipients.map((r) =>
       transporter.sendMail({
@@ -153,7 +133,6 @@ export async function sendCancellationEmails(params: SendCancellationParams): Pr
         to: r,
         subject: notifySubject,
         html: notifyHtml,
-        attachments,
       })
     ),
   ];
@@ -167,7 +146,6 @@ export async function sendCancellationEmails(params: SendCancellationParams): Pr
 export async function sendWelcomeEmail(recipientEmail: string, lang: 'es' | 'en'): Promise<void> {
   const transporter = createTransporter();
   const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
-  const attachments = getAttachments();
   const html        = buildWelcomeEmailHTML(lang);
   const subject     = lang === 'en'
     ? 'Welcome to the Giralabs newsletter! 🚀'
@@ -178,7 +156,6 @@ export async function sendWelcomeEmail(recipientEmail: string, lang: 'es' | 'en'
     to: recipientEmail,
     subject,
     html,
-    attachments,
   });
   console.log(`[Giralabs Newsletter] Welcome email sent to: ${recipientEmail}`);
 }
@@ -191,7 +168,6 @@ export async function sendNewPostsNotification(
 
   const transporter = createTransporter();
   const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
-  const attachments = getAttachments();
 
   const sends = subscribers.map(async (sub) => {
     const html = buildNewPostsEmailHTML(newPosts, sub.lang);
@@ -205,7 +181,6 @@ export async function sendNewPostsNotification(
         to: sub.email,
         subject,
         html,
-        attachments,
       });
       console.log(`[Giralabs Newsletter] Notification sent to: ${sub.email} (${sub.lang})`);
     } catch (err) {
@@ -232,7 +207,6 @@ export async function sendJobApplication({ job, lang, fields, cv }: SendJobAppli
   const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
   // Every application, CV attached, lands in the Giralabs inbox
   const inbox       = CAREERS_INBOX;
-  const attachments = getAttachments();
 
   // The team reads applications in Spanish, whatever language the candidate used
   const O = applicationFormCopy.es.options;
@@ -283,7 +257,7 @@ export async function sendJobApplication({ job, lang, fields, cv }: SendJobAppli
       `Nueva candidatura para ${job.es.title}\n\n` +
       rows.filter((r) => r.value).map((r) => `${r.label}: ${r.value}`).join('\n') +
       `\n\nMotivación:\n${fields.cover_letter}`,
-    attachments: [...attachments, { filename: cv.filename, content: cv.content, contentType: cv.contentType }],
+    attachments: [{ filename: cv.filename, content: cv.content, contentType: cv.contentType }],
   });
   console.log(`[Giralabs Careers] Application for ${job.slug} delivered to ${inbox}`);
 
@@ -302,7 +276,6 @@ export async function sendJobApplication({ job, lang, fields, cv }: SendJobAppli
         jobUrl: `${siteOrigin}${jobPath(job.slug, lang)}`,
         lang,
       }),
-      attachments,
     });
   } catch (err) {
     console.error('[Giralabs Careers] Candidate confirmation failed:', err);

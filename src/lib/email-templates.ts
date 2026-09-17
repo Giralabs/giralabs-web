@@ -30,10 +30,15 @@ function buildParticipantsBlock(bookerEmail: string, guests: string[]): string {
     .join('');
 }
 
-// Logo embedded as CID attachment (injected by email-sender.ts)
-// The email sender attaches the file with cid=giralabs-logo
+// Logo served from the site, not attached. The old CID attachment was an AVIF:
+// most mail clients cannot render AVIF, so it showed up as a loose "logo.avif"
+// file under every message. This PNG is opaque on the header's own black, so
+// dark mode, which recolours backgrounds but leaves images alone, cannot make
+// the light wordmark vanish into a light background.
+const EMAIL_LOGO_URL = 'https://www.giralabs.es/email/giralabs-logo.png';
+
 function logoBlock(): string {
-  return `<img src="cid:giralabs-logo" alt="Giralabs" width="140" height="auto" style="display:block;width:140px;height:auto;border:0;" />`;
+  return `<img src="${EMAIL_LOGO_URL}" alt="Giralabs" width="160" height="49" style="display:block;width:160px;height:49px;border:0;border-radius:10px;background:#0a0a0a;" />`;
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -80,6 +85,8 @@ export function buildBookingEmailHTML(params: EmailTemplateParams, recipientEmai
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
 <title>${labels.greeting} · Giralabs</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
@@ -225,6 +232,8 @@ export function buildInternalNotificationEmailHTML(p: InternalNotificationParams
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
 <title>🔔 Nueva reunión solicitada · Giralabs</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;">
@@ -340,7 +349,9 @@ export interface CancellationEmailParams {
 function buildCancelCard(header: string, body: string, footer: string): string {
   return `<!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>${header} · Giralabs</title></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only"><title>${header} · Giralabs</title></head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f0;">
 <tr><td align="center" style="padding:40px 16px 56px;">
@@ -465,6 +476,8 @@ export function buildWelcomeEmailHTML(lang: 'es' | 'en'): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
 <title>${labels.title} · Giralabs</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
@@ -544,6 +557,8 @@ export function buildNewPostsEmailHTML(posts: any[], lang: 'es' | 'en'): string 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
 <title>${labels.title} · Giralabs</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
@@ -601,6 +616,8 @@ function emailShell(lang: string, title: string, body: string, footer: string): 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
 <title>${title} · Giralabs</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
