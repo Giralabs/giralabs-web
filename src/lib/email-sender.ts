@@ -218,6 +218,8 @@ export async function sendNewPostsNotification(
 
 // ── JOB APPLICATIONS ───────────────────────────────────────────
 
+const CAREERS_INBOX = 'giralabs.contact@gmail.com';
+
 export interface SendJobApplicationParams {
   job: Job;
   lang: CareersLang;
@@ -228,8 +230,8 @@ export interface SendJobApplicationParams {
 export async function sendJobApplication({ job, lang, fields, cv }: SendJobApplicationParams): Promise<void> {
   const transporter = createTransporter();
   const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
-  // Applications can go to a dedicated inbox; by default they land with the rest
-  const inbox       = import.meta.env.CAREERS_EMAIL || fromUser;
+  // Every application, CV attached, lands in the Giralabs inbox
+  const inbox       = CAREERS_INBOX;
   const attachments = getAttachments();
 
   // The team reads applications in Spanish, whatever language the candidate used
