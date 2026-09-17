@@ -580,3 +580,164 @@ export function buildNewPostsEmailHTML(posts: any[], lang: 'es' | 'en'): string 
 </td></tr></table>
 </body></html>`;
 }
+
+// ─────────────────────────────────────────────────────────────────
+// JOB APPLICATION EMAILS
+// Everything in these comes from a public form, so every value is escaped.
+// ─────────────────────────────────────────────────────────────────
+
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function emailShell(lang: string, title: string, body: string, footer: string): string {
+  return `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${title} · Giralabs</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f5f0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f0;">
+<tr><td align="center" style="padding:40px 16px 56px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+  <tr>
+    <td style="background:#0a0a0a;border-radius:20px 20px 0 0;padding:28px 40px;">
+      ${logoBlock()}
+    </td>
+  </tr>
+  ${body}
+  <tr>
+    <td style="background:#F0EFEA;border-radius:0 0 20px 20px;padding:20px 40px;border:1px solid #e8e8e3;border-top:none;">
+      <p style="color:#999;font-size:11px;margin:0;line-height:1.6;">${footer}</p>
+    </td>
+  </tr>
+</table>
+</td></tr></table>
+</body></html>`;
+}
+
+export interface ApplicationRow {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+export interface InternalApplicationEmailParams {
+  jobTitle: string;
+  jobUrl: string;
+  candidateName: string;
+  candidateEmail: string;
+  rows: ApplicationRow[];
+  coverLetter: string;
+  cvFilename: string;
+}
+
+export function buildApplicationInternalEmailHTML(p: InternalApplicationEmailParams): string {
+  const rows = p.rows
+    .filter((r) => r.value)
+    .map((r) => {
+      const value = r.href
+        ? `<a href="${escapeHtml(r.href)}" style="color:#0a0a0a;font-weight:600;">${escapeHtml(r.value)}</a>`
+        : escapeHtml(r.value);
+      return `<tr>
+        <td style="padding:9px 12px 9px 0;font-size:12px;color:#888;vertical-align:top;white-space:nowrap;border-bottom:1px solid #f0f0ec;">${escapeHtml(r.label)}</td>
+        <td style="padding:9px 0;font-size:13px;color:#0a0a0a;vertical-align:top;border-bottom:1px solid #f0f0ec;word-break:break-word;">${value}</td>
+      </tr>`;
+    })
+    .join('');
+
+  const body = `
+  <tr>
+    <td style="background:#ffffff;padding:36px 40px 20px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:8px;">Nueva candidatura</div>
+      <h1 style="margin:0 0 6px;font-size:24px;font-weight:800;color:#0a0a0a;letter-spacing:-0.03em;line-height:1.2;">${escapeHtml(p.candidateName)}</h1>
+      <p style="margin:0;font-size:14px;color:#555;line-height:1.6;">para <a href="${escapeHtml(p.jobUrl)}" style="color:#0a0a0a;font-weight:600;">${escapeHtml(p.jobTitle)}</a></p>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 24px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows}</table>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 28px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:8px;">Motivación</div>
+      <div style="background:#F0EFEA;border-radius:14px;padding:18px 20px;font-size:14px;color:#222;line-height:1.65;white-space:pre-wrap;">${escapeHtml(p.coverLetter)}</div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 32px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <p style="margin:0 0 18px;font-size:13px;color:#555;">📎 CV adjunto: <strong>${escapeHtml(p.cvFilename)}</strong></p>
+      <a href="mailto:${escapeHtml(p.candidateEmail)}" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:12px;padding:13px 28px;font-size:14px;font-weight:700;">Responder a ${escapeHtml(p.candidateName)} →</a>
+    </td>
+  </tr>`;
+
+  return emailShell('es', 'Nueva candidatura', body, 'Recibida desde el formulario de empleo de giralabs.es. Recuerda responder a todos los candidatos y borrar los datos pasados 12 meses.');
+}
+
+export function buildApplicationConfirmEmailHTML(params: { name: string; jobTitle: string; jobUrl: string; lang: 'es' | 'en' }): string {
+  const isES = params.lang !== 'en';
+  const name = escapeHtml(params.name.split(' ')[0] || params.name);
+  const labels = isES
+    ? {
+        title: '¡Hemos recibido tu candidatura!',
+        intro: `Hola <strong>${name}</strong>, gracias por tu interés en unirte al equipo de Bipsy como <strong>${escapeHtml(params.jobTitle)}</strong>.`,
+        next: 'Qué pasa ahora',
+        steps: [
+          'Revisamos personalmente cada candidatura.',
+          'Te responderemos en un máximo de 10 días laborables, tanto si seguimos adelante como si no.',
+          'Si encajas, te propondremos una primera videollamada de 30 minutos.',
+        ],
+        cta: 'Ver la oferta',
+        footer: '© 2026 Giralabs · Si no has enviado esta candidatura o quieres retirarla, responde a este correo o escríbenos a support@giralabs.es.',
+      }
+    : {
+        title: 'We have received your application!',
+        intro: `Hi <strong>${name}</strong>, thanks for your interest in joining the Bipsy team as <strong>${escapeHtml(params.jobTitle)}</strong>.`,
+        next: 'What happens next',
+        steps: [
+          'We personally review every application.',
+          'We will get back to you within 10 working days, whether we move forward or not.',
+          'If you are a good fit, we will suggest a first 30-minute video call.',
+        ],
+        cta: 'View the job',
+        footer: '© 2026 Giralabs · If you did not send this application or want to withdraw it, reply to this email or write to support@giralabs.es.',
+      };
+
+  const steps = labels.steps
+    .map((s, i) => `<tr>
+      <td style="width:28px;padding:0 0 12px;vertical-align:top;"><div style="width:22px;height:22px;border-radius:50%;background:#0a0a0a;color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:22px;">${i + 1}</div></td>
+      <td style="padding:2px 0 12px 8px;font-size:14px;color:#333;line-height:1.55;vertical-align:top;">${s}</td>
+    </tr>`)
+    .join('');
+
+  const body = `
+  <tr>
+    <td style="background:#ffffff;padding:40px 40px 24px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <h1 style="margin:0 0 12px;font-size:24px;font-weight:800;color:#0a0a0a;letter-spacing:-0.03em;line-height:1.2;">${labels.title}</h1>
+      <p style="margin:0;font-size:15px;color:#555;line-height:1.65;">${labels.intro}</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:0 40px 20px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;">
+      <div style="background:#F0EFEA;border-radius:14px;padding:20px 20px 8px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:14px;">${labels.next}</div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${steps}</table>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background:#ffffff;padding:8px 40px 36px;border-left:1px solid #e8e8e3;border-right:1px solid #e8e8e3;" align="center">
+      <a href="${escapeHtml(params.jobUrl)}" target="_blank" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:12px;padding:14px 32px;font-size:14px;font-weight:700;">${labels.cta} →</a>
+    </td>
+  </tr>`;
+
+  return emailShell(params.lang, labels.title, body, labels.footer);
+}

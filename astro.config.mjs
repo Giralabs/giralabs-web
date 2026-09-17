@@ -41,6 +41,12 @@ export default defineConfig({
     '/service/custom-software': { status: 301, destination: '/servicio/software-a-medida' },
     '/service/ai-integration': { status: 301, destination: '/servicio/integracion-ia' },
     '/project/bipsy': { status: 301, destination: '/proyecto/bipsy' },
+    // Careers: short, memorable aliases for links shared on LinkedIn and job boards
+    '/careers': { status: 301, destination: '/empleo' },
+    '/careers/[slug]': { status: 301, destination: '/empleo/[slug]' },
+    '/trabaja-con-nosotros': { status: 301, destination: '/empleo' },
+    '/jobs': { status: 301, destination: '/empleo' },
+    '/jobs/[slug]': { status: 301, destination: '/empleo/[slug]' },
     // Gipsi was renamed to Bipsy: keep the old URLs pointing at the new project
     '/proyecto/gipsi': { status: 301, destination: '/proyecto/bipsy' },
     '/project/gipsi': { status: 301, destination: '/proyecto/bipsy' },

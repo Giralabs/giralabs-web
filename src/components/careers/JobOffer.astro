@@ -1,0 +1,2076 @@
+---
+import {
+  applicationFormCopy,
+  applicationOptions,
+  careersBasePath,
+  jobPageCopy,
+  jobPath,
+  CV_EXTENSIONS,
+  CV_MAX_BYTES,
+  type CareersLang,
+  type Job,
+} from '../../data/careers';
+import { absoluteUrl, SITE_ORIGIN } from '../../lib/site';
+
+interface Props {
+  lang: CareersLang;
+  job: Job;
+}
+
+const { lang, job } = Astro.props;
+const J = job[lang];
+const P = jobPageCopy[lang];
+const F = applicationFormCopy[lang];
+
+const pageUrl = absoluteUrl(jobPath(job.slug, lang));
+const careersHref = careersBasePath[lang];
+const privacyHref = lang === 'en' ? '/en/privacy' : '/privacidad';
+
+const postedDate = new Date(`${job.datePosted}T12:00:00Z`).toLocaleDateString(lang === 'en' ? 'en-GB' : 'es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const meta = [
+  { label: P.metaDepartment, value: J.department },
+  { label: P.metaLocation, value: J.location },
+  { label: P.metaWorkplace, value: J.workplace },
+  { label: P.metaType, value: J.employmentType },
+  { label: P.metaExperience, value: J.experience },
+  { label: P.metaSalary, value: J.salary },
+];
+
+const steps = [F.stepPersonal, F.stepExperience, F.stepCv];
+
+const list = (items: string[]) => `<ul>${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
+
+// Google for Jobs reads this; LinkedIn and other aggregators use it as well
+const jobPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: J.title,
+  description:
+    `<p>${J.summary}</p>` +
+    `<h3>${P.responsibilitiesTitle}</h3>${list(J.responsibilities)}` +
+    `<h3>${P.requirementsTitle}</h3>${list(J.requirements)}` +
+    `<h3>${P.niceToHaveTitle}</h3>${list(J.niceToHave)}` +
+    `<h3>${P.offerTitle}</h3>${list(J.offer)}`,
+  identifier: { '@type': 'PropertyValue', name: 'Giralabs', value: job.slug },
+  datePosted: job.datePosted,
+  validThrough: `${job.validThrough}T23:59:59+01:00`,
+  employmentType: job.employmentType,
+  hiringOrganization: {
+    '@type': 'Organization',
+    '@id': `${SITE_ORIGIN}/#organization`,
+    name: 'Giralabs',
+    sameAs: SITE_ORIGIN,
+    logo: `${SITE_ORIGIN}/logo.png`,
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: job.addressLocality,
+      addressRegion: job.addressRegion,
+      addressCountry: job.addressCountry,
+    },
+  },
+  applicantLocationRequirements: { '@type': 'Country', name: 'España' },
+  jobLocationType: 'TELECOMMUTE',
+  experienceRequirements: {
+    '@type': 'OccupationalExperienceRequirements',
+    monthsOfExperience: job.monthsOfExperience,
+  },
+  skills: J.stack.join(', '),
+  directApply: true,
+  url: pageUrl,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Giralabs', item: absoluteUrl(lang === 'en' ? '/en/' : '/') },
+    { '@type': 'ListItem', position: 2, name: P.breadcrumbCareers, item: absoluteUrl(careersHref) },
+    { '@type': 'ListItem', position: 3, name: J.shortTitle, item: pageUrl },
+  ],
+};
+
+const linkedInShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
+const cvAccept = CV_EXTENSIONS.map((ext) => `.${ext}`).join(',');
+
+// Handed to the client script as data, same pattern as the contact form
+const clientCopy = {
+  errors: F.errors,
+  errorGeneric: F.errorGeneric,
+  errorSummary: F.errorSummary,
+  sending: F.sending,
+  submit: F.submit,
+  cvNone: F.cvNone,
+  stepOf: F.stepOf,
+  copied: P.copied,
+  copyLink: P.copyLink,
+  cvMaxBytes: CV_MAX_BYTES,
+  cvExtensions: CV_EXTENSIONS,
+  sources: applicationOptions.source,
+};
+
+const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+---
+
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="ambient-glow glow-top" aria-hidden="true"></div>
+<div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+<script type="application/ld+json" set:html={JSON.stringify(jobPostingSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<main class="job-page" id="main-content">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href={careersHref} class="back-link">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      {P.backToCareers}
+    </a>
+  </nav>
+
+  <header class="job-hero reveal">
+    <span class="job-eyebrow">{J.department}</span>
+    <h1 class="job-title">{J.title}</h1>
+    <p class="job-summary">{J.summary}</p>
+    <ul class="hero-tags" role="list">
+      <li>{J.location}</li>
+      <li>{J.workplace}</li>
+      <li>{J.experience}</li>
+    </ul>
+    {job.open ? (
+      <div class="hero-actions">
+        <button type="button" class="primary-btn" data-open-apply id="hero-apply">
+          {P.applyCta}
+          <Fragment set:html={arrowIcon} />
+        </button>
+        <span class="apply-time">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          {P.applyTime}
+        </span>
+      </div>
+    ) : (
+      <p class="closed-note"><strong>{P.closedTitle}.</strong> {P.closedDesc}</p>
+    )}
+  </header>
+
+  <div class="job-layout">
+    <article class="job-content">
+      <section class="glass-card content-block reveal" aria-labelledby="about-title">
+        <h2 id="about-title" class="block-title">{P.aboutTitle}</h2>
+        {J.aboutProduct.map((p) => <p class="block-text">{p}</p>)}
+      </section>
+
+      <section class="glass-card content-block reveal" aria-labelledby="resp-title">
+        <h2 id="resp-title" class="block-title">{P.responsibilitiesTitle}</h2>
+        <ul class="check-list">{J.responsibilities.map((item) => <li>{item}</li>)}</ul>
+      </section>
+
+      <section class="glass-card content-block reveal" aria-labelledby="req-title">
+        <h2 id="req-title" class="block-title">{P.requirementsTitle}</h2>
+        <ul class="check-list">{J.requirements.map((item) => <li>{item}</li>)}</ul>
+      </section>
+
+      <section class="glass-card content-block reveal" aria-labelledby="nice-title">
+        <h2 id="nice-title" class="block-title">{P.niceToHaveTitle}</h2>
+        <ul class="check-list is-soft">{J.niceToHave.map((item) => <li>{item}</li>)}</ul>
+      </section>
+
+      <section class="glass-card content-block reveal" aria-labelledby="offer-title">
+        <h2 id="offer-title" class="block-title">{P.offerTitle}</h2>
+        <ul class="check-list">{J.offer.map((item) => <li>{item}</li>)}</ul>
+      </section>
+
+      <section class="glass-card content-block reveal" aria-labelledby="process-title">
+        <h2 id="process-title" class="block-title">{P.processTitle}</h2>
+        <ol class="process-list">
+          {J.process.map((step) => (
+            <li>
+              <span class="process-step-title">{step.title}</span>
+              <span class="process-step-desc">{step.desc}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {job.open && (
+        <section class="final-cta reveal" aria-labelledby="final-cta-title">
+          <div>
+            <h2 id="final-cta-title" class="final-title">{P.finalTitle}</h2>
+            <p class="final-desc">{P.finalDesc}</p>
+          </div>
+          <button type="button" class="light-btn" data-open-apply>
+            {P.applyCta}
+            <Fragment set:html={arrowIcon} />
+          </button>
+        </section>
+      )}
+    </article>
+
+    <aside class="job-aside" aria-label={J.shortTitle}>
+      <div class="glass-card aside-card">
+        {job.open && (
+          <button type="button" class="primary-btn aside-apply" data-open-apply>
+            {P.applyCta}
+            <Fragment set:html={arrowIcon} />
+          </button>
+        )}
+
+        <dl class="meta-list">
+          {meta.map((m) => (
+            <div class="meta-row">
+              <dt>{m.label}</dt>
+              <dd>{m.value}</dd>
+            </div>
+          ))}
+          <div class="meta-row">
+            <dt>{P.posted}</dt>
+            <dd><time datetime={job.datePosted}>{postedDate}</time></dd>
+          </div>
+        </dl>
+
+        <div>
+          <span class="small-title">{P.stackTitle}</span>
+          <ul class="stack-list" role="list">
+            {J.stack.map((tech) => <li>{tech}</li>)}
+          </ul>
+        </div>
+
+        <div>
+          <span class="small-title">{P.share}</span>
+          <div class="share-buttons">
+            <a href={linkedInShare} target="_blank" rel="noopener noreferrer" class="share-btn">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+              {P.shareLinkedIn}
+            </a>
+            <button type="button" class="share-btn" id="copy-job-link" data-url={pageUrl}>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span id="copy-job-link-label">{P.copyLink}</span>
+            </button>
+          </div>
+          <span class="visually-hidden" role="status" aria-live="polite" id="copy-job-link-status"></span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+{job.open && (
+  <>
+    <!-- Phone: the apply button follows the reader once the hero one is off screen -->
+    <div class="mobile-apply-bar" id="mobile-apply-bar" aria-hidden="true">
+      <div class="mobile-apply-info">
+        <span class="mobile-apply-title">{J.shortTitle}</span>
+        <span class="mobile-apply-sub">{J.location}</span>
+      </div>
+      <button type="button" class="primary-btn" data-open-apply tabindex="-1">{P.applyCta}</button>
+    </div>
+
+    <dialog class="apply-dialog" id="apply-dialog" aria-labelledby="apply-dialog-title">
+      <div class="dialog-header">
+        <div class="dialog-heading">
+          <span class="dialog-eyebrow">{F.applyingFor}</span>
+          <h2 class="dialog-title" id="apply-dialog-title">{J.title}</h2>
+        </div>
+        <button type="button" class="icon-btn" id="apply-dialog-close" aria-label={F.close}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="dialog-progress" id="apply-progress">
+        <ol class="progress-steps" role="list">
+          {steps.map((label, i) => (
+            <li class={`progress-step ${i === 0 ? 'is-current' : ''}`} data-progress-step={i} aria-current={i === 0 ? 'step' : undefined}>
+              <span class="progress-dot" aria-hidden="true">{i + 1}</span>
+              <span class="progress-label">{label}</span>
+            </li>
+          ))}
+        </ol>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="apply-progress-fill"></div></div>
+      </div>
+
+      <form
+        id="application-form"
+        class="application-form"
+        action="/api/careers"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        <div class="dialog-body" id="apply-dialog-body">
+          <div class="error-summary" id="application-error-summary" role="alert" hidden></div>
+
+          <input type="hidden" name="slug" value={job.slug} />
+          <input type="hidden" name="lang" value={lang} />
+          <input type="hidden" name="started_at" id="started-at" value="" />
+          <input type="hidden" name="utm" id="utm-field" value="" />
+          <!-- Honeypot: real people never see or fill this -->
+          <div class="hp" aria-hidden="true">
+            <label for="app-website">Website</label>
+            <input type="text" id="app-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Step 1: about you -->
+          <fieldset class="form-step" data-step="0">
+            <legend class="step-legend" tabindex="-1">
+              <span class="step-count">{F.stepOf.replace('{n}', '1').replace('{total}', '3')}</span>
+              {F.stepPersonal}
+            </legend>
+            <div class="fields-grid">
+              <div class="field full">
+                <label for="app-name" class="field-label">{F.name} <span aria-hidden="true">*</span></label>
+                <input id="app-name" name="name" type="text" class="field-input" autocomplete="name" required maxlength="120" aria-describedby="app-name-error" />
+                <p class="field-error" id="app-name-error"></p>
+              </div>
+              <div class="field">
+                <label for="app-email" class="field-label">{F.email} <span aria-hidden="true">*</span></label>
+                <input id="app-email" name="email" type="email" class="field-input" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="app-email-error" />
+                <p class="field-error" id="app-email-error"></p>
+              </div>
+              <div class="field">
+                <label for="app-phone" class="field-label">{F.phone} <span aria-hidden="true">*</span></label>
+                <input id="app-phone" name="phone" type="tel" class="field-input" autocomplete="tel" inputmode="tel" required maxlength="30" aria-describedby="app-phone-error" />
+                <p class="field-error" id="app-phone-error"></p>
+              </div>
+              <div class="field full">
+                <label for="app-city" class="field-label">{F.city} <span aria-hidden="true">*</span></label>
+                <input id="app-city" name="city" type="text" class="field-input" autocomplete="address-level2" required maxlength="120" aria-describedby="app-city-hint app-city-error" />
+                <p class="field-hint" id="app-city-hint">{F.cityHint}</p>
+                <p class="field-error" id="app-city-error"></p>
+              </div>
+              <fieldset class="field full choice-field" id="app-workPermit" aria-describedby="app-workPermit-error">
+                <legend class="field-label">{F.workPermit} <span aria-hidden="true">*</span></legend>
+                <div class="choice-row">
+                  {applicationOptions.workPermit.map((value) => (
+                    <label class="choice">
+                      <input type="radio" name="work_permit" value={value} required />
+                      <span>{F.options.workPermit[value]}</span>
+                    </label>
+                  ))}
+                </div>
+                <p class="field-error" id="app-workPermit-error"></p>
+              </fieldset>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: experience -->
+          <fieldset class="form-step" data-step="1" hidden>
+            <legend class="step-legend" tabindex="-1">
+              <span class="step-count">{F.stepOf.replace('{n}', '2').replace('{total}', '3')}</span>
+              {F.stepExperience}
+            </legend>
+            <div class="fields-grid">
+              <div class="field">
+                <label for="app-experience" class="field-label">{F.experience} <span aria-hidden="true">*</span></label>
+                <select id="app-experience" name="experience" class="field-input field-select" required aria-describedby="app-experience-error">
+                  <option value="">{F.select}</option>
+                  {applicationOptions.experience.map((value) => (
+                    <option value={value}>{F.options.experience[value]}</option>
+                  ))}
+                </select>
+                <p class="field-error" id="app-experience-error"></p>
+              </div>
+              <div class="field">
+                <label for="app-availability" class="field-label">{F.availability} <span aria-hidden="true">*</span></label>
+                <select id="app-availability" name="availability" class="field-input field-select" required aria-describedby="app-availability-error">
+                  <option value="">{F.select}</option>
+                  {applicationOptions.availability.map((value) => (
+                    <option value={value}>{F.options.availability[value]}</option>
+                  ))}
+                </select>
+                <p class="field-error" id="app-availability-error"></p>
+              </div>
+
+              <div class="field full levels">
+                <p class="field-hint">{F.levelHint}</p>
+                {J.levelQuestions.map((q) => (
+                  <fieldset class="field choice-field" id={`app-${q.name}`} aria-describedby={`app-${q.name}-error`}>
+                    <legend class="field-label">{q.label} <span aria-hidden="true">*</span></legend>
+                    <div class="choice-row">
+                      {applicationOptions.level.map((value) => (
+                        <label class="choice">
+                          <input type="radio" name={q.name} value={value} required />
+                          <span>{F.options.level[value]}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <p class="field-error" id={`app-${q.name}-error`}></p>
+                  </fieldset>
+                ))}
+              </div>
+
+              <div class="field">
+                <label for="app-linkedin" class="field-label">{F.linkedin}</label>
+                <input id="app-linkedin" name="linkedin" type="url" class="field-input" inputmode="url" placeholder="https://linkedin.com/in/…" maxlength="300" aria-describedby="app-linkedin-error" />
+                <p class="field-error" id="app-linkedin-error"></p>
+              </div>
+              <div class="field">
+                <label for="app-portfolio" class="field-label">{F.portfolio}</label>
+                <input id="app-portfolio" name="portfolio" type="url" class="field-input" inputmode="url" placeholder="https://github.com/…" maxlength="300" aria-describedby="app-portfolio-error" />
+                <p class="field-error" id="app-portfolio-error"></p>
+              </div>
+              <div class="field full">
+                <label for="app-salary" class="field-label">{F.salary}</label>
+                <input id="app-salary" name="salary" type="text" class="field-input" maxlength="60" aria-describedby="app-salary-hint" />
+                <p class="field-hint" id="app-salary-hint">{F.salaryHint}</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: CV and motivation -->
+          <fieldset class="form-step" data-step="2" hidden>
+            <legend class="step-legend" tabindex="-1">
+              <span class="step-count">{F.stepOf.replace('{n}', '3').replace('{total}', '3')}</span>
+              {F.stepCv}
+            </legend>
+            <div class="fields-grid">
+              <div class="field full">
+                <span class="field-label" id="app-cv-label">{F.cv} <span aria-hidden="true">*</span></span>
+                <label class="dropzone" for="app-cv" id="app-cv-dropzone">
+                  <input
+                    id="app-cv"
+                    name="cv"
+                    type="file"
+                    class="file-input"
+                    accept={`${cvAccept},application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document`}
+                    required
+                    aria-labelledby="app-cv-label"
+                    aria-describedby="app-cv-name app-cv-hint app-cv-error"
+                  />
+                  <span class="dropzone-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  </span>
+                  <span class="dropzone-text">
+                    <span class="dropzone-action">{F.cvSelect}</span>
+                    <span class="file-name" id="app-cv-name">{F.cvNone}</span>
+                  </span>
+                </label>
+                <p class="field-hint" id="app-cv-hint">{F.cvHint}</p>
+                <p class="field-error" id="app-cv-error"></p>
+              </div>
+
+              <div class="field full">
+                <label for="app-cover" class="field-label">{F.coverLetter} <span aria-hidden="true">*</span></label>
+                <textarea id="app-cover" name="cover_letter" class="field-input field-textarea" required minlength="50" maxlength="3000" rows="6" aria-describedby="app-cover-hint app-cover-error"></textarea>
+                <p class="field-hint" id="app-cover-hint">{F.coverLetterHint} <span class="char-count" id="app-cover-count" aria-hidden="true">0 / 3000</span></p>
+                <p class="field-error" id="app-cover-error"></p>
+              </div>
+
+              <div class="field full">
+                <label for="app-source" class="field-label">{F.source} <span aria-hidden="true">*</span></label>
+                <select id="app-source" name="source" class="field-input field-select" required aria-describedby="app-source-error">
+                  <option value="">{F.select}</option>
+                  {applicationOptions.source.map((value) => (
+                    <option value={value}>{F.options.source[value]}</option>
+                  ))}
+                </select>
+                <p class="field-error" id="app-source-error"></p>
+              </div>
+
+              <div class="field full">
+                <div class="consent">
+                  <input type="checkbox" id="app-privacy" name="privacy" value="accepted" required aria-describedby="app-privacy-note app-privacy-error" />
+                  <label for="app-privacy" set:html={F.privacy.replace(/href="[^"]*"/, `href="${privacyHref}"`)}></label>
+                </div>
+                <p class="field-hint" id="app-privacy-note">{F.privacyNote}</p>
+                <p class="field-error" id="app-privacy-error"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <p class="form-error" id="application-error" role="alert"></p>
+        </div>
+
+        <div class="dialog-footer">
+          <button type="button" class="ghost-btn" id="apply-back" hidden>{F.back}</button>
+          <button type="submit" class="primary-btn submit-btn" id="application-submit">
+            <span class="spinner" aria-hidden="true"></span>
+            <span id="application-submit-label">{F.next}</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="form-success" id="application-success" hidden tabindex="-1">
+        <div class="success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h3 class="success-title">{F.successTitle}</h3>
+        <p class="success-desc">{F.successDesc}</p>
+        <button type="button" class="primary-btn" id="apply-success-close">{F.close}</button>
+      </div>
+    </dialog>
+
+    <script type="application/json" id="application-copy" set:html={JSON.stringify({ ...clientCopy, next: F.next })} />
+  </>
+)}
+
+{!job.open && (
+  <script type="application/json" id="application-copy" set:html={JSON.stringify(clientCopy)} />
+)}
+
+<script>
+  // ---------- Reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach((el) => observer.observe(el));
+
+  const copyEl = document.getElementById('application-copy');
+  const copy = copyEl ? JSON.parse(copyEl.textContent || '{}') : {};
+
+  // ---------- Copy link ----------
+  const copyBtn = document.getElementById('copy-job-link');
+  const copyLabel = document.getElementById('copy-job-link-label');
+  const copyStatus = document.getElementById('copy-job-link-status');
+  copyBtn?.addEventListener('click', async () => {
+    const url = copyBtn.dataset.url || window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      if (copyLabel) copyLabel.textContent = copy.copied;
+      if (copyStatus) copyStatus.textContent = copy.copied;
+      setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = copy.copyLink;
+        if (copyStatus) copyStatus.textContent = '';
+      }, 2500);
+    } catch {
+      window.prompt('', url);
+    }
+  });
+
+  // ---------- Apply dialog ----------
+  const dialog = document.getElementById('apply-dialog') as HTMLDialogElement | null;
+  const form = document.getElementById('application-form') as HTMLFormElement | null;
+
+  if (dialog && form) {
+    const params = new URLSearchParams(window.location.search);
+    let lastTrigger: HTMLElement | null = null;
+
+    const openDialog = (trigger?: HTMLElement | null) => {
+      lastTrigger = trigger ?? null;
+      if (!dialog.open) dialog.showModal();
+      document.documentElement.classList.add('apply-open');
+      const startedAt = document.getElementById('started-at') as HTMLInputElement;
+      if (!startedAt.value) startedAt.value = String(Date.now());
+      requestAnimationFrame(() => (document.getElementById('app-name') as HTMLInputElement | null)?.focus());
+    };
+
+    const closeDialog = () => {
+      if (dialog.open) dialog.close();
+    };
+
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('apply-open');
+      if (/^#(aplicar|apply)$/.test(window.location.hash)) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      lastTrigger?.focus();
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-open-apply]').forEach((btn) => {
+      btn.addEventListener('click', () => openDialog(btn));
+    });
+    document.getElementById('apply-dialog-close')?.addEventListener('click', closeDialog);
+    document.getElementById('apply-success-close')?.addEventListener('click', closeDialog);
+
+    // A click on the backdrop lands on the dialog element itself
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) closeDialog();
+    });
+
+    // Links shared with #aplicar / #apply / ?apply open the form straight away
+    if (/^#(aplicar|apply)$/.test(window.location.hash) || params.has('apply')) {
+      openDialog();
+    }
+
+    // ---------- Mobile sticky bar ----------
+    const heroApply = document.getElementById('hero-apply');
+    const bar = document.getElementById('mobile-apply-bar');
+    if (heroApply && bar) {
+      new IntersectionObserver(([entry]) => {
+        const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        bar.classList.toggle('is-visible', show);
+        bar.setAttribute('aria-hidden', String(!show));
+        bar.querySelector('button')?.setAttribute('tabindex', show ? '0' : '-1');
+      }).observe(heroApply);
+    }
+
+    // ---------- Source / UTM ----------
+    const utmParts = ['utm_source', 'utm_medium', 'utm_campaign', 'ref', 'source']
+      .map((key) => (params.get(key) ? `${key}=${params.get(key)}` : ''))
+      .filter(Boolean);
+    (document.getElementById('utm-field') as HTMLInputElement).value = utmParts.join('&').slice(0, 300);
+
+    const rawSource = (params.get('utm_source') || params.get('ref') || params.get('source') || '').toLowerCase();
+    const referrer = document.referrer.toLowerCase();
+    const sourceSelect = document.getElementById('app-source') as HTMLSelectElement;
+    const guessed =
+      rawSource.includes('linkedin') || referrer.includes('linkedin') || referrer.includes('lnkd.in')
+        ? 'linkedin'
+        : rawSource.includes('infojobs') || referrer.includes('infojobs')
+          ? 'infojobs'
+          : '';
+    if (guessed && copy.sources.includes(guessed)) sourceSelect.value = guessed;
+
+    // ---------- Field helpers ----------
+    const cover = document.getElementById('app-cover') as HTMLTextAreaElement;
+    const coverCount = document.getElementById('app-cover-count');
+    cover.addEventListener('input', () => {
+      if (coverCount) coverCount.textContent = `${cover.value.length} / 3000`;
+    });
+
+    const cvInput = document.getElementById('app-cv') as HTMLInputElement;
+    const cvName = document.getElementById('app-cv-name');
+    const dropzone = document.getElementById('app-cv-dropzone');
+    const updateCvName = () => {
+      const file = cvInput.files?.[0];
+      if (cvName) cvName.textContent = file ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB` : copy.cvNone;
+      dropzone?.classList.toggle('has-file', Boolean(file));
+    };
+    cvInput.addEventListener('change', () => {
+      updateCvName();
+      validateField('cv');
+    });
+
+    // Drag and drop onto the drop zone
+    dropzone?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('is-dragging');
+    });
+    dropzone?.addEventListener('dragleave', () => dropzone.classList.remove('is-dragging'));
+    dropzone?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('is-dragging');
+      const files = e.dataTransfer?.files;
+      if (files && files.length) {
+        cvInput.files = files;
+        updateCvName();
+        validateField('cv');
+      }
+    });
+
+    // ---------- Steps ----------
+    const stepEls = Array.from(form.querySelectorAll<HTMLFieldSetElement>('[data-step]'));
+    const stepFields = [
+      ['name', 'email', 'phone', 'city', 'work_permit'],
+      ['experience', 'availability', 'level_flutter', 'level_angular', 'level_spring', 'linkedin', 'portfolio'],
+      ['cv', 'cover_letter', 'source', 'privacy'],
+    ];
+    const lastStep = stepEls.length - 1;
+    let step = 0;
+
+    const body = document.getElementById('apply-dialog-body') as HTMLElement;
+    const backBtn = document.getElementById('apply-back') as HTMLButtonElement;
+    const errorSummary = document.getElementById('application-error-summary') as HTMLElement;
+    const formError = document.getElementById('application-error') as HTMLElement;
+    const submitBtn = document.getElementById('application-submit') as HTMLButtonElement;
+    const submitLabel = document.getElementById('application-submit-label') as HTMLElement;
+    const progressFill = document.getElementById('apply-progress-fill') as HTMLElement;
+    const progressSteps = Array.from(document.querySelectorAll<HTMLElement>('[data-progress-step]'));
+
+    function goTo(n: number, focusLegend = true) {
+      step = Math.max(0, Math.min(lastStep, n));
+      stepEls.forEach((el, i) => (el.hidden = i !== step));
+      progressSteps.forEach((el, i) => {
+        el.classList.toggle('is-current', i === step);
+        el.classList.toggle('is-done', i < step);
+        if (i === step) el.setAttribute('aria-current', 'step');
+        else el.removeAttribute('aria-current');
+      });
+      progressFill.style.width = `${((step + 1) / stepEls.length) * 100}%`;
+      backBtn.hidden = step === 0;
+      submitLabel.textContent = step === lastStep ? copy.submit : copy.next;
+      errorSummary.hidden = true;
+      formError.textContent = '';
+      body.scrollTop = 0;
+      if (focusLegend) stepEls[step].querySelector<HTMLElement>('.step-legend')?.focus();
+    }
+
+    backBtn.addEventListener('click', () => goTo(step - 1));
+
+    const radioGroups = ['work_permit', 'level_flutter', 'level_angular', 'level_spring'];
+    const idFor: Record<string, string> = {
+      name: 'app-name',
+      email: 'app-email',
+      phone: 'app-phone',
+      city: 'app-city',
+      work_permit: 'app-workPermit',
+      linkedin: 'app-linkedin',
+      portfolio: 'app-portfolio',
+      experience: 'app-experience',
+      availability: 'app-availability',
+      level_flutter: 'app-level_flutter',
+      level_angular: 'app-level_angular',
+      level_spring: 'app-level_spring',
+      cover_letter: 'app-cover',
+      cv: 'app-cv',
+      source: 'app-source',
+      privacy: 'app-privacy',
+    };
+
+    function getError(name: string): string {
+      const E = copy.errors;
+      const value = String(new FormData(form!).get(name) ?? '').trim();
+
+      if (radioGroups.includes(name)) return value ? '' : E.required;
+
+      switch (name) {
+        case 'email':
+          if (!value) return E.required;
+          return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) ? '' : E.email;
+        case 'phone':
+          if (!value) return E.required;
+          return /^\+?[\d\s().-]{9,20}$/.test(value) ? '' : E.phone;
+        case 'linkedin':
+        case 'portfolio':
+          if (!value) return '';
+          try {
+            const url = new URL(value);
+            return url.protocol === 'https:' || url.protocol === 'http:' ? '' : E.url;
+          } catch {
+            return E.url;
+          }
+        case 'cover_letter':
+          if (!value) return E.required;
+          return value.length >= 50 ? '' : E.minLength;
+        case 'cv': {
+          const file = cvInput.files?.[0];
+          if (!file) return E.required;
+          const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
+          if (!copy.cvExtensions.includes(ext)) return E.cvType;
+          return file.size <= copy.cvMaxBytes ? '' : E.cvSize;
+        }
+        case 'privacy':
+          return (document.getElementById('app-privacy') as HTMLInputElement).checked ? '' : E.privacy;
+        default:
+          return value ? '' : E.required;
+      }
+    }
+
+    function showError(name: string, message: string) {
+      const el = document.getElementById(idFor[name]);
+      const errorEl = document.getElementById(`${idFor[name]}-error`);
+      if (errorEl) errorEl.textContent = message;
+      if (!el) return;
+      if (message) el.setAttribute('aria-invalid', 'true');
+      else el.removeAttribute('aria-invalid');
+      (el.matches('fieldset') ? el : el.closest('.field'))?.classList.toggle('has-error', Boolean(message));
+    }
+
+    function validateField(name: string): boolean {
+      const message = getError(name);
+      showError(name, message);
+      return !message;
+    }
+
+    function focusField(name: string) {
+      const el = document.getElementById(idFor[name]);
+      if (!el) return;
+      const target = el.matches('fieldset') ? el.querySelector('input') : el;
+      (target as HTMLElement | null)?.focus();
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    function reportInvalid(names: string[]) {
+      const firstStep = stepFields.findIndex((fields) => fields.includes(names[0]));
+      if (firstStep !== -1 && firstStep !== step) goTo(firstStep, false);
+      errorSummary.textContent = copy.errorSummary;
+      errorSummary.hidden = false;
+      focusField(names[0]);
+    }
+
+    form.addEventListener('focusout', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (!target.name || !idFor[target.name] || target.type === 'radio' || target.type === 'file') return;
+      if (target.value || target.closest('.has-error')) validateField(target.name);
+    });
+    form.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (!target.name || !idFor[target.name] || target.type === 'file') return;
+      if (target.type === 'radio' || target.type === 'checkbox' || target.tagName === 'SELECT') validateField(target.name);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formError.textContent = '';
+
+      // Continue: validate only the visible step
+      if (step < lastStep) {
+        const invalid = stepFields[step].filter((name) => !validateField(name));
+        if (invalid.length) return reportInvalid(invalid);
+        goTo(step + 1);
+        return;
+      }
+
+      const invalid = stepFields.flat().filter((name) => !validateField(name));
+      if (invalid.length) return reportInvalid(invalid);
+      errorSummary.hidden = true;
+
+      submitBtn.disabled = true;
+      backBtn.disabled = true;
+      submitBtn.classList.add('is-loading');
+      submitLabel.textContent = copy.sending;
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          const fields = data && typeof data.fields === 'object' ? Object.keys(data.fields) : [];
+          if (fields.length) {
+            fields.forEach((name) => showError(name, copy.errors[data.fields[name]] ?? copy.errors.required));
+            reportInvalid(fields);
+            return;
+          }
+          throw new Error(data.error || `HTTP ${res.status}`);
+        }
+
+        form.hidden = true;
+        document.getElementById('apply-progress')!.hidden = true;
+        const success = document.getElementById('application-success') as HTMLElement;
+        success.hidden = false;
+        success.focus();
+        document.querySelectorAll<HTMLElement>('[data-open-apply]').forEach((btn) => (btn.hidden = true));
+        document.getElementById('mobile-apply-bar')?.remove();
+      } catch (err) {
+        console.error('[Giralabs Careers]', err);
+        formError.textContent = copy.errorGeneric;
+      } finally {
+        submitBtn.disabled = false;
+        backBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
+        submitLabel.textContent = step === lastStep ? copy.submit : copy.next;
+      }
+    });
+
+    goTo(0, false);
+  }
+</script>
+
+<style>
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.65;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.07;
+  }
+
+  .glow-top {
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
+  }
+
+  .glow-bottom {
+    bottom: -250px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  :global(html.apply-open) {
+    overflow: hidden;
+  }
+
+  .job-page {
+    position: relative;
+    z-index: 2;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 7.5rem 2rem 7rem;
+  }
+
+  .glass-card {
+    position: relative;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.38);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.03), 0 1px 0 rgba(255,255,255,0.7) inset;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 3px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .primary-btn,
+  .light-btn,
+  .ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.9rem 1.8rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .primary-btn {
+    background: #0a0a0a;
+    color: #fff;
+    border: 1px solid #0a0a0a;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.16), 0 1px 0 rgba(255,255,255,0.12) inset;
+  }
+
+  .primary-btn:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+  }
+
+  .primary-btn svg,
+  .light-btn svg {
+    transition: transform 0.25s ease;
+  }
+
+  .primary-btn:hover svg,
+  .light-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  .light-btn {
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+  }
+
+  .light-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255,255,255,0.18);
+  }
+
+  .light-btn:focus-visible {
+    outline-color: #fff;
+  }
+
+  .ghost-btn {
+    background: transparent;
+    color: #000;
+    border: 1px solid rgba(0,0,0,0.18);
+  }
+
+  .ghost-btn:hover {
+    border-color: #000;
+    background: rgba(0,0,0,0.04);
+  }
+
+  /* ---------- Breadcrumb & hero ---------- */
+  .breadcrumb {
+    margin-bottom: 2rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(0,0,0,0.68);
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #000;
+    gap: 0.65rem;
+  }
+
+  .job-hero {
+    max-width: 860px;
+    margin-bottom: 3.5rem;
+  }
+
+  .job-eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.6);
+    margin-bottom: 1rem;
+  }
+
+  .job-title {
+    font-size: clamp(2rem, 5.5vw, 3.3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 1.2rem;
+  }
+
+  .job-summary {
+    font-size: clamp(1.02rem, 2.6vw, 1.18rem);
+    line-height: 1.65;
+    color: rgba(0,0,0,0.7);
+    margin: 0 0 1.5rem;
+  }
+
+  .hero-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 2rem;
+    padding: 0;
+  }
+
+  .hero-tags li,
+  .stack-list li {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.35rem 0.8rem;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.055);
+    color: rgba(0,0,0,0.78);
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.2rem;
+  }
+
+  .hero-actions .primary-btn {
+    padding: 1rem 2.2rem;
+    font-size: 0.98rem;
+  }
+
+  .apply-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.62);
+  }
+
+  .closed-note {
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.06);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ---------- Two-column layout ---------- */
+  .job-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .job-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .content-block {
+    padding: 2.4rem 2.6rem;
+  }
+
+  .block-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin: 0 0 1.1rem;
+  }
+
+  .block-text {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: rgba(0,0,0,0.72);
+    margin: 0 0 1rem;
+  }
+
+  .block-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.9rem;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.75);
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.3rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: #000 url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='20 6 9 17 4 12'/%3e%3c/svg%3e") center / 0.62rem no-repeat;
+  }
+
+  .check-list.is-soft li::before {
+    background-color: rgba(0,0,0,0.35);
+  }
+
+  .process-list {
+    list-style: none;
+    counter-reset: step;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+
+  .process-list li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .process-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.07);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .process-step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000;
+    padding-top: 0.25rem;
+  }
+
+  .process-step-desc {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.7);
+  }
+
+  /* Final call to action */
+  .final-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    padding: 2.4rem 2.6rem;
+    border-radius: 24px;
+    background: #0a0a0a;
+    color: #fff;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+  }
+
+  .final-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.4rem;
+  }
+
+  .final-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+  }
+
+  /* ---------- Aside ---------- */
+  .job-aside {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .aside-card {
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .aside-apply {
+    width: 100%;
+  }
+
+  .meta-list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meta-row {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .meta-row:first-child {
+    padding-top: 0;
+  }
+
+  .meta-row dt,
+  .small-title {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.58);
+    margin-bottom: 0.2rem;
+  }
+
+  .small-title {
+    margin-bottom: 0.7rem;
+  }
+
+  .meta-row dd {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.45;
+  }
+
+  .stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack-list li {
+    font-size: 0.74rem;
+    padding: 0.28rem 0.65rem;
+  }
+
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 100px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.5);
+    color: #000;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .share-btn:hover {
+    background: #fff;
+    border-color: rgba(0,0,0,0.25);
+  }
+
+  /* ---------- Mobile sticky apply bar ---------- */
+  .mobile-apply-bar {
+    display: none;
+  }
+
+  @media (max-width: 960px) {
+    .mobile-apply-bar {
+      position: fixed;
+      left: 0.75rem;
+      right: 0.75rem;
+      bottom: calc(0.75rem + env(safe-area-inset-bottom));
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.6rem 0.6rem 0.6rem 1.2rem;
+      border-radius: 100px;
+      background: rgba(240, 239, 234, 0.82);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.14);
+      transform: translateY(140%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+    }
+
+    .mobile-apply-bar.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-apply-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .mobile-apply-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mobile-apply-sub {
+      font-size: 0.75rem;
+      color: rgba(0,0,0,0.62);
+    }
+
+    .mobile-apply-bar .primary-btn {
+      padding: 0.75rem 1.3rem;
+      min-height: 44px;
+    }
+  }
+
+  /* ---------- Apply dialog ---------- */
+  .apply-dialog {
+    width: min(760px, calc(100vw - 2rem));
+    max-width: none;
+    max-height: min(880px, calc(100dvh - 2rem));
+    margin: auto;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 28px;
+    background: #F7F6F2;
+    color: #000;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+
+  .apply-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    animation: dialogIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .apply-dialog::backdrop {
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  @keyframes dialogIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .dialog-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.6rem 1.8rem 1rem;
+  }
+
+  .dialog-eyebrow {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.58);
+    margin-bottom: 0.3rem;
+  }
+
+  .dialog-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .icon-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .icon-btn:hover {
+    background: rgba(0,0,0,0.06);
+    transform: rotate(90deg);
+  }
+
+  .dialog-progress {
+    padding: 0 1.8rem 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .progress-steps {
+    list-style: none;
+    margin: 0 0 0.8rem;
+    padding: 0;
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+  }
+
+  .progress-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(0,0,0,0.08);
+    color: rgba(0,0,0,0.6);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .progress-step.is-current {
+    color: #000;
+  }
+
+  .progress-step.is-current .progress-dot,
+  .progress-step.is-done .progress-dot {
+    background: #000;
+    color: #fff;
+  }
+
+  .progress-track {
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 33%;
+    border-radius: 4px;
+    background: #000;
+    transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .application-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+  }
+
+  .dialog-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1.6rem 1.8rem 1.8rem;
+    scroll-padding: 1.5rem;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.8rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: #F7F6F2;
+  }
+
+  .submit-btn {
+    min-width: 200px;
+  }
+
+  .submit-btn:disabled,
+  .ghost-btn:disabled {
+    opacity: 0.7;
+    cursor: progress;
+    transform: none;
+  }
+
+  .spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .submit-btn.is-loading .spinner {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .error-summary {
+    margin: 0 0 1.4rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 14px;
+    background: rgba(196, 30, 20, 0.08);
+    border: 1px solid rgba(196, 30, 20, 0.25);
+    color: #a3160d;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .form-step {
+    animation: stepIn 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateX(12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .step-legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #000;
+    outline: none;
+  }
+
+  .step-legend + * {
+    clear: both;
+  }
+
+  .step-count {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: rgba(0,0,0,0.58);
+    margin-bottom: 0.2rem;
+  }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.3rem 1.2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .field.full {
+    grid-column: 1 / -1;
+  }
+
+  .field-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(0,0,0,0.8);
+    padding: 0;
+  }
+
+  .field-input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.14);
+    background: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #000;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field-input::placeholder {
+    color: rgba(0,0,0,0.4);
+  }
+
+  .field-input:hover {
+    border-color: rgba(0,0,0,0.3);
+  }
+
+  .field-input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.12);
+  }
+
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.6)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .field-textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+  }
+
+  .field-hint {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(0,0,0,0.62);
+    margin: 0;
+  }
+
+  .char-count {
+    float: right;
+    margin-left: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .field-error {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a3160d;
+    margin: 0;
+  }
+
+  .field-error:empty {
+    display: none;
+  }
+
+  .field.has-error .field-input {
+    border-color: #c41e14;
+    box-shadow: 0 0 0 3px rgba(196, 30, 20, 0.1);
+  }
+
+  /* Radio pills */
+  .levels {
+    gap: 1.2rem;
+    padding: 1.2rem;
+    border-radius: 18px;
+    background: rgba(0,0,0,0.035);
+  }
+
+  .choice-field legend {
+    margin-bottom: 0.55rem;
+  }
+
+  .choice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .choice {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .choice input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .choice span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.55rem 1.1rem;
+    border-radius: 100px;
+    border: 1px solid rgba(0,0,0,0.14);
+    background: #fff;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #000;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .choice:hover span {
+    border-color: rgba(0,0,0,0.35);
+  }
+
+  .choice input:checked + span {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+  }
+
+  .choice input:focus-visible + span {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+  }
+
+  .choice-field.has-error .choice span {
+    border-color: #c41e14;
+  }
+
+  /* CV drop zone */
+  .dropzone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.3rem 1.2rem;
+    border-radius: 16px;
+    border: 1.5px dashed rgba(0,0,0,0.25);
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .dropzone:hover,
+  .dropzone.is-dragging {
+    border-color: #000;
+    background: rgba(0,0,0,0.02);
+  }
+
+  .dropzone.has-file {
+    border-style: solid;
+    border-color: #000;
+  }
+
+  .dropzone:focus-within {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+  }
+
+  .field.has-error .dropzone {
+    border-color: #c41e14;
+  }
+
+  .file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  .dropzone-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+  }
+
+  .dropzone-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .dropzone-action {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .file-name {
+    font-size: 0.84rem;
+    color: rgba(0,0,0,0.65);
+    word-break: break-all;
+  }
+
+  /* Consent */
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .consent input {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0.1rem 0 0;
+    accent-color: #000;
+    cursor: pointer;
+  }
+
+  .consent label {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: rgba(0,0,0,0.82);
+    cursor: pointer;
+  }
+
+  .consent label :global(a) {
+    color: #000;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .form-error {
+    margin: 1.2rem 0 0;
+    padding: 0.9rem 1.1rem;
+    border-radius: 14px;
+    background: rgba(196, 30, 20, 0.08);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #a3160d;
+    font-weight: 600;
+  }
+
+  .form-error:empty {
+    display: none;
+  }
+
+  /* Success */
+  .form-success {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem 3.5rem;
+    outline: none;
+  }
+
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1.4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+    animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .success-title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.6rem;
+  }
+
+  .success-desc {
+    max-width: 440px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.7);
+    margin: 0 0 1.8rem;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .job-page {
+      padding-bottom: 8rem;
+    }
+
+    .job-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .job-aside {
+      position: static;
+      order: -1;
+    }
+
+    .aside-apply {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .job-page {
+      padding: 6.5rem 1rem 8rem;
+    }
+
+    .content-block,
+    .aside-card,
+    .final-cta {
+      padding: 1.6rem 1.4rem;
+    }
+
+    .final-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-actions .primary-btn {
+      width: 100%;
+    }
+
+    .apply-dialog {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0;
+      border-radius: 0;
+      border: 0;
+    }
+
+    .dialog-title {
+      font-size: 1rem;
+    }
+
+    .dialog-header {
+      padding: 1rem 1rem 0.8rem;
+    }
+
+    .dialog-progress {
+      padding: 0 1rem 1rem;
+    }
+
+    .progress-label {
+      display: none;
+    }
+
+    .progress-step.is-current .progress-label {
+      display: inline;
+    }
+
+    .dialog-body {
+      padding: 1.3rem 1rem 1.5rem;
+    }
+
+    .dialog-footer {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .dialog-footer .primary-btn {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fields-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .step-legend {
+      font-size: 1.3rem;
+    }
+  }
+</style>

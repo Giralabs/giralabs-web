@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import JobOffer from '../../components/careers/JobOffer.astro';
+import { jobs, type Job } from '../../data/careers';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return jobs.map((job) => ({ params: { slug: job.slug }, props: { job } }));
+}
+
+const { job } = Astro.props as { job: Job };
+const lang = 'es';
+const J = job[lang];
+---
+
+<Layout title={`${J.metaTitle} | Giralabs`} description={J.metaDescription} lang={lang}>
+  <Navbar lang={lang} />
+  <JobOffer lang={lang} job={job} />
+  <Footer lang={lang} />
+</Layout>

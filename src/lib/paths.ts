@@ -15,6 +15,8 @@ const urlMapEStoEN: Record<string, string> = {
   '/servicio/software-a-medida': '/service/custom-software',
   '/servicio/integracion-ia': '/service/ai-integration',
   '/proyecto/bipsy': '/project/bipsy',
+  '/empleo': '/careers',
+  '/empleo/full-stack-developer': '/careers/full-stack-developer',
   // Blog slugs are translated, so without these pairs every post declared an
   // hreflang pointing at /en/blog/<spanish-slug>, which does not exist
   '/blog/ciberseguridad-secure-by-design-pymes-2026': '/blog/cybersecurity-secure-by-design-smes-2026',

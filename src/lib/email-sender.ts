@@ -8,9 +8,13 @@ import {
   buildCancellationNotificationEmailHTML,
   buildWelcomeEmailHTML,
   buildNewPostsEmailHTML,
+  buildApplicationInternalEmailHTML,
+  buildApplicationConfirmEmailHTML,
   type EmailTemplateParams,
   type CancellationEmailParams,
 } from './email-templates.ts';
+import { applicationFormCopy, jobPath, type CareersLang, type Job } from '../data/careers.ts';
+import { SITE_ORIGIN } from './site.ts';
 
 function createTransporter() {
   const user = import.meta.env.GMAIL_USER;
@@ -210,4 +214,95 @@ export async function sendNewPostsNotification(
   });
 
   await Promise.all(sends);
+}
+
+// ── JOB APPLICATIONS ───────────────────────────────────────────
+
+export interface SendJobApplicationParams {
+  job: Job;
+  lang: CareersLang;
+  fields: Record<string, string>;
+  cv: { filename: string; content: Buffer; contentType: string };
+}
+
+export async function sendJobApplication({ job, lang, fields, cv }: SendJobApplicationParams): Promise<void> {
+  const transporter = createTransporter();
+  const fromUser    = import.meta.env.GMAIL_USER ?? 'giralabs.contact@gmail.com';
+  // Applications can go to a dedicated inbox; by default they land with the rest
+  const inbox       = import.meta.env.CAREERS_EMAIL || fromUser;
+  const attachments = getAttachments();
+
+  // The team reads applications in Spanish, whatever language the candidate used
+  const O = applicationFormCopy.es.options;
+  const F = applicationFormCopy.es;
+  const levelLabels = Object.fromEntries(job.es.levelQuestions.map((q) => [q.name, q.label]));
+  const pick = (map: Record<string, string>, key: string) => map[key] ?? key;
+  const phoneHref = `tel:${fields.phone.replace(/[^\d+]/g, '')}`;
+
+  const rows = [
+    { label: F.email, value: fields.email, href: `mailto:${fields.email}` },
+    { label: F.phone, value: fields.phone, href: phoneHref },
+    { label: F.city, value: fields.city },
+    { label: 'Permiso de trabajo', value: pick(O.workPermit, fields.work_permit) },
+    { label: 'LinkedIn', value: fields.linkedin, href: fields.linkedin },
+    { label: 'GitHub / portfolio', value: fields.portfolio, href: fields.portfolio },
+    { label: 'Experiencia', value: pick(O.experience, fields.experience) },
+    { label: levelLabels.level_flutter, value: pick(O.level, fields.level_flutter) },
+    { label: levelLabels.level_angular, value: pick(O.level, fields.level_angular) },
+    { label: levelLabels.level_spring, value: pick(O.level, fields.level_spring) },
+    { label: 'Disponibilidad', value: pick(O.availability, fields.availability) },
+    { label: 'Salario esperado', value: fields.salary },
+    { label: 'Origen', value: pick(O.source, fields.source) },
+    { label: 'UTM', value: fields.utm },
+    { label: 'Idioma del formulario', value: lang.toUpperCase() },
+  ];
+
+  const siteOrigin = SITE_ORIGIN;
+  const internalHtml = buildApplicationInternalEmailHTML({
+    jobTitle: job.es.title,
+    jobUrl: `${siteOrigin}${jobPath(job.slug, 'es')}`,
+    candidateName: fields.name,
+    candidateEmail: fields.email,
+    rows,
+    coverLetter: fields.cover_letter,
+    cvFilename: cv.filename,
+  });
+
+  // Header values: strip line breaks so a crafted name cannot inject headers
+  const oneLine = (v: string) => v.replace(/[\r\n]+/g, ' ');
+
+  await transporter.sendMail({
+    from: `"Giralabs Empleo" <${fromUser}>`,
+    to: inbox,
+    replyTo: { name: oneLine(fields.name), address: fields.email },
+    subject: oneLine(`💼 Candidatura · ${job.es.shortTitle} · ${fields.name} (${pick(O.experience, fields.experience)})`),
+    html: internalHtml,
+    text:
+      `Nueva candidatura para ${job.es.title}\n\n` +
+      rows.filter((r) => r.value).map((r) => `${r.label}: ${r.value}`).join('\n') +
+      `\n\nMotivación:\n${fields.cover_letter}`,
+    attachments: [...attachments, { filename: cv.filename, content: cv.content, contentType: cv.contentType }],
+  });
+  console.log(`[Giralabs Careers] Application for ${job.slug} delivered to ${inbox}`);
+
+  // The confirmation is a courtesy: the application is already in the inbox
+  try {
+    const J = job[lang];
+    await transporter.sendMail({
+      from: `"Giralabs" <${fromUser}>`,
+      to: fields.email,
+      subject: lang === 'en'
+        ? `We have received your application · ${J.shortTitle} — Giralabs`
+        : `Hemos recibido tu candidatura · ${J.shortTitle} — Giralabs`,
+      html: buildApplicationConfirmEmailHTML({
+        name: fields.name,
+        jobTitle: J.title,
+        jobUrl: `${siteOrigin}${jobPath(job.slug, lang)}`,
+        lang,
+      }),
+      attachments,
+    });
+  } catch (err) {
+    console.error('[Giralabs Careers] Candidate confirmation failed:', err);
+  }
 }

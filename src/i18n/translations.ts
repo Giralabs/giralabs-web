@@ -37,6 +37,7 @@ export const translations = {
     nav_about: "Nosotros",
     nav_blog: "Blog",
     nav_contact: "Contacto",
+    nav_careers: "Trabaja con nosotros",
     nav_cta: "Hablemos",
 
     // Hero
@@ -531,7 +532,7 @@ export const translations = {
     privacy_collect_title: "1. Datos que Recopilamos",
     privacy_collect_desc: "Recopilamos información de contacto voluntaria (como nombres, correos electrónicos, especificaciones de proyectos y mensajes) a través de nuestros formularios interactivos y la suscripción a boletines de noticias. No utilizamos cookies de rastreo invasivas, solo análisis de tráfico anónimos para optimizar el rendimiento técnico de la web.",
     privacy_purpose_title: "2. Finalidad del Tratamiento",
-    privacy_purpose_desc: "Los datos recopilados se procesan para gestionar presupuestos, responder preguntas de soporte y enviar información del blog/newsletter si ha dado su consentimiento explícito. Los datos no se venderán, cederán ni alquilarán a terceros bajo ningún concepto, siendo almacenados de forma segura bajo cifrado SSL.",
+    privacy_purpose_desc: "Los datos recopilados se procesan para gestionar presupuestos, responder preguntas de soporte y enviar información del blog/newsletter si ha dado su consentimiento explícito. Si nos envía su candidatura a una oferta de empleo, sus datos y su CV se utilizan únicamente para ese proceso de selección y se conservan un máximo de 12 meses. Los datos no se venderán, cederán ni alquilarán a terceros bajo ningún concepto, siendo almacenados de forma segura bajo cifrado SSL.",
     privacy_rights_title: "3. Tus Derechos",
     privacy_rights_desc: "Bajo el Reglamento General de Protección de Datos (RGPD), usted dispone de los derechos de acceso, rectificación, supresión (olvido), limitación del tratamiento, portabilidad y oposición de sus datos personales. Puede ejercer cualquiera de ellos escribiéndonos a support@giralabs.es.",
 
@@ -658,6 +659,7 @@ export const translations = {
     nav_about: "About",
     nav_blog: "Blog",
     nav_contact: "Contact",
+    nav_careers: "Careers",
     nav_cta: "Let's talk",
 
     // Hero
@@ -1153,7 +1155,7 @@ export const translations = {
     privacy_collect_title: "1. Data We Collect",
     privacy_collect_desc: "We collect contact information voluntarily provided by you (such as names, emails, project details, and messages) through our forms. We do not use intrusive tracking cookies, only anonymous traffic analytics to optimize site performance.",
     privacy_purpose_title: "2. Purpose of Processing",
-    privacy_purpose_desc: "The collected data is processed to manage pricing estimates, reply to inquiries, and send blog updates if you opt-in. Your data will never be sold, leased, or shared with third parties, and it is stored securely using SSL/TLS encryption.",
+    privacy_purpose_desc: "The collected data is processed to manage pricing estimates, reply to inquiries, and send blog updates if you opt-in. If you apply for a job opening, your details and CV are used only for that hiring process and kept for up to 12 months. Your data will never be sold, leased, or shared with third parties, and it is stored securely using SSL/TLS encryption.",
     privacy_rights_title: "3. Your Rights",
     privacy_rights_desc: "Under the General Data Protection Regulation (GDPR), you hold the right to access, rectify, erase, restrict processing, request portability, and object to the processing of your personal data. You can exercise these rights at support@giralabs.es.",
 

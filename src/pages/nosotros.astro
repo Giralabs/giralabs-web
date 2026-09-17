@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import { translations } from '../i18n/translations';
 import CTAContact from '../components/CTAContact.astro';
 import Footer from '../components/Footer.astro';
+import HiringBanner from '../components/careers/HiringBanner.astro';
 
 // Import logos for the tech stack
 import androidStudioLogo from '../assets/tech_stack/android_studio.webp';
@@ -188,6 +189,8 @@ const technologies = [
     </section>
 
   </main>
+
+  <HiringBanner lang={lang} />
 
   <CTAContact lang={lang} />
 

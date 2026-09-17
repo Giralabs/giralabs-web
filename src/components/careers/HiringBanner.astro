@@ -1,0 +1,124 @@
+---
+import { careersBasePath, jobs, type CareersLang } from '../../data/careers';
+
+interface Props {
+  lang: CareersLang;
+}
+
+const { lang } = Astro.props;
+const openJobs = jobs.filter((job) => job.open);
+
+const copy = {
+  es: {
+    badge: 'Estamos contratando',
+    title: 'Únete al equipo que construye Bipsy',
+    cta: 'Ver ofertas de empleo',
+  },
+  en: {
+    badge: 'We are hiring',
+    title: 'Join the team building Bipsy',
+    cta: 'See open positions',
+  },
+}[lang];
+---
+
+{openJobs.length > 0 && (
+  <aside class="hiring-banner reveal" aria-label={copy.badge}>
+    <div class="hiring-inner">
+      <div>
+        <span class="hiring-badge"><span class="hiring-dot" aria-hidden="true"></span>{copy.badge}</span>
+        <p class="hiring-title">{copy.title}</p>
+        <p class="hiring-roles">{openJobs.map((job) => job[lang].title).join(' · ')}</p>
+      </div>
+      <a href={careersBasePath[lang]} class="hiring-cta">
+        {copy.cta}
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </aside>
+)}
+
+<style>
+  .hiring-banner {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto 5rem;
+    padding: 0 2rem;
+  }
+
+  .hiring-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.2rem 2.6rem;
+    border-radius: 28px;
+    background: rgba(16, 16, 16, 0.92);
+    color: #fff;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 1px 0 rgba(255,255,255,0.08) inset;
+  }
+
+  .hiring-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .hiring-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2);
+  }
+
+  .hiring-title {
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0.6rem 0 0.3rem;
+  }
+
+  .hiring-roles {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+  }
+
+  .hiring-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 100px;
+    background: #fff;
+    color: #000;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .hiring-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255,255,255,0.15);
+  }
+
+  .hiring-cta:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 760px) {
+    .hiring-banner { padding: 0 1rem; margin-bottom: 4rem; }
+    .hiring-inner { flex-direction: column; align-items: flex-start; padding: 1.8rem 1.5rem; }
+    .hiring-cta { width: 100%; justify-content: center; }
+  }
+</style>
