@@ -1,4 +1,5 @@
 ---
+import ServiceVisual from '../ServiceVisual.astro';
 import { translations } from '../../i18n/translations';
 import { getLocalizedPath } from '../../lib/paths';
 
@@ -45,23 +46,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </div>
           </div>
           <div class="sd-card-visual visual-mobile-apps">
-            <!-- Widget: App Mockup -->
-            <div class="app-mockup">
-              <div class="mockup-screen">
-                <div class="mockup-header">
-                  <div class="mockup-avatar"></div>
-                  <div class="mockup-title-bar"></div>
-                </div>
-                <div class="mockup-card active-card">
-                  <div class="mockup-card-img"></div>
-                  <div class="mockup-card-text"></div>
-                </div>
-                <div class="mockup-card">
-                  <div class="mockup-card-text-short"></div>
-                </div>
-              </div>
-              <div class="floating-badge">99%</div>
-            </div>
+            <ServiceVisual kind="apps" lang={lang} theme="dark" />
           </div>
         </div>
       </a>
@@ -77,29 +62,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </svg>
           </div>
           <div class="sd-card-visual visual-web-dev">
-            <!-- Widget: Viewport Resizer -->
-            <div class="viewport-resizer">
-              <div class="resizer-browser">
-                <div class="browser-header">
-                  <span class="browser-dot"></span>
-                  <span class="browser-dot"></span>
-                  <span class="browser-dot"></span>
-                </div>
-                <div class="browser-body">
-                  <div class="browser-hero"></div>
-                  <div class="browser-grid">
-                    <div class="grid-box"></div>
-                    <div class="grid-box"></div>
-                    <div class="grid-box"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="resizer-handle">
-                <svg viewBox="0 0 24 24" width="8" height="8" fill="currentColor">
-                  <path d="M8 5h2v14H8V5zm6 0h2v14h-2V5z"/>
-                </svg>
-              </div>
-            </div>
+            <ServiceVisual kind="web" lang={lang} theme="dark" />
           </div>
           <div class="sd-card-text">
             <div class="sd-card-top">
@@ -124,23 +87,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </svg>
           </div>
           <div class="sd-card-visual visual-digitalization">
-            <!-- Widget: Data Pipeline -->
-            <div class="data-pipeline">
-              <div class="pipeline-source">
-                <span class="pipeline-file">CSV</span>
-                <span class="pipeline-file">XLS</span>
-              </div>
-              <div class="pipeline-flow">
-                <div class="flow-dot"></div>
-                <div class="flow-dot"></div>
-                <div class="flow-dot"></div>
-              </div>
-              <div class="pipeline-target">
-                <div class="dashboard-bar bar-1"></div>
-                <div class="dashboard-bar bar-2"></div>
-                <div class="dashboard-bar bar-3"></div>
-              </div>
-            </div>
+            <ServiceVisual kind="digital" lang={lang} theme="dark" />
           </div>
           <div class="sd-card-text">
             <div class="sd-card-top">
@@ -174,29 +121,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </div>
           </div>
           <div class="sd-card-visual visual-stores">
-            <!-- Widget: Store Checkout -->
-            <div class="store-checkout">
-              <div class="product-card-preview">
-                <div class="product-img"></div>
-                <div class="product-info">
-                  <div class="product-price">€49</div>
-                  <div class="add-to-cart-btn">
-                    <span class="btn-icon">+</span>
-                  </div>
-                </div>
-              </div>
-              <div class="cart-pill">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span class="cart-count">
-                  <span class="count-zero">0</span>
-                  <span class="count-one">1</span>
-                </span>
-              </div>
-            </div>
+            <ServiceVisual kind="store" lang={lang} theme="dark" />
           </div>
         </div>
       </a>
@@ -212,20 +137,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </svg>
           </div>
           <div class="sd-card-visual visual-software">
-            <!-- Widget: API Blocks -->
-            <div class="api-blocks">
-              <div class="api-card">
-                <div class="api-header">
-                  <span class="api-method">GET</span>
-                  <span class="api-path">/v1/users</span>
-                </div>
-                <div class="api-payload">{`{ "active": true }`}</div>
-              </div>
-              <div class="api-logs">
-                <span class="log-line">200 OK - 12ms</span>
-                <span class="log-line">200 OK - 8ms</span>
-              </div>
-            </div>
+            <ServiceVisual kind="software" lang={lang} theme="dark" />
           </div>
           <div class="sd-card-text">
             <div class="sd-card-top">
@@ -250,37 +162,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             </svg>
           </div>
           <div class="sd-card-visual visual-ai">
-            <!-- Widget: Neural Net -->
-            <div class="neural-net">
-              <svg viewBox="0 0 140 100" class="neural-svg">
-                <!-- Layer 1 -->
-                <circle cx="20" cy="30" r="4" class="node input-node"></circle>
-                <circle cx="20" cy="50" r="4" class="node input-node"></circle>
-                <circle cx="20" cy="70" r="4" class="node input-node"></circle>
-                
-                <!-- Layer 2 -->
-                <circle cx="70" cy="20" r="4" class="node hidden-node"></circle>
-                <circle cx="70" cy="40" r="4" class="node hidden-node"></circle>
-                <circle cx="70" cy="60" r="4" class="node hidden-node"></circle>
-                <circle cx="70" cy="80" r="4" class="node hidden-node"></circle>
-                
-                <!-- Layer 3 -->
-                <circle cx="120" cy="40" r="4" class="node output-node"></circle>
-                <circle cx="120" cy="60" r="4" class="node output-node"></circle>
-                
-                <!-- Connections -->
-                <path d="M 20 30 L 70 20 M 20 30 L 70 40 M 20 30 L 70 60" class="conn-line"></path>
-                <path d="M 20 50 L 70 20 M 20 50 L 70 40 M 20 50 L 70 60 M 20 50 L 70 80" class="conn-line"></path>
-                <path d="M 20 70 L 70 40 M 20 70 L 70 60 M 20 70 L 70 80" class="conn-line"></path>
-                <path d="M 70 20 L 120 40 M 70 20 L 120 60" class="conn-line"></path>
-                <path d="M 70 40 L 120 40 M 70 40 L 120 60" class="conn-line"></path>
-                <path d="M 70 60 L 120 40 M 70 60 L 120 60" class="conn-line"></path>
-                <path d="M 70 80 L 120 40 M 70 80 L 120 60" class="conn-line"></path>
-
-                <!-- Signal paths -->
-                <path d="M 20 50 L 70 40 L 120 40" class="signal-line"></path>
-              </svg>
-            </div>
+            <ServiceVisual kind="ai" lang={lang} theme="dark" />
           </div>
           <div class="sd-card-text">
             <div class="sd-card-top">
@@ -324,7 +206,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
 <script>
   function initScrollReveal() {
     const cards = document.querySelectorAll('.sd-card');
-    
+
     // Spotlight mouse tracking. Skipped on touch devices, which never hover, and
     // batched into one write per frame: reading the rect straight after writing a
     // custom property forced a synchronous layout on every single mousemove.
@@ -512,10 +394,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   }
 
   .sd-eyebrow {
-    font-size: 0.7rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    letter-spacing: -0.005em;
     color: rgba(255, 255, 255, 0.35);
     margin: 0 0 1.2rem;
   }
@@ -684,18 +565,11 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     margin-bottom: 1.5rem;
   }
 
-  /* Colored Tag Badge */
   .sd-tag {
-    display: inline-block;
-    padding: 0.35rem 0.85rem;
-    background: linear-gradient(135deg, rgba(var(--accent-rgb-1), 0.08), rgba(var(--accent-rgb-2), 0.08));
-    border: 1px solid rgba(var(--accent-rgb-1), 0.25);
-    border-radius: 100px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--accent-color-1);
-    letter-spacing: 0.02em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .sd-card-main {
@@ -742,526 +616,6 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     width: 45%;
     height: 150px;
     justify-content: center;
-  }
-
-  /* ----------------------------------------
-     WIDGET 1: APP MOCKUP (Infinite Loop Animation)
-  ---------------------------------------- */
-  .app-mockup {
-    position: relative;
-    width: 100px;
-    height: 150px;
-    background: #000;
-    border: 3px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 8px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
-  .sd-card.is-active .app-mockup {
-    border-color: rgba(var(--accent-rgb-1), 0.4);
-  }
-  .mockup-screen {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    height: 100%;
-  }
-  .mockup-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 2px;
-  }
-  .mockup-avatar {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-  }
-  .mockup-title-bar {
-    height: 6px;
-    width: 40px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.15);
-  }
-  .mockup-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-  .mockup-card-img {
-    height: 35px;
-    background: rgba(var(--accent-rgb-1), 0.15);
-    border-radius: 4px;
-  }
-  .mockup-card-text {
-    height: 5px;
-    width: 80%;
-    background: rgba(255,255,255,0.15);
-    border-radius: 2px;
-  }
-  .mockup-card-text-short {
-    height: 5px;
-    width: 50%;
-    background: rgba(255,255,255,0.15);
-    border-radius: 2px;
-  }
-  .floating-badge {
-    position: absolute;
-    bottom: 12px;
-    right: 8px;
-    background: var(--accent-color-1);
-    color: #000;
-    font-weight: 800;
-    font-size: 0.55rem;
-    padding: 2px 6px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(var(--accent-rgb-1), 0.3);
-  }
-  .sd-card.is-active .mockup-card.active-card {
-    animation: appCardPulse 3s infinite ease-in-out;
-  }
-  .sd-card.is-active .floating-badge {
-    animation: badgeFloat 3s infinite ease-in-out;
-  }
-  @keyframes appCardPulse {
-    0%, 100% { transform: scale(1); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.05); }
-    50% { transform: scale(1.03); background: rgba(var(--accent-rgb-1), 0.08); border-color: rgba(var(--accent-rgb-1), 0.25); }
-  }
-  @keyframes badgeFloat {
-    0%, 100% { transform: translateY(0) rotate(5deg); }
-    50% { transform: translateY(-4px) rotate(8deg); }
-  }
-
-  /* ----------------------------------------
-     WIDGET 2: VIEWPORT RESIZER (Infinite Loop Animation)
-  ---------------------------------------- */
-  .viewport-resizer {
-    position: relative;
-    width: 170px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .resizer-browser {
-    width: 150px;
-    height: 100px;
-    background: #070709;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.3s ease;
-  }
-  .sd-card.is-active .resizer-browser {
-    border-color: rgba(var(--accent-rgb-1), 0.25);
-    animation: browserResize 6s infinite ease-in-out;
-  }
-  .browser-header {
-    height: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 8px;
-  }
-  .browser-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.25);
-  }
-  .browser-body {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    height: 100%;
-  }
-  .browser-hero {
-    height: 25px;
-    border-radius: 4px;
-    background: linear-gradient(135deg, rgba(var(--accent-rgb-1), 0.15), rgba(var(--accent-rgb-2), 0.15));
-  }
-  .browser-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    width: 100%;
-  }
-  .grid-box {
-    height: 25px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .resizer-handle {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    cursor: ew-resize;
-    z-index: 3;
-  }
-  .sd-card.is-active .resizer-handle {
-    animation: handleMove 6s infinite ease-in-out;
-  }
-  @keyframes browserResize {
-    0%, 100% { width: 150px; }
-    50% { width: 105px; }
-  }
-  @keyframes handleMove {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-50%) translateX(-45px); }
-  }
-  .sd-card.is-active .browser-grid {
-    animation: gridResponsive 6s infinite ease-in-out;
-  }
-  @keyframes gridResponsive {
-    0%, 40%, 90%, 100% { grid-template-columns: repeat(3, 1fr); }
-    50%, 80% { grid-template-columns: 1fr; }
-  }
-  .sd-card.is-active .grid-box:nth-child(2),
-  .sd-card.is-active .grid-box:nth-child(3) {
-    animation: hideGridBox 6s infinite ease-in-out;
-  }
-  @keyframes hideGridBox {
-    0%, 40%, 90%, 100% { display: block; opacity: 1; }
-    50%, 80% { display: none; opacity: 0; }
-  }
-
-  /* ----------------------------------------
-     WIDGET 3: DATA PIPELINE (Infinite Loop Animation)
-  ---------------------------------------- */
-  .data-pipeline {
-    position: relative;
-    width: 200px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .pipeline-source {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .pipeline-file {
-    font-size: 0.5rem;
-    font-family: monospace;
-    font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255,255,255,0.6);
-  }
-  .sd-card.is-active .pipeline-file {
-    animation: sourceActive 4s infinite ease-in-out;
-  }
-  .sd-card.is-active .pipeline-file:nth-child(2) {
-    animation-delay: 2s;
-  }
-  .pipeline-flow {
-    position: relative;
-    flex: 1;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.05);
-    margin: 0 12px;
-  }
-  .flow-dot {
-    position: absolute;
-    top: -3px;
-    left: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-color-1);
-    box-shadow: 0 0 8px var(--accent-color-1);
-    opacity: 0;
-  }
-  .sd-card.is-active .flow-dot:nth-child(1) { animation: flowMove 4s infinite linear; }
-  .sd-card.is-active .flow-dot:nth-child(2) { animation: flowMove 4s infinite linear; animation-delay: 1.33s; }
-  .sd-card.is-active .flow-dot:nth-child(3) { animation: flowMove 4s infinite linear; animation-delay: 2.66s; }
-
-  .pipeline-target {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 60px;
-    padding: 4px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .dashboard-bar {
-    width: 10px;
-    height: 10px;
-    background: var(--accent-color-1);
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    transition: height 0.3s ease;
-  }
-  .dashboard-bar.bar-2 {
-    background: var(--accent-color-2);
-  }
-  .sd-card.is-active .dashboard-bar.bar-1 { animation: barFluctuate1 2s infinite alternate ease-in-out; }
-  .sd-card.is-active .dashboard-bar.bar-2 { animation: barFluctuate2 2.5s infinite alternate ease-in-out; }
-  .sd-card.is-active .dashboard-bar.bar-3 { animation: barFluctuate3 1.8s infinite alternate ease-in-out; }
-
-  @keyframes sourceActive {
-    0%, 100% { border-color: rgba(255, 255, 255, 0.08); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.6); }
-    50% { border-color: var(--accent-color-2); background: rgba(var(--accent-rgb-2), 0.1); color: #fff; }
-  }
-  @keyframes flowMove {
-    0% { left: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { left: 100%; opacity: 0; }
-  }
-  @keyframes barFluctuate1 { 0% { height: 15px; } 100% { height: 45px; } }
-  @keyframes barFluctuate2 { 0% { height: 35px; } 100% { height: 20px; } }
-  @keyframes barFluctuate3 { 0% { height: 10px; } 100% { height: 50px; } }
-
-  /* ----------------------------------------
-     WIDGET 4: STORE CHECKOUT (Infinite Loop Animation)
-  ---------------------------------------- */
-  .store-checkout {
-    position: relative;
-    width: 170px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-  .product-card-preview {
-    width: 90px;
-    height: 90px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .product-img {
-    height: 48px;
-    background: linear-gradient(135deg, rgba(var(--accent-rgb-1), 0.15), rgba(var(--accent-rgb-2), 0.15));
-    border-radius: 8px;
-  }
-  .product-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 4px;
-  }
-  .product-price {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #fff;
-  }
-  .add-to-cart-btn {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    background: var(--accent-color-1);
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 800;
-  }
-  .sd-card.is-active .add-to-cart-btn {
-    animation: buttonClick 4s infinite ease-in-out;
-  }
-  .cart-pill {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 100px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255,255,255,0.7);
-  }
-  .sd-card.is-active .cart-pill {
-    animation: cartBounce 4s infinite ease-in-out;
-  }
-  .cart-count {
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: var(--accent-color-1);
-    font-family: monospace;
-  }
-  .count-zero { display: inline; }
-  .count-one { display: none; }
-  .sd-card.is-active .count-zero { animation: hideZero 4s infinite ease-in-out; }
-  .sd-card.is-active .count-one { animation: showOne 4s infinite ease-in-out; }
-
-  @keyframes buttonClick {
-    0%, 15%, 85%, 100% { transform: scale(1); filter: brightness(1); }
-    20%, 30% { transform: scale(0.85); filter: brightness(1.2); }
-  }
-  @keyframes cartBounce {
-    0%, 25%, 80%, 100% { transform: scale(1); border-color: rgba(255,255,255,0.08); }
-    30%, 45% { transform: scale(1.1); border-color: var(--accent-color-1); box-shadow: 0 0 10px rgba(var(--accent-rgb-1), 0.15); }
-  }
-  @keyframes hideZero {
-    0%, 29%, 81%, 100% { display: inline; opacity: 1; }
-    30%, 80% { display: none; opacity: 0; }
-  }
-  @keyframes showOne {
-    0%, 29%, 81%, 100% { display: none; opacity: 0; }
-    30%, 80% { display: inline; opacity: 1; }
-  }
-
-  /* ----------------------------------------
-     WIDGET 5: API BLOCKS (Infinite Loop Animation)
-  ---------------------------------------- */
-  .api-blocks {
-    width: 170px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-  }
-  .api-card {
-    background: #070709;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-family: monospace;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: left;
-  }
-  .sd-card.is-active .api-card {
-    animation: apiPulse 3s infinite ease-in-out;
-  }
-  .api-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .api-method {
-    font-size: 0.5rem;
-    font-weight: 800;
-    color: var(--accent-color-1);
-    background: rgba(var(--accent-rgb-1), 0.1);
-    padding: 1px 4px;
-    border-radius: 3px;
-  }
-  .api-path {
-    font-size: 0.55rem;
-    color: rgba(255,255,255,0.7);
-  }
-  .api-payload {
-    font-size: 0.5rem;
-    color: rgba(255,255,255,0.4);
-  }
-  .api-logs {
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 6px;
-    padding: 6px 8px;
-    font-family: monospace;
-    font-size: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    text-align: left;
-  }
-  .log-line {
-    color: var(--accent-color-1);
-    opacity: 0.35;
-  }
-  .sd-card.is-active .log-line:nth-child(1) { animation: logFade1 3s infinite ease-in-out; }
-  .sd-card.is-active .log-line:nth-child(2) { animation: logFade2 3s infinite ease-in-out; }
-
-  @keyframes apiPulse {
-    0%, 100% { border-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
-    30% { border-color: var(--accent-color-1); box-shadow: 0 0 10px rgba(var(--accent-rgb-1), 0.15); }
-  }
-  @keyframes logFade1 {
-    0%, 10%, 90%, 100% { opacity: 0.3; }
-    30%, 80% { opacity: 1; }
-  }
-  @keyframes logFade2 {
-    0%, 40%, 95%, 100% { opacity: 0.3; }
-    60%, 90% { opacity: 1; }
-  }
-
-  /* ----------------------------------------
-     WIDGET 6: NEURAL NET (Infinite Loop Animation)
-  ---------------------------------------- */
-  .neural-net {
-    width: 140px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .neural-svg {
-    width: 100%;
-    height: 100%;
-  }
-  .node {
-    fill: #0c0c0e;
-    stroke: rgba(255,255,255,0.25);
-    stroke-width: 1.5;
-    transition: all 0.3s ease;
-  }
-  .conn-line {
-    fill: none;
-    stroke: rgba(255,255,255,0.04);
-    stroke-width: 1;
-  }
-  .signal-line {
-    fill: none;
-    stroke: var(--accent-color-1);
-    stroke-width: 1.5;
-    stroke-dasharray: 20;
-    stroke-dashoffset: 20;
-  }
-  .sd-card.is-active .signal-line {
-    animation: signalRun 3s infinite linear;
-  }
-  .sd-card.is-active .input-node { animation: nodeHighlight 3s infinite ease-in-out; }
-  .sd-card.is-active .hidden-node { animation: nodeHighlight 3s infinite ease-in-out; animation-delay: 0.75s; }
-  .sd-card.is-active .output-node { animation: nodeHighlight 3s infinite ease-in-out; animation-delay: 1.5s; }
-
-  @keyframes signalRun {
-    0% { stroke-dashoffset: 20; }
-    100% { stroke-dashoffset: -20; }
-  }
-  @keyframes nodeHighlight {
-    0%, 100% { fill: #0c0c0e; stroke: rgba(255,255,255,0.25); filter: none; }
-    20%, 50% { fill: var(--accent-color-1); stroke: #fff; filter: drop-shadow(0 0 4px var(--accent-color-1)); }
   }
 
   /* Carousel Controls: dots + arrows */
