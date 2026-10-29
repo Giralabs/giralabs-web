@@ -2,7 +2,7 @@
 title: "Cybersecurity 'secure by design': why in 2026 it is no longer enough to protect, you must design secure from day one"
 slug: "cybersecurity-secure-by-design-smes-2026"
 description: "Discover what secure-by-design cybersecurity is and how this European regulations in 2026 help your SME avoid extra costs in software development."
-date: "2026-07-17"
+date: "2026-06-16"
 tags: ["Cybersecurity", "Secure by Design", "Custom Software"]
 readingTime: "8 min"
 image: "../../assets/blog/secure_by_design.webp"
@@ -27,7 +27,7 @@ In the digital world, software behaves exactly the same way. Designing secure fr
 Working with software that has not been designed secure from the start exposes your business to very specific problems that should be analyzed calmly and without unnecessary alarmism:
 
 *   **Late-stage fix cost multiplier:** In software engineering, there is a golden rule: the later an error is detected and corrected, the more expensive it is to fix. A security flaw detected during the design phase is resolved by modifying a diagram or a few lines of code. That same flaw discovered when the application is already in production, being used by thousands of clients, can force you to stop the service and require hundreds of hours of emergency programming to rebuild the architecture. The cost scales exponentially.
-*   **Loss of customer trust:** For any SME, the trust of its users is its most valuable asset. If your business suffers a leak of sensitive data — such as passwords or billing details — because the system did not properly encrypt information, the reputational damage can be irreparable. Restoring the trust of a customer who has seen their data exposed costs much more than having invested in clean development from the start.
+*   **Loss of customer trust:** For any SME, the trust of its users is its most valuable asset. If your business suffers a leak of sensitive data, such as passwords or billing details, because the system did not properly encrypt information, the reputational damage can be irreparable. Restoring the trust of a customer who has seen their data exposed costs much more than having invested in clean development from the start.
 *   **Business operational stoppage:** If your application has a serious structural vulnerability, a technical incident can force you to suspend service for days. In an online store, every hour of downtime directly translates into lost sales. In an internal digitalization system, downtime can freeze order deliveries, billing, or logistics, generating cascading losses.
 *   **Regulatory and legal compliance:** With increasingly strict European data protection regulations (GDPR) and software security laws, regulators require companies to demonstrate that they have taken reasonable preventive measures. If a security incident is proven to have occurred due to negligence in software design, the SME can face complex legal issues.
 

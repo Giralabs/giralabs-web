@@ -2,7 +2,7 @@
 title: "Qué es un MVP y cómo definir el alcance sin quedarte corto ni arruinarte"
 slug: "que-es-un-mvp-y-como-definir-el-alcance"
 description: "Qué es realmente un MVP, en qué se diferencia de una versión incompleta y cómo decidir qué entra y qué no en la primera versión de tu producto digital."
-date: "2026-08-08"
+date: "2026-09-08"
 tags: ["MVP", "Producto", "Estrategia"]
 readingTime: "7 min"
 image: "../../assets/blog/mvp_scope.webp"

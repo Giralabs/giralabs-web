@@ -2,8 +2,8 @@
 title: "Facturación electrónica obligatoria en España: qué cambia para las pymes en 2026 y cómo prepararte sin dolores de cabeza"
 slug: "facturacion-electronica-obligatoria-pymes-2026"
 description: "Descubre cómo afectará la facturación electrónica obligatoria en España a tu pyme en 2026 y cómo prepararte paso a paso para cumplir con la normativa."
-date: "2026-07-17"
-tags: ["Digitalización", "Normativa", "Software a Medida"]
+date: "2026-07-01"
+tags: ["Digitalización", "Normativa", "Software a medida"]
 readingTime: "8 min"
 image: "../../assets/blog/electronic_invoicing.webp"
 ---

@@ -2,7 +2,7 @@
 title: "Cómo digitalizar la gestión de citas de una barbería o peluquería sin complicarte la vida"
 slug: "digitalizar-gestion-citas-barberia-peluqueria"
 description: "Guía práctica para dejar el cuaderno y el WhatsApp en la gestión de citas de tu barbería, peluquería o centro de estética: qué opciones hay, qué cuestan y cómo elegir."
-date: "2026-08-07"
+date: "2026-08-27"
 tags: ["Digitalización", "Reservas", "Bipsy"]
 readingTime: "8 min"
 image: "../../assets/blog/booking_salon.webp"

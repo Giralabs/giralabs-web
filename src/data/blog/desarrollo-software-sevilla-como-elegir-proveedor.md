@@ -2,8 +2,8 @@
 title: "Desarrollo de software en Sevilla: cómo elegir proveedor sin llevarte un disgusto"
 slug: "desarrollo-software-sevilla-como-elegir-proveedor"
 description: "Guía para elegir empresa de desarrollo de software en Sevilla: qué preguntar, cómo comparar presupuestos, señales de alarma y por qué la proximidad todavía importa."
-date: "2026-08-08"
-tags: ["Sevilla", "Desarrollo de Software", "Contratación"]
+date: "2026-10-27"
+tags: ["Sevilla", "Desarrollo de software", "Contratación"]
 readingTime: "8 min"
 image: "../../assets/blog/sevilla_software.webp"
 ---

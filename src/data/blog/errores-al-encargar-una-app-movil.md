@@ -2,8 +2,8 @@
 title: "Siete errores caros al encargar una app móvil (los vemos casi todas las semanas)"
 slug: "errores-al-encargar-una-app-movil"
 description: "Los errores más frecuentes al contratar el desarrollo de una aplicación móvil y cómo evitarlos: alcance mal definido, propiedad del código, mantenimiento y validación."
-date: "2026-08-08"
-tags: ["Aplicaciones Móviles", "Contratación", "Producto"]
+date: "2026-09-17"
+tags: ["Aplicaciones móviles", "Contratación", "Producto"]
 readingTime: "8 min"
 image: "../../assets/blog/app_mistakes.webp"
 ---

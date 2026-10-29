@@ -2,8 +2,8 @@
 title: "Software a medida o software estándar: cómo decidir sin arrepentirte a los dos años"
 slug: "software-a-medida-o-estandar-como-elegir"
 description: "Criterios prácticos para decidir entre comprar software estándar o desarrollar a medida en tu empresa: costes reales, riesgos de cada opción y señales de que te estás equivocando."
-date: "2026-08-04"
-tags: ["Software a Medida", "Digitalización", "Estrategia"]
+date: "2026-07-14"
+tags: ["Software a medida", "Digitalización", "Estrategia"]
 readingTime: "8 min"
 image: "../../assets/blog/custom_vs_offtheshelf.webp"
 ---

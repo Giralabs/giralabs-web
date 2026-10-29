@@ -2,8 +2,8 @@
 title: "Ingeniería agéntica: cómo los agentes de IA están cambiando el desarrollo de software a medida en 2026"
 slug: "ingenieria-agentic-desarrollo-software-2026"
 description: "Descubre cómo la ingeniería agéntica y los agentes autónomos de IA en 2026 están transformando el desarrollo de software a medida con supervisión de Giralabs."
-date: "2026-07-16"
-tags: ["IA", "Ingeniería Agéntica", "Software a Medida"]
+date: "2026-06-02"
+tags: ["IA", "Ingeniería agéntica", "Software a medida"]
 readingTime: "7 min"
 image: "../../assets/blog/agentic_engineering.webp"
 ---

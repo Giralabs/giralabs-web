@@ -2,8 +2,8 @@
 title: "Publicar una app en App Store y Google Play: requisitos, plazos y los rechazos que nadie te avisa"
 slug: "publicar-app-store-google-play-requisitos-rechazos"
 description: "Qué necesitas para publicar una aplicación en App Store y Google Play en 2026: cuentas, requisitos, plazos de revisión y los motivos de rechazo más frecuentes."
-date: "2026-08-08"
-tags: ["Aplicaciones Móviles", "App Store", "Google Play"]
+date: "2026-09-29"
+tags: ["Aplicaciones móviles", "App Store", "Google Play"]
 readingTime: "8 min"
 image: "../../assets/blog/store_publishing.webp"
 ---
