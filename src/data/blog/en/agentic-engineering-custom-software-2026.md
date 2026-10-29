@@ -2,7 +2,7 @@
 title: "Agentic engineering: how AI agents are changing custom software development in 2026"
 slug: "agentic-engineering-custom-software-2026"
 description: "Discover how agentic engineering and autonomous AI agents in 2026 are transforming custom software development under Giralabs' supervision."
-date: "2026-07-16"
+date: "2026-06-02"
 tags: ["AI", "Agentic Engineering", "Custom Software"]
 readingTime: "7 min"
 image: "../../assets/blog/agentic_engineering.webp"

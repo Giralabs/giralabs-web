@@ -26,35 +26,51 @@ const enHref = hasEnglishAlternate(pathname) ? enUrlPath : '/en/blog';
 
 // Helper to localize paths based on the current lang
 const localizedPath = (path: string) => getLocalizedPath(path, lang);
+
+const isEn = lang === 'en';
+const L = {
+  nav: isEn ? 'Main navigation' : 'Navegación principal',
+  home: isEn ? 'Giralabs, home page' : 'Giralabs, página de inicio',
+  language: isEn ? 'Language' : 'Idioma',
+  openMenu: isEn ? 'Open menu' : 'Abrir menú',
+  closeMenu: isEn ? 'Close menu' : 'Cerrar menú',
+};
+
+// aria-current tells screen readers which entry is the page they are on
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (path: string) => {
+  const target = localizedPath(path).replace(/\/$/, '') || '/';
+  return target === currentPath ? 'page' : undefined;
+};
 ---
 
-<nav id="navbar" role="navigation" aria-label="Main navigation">
+<nav id="navbar" aria-label={L.nav}>
   <!-- Top bar: visible before scroll -->
   <div class="nav-top-bar" id="nav-top-bar">
     <div class="nav-inner">
       <!-- Logo -->
-      <a href={localizedPath("/")} class="nav-logo" aria-label="Giralabs home" id="nav-logo-link">
+      <a href={localizedPath("/")} class="nav-logo" aria-label={L.home} id="nav-logo-link">
         <div class="nav-logo-wrapper">
           <div class="nav-logo-entrance">
-            <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" class="nav-logo-img" width="34" height="34" fetchpriority="high" decoding="async" />
+            <img src={navSymbol.src} alt="" class="nav-logo-img" width="34" height="34" fetchpriority="high" decoding="async" />
           </div>
         </div>
-        <span class="nav-brand-name" aria-label="GIRALABS">
+        <span class="nav-brand-name" aria-hidden="true">
           <span class="nb-char" style="--d:0.05s">G</span><span class="nb-char" style="--d:0.09s">I</span><span class="nb-char" style="--d:0.13s">R</span><span class="nb-char" style="--d:0.17s">A</span><span class="nb-char" style="--d:0.21s">L</span><span class="nb-char" style="--d:0.25s">A</span><span class="nb-char" style="--d:0.29s">B</span><span class="nb-char" style="--d:0.33s">S</span>
         </span>
       </a>
 
       <!-- Center nav links -->
       <ul class="nav-links" role="list">
-        <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home">{T.nav_home}</a></li>
+        <li><a href={localizedPath("/")} class="nav-link" data-i18n="nav_home" aria-current={current("/")}>{T.nav_home}</a></li>
         <li class="nav-dropdown-wrapper">
-          <a href={localizedPath("/servicios")} class="nav-link dropdown-toggle">
+          <a href={localizedPath("/servicios")} class="nav-link dropdown-toggle" aria-current={current("/servicios")}>
             <span data-i18n="nav_services">{T.nav_services}</span>
-            <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="chevron-icon" aria-hidden="true" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
-          <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-menu lg">
             <a href={localizedPath("/servicios")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
             <a href={localizedPath("/servicio/aplicaciones-moviles")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
@@ -65,42 +81,43 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
-        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about">{T.nav_about}</a></li>
-        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
+        <li><a href={localizedPath("/proyectos")} class="nav-link" data-i18n="nav_projects" aria-current={current("/proyectos")}>{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="nav-link" data-i18n="nav_about" aria-current={current("/nosotros")}>{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="nav-link" data-i18n="nav_blog" aria-current={current("/blog")}>{T.nav_blog}</a></li>
       </ul>
 
       <!-- Right -->
       <div class="nav-right">
-        <div class="lang-toggle" aria-label="Language selection">
-          <a href={esHref} id="lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`}>ES</a>
-          <span class="lang-sep">/</span>
-          <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
+        <div class="lang-toggle" role="group" aria-label={L.language}>
+          <a href={esHref} id="lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`} hreflang="es" lang="es" aria-label="Español" aria-current={lang === 'es' ? 'true' : undefined}>ES</a>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <a href={enHref} id="lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`} hreflang="en" lang="en" aria-label="English" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="nav-cta" id="nav-cta-btn" data-i18n="nav_cta">{T.nav_cta}</a>
-        <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" type="button">
+        <a href={localizedPath("/contacto")} class="nav-cta lg-press" id="nav-cta-btn" data-i18n="nav_cta">{T.nav_cta}</a>
+        <button class="hamburger" id="hamburger-btn" aria-label={L.openMenu} data-label-open={L.openMenu} data-label-close={L.closeMenu} aria-expanded="false" aria-controls="mobile-drawer" type="button">
           <span></span><span></span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Floating glass pill: appears on scroll -->
-  <div class="nav-pill" id="nav-pill" aria-hidden="true">
-    <div class="pill-inner">
-      <a href={localizedPath("/")} class="pill-logo" aria-label="Giralabs home">
-        <img src={navSymbol.src} alt="Símbolo de Giralabs en color melocotón" width="24" height="24" decoding="async" />
+  <!-- Floating glass pill: appears on scroll. `inert` (not just aria-hidden)
+       while hidden, so its links can't be tabbed to while invisible. -->
+  <div class="nav-pill" id="nav-pill" inert>
+    <div class="pill-inner lg">
+      <a href={localizedPath("/")} class="pill-logo" aria-label={L.home}>
+        <img src={navSymbol.src} alt="" width="24" height="24" decoding="async" />
       </a>
       <ul class="pill-links" role="list">
-        <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home">{T.nav_home}</a></li>
+        <li><a href={localizedPath("/")} class="pill-link" data-i18n="nav_home" aria-current={current("/")}>{T.nav_home}</a></li>
         <li class="pill-dropdown-wrapper">
-          <a href={localizedPath("/servicios")} class="pill-link dropdown-toggle">
+          <a href={localizedPath("/servicios")} class="pill-link dropdown-toggle" aria-current={current("/servicios")}>
             <span data-i18n="nav_services">{T.nav_services}</span>
-            <svg class="chevron-icon" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="chevron-icon" aria-hidden="true" viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </a>
-          <div class="pill-dropdown-menu">
+          <div class="pill-dropdown-menu lg">
             <a href={localizedPath("/servicios")} class="dropdown-item main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
             <div class="dropdown-divider"></div>
             <a href={localizedPath("/servicio/aplicaciones-moviles")} class="dropdown-item" data-i18n="service_1_title">{T.service_1_title}</a>
@@ -111,33 +128,33 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
             <a href={localizedPath("/servicio/integracion-ia")} class="dropdown-item" data-i18n="service_6_title">{T.service_6_title}</a>
           </div>
         </li>
-        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
-        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about">{T.nav_about}</a></li>
-        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
+        <li><a href={localizedPath("/proyectos")} class="pill-link" data-i18n="nav_projects" aria-current={current("/proyectos")}>{T.nav_projects}</a></li>
+        <li><a href={localizedPath("/nosotros")} class="pill-link" data-i18n="nav_about" aria-current={current("/nosotros")}>{T.nav_about}</a></li>
+        <li><a href={localizedPath("/blog")} class="pill-link" data-i18n="nav_blog" aria-current={current("/blog")}>{T.nav_blog}</a></li>
       </ul>
       <div class="pill-right">
-        <div class="lang-toggle pill-lang" aria-label="Language selection">
-          <a href={esHref} id="pill-lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`}>ES</a>
-          <span class="lang-sep">/</span>
-          <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`}>EN</a>
+        <div class="lang-toggle pill-lang" role="group" aria-label={L.language}>
+          <a href={esHref} id="pill-lang-es" class={`lang-opt ${lang === 'es' ? 'active' : ''}`} hreflang="es" lang="es" aria-label="Español" aria-current={lang === 'es' ? 'true' : undefined}>ES</a>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <a href={enHref} id="pill-lang-en" class={`lang-opt ${lang === 'en' ? 'active' : ''}`} hreflang="en" lang="en" aria-label="English" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
         </div>
-        <a href={localizedPath("/contacto")} class="pill-cta" data-i18n="nav_cta">{T.nav_cta}</a>
+        <a href={localizedPath("/contacto")} class="pill-cta lg-press" data-i18n="nav_cta">{T.nav_cta}</a>
       </div>
     </div>
   </div>
 
-  <!-- Mobile drawer -->
-  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+  <!-- Mobile drawer: `inert` while closed so its links stay out of the tab order -->
+  <div class="mobile-drawer lg" id="mobile-drawer" inert>
     <ul class="mobile-links" role="list">
-      <li><a href={localizedPath("/")} class="mobile-link" data-i18n="nav_home">{T.nav_home}</a></li>
+      <li><a href={localizedPath("/")} class="mobile-link" data-i18n="nav_home" aria-current={current("/")}>{T.nav_home}</a></li>
       <li class="mobile-dropdown-wrapper">
-        <button class="mobile-link mobile-dropdown-toggle" type="button">
+        <button class="mobile-link mobile-dropdown-toggle" type="button" aria-expanded="false" aria-controls="mobile-services-menu">
           <span data-i18n="nav_services">{T.nav_services}</span>
-          <svg class="mobile-chevron-icon" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="mobile-chevron-icon" aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
-        <div class="mobile-dropdown-menu">
+        <div class="mobile-dropdown-menu" id="mobile-services-menu">
           <a href={localizedPath("/servicios")} class="mobile-sublink main-item" data-i18n="nav_services_all">{T.nav_services_all}</a>
           <a href={localizedPath("/servicio/aplicaciones-moviles")} class="mobile-sublink" data-i18n="service_1_title">{T.service_1_title}</a>
           <a href={localizedPath("/servicio/paginas-web")} class="mobile-sublink" data-i18n="service_2_title">{T.service_2_title}</a>
@@ -147,11 +164,11 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
           <a href={localizedPath("/servicio/integracion-ia")} class="mobile-sublink" data-i18n="service_6_title">{T.service_6_title}</a>
         </div>
       </li>
-      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects">{T.nav_projects}</a></li>
-      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about">{T.nav_about}</a></li>
-      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog">{T.nav_blog}</a></li>
-      <li><a href={localizedPath("/empleo")} class="mobile-link" data-i18n="nav_careers">{T.nav_careers}</a></li>
-      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta" data-i18n="nav_cta">{T.nav_cta}</a></li>
+      <li><a href={localizedPath("/proyectos")} class="mobile-link" data-i18n="nav_projects" aria-current={current("/proyectos")}>{T.nav_projects}</a></li>
+      <li><a href={localizedPath("/nosotros")} class="mobile-link" data-i18n="nav_about" aria-current={current("/nosotros")}>{T.nav_about}</a></li>
+      <li><a href={localizedPath("/blog")} class="mobile-link" data-i18n="nav_blog" aria-current={current("/blog")}>{T.nav_blog}</a></li>
+      <li><a href={localizedPath("/empleo")} class="mobile-link" data-i18n="nav_careers" aria-current={current("/empleo")}>{T.nav_careers}</a></li>
+      <li><a href={localizedPath("/contacto")} class="mobile-link mobile-cta lg-press" data-i18n="nav_cta">{T.nav_cta}</a></li>
     </ul>
   </div>
 </nav>
@@ -308,24 +325,22 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(12px);
+    transform: translateX(-50%) translateY(12px) scale(0.96);
+    transform-origin: top center;
     width: 250px;
-    background: rgba(240, 239, 234, 0.85);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    padding: 0.6rem 0.5rem;
-    box-shadow: 
-      0 10px 30px rgba(0,0,0,0.06),
-      0 0 0 0.5px rgba(0,0,0,0.02) inset,
-      0 1px 0 rgba(255,255,255,0.8) inset;
+    /* Liquid Glass (.lg) supplies the material; a denser tint keeps menu
+       text readable over whatever is scrolling behind it */
+    --lg-tint-top: rgba(250, 249, 245, 0.82);
+    --lg-tint-bottom: rgba(244, 243, 238, 0.7);
+    --lg-blur: 30px;
+    border-radius: 20px;
+    padding: 0.5rem;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: 
-      opacity 0.25s ease, 
-      transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+    transition:
+      opacity 0.25s ease,
+      transform 0.45s var(--ease-spring),
       visibility 0.25s;
     transition-delay: 0.12s; /* 120ms delay when closing to prevent slip-offs */
     z-index: 1000;
@@ -350,12 +365,22 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     pointer-events: auto;
   }
 
-  .nav-dropdown-wrapper:hover .nav-dropdown-menu {
+  /* :focus-within opens the menu for keyboard users too: tabbing onto
+     "Services" reveals the sub-pages, and Tab walks through them */
+  .nav-dropdown-wrapper:hover .nav-dropdown-menu,
+  .nav-dropdown-wrapper:focus-within .nav-dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(4px);
+    transform: translateX(-50%) translateY(4px) scale(1);
     transition-delay: 0s; /* Open instantly on hover */
+  }
+
+  .nav-dropdown-wrapper.dismissed .nav-dropdown-menu,
+  .pill-dropdown-wrapper.dismissed .pill-dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .chevron-icon {
@@ -368,7 +393,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   }
 
   .nav-dropdown-wrapper:hover .chevron-icon,
-  .pill-dropdown-wrapper:hover .chevron-icon {
+  .pill-dropdown-wrapper:hover .chevron-icon,
+  .nav-dropdown-wrapper:focus-within .chevron-icon,
+  .pill-dropdown-wrapper:focus-within .chevron-icon {
     transform: rotate(180deg);
   }
 
@@ -388,24 +415,20 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(16px);
+    transform: translateX(-50%) translateY(16px) scale(0.96);
+    transform-origin: top center;
     width: 240px;
-    background: rgba(240, 239, 234, 0.85);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    padding: 0.6rem 0.5rem;
-    box-shadow: 
-      0 10px 30px rgba(0,0,0,0.06),
-      0 0 0 0.5px rgba(0,0,0,0.02) inset,
-      0 1px 0 rgba(255,255,255,0.8) inset;
+    --lg-tint-top: rgba(250, 249, 245, 0.82);
+    --lg-tint-bottom: rgba(244, 243, 238, 0.7);
+    --lg-blur: 30px;
+    border-radius: 20px;
+    padding: 0.5rem;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: 
-      opacity 0.25s ease, 
-      transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+    transition:
+      opacity 0.25s ease,
+      transform 0.45s var(--ease-spring),
       visibility 0.25s;
     transition-delay: 0.12s; /* 120ms delay when closing to prevent slip-offs */
     z-index: 1000;
@@ -430,11 +453,12 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     pointer-events: auto;
   }
 
-  .pill-dropdown-wrapper:hover .pill-dropdown-menu {
+  .pill-dropdown-wrapper:hover .pill-dropdown-menu,
+  .pill-dropdown-wrapper:focus-within .pill-dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(8px);
+    transform: translateX(-50%) translateY(8px) scale(1);
     transition-delay: 0s; /* Open instantly on hover */
   }
 
@@ -443,19 +467,29 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   ============================================= */
   .dropdown-item {
     display: block;
-    padding: 0.55rem 0.75rem;
-    border-radius: 10px;
-    font-size: 0.78rem;
-    color: #555;
+    padding: 0.6rem 0.8rem;
+    border-radius: 13px;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
     text-decoration: none;
     text-align: left;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, color 0.2s, transform 0.35s var(--ease-spring), box-shadow 0.2s;
   }
 
-  .dropdown-item:hover {
-    background: rgba(0, 0, 0, 0.04);
+  /* Hover lifts a small glass chip out of the menu, like the iOS selection pill */
+  .dropdown-item:hover,
+  .dropdown-item:focus-visible {
+    background: rgba(255, 255, 255, 0.7);
     color: #000;
     transform: translateX(3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      0 4px 12px -4px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-item:focus-visible {
+    outline-offset: -2px;
   }
 
   .dropdown-item.main-item {
@@ -486,7 +520,6 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     justify-content: space-between;
     cursor: pointer;
     font-family: inherit;
-    outline: none;
     padding: 0.75rem 0;
     font-size: 1.1rem;
     font-weight: 400;
@@ -520,7 +553,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     display: block;
     padding: 0.65rem 0;
     font-size: 0.88rem;
-    color: #666;
+    color: var(--ink-muted);
     text-decoration: none;
     border-bottom: 1px solid rgba(0,0,0,0.03);
     transition: color 0.2s;
@@ -556,21 +589,22 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.02em;
-    color: #888;
+    color: var(--ink-subtle);
     transition: color 0.2s;
   }
 
-  .lang-toggle:hover { color: #000; }
-
+  /* The inactive language used to be #888 at 40% opacity (~1.6:1). It is a
+     real link, so it now meets AA and relies on weight to show the active one. */
   .lang-opt {
     text-decoration: none;
-    color: inherit;
-    transition: color 0.2s, opacity 0.2s;
-    opacity: 0.4;
+    color: var(--ink-subtle);
+    transition: color 0.2s;
+    padding: 0.35rem 0.15rem;
   }
 
-  .lang-opt.active { opacity: 1; color: #000; }
-  .lang-sep { opacity: 0.25; font-weight: 300; }
+  .lang-opt:hover { color: #000; }
+  .lang-opt.active { color: #000; font-weight: 700; }
+  .lang-sep { color: rgba(0, 0, 0, 0.25); font-weight: 300; }
 
   /* CTA top bar */
   .nav-cta {
@@ -593,18 +627,36 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     box-shadow: 0 4px 14px rgba(0,0,0,0.12);
   }
 
-  /* Hamburger */
+  .nav-cta:active {
+    transform: scale(0.965);
+  }
+
+  /* Hamburger: a 44px glass button, the minimum comfortable touch target
+     (it used to be 28px) */
   .hamburger {
     display: none;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 5px;
-    background: none;
-    border: none;
     cursor: pointer;
-    padding: 4px;
-    width: 28px;
-    height: 28px;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.45);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.06),
+      0 4px 14px -4px rgba(0, 0, 0, 0.12);
+    transition: transform 0.45s var(--ease-spring), background 0.2s;
+  }
+
+  .hamburger:active {
+    transform: scale(0.92);
   }
 
   .hamburger span {
@@ -658,15 +710,13 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     border-radius: 100px;
     min-width: 740px;
 
-    /* iOS 26 Liquid Glass */
-    background: rgba(240, 239, 234, 0.45);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow:
-      0 2px 24px rgba(0,0,0,0.08),
-      0 0 0 0.5px rgba(0,0,0,0.04) inset,
-      0 1px 0 rgba(255,255,255,0.9) inset;
+    /* Liquid Glass (.lg): a thinner, clearer tint than the menus so the page
+       visibly flows under the bar, with a wide pointer light for its size */
+    --lg-tint-top: rgba(255, 255, 255, 0.5);
+    --lg-tint-bottom: rgba(245, 244, 239, 0.32);
+    --lg-blur: 26px;
+    --lg-saturate: 210%;
+    --lg-light-size: 260px;
   }
 
   .pill-logo {
@@ -696,14 +746,30 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   .pill-link {
     font-size: 0.82rem;
     font-weight: 400;
-    color: #444;
+    color: #3a3a3a;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.25s ease, box-shadow 0.25s ease;
     white-space: nowrap;
     letter-spacing: -0.005em;
+    padding: 0.35rem 0.7rem;
+    margin: 0 -0.7rem;
+    border-radius: 100px;
   }
 
   .pill-link:hover { color: #000; }
+
+  /* Current page: a small glass capsule inside the bar, iOS tab-bar style */
+  .pill-link[aria-current="page"] {
+    color: #000;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.62);
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 1),
+      inset 0 0 0 0.5px rgba(0, 0, 0, 0.05),
+      0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-link[aria-current="page"] { color: #000; font-weight: 600; }
 
   .pill-right {
     display: flex;
@@ -729,17 +795,25 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     letter-spacing: -0.01em;
     white-space: nowrap;
 
-    /* glass button inside glass pill */
-    background: rgba(0, 0, 0, 0.82);
-    color: rgba(240, 239, 234, 0.95);
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2) inset;
-    transition: background 0.2s ease, transform 0.2s ease;
+    /* Smoked glass button inside the clear pill: dark tint, a lit top edge and
+       a soft inner shade at the bottom give it the rounded thickness */
+    background: linear-gradient(180deg, rgba(40, 40, 40, 0.9), rgba(0, 0, 0, 0.92));
+    color: #F7F6F2;
+    border: none;
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.28),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.4),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.08),
+      0 4px 12px -3px rgba(0, 0, 0, 0.35);
   }
 
   .pill-cta:hover {
-    background: rgba(30,30,30,0.92);
-    transform: scale(1.02);
+    background: linear-gradient(180deg, rgba(55, 55, 55, 0.92), rgba(10, 10, 10, 0.94));
+    transform: scale(1.03);
+  }
+
+  .pill-cta:active {
+    transform: scale(0.95);
   }
 
   /* Separator inside pill */
@@ -753,29 +827,35 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   /* =============================================
      MOBILE DRAWER
   ============================================= */
+  /* Mobile menu: a floating Liquid Glass sheet that springs down from the
+     header, inset from the screen edges like an iOS popover */
   .mobile-drawer {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: calc(100% + 6px);
+    left: 12px;
+    right: 12px;
     z-index: 99;
     flex-direction: column;
-    background: rgba(240, 239, 234, 0.97);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 1rem 2rem 2rem;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    --lg-tint-top: rgba(250, 249, 245, 0.86);
+    --lg-tint-bottom: rgba(243, 242, 237, 0.78);
+    --lg-blur: 30px;
+    border-radius: 28px;
+    padding: 0.75rem 1.4rem 1.2rem;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 0;
-    transform: translateY(-8px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transform: translateY(-10px) scale(0.97);
+    transform-origin: top right;
+    transition: opacity 0.25s ease, transform 0.5s var(--ease-spring), visibility 0.3s ease;
     pointer-events: none;
     visibility: hidden;
   }
 
   .mobile-drawer.open {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     pointer-events: auto;
     visibility: visible;
   }
@@ -801,7 +881,23 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   }
 
   .mobile-link:hover { color: #000; }
-  .mobile-link.mobile-cta { border-bottom: none; margin-top: 0.5rem; color: #000; font-weight: 600; }
+  .mobile-link[aria-current="page"] { color: #000; font-weight: 600; }
+
+  /* The CTA closes the sheet as a full-width dark glass button */
+  .mobile-link.mobile-cta {
+    border-bottom: none;
+    margin-top: 0.9rem;
+    padding: 0.9rem 1rem;
+    text-align: center;
+    border-radius: 100px;
+    color: #F7F6F2;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(180deg, #2a2a2a, #000);
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.25),
+      0 6px 16px -6px rgba(0, 0, 0, 0.4);
+  }
 
   /* =============================================
      RESPONSIVE
@@ -821,20 +917,40 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       pointer-events: auto !important;
     }
 
+    .nav-top-bar {
+      padding: 0 1rem 0 1.25rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Scrolled: the header turns into a glass bar with the iOS edge — a lit
+       top line, a faint hairline below and the content softly blurred under it */
     .nav-top-bar.scrolled {
-      background: rgba(240, 239, 234, 0.45);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+      background: linear-gradient(180deg, rgba(250, 249, 245, 0.72), rgba(240, 239, 234, 0.5));
+      backdrop-filter: blur(22px) saturate(190%);
+      -webkit-backdrop-filter: blur(22px) saturate(190%);
+      box-shadow:
+        inset 0 -0.5px 0 rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 8px 24px -12px rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-inner { height: 64px; }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .nav-top-bar.scrolled,
+    .hamburger {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: #FAFAF7;
     }
   }
 </style>
 
 <script>
   // ---- Scroll: show pill, hide top bar ----
-  const topBar = document.getElementById('nav-top-bar');
-  const pill = document.getElementById('nav-pill');
+  const topBar = document.getElementById('nav-top-bar')!;
+  const pill = document.getElementById('nav-pill')!;
   const THRESHOLD = 80;
 
   // window.innerWidth was read on every scroll event, which forces the browser to
@@ -846,16 +962,20 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   function updateNav() {
     ticking = false;
     const scrolled = window.scrollY > THRESHOLD;
+    // Whichever bar is invisible is also inert: aria-hidden alone hid it from
+    // screen readers but left its links in the Tab order, focusing nothing visible
     if (mobileQuery.matches) {
       topBar.classList.remove('hidden');
       topBar.classList.toggle('scrolled', scrolled);
+      topBar.inert = false;
       pill.classList.remove('visible');
-      pill.setAttribute('aria-hidden', 'true');
+      pill.inert = true;
     } else {
       topBar.classList.remove('scrolled');
       topBar.classList.toggle('hidden', scrolled);
+      topBar.inert = scrolled;
       pill.classList.toggle('visible', scrolled);
-      pill.setAttribute('aria-hidden', String(!scrolled));
+      pill.inert = !scrolled;
     }
   }
 
@@ -882,22 +1002,53 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const mobileDrawer = document.getElementById('mobile-drawer');
   if (hamburgerBtn && mobileDrawer) {
+    const setDrawer = (open: boolean, { restoreFocus = false } = {}) => {
+      hamburgerBtn.setAttribute('aria-expanded', String(open));
+      hamburgerBtn.setAttribute('aria-label', (open ? hamburgerBtn.dataset.labelClose : hamburgerBtn.dataset.labelOpen) ?? '');
+      hamburgerBtn.classList.toggle('open', open);
+      mobileDrawer.classList.toggle('open', open);
+      mobileDrawer.inert = !open;
+      if (open) {
+        mobileDrawer.querySelector<HTMLElement>('a, button')?.focus({ preventScroll: true });
+      } else if (restoreFocus) {
+        hamburgerBtn.focus();
+      }
+    };
+
     hamburgerBtn.addEventListener('click', () => {
-      const isOpen = hamburgerBtn.getAttribute('aria-expanded') === 'true';
-      hamburgerBtn.setAttribute('aria-expanded', String(!isOpen));
-      hamburgerBtn.classList.toggle('open', !isOpen);
-      mobileDrawer.classList.toggle('open', !isOpen);
-      mobileDrawer.setAttribute('aria-hidden', String(isOpen));
+      setDrawer(hamburgerBtn.getAttribute('aria-expanded') !== 'true');
     });
-    document.querySelectorAll('.mobile-link, .mobile-sublink').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-        hamburgerBtn.classList.remove('open');
-        mobileDrawer.classList.remove('open');
-        mobileDrawer.setAttribute('aria-hidden', 'true');
-      });
+    mobileDrawer.querySelectorAll('.mobile-link:not(.mobile-dropdown-toggle), .mobile-sublink').forEach(link => {
+      link.addEventListener('click', () => setDrawer(false));
+    });
+
+    // Escape closes the sheet and hands focus back to the button that opened it;
+    // a tap outside closes it too
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) setDrawer(false, { restoreFocus: true });
+    });
+    document.addEventListener('pointerdown', (e) => {
+      if (!mobileDrawer.classList.contains('open')) return;
+      const target = e.target as Node;
+      if (!mobileDrawer.contains(target) && !hamburgerBtn.contains(target)) setDrawer(false);
     });
   }
+
+  // ---- Desktop dropdowns: Escape dismisses ----
+  // The menus open on hover and on :focus-within. Escape hides an open one
+  // without moving focus; leaving the item (pointer or focus) re-arms it.
+  document.querySelectorAll<HTMLElement>('.nav-dropdown-wrapper, .pill-dropdown-wrapper').forEach((wrapper) => {
+    wrapper.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      wrapper.classList.add('dismissed');
+      wrapper.querySelector<HTMLElement>('.dropdown-toggle')?.focus();
+    });
+    const rearm = () => wrapper.classList.remove('dismissed');
+    wrapper.addEventListener('mouseleave', rearm);
+    wrapper.addEventListener('focusout', (e) => {
+      if (!wrapper.contains(e.relatedTarget as Node | null)) rearm();
+    });
+  });
 
   // ---- Dropdown cards smooth scroll & Sub-page Navigation ----
   function initDropdownScroll() {
@@ -909,8 +1060,11 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       const prefix = isEn ? '/en' : '';
       const servicesPath = isEn ? '/services' : '/servicios';
       const contactPath = isEn ? '/contact' : '/contacto';
-      document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
+      document.querySelectorAll('a[href^="#"]:not([href="#"]):not(.skip-link)').forEach(link => {
         const href = link.getAttribute('href');
+        // Anchors that point at something on this page (an article's contents
+        // list, for one) are real in-page links and must stay as they are
+        if (href && document.getElementById(decodeURIComponent(href.slice(1)))) return;
         if (href) {
           if (href === '#services') {
             link.setAttribute('href', servicesPath);
@@ -924,16 +1078,21 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     }
 
     // Mobile dropdown accordion toggle
-    const mobileToggle = document.querySelector('.mobile-dropdown-toggle');
-    const mobileWrapper = document.querySelector('.mobile-dropdown-wrapper');
+    const mobileToggle = document.querySelector<HTMLElement>('.mobile-dropdown-toggle');
+    const mobileWrapper = document.querySelector<HTMLElement>('.mobile-dropdown-wrapper');
+    const mobileMenu = document.getElementById('mobile-services-menu');
     if (mobileToggle && mobileWrapper) {
-      const newToggle = mobileToggle.cloneNode(true);
-      mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
-      
+      const newToggle = mobileToggle.cloneNode(true) as HTMLElement;
+      mobileToggle.replaceWith(newToggle);
+      // Collapsed sub-links are clipped to zero height but were still tabbable
+      if (mobileMenu) mobileMenu.inert = !mobileWrapper.classList.contains('open');
+
       newToggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        mobileWrapper.classList.toggle('open');
+        const open = mobileWrapper.classList.toggle('open');
+        newToggle.setAttribute('aria-expanded', String(open));
+        if (mobileMenu) mobileMenu.inert = !open;
       });
     }
   }

@@ -1,7 +1,13 @@
 ---
-import { Picture } from "astro:assets";
+import { Picture, getImage } from "astro:assets";
 import { translations } from "../../i18n/translations";
-import combinationMark from "../../assets/combination_marks/combinationmark_apricot_vertical_nobackground.avif";
+// The combination mark is rebuilt from its parts so each one can move on its
+// own: the capsule cut at its seam into two halves, plus the wordmark on top.
+// Layout percentages below were measured against the original artwork.
+import capsuleTop from "../../assets/brand_marks/derived/capsule_half_top.webp";
+import capsuleBottom from "../../assets/brand_marks/derived/capsule_half_bottom.webp";
+import capsuleWhole from "../../assets/brand_marks/derived/capsule.webp";
+import wordmark from "../../assets/brand_marks/derived/wordmark_black.webp";
 import { getLocalizedPath } from "../../lib/paths";
 
 interface Props {
@@ -13,6 +19,10 @@ const T = translations[lang];
 
 // Helper to localize paths based on the current lang
 const localizedPath = (path: string) => getLocalizedPath(path, lang);
+
+// Silhouette for the glint, so the light only ever lands on the glass
+const capsuleMask = await getImage({ src: capsuleWhole, width: 480, format: "webp" });
+const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
 ---
 
 <!-- ==================== HERO ==================== -->
@@ -23,19 +33,29 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       <div class="hero-mark-glow" aria-hidden="true"></div>
       <div class="hero-mark-entrance">
         {/* LCP element: eager + high priority, and sized to the clamp() below so
-            the browser stops fetching a 1849px master for a 460px slot. */}
-        <Picture
-          src={combinationMark}
-          formats={["avif", "webp"]}
-          fallbackFormat="webp"
-          widths={[290, 460, 580, 920]}
-          sizes="(max-width: 580px) 290px, (max-width: 920px) 50vw, 460px"
-          alt="Giralabs - Estudio de desarrollo de aplicaciones móviles y desarrollo de software a medida"
-          class="hero-combination-mark"
-          loading="eager"
-          fetchpriority="high"
-          decoding="sync"
-        />
+            the browser stops fetching a 2000px master for a 315px slot. */}
+        <div
+          class="hero-mark"
+          role="img"
+          aria-label="Giralabs - Estudio de desarrollo de aplicaciones móviles y desarrollo de software a medida"
+        >
+          <div class="hm-capsule" style={`--hm-mask: url(${capsuleMask.src})`}>
+            <Picture src={capsuleTop} formats={["avif", "webp"]} fallbackFormat="webp" widths={[200, 315, 630]} sizes={capsuleSizes} alt="" class="hm-half hm-half--top" loading="eager" fetchpriority="high" />
+            <Picture src={capsuleBottom} formats={["avif", "webp"]} fallbackFormat="webp" widths={[200, 315, 630]} sizes={capsuleSizes} alt="" class="hm-half hm-half--bottom" loading="eager" fetchpriority="high" />
+            <span class="hm-glint" aria-hidden="true"><i></i></span>
+          </div>
+          <Picture
+            src={wordmark}
+            formats={["avif", "webp"]}
+            fallbackFormat="webp"
+            widths={[275, 435, 870]}
+            sizes="(max-width: 580px) 275px, (max-width: 920px) 48vw, 435px"
+            alt=""
+            class="hm-word"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
       </div>
     </div>
 
@@ -56,13 +76,13 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     <div class="hero-ctas">
       <a
         href={localizedPath("/proyectos")}
-        class="cta-primary"
+        class="cta-primary lg-press"
         id="hero-cta-primary"
         data-i18n="hero_cta_primary">{T.hero_cta_primary}</a
       >
       <a
         href={localizedPath("/servicios")}
-        class="cta-secondary"
+        class="cta-secondary lg lg-press"
         id="hero-cta-secondary"
         data-i18n="hero_cta_secondary">{T.hero_cta_secondary}</a
       >
@@ -125,7 +145,6 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     mix-blend-mode: plus-lighter;
     animation: liquidGlow 12s ease-in-out infinite alternate;
     pointer-events: none;
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
     /* Runs forever: keep the blurred gradient cached as a compositor texture
        instead of re-rasterising it each frame */
     will-change: transform;
@@ -145,13 +164,93 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     display: contents;
   }
 
-  .hero-combination-mark {
+  /* The mark keeps the original artwork's 1849x1384 frame; every layer is
+     placed in percentages of it */
+  .hero-mark {
+    position: relative;
     width: clamp(290px, 50vw, 460px);
-    height: auto;
-    display: block;
+    aspect-ratio: 1849 / 1384;
+  }
+
+  .hm-capsule {
+    position: absolute;
+    left: 13.98%;
+    top: -0.69%;
+    width: 69.18%;
+    height: 97.05%;
+    transform: rotate(4.1deg);
+  }
+
+  .hero-mark :global(.hm-half) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     mix-blend-mode: multiply;
-    transform-origin: center center;
-    transform: translateZ(40px);
+    animation: hmTop 7s cubic-bezier(0.45, 0, 0.25, 1) 2.2s infinite;
+  }
+
+  .hero-mark :global(.hm-half--bottom) {
+    animation-name: hmBottom;
+  }
+
+  /* A beam of light runs across the glass when the halves click shut. The mask
+     is the capsule's own silhouette, so the light never spills onto the page */
+  .hm-glint {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    -webkit-mask: var(--hm-mask) center / 100% 100% no-repeat;
+    mask: var(--hm-mask) center / 100% 100% no-repeat;
+    mix-blend-mode: plus-lighter;
+    pointer-events: none;
+  }
+
+  .hm-glint i {
+    position: absolute;
+    top: -25%;
+    bottom: -25%;
+    left: 0;
+    width: 28%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+    transform: translateX(-130%) rotate(18deg);
+    animation: hmGlint 7s ease-in-out 2.2s infinite;
+  }
+
+  .hero-mark :global(.hm-word) {
+    position: absolute;
+    left: 2.52%;
+    top: 33.06%;
+    width: 95.66%;
+    height: auto;
+  }
+
+  /* The halves part along the capsule's axis (48 degrees in its own frame),
+     hold for a beat, then snap back together with a small overshoot */
+  @keyframes hmTop {
+    0%, 52% { transform: none; }
+    62%, 70% { transform: translate(-4.7px, -5.2px); }
+    75% { transform: translate(0.8px, 0.9px); }
+    80%, 100% { transform: none; }
+  }
+
+  @keyframes hmBottom {
+    0%, 52% { transform: none; }
+    62%, 70% { transform: translate(4.7px, 5.2px); }
+    75% { transform: translate(-0.8px, -0.9px); }
+    80%, 100% { transform: none; }
+  }
+
+  @keyframes hmGlint {
+    0%, 74% { transform: translateX(-130%) rotate(18deg); }
+    92%, 100% { transform: translateX(420%) rotate(18deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mark :global(.hm-half),
+    .hm-glint i {
+      animation: none;
+    }
   }
 
   .hero-mark-wrap {
@@ -162,31 +261,6 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     margin-bottom: 3rem;
     transform-style: preserve-3d;
     perspective: 1000px;
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .hero-mark-wrap::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-      105deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.22) 50%,
-      transparent 70%
-    );
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: 3;
-  }
-
-  .hero-mark-wrap:hover::after {
-    opacity: 1;
-    animation: markShimmer 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Hero line */
@@ -223,7 +297,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   .hero-sub {
     font-size: 0.95rem;
     line-height: 1.7;
-    color: #777;
+    color: var(--ink-muted);
     max-width: 440px;
     margin: 0 0 2.5rem;
     opacity: 0;
@@ -250,34 +324,27 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     text-decoration: none;
     border-radius: 100px;
     letter-spacing: -0.01em;
-    transition:
-      background 0.25s ease,
-      border-color 0.25s ease,
-      color 0.22s ease,
-      transform 0.2s ease,
-      box-shadow 0.25s ease;
     white-space: nowrap;
     cursor: pointer;
+    color: #1a1a1a;
 
-    /* iOS-like Liquid Glassmorphism on light background */
-    background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    color: #333;
-    border: 1px solid rgba(0, 0, 0, 0.09);
-    box-shadow:
-      0 2px 12px rgba(0, 0, 0, 0.04),
-      0 1px 0 rgba(255, 255, 255, 0.7) inset;
+    /* Liquid Glass (.lg) supplies the material; the button only tunes it */
+    --lg-light-size: 120px;
+    transition:
+      transform 0.45s var(--ease-spring),
+      box-shadow 0.3s ease,
+      color 0.2s ease;
   }
 
   .cta-secondary:hover {
-    background: rgba(255, 255, 255, 0.65);
-    border-color: rgba(0, 0, 0, 0.16);
     color: #000;
-    transform: translateY(-2px);
-    box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.08),
-      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    transform: translateY(-2px) scale(1.02);
+    --lg-tint-top: rgba(255, 255, 255, 0.75);
+    --lg-tint-bottom: rgba(255, 255, 255, 0.4);
+  }
+
+  .cta-secondary:active {
+    transform: scale(0.965);
   }
 
   /* Scroll hint */
@@ -293,7 +360,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #c5c5c5;
+    background: #9a9a9a;
     animation: scrollBounce 2.2s ease-in-out infinite;
   }
 
@@ -339,15 +406,6 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     }
   }
 
-  @keyframes markShimmer {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 150%;
-    }
-  }
-
   @keyframes expandLine {
     to {
       width: 160px;
@@ -389,11 +447,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     }
   }
 
-  /* Gradient text */
+  /* Accent words: one solid colour that passes AA on the paper background */
   :global(.gradient-text) {
-    background: linear-gradient(135deg, #ff8a65 0%, #ffb74d 50%, #ff7043 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #c2410c;
     font-weight: 700;
   }
 
@@ -450,76 +506,3 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     }
   }
 </style>
-
-<!-- ==================== 3D INTERACTIVE SCRIPT ==================== -->
-<script>
-  const hero = document.getElementById("hero");
-  const card = hero ? hero.querySelector(".hero-mark-wrap") : (null as any);
-  const glow = hero ? hero.querySelector(".hero-mark-glow") : (null as any);
-
-  // A coarse pointer never produces the hover this effect is built on, so phones
-  // and tablets skip the listeners entirely.
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  if (hero && card && finePointer) {
-    // Pointer position is sampled on every mousemove but written once per frame:
-    // mousemove can fire faster than the display refreshes, and each write
-    // followed by the next getBoundingClientRect() forced a synchronous layout.
-    let pointerX = 0;
-    let pointerY = 0;
-    let rect: DOMRect | null = null;
-    let frame = 0;
-
-    const applyTransform = () => {
-      frame = 0;
-      if (!rect) return;
-
-      const x = pointerX - rect.left - rect.width / 2;
-      const y = pointerY - rect.top - rect.height / 2;
-
-      // Calculate rotation angles (max 10 degrees)
-      const rotateX = -(y / (rect.height / 2)) * 10;
-      const rotateY = (x / (rect.width / 2)) * 10;
-
-      // Apply 3D transform with smooth transition
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-
-      if (glow) {
-        // Shift the glow position slightly to match the 3D depth
-        glow.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0) scale(1.05)`;
-      }
-    };
-
-    hero.addEventListener(
-      "mousemove",
-      (e) => {
-        pointerX = e.clientX;
-        pointerY = e.clientY;
-        // Measured once per pointer entry, then only on resize/scroll below
-        if (!rect) rect = hero.getBoundingClientRect();
-        if (!frame) frame = requestAnimationFrame(applyTransform);
-      },
-      { passive: true }
-    );
-
-    // The cached rect is only valid while the hero stays where it was measured
-    const invalidateRect = () => {
-      rect = null;
-    };
-    window.addEventListener("resize", invalidateRect, { passive: true });
-    window.addEventListener("scroll", invalidateRect, { passive: true });
-
-    hero.addEventListener("mouseleave", () => {
-      if (frame) {
-        cancelAnimationFrame(frame);
-        frame = 0;
-      }
-      rect = null;
-      // Smooth reset on mouse leave
-      card.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-      if (glow) {
-        glow.style.transform = "translate3d(0, 0, 0) scale(1)";
-      }
-    });
-  }
-</script>

@@ -28,7 +28,7 @@ const copy = {
       <div>
         <span class="hiring-badge"><span class="hiring-dot" aria-hidden="true"></span>{copy.badge}</span>
         <p class="hiring-title">{copy.title}</p>
-        <p class="hiring-roles">{openJobs.map((job) => job[lang].title).join(' · ')}</p>
+        <p class="hiring-roles">{openJobs.map((job) => job[lang].title).join(', ')}</p>
       </div>
       <a href={careersBasePath[lang]} class="hiring-cta">
         {copy.cta}
@@ -63,10 +63,9 @@ const copy = {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(255,255,255,0.75);
   }
 

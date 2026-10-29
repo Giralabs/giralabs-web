@@ -1,0 +1,674 @@
+---
+// Small looping UI scenes that illustrate each service. Purely decorative: the
+// card around them already says what the service is, so the whole scene is
+// hidden from assistive tech. Every loop animates transform, opacity or a
+// stroke only, and reduced motion shows the finished state of each scene.
+interface Props {
+  kind: 'apps' | 'web' | 'digital' | 'store' | 'software' | 'ai';
+  lang?: string;
+  theme?: 'dark' | 'light';
+}
+
+const { kind, lang = 'es', theme = 'light' } = Astro.props;
+
+const copy = {
+  es: {
+    date: 'Martes, 14 de octubre',
+    notifTitle: 'Cita confirmada',
+    notifBody: 'Mañana a las 10:30',
+    now: 'ahora',
+    url: 'tuempresa.es',
+    score: 'Rendimiento',
+    today: 'Hoy, sin tocar nada',
+    tasks: ['Factura enviada', 'Stock actualizado', 'Informe semanal listo'],
+    product: 'Zapatillas Run',
+    price: '49 €',
+    add: 'Añadir',
+    paid: 'Pago completado',
+    metric: 'Reservas este mes',
+    growth: '+24%',
+    ask: '¿Qué citas tengo mañana?',
+    answer: 'Tres. La primera es a las 10:00 con Marta.',
+  },
+  en: {
+    date: 'Tuesday, 14 October',
+    notifTitle: 'Booking confirmed',
+    notifBody: 'Tomorrow at 10:30',
+    now: 'now',
+    url: 'yourcompany.com',
+    score: 'Performance',
+    today: 'Today, hands-free',
+    tasks: ['Invoice sent', 'Stock updated', 'Weekly report ready'],
+    product: 'Run sneakers',
+    price: '€49',
+    add: 'Add',
+    paid: 'Payment complete',
+    metric: 'Bookings this month',
+    growth: '+24%',
+    ask: 'What bookings do I have tomorrow?',
+    answer: 'Three. The first is at 10:00 with Marta.',
+  },
+}[lang === 'en' ? 'en' : 'es'];
+
+const check = 'M5 12.5l4.2 4.2L19 7';
+---
+
+<div class={`sv sv--${theme} sv-${kind}`} aria-hidden="true">
+  {kind === 'apps' && (
+    <div class="sv-phone">
+      <span class="sv-island"></span>
+      <span class="sv-time">9:41</span>
+      <span class="sv-date">{copy.date}</span>
+      <div class="sv-notif sv-glass">
+        <span class="sv-app-icon"></span>
+        <span class="sv-notif-text">
+          <strong>{copy.notifTitle}</strong>
+          <span>{copy.notifBody}</span>
+        </span>
+        <span class="sv-notif-when">{copy.now}</span>
+      </div>
+    </div>
+  )}
+
+  {kind === 'web' && (
+    <div class="sv-browser sv-glass">
+      <div class="sv-browser-bar">
+        <span class="sv-dots"><i></i><i></i><i></i></span>
+        <span class="sv-url">{copy.url}</span>
+      </div>
+      <div class="sv-browser-body">
+        <div class="sv-gauge">
+          <svg viewBox="0 0 64 64" width="64" height="64">
+            <circle class="sv-gauge-track" cx="32" cy="32" r="26" />
+            <circle class="sv-gauge-fill" cx="32" cy="32" r="26" pathLength="100" />
+          </svg>
+          <span class="sv-score"></span>
+        </div>
+        <div class="sv-skeleton">
+          <span class="sv-score-label">{copy.score}</span>
+          <i></i><i></i><i></i>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {kind === 'digital' && (
+    <div class="sv-list sv-glass">
+      <span class="sv-list-head">{copy.today}</span>
+      {copy.tasks.map((task) => (
+        <span class="sv-task">
+          <span class="sv-check">
+            <svg viewBox="0 0 24 24" width="12" height="12"><path d={check} pathLength="100" /></svg>
+          </span>
+          {task}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {kind === 'store' && (
+    <div class="sv-shop sv-glass">
+      <span class="sv-product-img">
+        <svg viewBox="0 0 24 24" width="34" height="34"><path d="M6 8h12l-1 12H7L6 8z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg>
+      </span>
+      <span class="sv-product-row">
+        <span class="sv-product-text">
+          <strong>{copy.product}</strong>
+          <span>{copy.price}</span>
+        </span>
+        <span class="sv-add">{copy.add}</span>
+      </span>
+      <div class="sv-sheet sv-glass">
+        <span class="sv-paid-icon">
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d={check} pathLength="100" /></svg>
+        </span>
+        <span class="sv-product-text">
+          <strong>{copy.paid}</strong>
+          <span>{copy.price}</span>
+        </span>
+      </div>
+    </div>
+  )}
+
+  {kind === 'software' && (
+    <div class="sv-dash sv-glass">
+      <span class="sv-dash-head">
+        <span>{copy.metric}</span>
+        <strong class="sv-growth">{copy.growth}</strong>
+      </span>
+      <svg class="sv-chart" viewBox="0 0 200 80" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id={`sv-area-${theme}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="currentColor" stop-opacity="0.22" />
+            <stop offset="1" stop-color="currentColor" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <path class="sv-area" d="M0 62 C 22 60, 30 48, 50 50 S 82 58, 100 40 S 136 34, 150 26 S 182 14, 200 8 L 200 80 L 0 80 Z" fill={`url(#sv-area-${theme})`} />
+        <path class="sv-line" d="M0 62 C 22 60, 30 48, 50 50 S 82 58, 100 40 S 136 34, 150 26 S 182 14, 200 8" pathLength="100" />
+      </svg>
+      <span class="sv-dash-axis"><i></i><i></i><i></i><i></i><i></i></span>
+    </div>
+  )}
+
+  {kind === 'ai' && (
+    <div class="sv-chat">
+      <span class="sv-bubble sv-bubble--me">{copy.ask}</span>
+      <span class="sv-typing sv-glass"><i></i><i></i><i></i></span>
+      <span class="sv-bubble sv-bubble--bot sv-glass">{copy.answer}</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .sv {
+    --sv-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-family: inherit;
+    letter-spacing: -0.01em;
+    color: var(--sv-fg);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .sv--dark {
+    --sv-fg: rgba(255, 255, 255, 0.94);
+    --sv-fg-2: rgba(255, 255, 255, 0.55);
+    --sv-fg-3: rgba(255, 255, 255, 0.14);
+    --sv-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+    --sv-rim: inset 0 1px 0.5px rgba(255, 255, 255, 0.25), inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+    --sv-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+    --sv-ok: #30d158;
+    --sv-solid: #26272b;
+    --sv-me-bg: #f2f1ec;
+    --sv-me-fg: #0a0a0a;
+  }
+
+  .sv--light {
+    --sv-fg: #0d0d0f;
+    --sv-fg-2: rgba(0, 0, 0, 0.52);
+    --sv-fg-3: rgba(0, 0, 0, 0.09);
+    --sv-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
+    --sv-rim: inset 0 1px 0.5px #fff, inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+    --sv-shadow: 0 14px 34px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --sv-ok: #1f8a3c;
+    --sv-solid: #fff;
+    --sv-me-bg: #111113;
+    --sv-me-fg: #fff;
+  }
+
+  .sv-glass {
+    background: var(--sv-glass);
+    box-shadow: var(--sv-rim), var(--sv-shadow);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+  }
+
+  /* ---------- Apps: a notification lands on the lock screen ---------- */
+  .sv-apps {
+    place-items: start center;
+    overflow: hidden;
+  }
+  .sv-phone {
+    position: relative;
+    width: 168px;
+    height: 200px; /* taller than the scene: the phone runs off the bottom */
+    margin-top: 8px;
+    flex: none;
+    border-radius: 30px;
+    background:
+      radial-gradient(120% 70% at 30% 0%, #3a3f48 0%, transparent 60%),
+      radial-gradient(90% 60% at 100% 40%, #2b2f2a 0%, transparent 70%),
+      #121316;
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.16),
+      0 0 0 4px #1b1c1f,
+      0 0 0 5px rgba(255, 255, 255, 0.12),
+      0 20px 40px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 92%);
+    mask-image: linear-gradient(180deg, #000 62%, transparent 92%);
+  }
+  .sv-island {
+    width: 44px;
+    height: 13px;
+    margin-top: 8px;
+    border-radius: 10px;
+    background: #000;
+  }
+  .sv-date {
+    order: -1;
+    position: absolute;
+    top: 30px;
+    font-size: 8px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .sv-time {
+    margin-top: 16px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .sv-notif {
+    position: absolute;
+    top: 86px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 8px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.16));
+    box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.45), inset 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 8px 18px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    animation: svNotif 7s var(--sv-ease-spring) infinite;
+  }
+  .sv-app-icon {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #b9f3d2, #4fc58a);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .sv-notif-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    font-size: 8px;
+    line-height: 1.3;
+  }
+  .sv-notif-text strong { font-weight: 700; }
+  .sv-notif-text span { color: rgba(255, 255, 255, 0.8); white-space: nowrap; }
+  .sv-notif-when {
+    align-self: flex-start;
+    margin-left: auto;
+    font-size: 7px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  @keyframes svNotif {
+    0%, 8% { transform: translateY(-56px) scale(0.9); opacity: 0; }
+    16%, 72% { transform: none; opacity: 1; }
+    80%, 100% { transform: translateY(-56px) scale(0.9); opacity: 0; }
+  }
+
+  /* ---------- Web: the page loads and scores 100 ---------- */
+  @property --sv-n {
+    syntax: '<integer>';
+    inherits: false;
+    initial-value: 0;
+  }
+  .sv-browser {
+    width: 230px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .sv-browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-bottom: 0.5px solid var(--sv-fg-3);
+  }
+  .sv-dots { display: flex; gap: 4px; }
+  .sv-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--sv-fg-3); }
+  .sv-url {
+    flex: 1;
+    padding: 3px 8px;
+    border-radius: 7px;
+    background: var(--sv-fg-3);
+    font-size: 8px;
+    color: var(--sv-fg-2);
+    text-align: center;
+  }
+  .sv-browser-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px 16px;
+  }
+  .sv-gauge { position: relative; width: 64px; height: 64px; flex: none; }
+  .sv-gauge svg { transform: rotate(-90deg); }
+  .sv-gauge circle { fill: none; stroke-width: 5; }
+  .sv-gauge-track { stroke: var(--sv-fg-3); }
+  .sv-gauge-fill {
+    stroke: var(--sv-ok);
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    animation: svGauge 6s cubic-bezier(0.3, 0.7, 0.2, 1) infinite;
+  }
+  .sv-score {
+    --sv-n: 100;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--sv-ok);
+    counter-reset: sv-n var(--sv-n);
+    animation: svCount 6s cubic-bezier(0.3, 0.7, 0.2, 1) infinite;
+  }
+  .sv-score::after { content: counter(sv-n); }
+  .sv-skeleton { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+  .sv-score-label { font-size: 10px; font-weight: 600; color: var(--sv-fg); }
+  .sv-skeleton i {
+    height: 7px;
+    border-radius: 4px;
+    background: var(--sv-fg-3);
+    transform-origin: left;
+    animation: svBar 6s var(--sv-ease-spring) infinite;
+  }
+  .sv-skeleton i:nth-of-type(2) { width: 78%; animation-delay: 0.12s; }
+  .sv-skeleton i:nth-of-type(3) { width: 56%; animation-delay: 0.24s; }
+  @keyframes svGauge {
+    0%, 6% { stroke-dashoffset: 100; opacity: 1; }
+    40%, 86% { stroke-dashoffset: 0; opacity: 1; }
+    94%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  @keyframes svCount {
+    0%, 6% { --sv-n: 0; opacity: 1; }
+    40%, 86% { --sv-n: 100; opacity: 1; }
+    94% { --sv-n: 100; opacity: 0; }
+    100% { --sv-n: 0; opacity: 0; }
+  }
+  @keyframes svBar {
+    0%, 4% { transform: scaleX(0); opacity: 0; }
+    14%, 88% { transform: none; opacity: 1; }
+    96%, 100% { transform: scaleX(0); opacity: 0; }
+  }
+
+  /* ---------- Digitalisation: the day's chores tick themselves off ---------- */
+  .sv-list {
+    width: 220px;
+    padding: 12px 14px 6px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sv-list-head {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--sv-fg-2);
+    margin-bottom: 4px;
+  }
+  .sv-task {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 0;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .sv-task + .sv-task { border-top: 0.5px solid var(--sv-fg-3); }
+  .sv-check {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--sv-ok);
+    box-shadow: inset 0 0 0 1.5px var(--sv-fg-3);
+    animation: svCheck 6s var(--sv-ease-spring) infinite;
+  }
+  .sv-check path,
+  .sv-paid-icon path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+  .sv-check path { animation: svTick 6s ease-out infinite; }
+  .sv-task:nth-of-type(2) .sv-check,
+  .sv-task:nth-of-type(2) .sv-check path { animation-delay: 0.7s; }
+  .sv-task:nth-of-type(3) .sv-check,
+  .sv-task:nth-of-type(3) .sv-check path { animation-delay: 1.4s; }
+  @keyframes svCheck {
+    0%, 10% { background-color: transparent; transform: scale(1); }
+    14% { background-color: var(--sv-ok); transform: scale(1.15); }
+    18%, 82% { background-color: var(--sv-ok); transform: scale(1); }
+    90%, 100% { background-color: transparent; transform: scale(1); }
+  }
+  @keyframes svTick {
+    0%, 12% { stroke-dashoffset: 100; }
+    20%, 82% { stroke-dashoffset: 0; opacity: 1; }
+    90%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+
+  /* ---------- Store: add to basket, pay, done ---------- */
+  .sv-shop {
+    position: relative;
+    width: 168px;
+    padding: 8px;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .sv-product-img {
+    display: grid;
+    place-items: center;
+    height: 72px;
+    border-radius: 12px;
+    background: linear-gradient(160deg, var(--sv-fg-3), transparent);
+  }
+  .sv-product-img path {
+    fill: none;
+    stroke: var(--sv-fg-2);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .sv-product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 8px 2px 2px;
+    animation: svRowOut 6s ease infinite;
+  }
+  .sv-product-text { display: flex; flex-direction: column; font-size: 10px; line-height: 1.35; }
+  .sv-product-text strong { font-weight: 600; }
+  .sv-product-text span { color: var(--sv-fg-2); }
+  .sv-add {
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--sv-me-bg);
+    color: var(--sv-me-fg);
+    font-size: 9px;
+    font-weight: 600;
+    animation: svPress 6s ease-in-out infinite;
+  }
+  .sv-sheet {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px;
+    border-radius: 14px;
+    /* Opaque, unlike the other glass: it covers the product row it replaces */
+    background: var(--sv-solid);
+    animation: svSheet 6s var(--sv-ease-spring) infinite;
+  }
+  .sv-paid-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--sv-ok);
+  }
+  .sv-paid-icon path { animation: svPaidTick 6s ease-out infinite; }
+  @keyframes svPress {
+    0%, 12%, 20%, 100% { transform: none; }
+    15% { transform: scale(0.88); }
+  }
+  @keyframes svSheet {
+    0%, 20% { transform: translateY(120%); opacity: 0; }
+    30%, 80% { transform: none; opacity: 1; }
+    90%, 100% { transform: translateY(120%); opacity: 0; }
+  }
+  @keyframes svRowOut {
+    0%, 20% { opacity: 1; }
+    26%, 82% { opacity: 0; }
+    92%, 100% { opacity: 1; }
+  }
+  @keyframes svPaidTick {
+    0%, 30% { stroke-dashoffset: 100; }
+    40%, 100% { stroke-dashoffset: 0; }
+  }
+
+  /* ---------- Custom software: a dashboard draws its trend ---------- */
+  .sv-dash {
+    width: 230px;
+    padding: 12px 14px 10px;
+    border-radius: 18px;
+    color: var(--sv-fg);
+  }
+  .sv-dash-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--sv-fg-2);
+  }
+  .sv-growth {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--sv-ok);
+    animation: svFade 6s ease infinite;
+  }
+  .sv-chart {
+    display: block;
+    width: 100%;
+    height: 70px;
+    margin-top: 6px;
+    overflow: visible;
+  }
+  .sv-line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    animation: svDraw 6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  }
+  .sv-area { animation: svFade 6s ease infinite; }
+  .sv-dash-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .sv-dash-axis i { width: 14px; height: 4px; border-radius: 2px; background: var(--sv-fg-3); }
+  @keyframes svDraw {
+    0%, 6% { stroke-dashoffset: 100; opacity: 1; }
+    50%, 86% { stroke-dashoffset: 0; opacity: 1; }
+    94%, 100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  @keyframes svFade {
+    0%, 40% { opacity: 0; transform: translateY(3px); }
+    52%, 86% { opacity: 1; transform: none; }
+    94%, 100% { opacity: 0; }
+  }
+
+  /* ---------- AI: ask a question, get a straight answer ---------- */
+  .sv-chat {
+    position: relative;
+    width: 236px;
+    height: 128px;
+  }
+  .sv-bubble,
+  .sv-typing {
+    position: absolute;
+    max-width: 180px;
+    padding: 8px 11px;
+    border-radius: 16px;
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+  .sv-bubble--me {
+    top: 8px;
+    right: 0;
+    border-bottom-right-radius: 5px;
+    background: var(--sv-me-bg);
+    color: var(--sv-me-fg);
+    transform-origin: bottom right;
+    animation: svAsk 7s var(--sv-ease-spring) infinite;
+  }
+  .sv-typing {
+    bottom: 22px;
+    left: 0;
+    display: flex;
+    gap: 3px;
+    border-bottom-left-radius: 5px;
+    opacity: 0;
+    animation: svTyping 7s ease infinite;
+  }
+  .sv-typing i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--sv-fg-2);
+    animation: svDot 0.9s ease-in-out infinite;
+  }
+  .sv-typing i:nth-child(2) { animation-delay: 0.15s; }
+  .sv-typing i:nth-child(3) { animation-delay: 0.3s; }
+  .sv-bubble--bot {
+    bottom: 8px;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    transform-origin: bottom left;
+    animation: svAnswer 7s var(--sv-ease-spring) infinite;
+  }
+  @keyframes svAsk {
+    0%, 6% { transform: scale(0.6); opacity: 0; }
+    13%, 86% { transform: none; opacity: 1; }
+    94%, 100% { transform: none; opacity: 0; }
+  }
+  @keyframes svTyping {
+    0%, 17% { opacity: 0; transform: scale(0.8); }
+    21%, 40% { opacity: 1; transform: none; }
+    43%, 100% { opacity: 0; transform: scale(0.8); }
+  }
+  @keyframes svDot {
+    0%, 100% { transform: none; opacity: 0.5; }
+    40% { transform: translateY(-3px); opacity: 1; }
+  }
+  @keyframes svAnswer {
+    0%, 42% { transform: scale(0.6); opacity: 0; }
+    49%, 86% { transform: none; opacity: 1; }
+    94%, 100% { transform: none; opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sv *,
+    .sv *::after {
+      animation: none !important;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .sv-glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+</style>

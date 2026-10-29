@@ -2,8 +2,8 @@
 title: "Tienda online: plataforma o desarrollo a medida (y el punto medio que casi siempre gana)"
 slug: "tienda-online-a-medida-o-plataforma"
 description: "Shopify, WooCommerce o e-commerce a medida: costes reales, comisiones, límites de cada opción y cómo decidir según tu catálogo, tu volumen y tu operativa."
-date: "2026-08-08"
-tags: ["E-commerce", "Tiendas Online", "Estrategia"]
+date: "2026-10-14"
+tags: ["E-commerce", "Tiendas online", "Estrategia"]
 readingTime: "8 min"
 image: "../../assets/blog/ecommerce_choice.webp"
 ---

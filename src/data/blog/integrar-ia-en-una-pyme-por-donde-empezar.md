@@ -2,8 +2,8 @@
 title: "Integrar IA en una pyme: por dónde empezar sin quemar el presupuesto"
 slug: "integrar-ia-en-una-pyme-por-donde-empezar"
 description: "Cómo aplicar inteligencia artificial en una pyme de forma útil: qué casos compensan de verdad, qué cuesta, qué riesgos hay y cómo evitar proyectos que no aportan nada."
-date: "2026-08-08"
-tags: ["Inteligencia Artificial", "Digitalización", "Automatización"]
+date: "2026-10-21"
+tags: ["Inteligencia artificial", "Digitalización", "Automatización"]
 readingTime: "9 min"
 image: "../../assets/blog/ai_for_smes.webp"
 ---

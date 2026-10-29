@@ -154,9 +154,9 @@ const F = formTranslations[lang] || formTranslations.es;
   <div class="card-bg-glow glow-2"></div>
 
   <div class="contact-container">
-    
+
     <div class="contact-grid-layout">
-      
+
       <!-- LEFT COLUMN: Contact Form -->
       <div class="form-glass-card">
         <!-- Mouse cursor light spotlight -->
@@ -186,7 +186,7 @@ const F = formTranslations[lang] || formTranslations.es;
         </p>
 
         <form id="ajax-contact-form" action={actionUrl} method="POST" class="form-grid">
-          
+
           <!-- Name -->
           <div class="form-field">
             <label for="form-name" class="form-label">{F.name} *</label>
@@ -341,7 +341,7 @@ const F = formTranslations[lang] || formTranslations.es;
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
             </div>
-            
+
             <div class="calendar-weekdays" id="calendar-weekdays-grid">
               <!-- Rendered dynamically -->
             </div>
@@ -618,11 +618,10 @@ const F = formTranslations[lang] || formTranslations.es;
 
   /* Muted Elegant Labels */
   .form-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(0, 0, 0, 0.45);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink-subtle);
     margin-left: 0.2rem;
     transition: color 0.2s ease;
   }
@@ -852,7 +851,7 @@ const F = formTranslations[lang] || formTranslations.es;
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 100px;
-    
+
     /* Pioneers CTA glass effect */
     background: rgba(20, 20, 20, 0.82) !important;
     backdrop-filter: blur(24px) saturate(180%) !important;
@@ -1110,11 +1109,10 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   :global(.calendar-weekday-lbl) {
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.86rem;
+    font-weight: 600;
     color: rgba(255, 255, 255, 0.35);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.005em;
   }
 
   .calendar-days {
@@ -1195,11 +1193,10 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   .time-slots-title {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.86rem;
+    font-weight: 600;
     color: rgba(255, 255, 255, 0.35);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: -0.005em;
   }
 
   .time-slots-grid {
@@ -1251,11 +1248,10 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   .booking-email-label {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.86rem;
+    font-weight: 600;
     color: rgba(255, 255, 255, 0.35);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: -0.005em;
   }
 
   .booking-email-row {
@@ -1356,10 +1352,9 @@ const F = formTranslations[lang] || formTranslations.es;
   }
 
   .booking-field-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(255, 255, 255, 0.32);
   }
 
@@ -1790,7 +1785,7 @@ const F = formTranslations[lang] || formTranslations.es;
             dayBtn.disabled = true;
           } else {
             dayBtn.classList.add("available");
-            
+
             if (selectedDateObj && 
                 selectedDateObj.getDate() === day && 
                 selectedDateObj.getMonth() === calendarMonth && 
@@ -2182,7 +2177,7 @@ const F = formTranslations[lang] || formTranslations.es;
     // ----------------------------------------
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      
+
       const currentLang = document.documentElement.lang || "es";
       const activeF = formCopy;
 
@@ -2309,13 +2304,13 @@ const F = formTranslations[lang] || formTranslations.es;
         const email   = document.getElementById("booking-email-input")?.value?.trim();
         const company = document.getElementById("booking-company-input")?.value?.trim();
         const guestInputs = document.querySelectorAll(".booking-guest-email-input");
-        
+
         // Validate guest email formats
         let allGuestsValid = true;
         let invalidGuestInput = null;
         const guests = [];
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        
+
         for (const input of guestInputs) {
           const val = input.value.trim();
           if (val) {
@@ -2429,7 +2424,7 @@ const F = formTranslations[lang] || formTranslations.es;
       // Toggle dropdown open
       trigger.addEventListener("click", (e) => {
         e.stopPropagation();
-        
+
         // Close other custom selects first
         customSelects.forEach(other => {
           if (other !== container) {
@@ -2450,7 +2445,7 @@ const F = formTranslations[lang] || formTranslations.es;
         option.addEventListener("click", (e) => {
           e.stopPropagation();
           const val = option.getAttribute("data-value");
-          
+
           // Set native select value
           nativeSelect.value = val;
           nativeSelect.dispatchEvent(new Event("change"));

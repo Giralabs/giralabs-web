@@ -2,8 +2,8 @@
 title: "App nativa, multiplataforma o web app: cuál elegir según tu negocio (y no según la moda)"
 slug: "app-nativa-multiplataforma-o-web-cual-elegir"
 description: "Diferencias reales entre app nativa, multiplataforma con Flutter y web app progresiva. Qué elegir según presupuesto, tipo de usuario y necesidades técnicas de tu empresa."
-date: "2026-08-06"
-tags: ["Aplicaciones Móviles", "Flutter", "Arquitectura"]
+date: "2026-08-12"
+tags: ["Aplicaciones móviles", "Flutter", "Arquitectura"]
 readingTime: "8 min"
 image: "../../assets/blog/native_vs_cross.webp"
 ---

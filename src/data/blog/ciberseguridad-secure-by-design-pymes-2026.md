@@ -2,8 +2,8 @@
 title: "Ciberseguridad 'secure by design': por qué en 2026 ya no basta con proteger, hay que diseñar seguro desde el primer día"
 slug: "ciberseguridad-secure-by-design-pymes-2026"
 description: "Descubre qué es la ciberseguridad secure by design y cómo esta normativa europea en 2026 ayuda a tu pyme a evitar sobrecostes en el desarrollo de software."
-date: "2026-07-17"
-tags: ["Ciberseguridad", "Secure by Design", "Software a Medida"]
+date: "2026-06-16"
+tags: ["Ciberseguridad", "Secure by Design", "Software a medida"]
 readingTime: "8 min"
 image: "../../assets/blog/secure_by_design.webp"
 ---

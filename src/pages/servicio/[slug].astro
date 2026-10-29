@@ -103,10 +103,6 @@ const breadcrumbSchema = {
   ]
 };
 
-
-
-
-
 const faqItems = [1, 2, 3, 4, 5].map(num => {
   const qKey = `service_${index}_faq_q${num}` as const;
   const aKey = `service_${index}_faq_a${num}` as const;
@@ -137,9 +133,6 @@ const faqSchema = {
   description={T.meta_description}
   lang={defaultLang}
 >
-  <div class="grid-bg" aria-hidden="true"></div>
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <Navbar lang={defaultLang} />
 
@@ -180,7 +173,7 @@ const faqSchema = {
 
     <!-- Dashboard Widget Section -->
     <div class="dashboard-section reveal">
-      
+
       <!-- Phase tabs selector -->
       <div class="dashboard-tabs">
         {[1, 2, 3, 4, 5].map((num) => {
@@ -196,7 +189,7 @@ const faqSchema = {
 
       <!-- Content Grid -->
       <div class="details-grid reveal is-active" id={`service-block-${index}`}>
-        
+
         <!-- Info Column -->
         <section class="details-info-panel fade-transition">
           <div class="details-header">
@@ -532,7 +525,7 @@ const faqSchema = {
                         <path d="M 10 5 L 90 5 L 60 55 L 40 55 Z" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
                         <line x1="40" y1="55" x2="40" y2="75" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
                         <line x1="60" y1="55" x2="60" y2="75" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
-                        
+
                         {/* Flowing dots representing conversions */}
                         <circle cx="50" cy="8" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-1" />
                         <circle cx="35" cy="15" r="2.5" fill="var(--accent-color-1)" class="funnel-dot dot-2" />
@@ -911,8 +904,6 @@ const faqSchema = {
     </div>
   </section>
 
-
-
   <!-- ==================== FAQ SECTION ==================== -->
   <Faq lang={defaultLang} items={faqItems} title={T.faq_title_service} eyebrow={T.faq_label_service} />
 
@@ -1066,33 +1057,6 @@ const faqSchema = {
     --team-rgb-2: 75, 85, 99;
   }
 
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.07;
-  }
-
-  .glow-top { top: -200px; right: -100px; background: radial-gradient(circle, rgba(255, 210, 150, 0.12) 0%, transparent 65%); }
-  .glow-bottom { bottom: -250px; left: -150px; background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%); }
-
   /* Breadcrumb */
   .details-breadcrumb { position: relative; z-index: 2; padding: 7rem 2rem 1rem; }
   .breadcrumb-inner { max-width: 1050px; margin: 0 auto; }
@@ -1145,7 +1109,7 @@ const faqSchema = {
 
   .details-info-panel { display: flex; flex-direction: column; align-items: flex-start; }
   .details-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  
+
   .details-num {
     font-size: 1.6rem;
     font-weight: 800;
@@ -1173,12 +1137,7 @@ const faqSchema = {
     margin: 0 0 1.2rem;
     letter-spacing: -0.04em;
     line-height: 1.15;
-    background: linear-gradient(135deg, #000000 40%, var(--accent-color-1) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    padding-right: 0.15em; /* Avoid clipping text with background-clip: text */
+    color: #000;
   }
 
   .details-desc { font-size: 1.02rem; color: rgba(0, 0, 0, 0.7); line-height: 1.6; margin: 0 0 1rem; font-weight: 500; }
@@ -1200,7 +1159,7 @@ const faqSchema = {
     box-shadow: 0 12px 36px rgba(var(--accent-rgb-1), 0.03);
   }
 
-  .includes-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin: 0 0 1rem; }
+  .includes-title { font-size: 0.86rem; font-weight: 600; letter-spacing: -0.005em; color: var(--ink-subtle); margin: 0 0 1rem; }
   .includes-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
   .includes-list li { display: flex; align-items: center; gap: 0.9rem; font-size: 0.88rem; color: rgba(0, 0, 0, 0.8); transition: transform 0.25s ease, color 0.25s ease; }
   .includes-list li:hover { transform: translateX(4px); color: #000; }
@@ -1234,7 +1193,7 @@ const faqSchema = {
 
   /* Visual panel card structure */
   .details-visual-panel { display: flex; justify-content: center; width: 100%; }
-  
+
   .service-glass-card {
     display: flex;
     width: 100%;
@@ -1321,10 +1280,9 @@ const faqSchema = {
   .details-hero { position: relative; padding: 3rem 2rem 1.5rem; z-index: 1; text-align: center; }
   .hero-inner { max-width: 800px; margin: 0 auto; }
   .hero-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: var(--accent-color-1);
     display: inline-block;
     margin-bottom: 0.8rem;
@@ -1339,7 +1297,7 @@ const faqSchema = {
   /* Dashboard Tabs Layout */
   .dashboard-section { max-width: 1050px; margin: 1.5rem auto 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
   .dashboard-tabs { display: flex; gap: 0.75rem; justify-content: center; width: 100%; position: relative; z-index: 5; padding: 0.25rem; }
-  
+
   .tab-btn {
     display: flex;
     flex-direction: column;
@@ -1633,7 +1591,7 @@ const faqSchema = {
   .next-card-content { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 0.6rem; }
   .next-header { display: flex; align-items: center; gap: 1rem; }
   .next-num { font-size: 1.1rem; font-weight: 800; font-family: monospace; color: rgba(0, 0, 0, 0.4); opacity: 0.7; transition: all 0.3s ease; }
-  .next-lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0, 0, 0, 0.4); }
+  .next-lbl { font-size: 0.86rem; font-weight: 600; letter-spacing: -0.005em; color: var(--ink-subtle); }
   .next-title-link-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 2rem; }
   .next-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #000; margin: 0; transition: all 0.3s ease; }
   .next-arrow-circle { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #000; color: #fff; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); flex-shrink: 0; }
@@ -1685,7 +1643,7 @@ const faqSchema = {
   .details-grid.is-active .checklist-item.item-1 { animation: checkIn 4s infinite ease-in-out; }
   .details-grid.is-active .checklist-item.item-2 { animation: checkIn 4s infinite ease-in-out; animation-delay: 0.8s; }
   .details-grid.is-active .checklist-item.item-3 { animation: checkIn 4s infinite ease-in-out; animation-delay: 1.6s; }
-  
+
   .details-grid.is-active .item-1 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; }
   .details-grid.is-active .item-2 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; animation-delay: 0.8s; }
   .details-grid.is-active .item-3 .check-box-icon { animation: strokeCheck 4s infinite ease-in-out; animation-delay: 1.6s; }
@@ -1743,7 +1701,7 @@ const faqSchema = {
     width: 65px;
     text-align: center;
   }
-  
+
   .details-grid.is-active .packet-1 { animation: packetFlowLeft 3s infinite linear; }
   .details-grid.is-active .packet-2 { animation: packetFlowRight 3s infinite linear; }
 
@@ -1862,7 +1820,7 @@ const faqSchema = {
     border-radius: 10px;
     width: 0;
   }
-  
+
   .details-grid.is-active .bar-1 { animation: loadProgress 4s infinite ease-in-out; }
   .details-grid.is-active .bar-2 { animation: loadProgress 4s infinite ease-in-out; animation-delay: 0.5s; }
   .details-grid.is-active .bar-3 { animation: loadProgress 4s infinite ease-in-out; animation-delay: 1s; }
@@ -1897,7 +1855,7 @@ const faqSchema = {
     box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
   }
   .details-grid.is-active .monitor-pulse { animation: monitorPulseAnim 1.8s infinite alternate ease-in-out; }
-  
+
   .monitor-status {
     font-size: 0.58rem;
     font-weight: 800;
@@ -2322,7 +2280,7 @@ const faqSchema = {
     color: rgba(0,0,0,0.7);
     box-shadow: 0 4px 10px rgba(0,0,0,0.01);
   }
-  
+
   .details-grid.is-active .card-doing { animation: kanbanMoveDoing 4s infinite ease-in-out; }
   .details-grid.is-active .card-todo { animation: kanbanMoveTodo 4s infinite ease-in-out; }
 
@@ -2497,7 +2455,7 @@ const faqSchema = {
     color: #22c55e;
     font-weight: 700;
   }
-  
+
   .details-grid.is-active .test-row { animation: terminalTestFlow 3s infinite ease-in-out; }
   @keyframes terminalTestFlow {
     0%, 100% { opacity: 0; transform: translateX(-3px); }
@@ -2889,11 +2847,10 @@ const faqSchema = {
     margin-bottom: 3.5rem;
   }
   .related-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: #ff7d54;
-    text-transform: uppercase;
     display: block;
     margin-bottom: 0.6rem;
   }
@@ -2957,11 +2914,10 @@ const faqSchema = {
     z-index: 2;
   }
   .related-card-tag {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
     display: block;
     margin-bottom: 0.5rem;
   }

@@ -9,9 +9,9 @@ const isEs = lang !== 'en';
 
 const t = isEs
   ? {
-      eyebrow: 'BETA DE BIPSY BUSINESS',
-      title: 'Apúntate como negocio piloto',
-      intro: 'Déjanos tres datos y te escribimos cuando abramos la beta. Sin coste y sin compromiso.',
+      eyebrow: 'Prueba gratis de Bipsy Business',
+      title: 'Apúntate para probarlo gratis',
+      intro: 'Déjanos estos tres datos y te escribimos cuando puedas empezar a usarlo. Es gratis y no te compromete a nada.',
       venue: 'Nombre del local',
       venuePlaceholder: 'Tu local',
       phone: 'Teléfono',
@@ -26,14 +26,14 @@ const t = isEs
       errorPhone: 'Revisa el número de teléfono.',
       errorSend: 'No hemos podido enviar la solicitud. Inténtalo de nuevo o escríbenos a soporte@giralabs.es.',
       successTitle: '¡Anotado!',
-      successBody: 'Te avisaremos en cuanto abramos la beta de Bipsy Business.',
+      successBody: 'Te avisaremos en cuanto puedas empezar a usar Bipsy Business.',
       successClose: 'Cerrar',
       subject: 'Bipsy — Nueva solicitud de negocio piloto',
     }
   : {
-      eyebrow: 'BIPSY BUSINESS BETA',
-      title: 'Sign up as a pilot venue',
-      intro: 'Leave us three details and we will write to you when the beta opens. No cost, no commitment.',
+      eyebrow: 'Bipsy Business free trial',
+      title: 'Sign up to try it for free',
+      intro: 'Leave us these three details and we will write to you as soon as you can start using it. It is free and there is no commitment.',
       venue: 'Venue name',
       venuePlaceholder: 'Your venue',
       phone: 'Phone',
@@ -48,7 +48,7 @@ const t = isEs
       errorPhone: 'Please check the phone number.',
       errorSend: 'We could not send your request. Try again or email us at soporte@giralabs.es.',
       successTitle: 'All set!',
-      successBody: 'We will let you know as soon as the Bipsy Business beta opens.',
+      successBody: 'We will let you know as soon as you can start using Bipsy Business.',
       successClose: 'Close',
       subject: 'Bipsy — New pilot venue request',
     };
@@ -339,10 +339,9 @@ const t = isEs
   }
 
   .pilot-eyebrow {
-    font-size: 0.64rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
     color: var(--mint-deep);
     margin: 0 0 0.7rem;
   }

@@ -1,0 +1,397 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import CTAContact from '../CTAContact.astro';
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  posts: any[];
+  lang: 'es' | 'en';
+}
+
+const { posts: unsorted, lang } = Astro.props;
+const T = translations[lang];
+
+const L = {
+  es: {
+    locale: 'es-ES',
+    href: (s: string) => `/blog/${s}`,
+    read: 'de lectura',
+    latest: 'Lo último',
+    all: 'Todos los artículos',
+    subTitle: 'Recibe los nuevos artículos',
+    subText: 'Te escribimos cuando publiquemos algo nuevo. Nada más.',
+    email: 'Tu correo',
+    error: 'Revisa el correo, parece que falta algo.',
+  },
+  en: {
+    locale: 'en-GB',
+    href: (s: string) => `/en/blog/${s}`,
+    read: 'read',
+    latest: 'Latest',
+    all: 'All articles',
+    subTitle: 'Get new articles by email',
+    subText: 'We write when we publish something new. Nothing else.',
+    email: 'Your email',
+    error: 'Check the address, something seems to be missing.',
+  },
+}[lang];
+
+const posts = [...unsorted].sort(
+  (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+);
+const [featured, ...rest] = posts;
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString(L.locale, { year: 'numeric', month: 'long', day: 'numeric' });
+
+const blogImages = import.meta.glob<{ default: ImageMetadata }>('../../assets/blog/*', { eager: true });
+const imageFor = (p: string | undefined) =>
+  p ? blogImages['../../assets/blog/' + p.split('/').pop()]?.default ?? null : null;
+---
+
+<Layout title={`${T.meta_title} | ${T.blog_meta_title}`} description={T.blog_meta_description} lang={lang}>
+  <Navbar lang={lang} />
+
+  <main id="main-content" tabindex="-1" class="bi">
+    <header class="bi-head">
+      <h1 class="bi-title">{T.blog_page_title}</h1>
+      <p class="bi-sub">{T.blog_page_subtitle}</p>
+    </header>
+
+    {featured && (() => {
+      const f = featured.frontmatter;
+      const img = imageFor(f.image);
+      return (
+        <section aria-labelledby="bi-latest">
+          <h2 id="bi-latest" class="bi-section">{L.latest}</h2>
+          <a href={L.href(f.slug)} class="bi-feature lg lg-press">
+            {img && (
+              <Image src={img} alt="" widths={[640, 960, 1200]} sizes="(max-width: 900px) 100vw, 620px" class="bi-feature-img" loading="eager" fetchpriority="high" />
+            )}
+            <span class="bi-feature-text">
+              {f.tags?.[0] && <span class="bi-kicker">{f.tags[0]}</span>}
+              <span class="bi-feature-title">{f.title}</span>
+              <span class="bi-excerpt">{f.description}</span>
+              <span class="bi-meta"><time datetime={f.date}>{fmt(f.date)}</time>, {f.readingTime} {L.read}</span>
+            </span>
+          </a>
+        </section>
+      );
+    })()}
+
+    {rest.length > 0 && (
+      <section aria-labelledby="bi-all">
+        <h2 id="bi-all" class="bi-section">{L.all}</h2>
+        <ul class="bi-grid" role="list">
+          {rest.map((p) => {
+            const f = p.frontmatter;
+            const img = imageFor(f.image);
+            return (
+              <li>
+                <a href={L.href(f.slug)} class="bi-card lg lg-press">
+                  {img && <Image src={img} alt="" widths={[400, 640, 800]} sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 340px" class="bi-card-img" />}
+                  <span class="bi-card-text">
+                    {f.tags?.[0] && <span class="bi-kicker">{f.tags[0]}</span>}
+                    <span class="bi-card-title">{f.title}</span>
+                    <span class="bi-meta"><time datetime={f.date}>{fmt(f.date)}</time></span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+
+    <section class="bi-news lg" aria-labelledby="bi-news-title" data-lang={lang}>
+      <div class="bi-news-copy">
+        <h2 id="bi-news-title" class="bi-news-title">{L.subTitle}</h2>
+        <p class="bi-news-text">{L.subText}</p>
+      </div>
+      <form class="bi-form" id="newsletter-form" novalidate>
+        <label class="sr-only" for="newsletter-email">{L.email}</label>
+        <input id="newsletter-email" type="email" required autocomplete="email" placeholder={L.email} class="bi-input" aria-describedby="newsletter-msg" />
+        <button type="submit" class="bi-btn lg-press" id="newsletter-submit-btn">{T.blog_subscribe_btn}</button>
+      </form>
+      <p class="bi-msg" id="newsletter-msg" role="status" aria-live="polite" data-error={L.error} data-success={T.blog_subscribe_success}></p>
+    </section>
+  </main>
+
+  <CTAContact lang={lang} />
+  <Footer lang={lang} />
+</Layout>
+
+<script>
+  const box = document.querySelector<HTMLElement>('.bi-news');
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const input = document.getElementById('newsletter-email') as HTMLInputElement | null;
+  const btn = document.getElementById('newsletter-submit-btn') as HTMLButtonElement | null;
+  const msg = document.getElementById('newsletter-msg');
+
+  const done = () => {
+    box?.classList.add('is-done');
+    if (msg) msg.textContent = msg.dataset.success || '';
+  };
+
+  try {
+    if (localStorage.getItem('giralabs-subscribed') === 'true') done();
+  } catch {}
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!input || !btn || !msg) return;
+    const email = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      input.setAttribute('aria-invalid', 'true');
+      msg.textContent = msg.dataset.error || '';
+      input.focus();
+      return;
+    }
+    input.removeAttribute('aria-invalid');
+    msg.textContent = '';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, lang: box?.dataset.lang || 'es' }),
+      });
+      if (!res.ok) throw new Error('Subscription failed');
+      try { localStorage.setItem('giralabs-subscribed', 'true'); } catch {}
+      done();
+    } catch {
+      input.setAttribute('aria-invalid', 'true');
+      msg.textContent = msg.dataset.error || '';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  input?.addEventListener('input', () => input.removeAttribute('aria-invalid'));
+</script>
+
+<style>
+  .bi {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8rem 16px 0;
+  }
+
+  .bi-head { margin-bottom: 3rem; }
+  .bi-title {
+    margin: 0;
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .bi-sub {
+    margin: 1rem 0 0;
+    max-width: 560px;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .bi-section {
+    margin: 0 0 1.1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+
+  .bi-kicker {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #c2410c;
+  }
+  .bi-meta {
+    font-size: 0.85rem;
+    color: var(--ink-subtle);
+  }
+  .bi-excerpt {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ---------- Featured ---------- */
+  .bi-feature {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    border-radius: 32px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--ink);
+    margin-bottom: 4rem;
+  }
+  .bi-feature :global(.bi-feature-img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 340px;
+    object-fit: cover;
+  }
+  .bi-feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 2.4rem 2.6rem;
+  }
+  .bi-feature-title {
+    font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  /* ---------- Grid ---------- */
+  .bi-grid {
+    list-style: none;
+    margin: 0 0 4.5rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+  }
+  .bi-grid li { display: flex; }
+  .bi-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 26px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .bi-card :global(.bi-card-img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .bi-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    flex: 1;
+    padding: 1.1rem 1.25rem 1.35rem;
+  }
+  .bi-card-title {
+    flex: 1;
+    font-size: 1.06rem;
+    font-weight: 650;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .bi-feature :global(img),
+  .bi-card :global(img) {
+    transition: transform 0.6s var(--ease-out);
+  }
+  @media (hover: hover) {
+    .bi-feature:hover :global(img),
+    .bi-card:hover :global(img) { transform: scale(1.03); }
+  }
+
+  /* ---------- Newsletter ---------- */
+  .bi-news {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 420px);
+    align-items: center;
+    gap: 1.2rem 2.5rem;
+    padding: 2.2rem 2.4rem;
+    border-radius: 30px;
+    margin-bottom: 5rem;
+  }
+  .bi-news-title {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .bi-news-text { margin: 0.4rem 0 0; color: var(--ink-muted); line-height: 1.5; }
+  .bi-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 5px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+  .bi-input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 1rem;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .bi-input:focus { outline: none; }
+  .bi-form:focus-within { box-shadow: inset 0 0 0 2px var(--ink); }
+  .bi-input[aria-invalid='true'] { color: #b42318; }
+  .bi-btn {
+    height: 44px;
+    padding: 0 1.3rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .bi-btn:disabled { opacity: 0.5; cursor: progress; }
+  .bi-msg {
+    grid-column: 2;
+    margin: -0.4rem 0 0;
+    min-height: 1.2em;
+    padding-left: 1rem;
+    font-size: 0.88rem;
+    color: #b42318;
+  }
+  .bi-news.is-done .bi-form { display: none; }
+  .bi-news.is-done .bi-msg {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f7a44;
+  }
+
+  @media (max-width: 1000px) {
+    .bi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .bi-feature { grid-template-columns: 1fr; }
+    .bi-feature :global(.bi-feature-img) { min-height: 0; aspect-ratio: 3 / 2; }
+    .bi-feature-text { padding: 1.4rem 1.5rem 1.7rem; }
+    .bi-news { grid-template-columns: 1fr; padding: 1.8rem 1.5rem; }
+    .bi-msg { grid-column: 1; }
+  }
+  @media (max-width: 640px) {
+    .bi { padding-top: 6.5rem; }
+    .bi-grid { grid-template-columns: 1fr; }
+    .bi-feature, .bi-card { border-radius: 24px; }
+  }
+</style>

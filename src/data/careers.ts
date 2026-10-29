@@ -67,17 +67,17 @@ export const jobs: Job[] = [
     addressRegion: 'Andalucía',
     addressCountry: 'ES',
     es: {
-      title: 'Full Stack Developer (Flutter · Angular · Spring Boot)',
+      title: 'Full Stack Developer (Flutter, Angular y Spring Boot)',
       shortTitle: 'Full Stack Developer',
-      metaTitle: 'Oferta de empleo: Full Stack Developer Flutter, Angular y Spring · Bipsy',
+      metaTitle: 'Oferta de empleo: Full Stack Developer Flutter, Angular y Spring en Bipsy',
       metaDescription:
         'Buscamos Full Stack Developer con 1 año de experiencia en Flutter, Angular y Spring Boot para construir Bipsy, la plataforma de reservas de Giralabs. Envía tu CV.',
       summary:
         'Buscamos a una persona desarrolladora full stack que quiera construir producto propio de principio a fin: apps móviles en Flutter, paneles web en Angular y servicios en Spring Boot. Trabajarás en Bipsy, la plataforma de reservas para barberías, peluquerías y centros de estética que estamos creando en Giralabs.',
-      department: 'Producto · Bipsy',
+      department: 'Producto, Bipsy',
       location: 'Sevilla, España',
       workplace: 'Híbrido (Sevilla) o remoto desde España',
-      employmentType: 'Jornada completa · Contrato indefinido',
+      employmentType: 'Jornada completa, contrato indefinido',
       experience: 'Mínimo 1 año de experiencia profesional',
       salary: 'Según experiencia y valía',
       aboutProduct: [
@@ -136,17 +136,17 @@ export const jobs: Job[] = [
       ],
     },
     en: {
-      title: 'Full Stack Developer (Flutter · Angular · Spring Boot)',
+      title: 'Full Stack Developer (Flutter, Angular and Spring Boot)',
       shortTitle: 'Full Stack Developer',
-      metaTitle: 'Job opening: Full Stack Developer Flutter, Angular & Spring · Bipsy',
+      metaTitle: 'Job opening: Full Stack Developer Flutter, Angular & Spring at Bipsy',
       metaDescription:
         'We are hiring a Full Stack Developer with 1 year of experience in Flutter, Angular and Spring Boot to build Bipsy, the booking platform by Giralabs. Send your CV.',
       summary:
         'We are looking for a full stack developer who wants to build a product end to end: mobile apps in Flutter, web dashboards in Angular and services in Spring Boot. You will work on Bipsy, the booking platform for barbershops, hair salons and beauty studios we are building at Giralabs.',
-      department: 'Product · Bipsy',
+      department: 'Product, Bipsy',
       location: 'Seville, Spain',
       workplace: 'Hybrid (Seville) or remote from Spain',
-      employmentType: 'Full time · Permanent contract',
+      employmentType: 'Full time, permanent contract',
       experience: 'At least 1 year of professional experience',
       salary: 'Based on experience',
       aboutProduct: [

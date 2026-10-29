@@ -2,7 +2,7 @@
 title: "Mandatory electronic invoicing in Spain: what changes for SMEs in 2026 and how to prepare without headaches"
 slug: "mandatory-electronic-invoicing-smes-2026"
 description: "Discover how mandatory electronic invoicing in Spain will affect your SME in 2026 and how to prepare step-by-step to comply with the regulations."
-date: "2026-07-17"
+date: "2026-07-01"
 tags: ["Digitalization", "Regulations", "Custom Software"]
 readingTime: "8 min"
 image: "../../assets/blog/electronic_invoicing.webp"

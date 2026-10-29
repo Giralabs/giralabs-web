@@ -32,7 +32,7 @@ const bipSrc = bipHello.src;
       <img src={bipSrc} alt="" class="bipsy-mascot-img" width="135" height="240" loading="lazy" decoding="async" fetchpriority="low" />
     </div>
 
-    <div class="bipsy-card">
+    <div class="bipsy-card lg">
       <div class="bipsy-glow" aria-hidden="true"></div>
 
       <button class="bipsy-close" type="button" data-bipsy-close aria-label={T.bipsy_announce_close}>
@@ -59,7 +59,7 @@ const bipSrc = bipHello.src;
   </div>
 
   <!-- Collapsed state: a small pill that brings the notice back -->
-  <button class="bipsy-pill" type="button" data-bipsy-reopen aria-label={T.bipsy_announce_title}>
+  <button class="bipsy-pill lg" type="button" data-bipsy-reopen aria-label={T.bipsy_announce_title}>
     <span class="bipsy-pill-avatar" aria-hidden="true">
       <img src={bipSrc} alt="" width="60" height="107" loading="lazy" decoding="async" fetchpriority="low" />
     </span>
@@ -150,13 +150,7 @@ const bipSrc = bipHello.src;
     cursor: pointer;
     font-family: inherit;
     white-space: nowrap;
-    background: rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.1),
-      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    /* Liquid Glass (.lg) supplies the material */
     opacity: 0;
     transform: translateY(16px) scale(0.92);
     transform-origin: bottom right;
@@ -174,9 +168,7 @@ const bipSrc = bipHello.src;
   }
 
   .bipsy-pill:hover {
-    box-shadow:
-      0 18px 40px rgba(0, 0, 0, 0.14),
-      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+    --lg-tint-top: rgba(255, 255, 255, 0.78);
   }
 
   .bipsy-pill-avatar {
@@ -302,14 +294,11 @@ const bipSrc = bipHello.src;
     overflow: hidden;
     padding: 1.5rem 1.5rem 1.4rem;
     border-radius: 24px;
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.14),
-      0 6px 18px rgba(0, 0, 0, 0.05),
-      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+    /* Liquid Glass (.lg), dense enough to read over any section */
+    --lg-tint-top: rgba(255, 255, 255, 0.8);
+    --lg-tint-bottom: rgba(255, 255, 255, 0.6);
+    --lg-blur: 28px;
+    --lg-light-size: 260px;
   }
 
   .bipsy-glow {

@@ -29,10 +29,7 @@ const breadcrumbSchema = {
   lang={lang}
 >
   <!-- Dot grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
   <!-- Ambient blobs -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
   <Navbar lang={lang} />
 
@@ -101,43 +98,10 @@ const breadcrumbSchema = {
 
 <style>
   /* ---- BACKGROUND ---- */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
 
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-  }
 
   /* Mint ambient: the page leads with Bipsy */
-  .glow-top {
-    top: -220px;
-    right: -120px;
-    background: radial-gradient(circle, rgba(192, 235, 209, 0.5) 0%, transparent 66%);
-    opacity: 0.45;
-  }
 
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(192, 235, 209, 0.32) 0%, transparent 70%);
-    opacity: 0.32;
-  }
 
   /* ---- HERO ---- */
   .projects-hero {
@@ -154,11 +118,10 @@ const breadcrumbSchema = {
 
   .hero-eyebrow {
     display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.38);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink-subtle);
     margin-bottom: 1.4rem;
   }
 

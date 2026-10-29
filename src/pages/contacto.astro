@@ -15,12 +15,7 @@ const T = translations[lang];
   description={T.contact_meta_description}
   lang={lang}
 >
-  <!-- Global dot-grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  
-  <!-- Ambient glowing blobs specific to contact page -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
 
   <!-- Navbar -->
   <Navbar lang={lang} />
@@ -61,42 +56,8 @@ const T = translations[lang];
   /* ========================================
      GLOBAL & LAYOUT SPECIFICS FOR CONTACT PAGE
   ======================================== */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
 
   /* Ambient flows in light space */
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.08;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 210, 150, 0.12) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
-  }
 
   .contact-page-container {
     position: relative;

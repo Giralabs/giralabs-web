@@ -2,8 +2,8 @@
 title: "Cuánto cuesta una página web para una empresa en 2026 (y por qué hay presupuestos de 300 € y de 30.000 €)"
 slug: "cuanto-cuesta-una-pagina-web-para-empresa-2026"
 description: "Precios reales de una página web corporativa en España en 2026, qué incluye cada rango, costes de mantenimiento y cómo saber qué necesita de verdad tu empresa."
-date: "2026-08-08"
-tags: ["Páginas Web", "Presupuestos", "SEO"]
+date: "2026-10-07"
+tags: ["Páginas web", "Presupuestos", "SEO"]
 readingTime: "8 min"
 image: "../../assets/blog/web_cost_2026.webp"
 ---
@@ -15,23 +15,23 @@ Vamos a poner orden en los rangos y, sobre todo, a que puedas identificar cuál 
 
 ## Los cuatro rangos, y qué obtienes en cada uno
 
-### Hasta 1.500 € — plantilla montada
+### Hasta 1.500 €: plantilla montada
 
 Una plantilla de WordPress o un constructor tipo Wix, con tus textos y tus fotos. Está online en una semana.
 
 Es una opción legítima si necesitas presencia mínima, no esperas tráfico de búsqueda y tu negocio no se juega nada en la web. El problema llega cuando quieres crecer: las plantillas cargan lento, arrastran plugins que no usas y el SEO técnico suele ser flojo. Y personalizarla más allá de cierto punto termina costando más que haberla hecho bien.
 
-### 2.500 € a 6.000 € — web corporativa profesional
+### 2.500 € a 6.000 €: web corporativa profesional
 
 Diseño propio ajustado a tu marca, entre cinco y diez páginas, optimizada para móvil y para velocidad, textos trabajados, formularios que funcionan, analítica y una base de SEO técnico decente.
 
 Es el rango donde debería estar la mayoría de pymes. Cubre lo que necesita una empresa que quiere que la encuentren y que la web genere consultas.
 
-### 6.000 € a 15.000 € — web con funcionalidad
+### 6.000 € a 15.000 €: web con funcionalidad
 
 Aquí ya hay algo más que páginas: área de clientes, reservas, calculadoras, integración con tu CRM o tu ERP, multiidioma bien resuelto, o un blog con arquitectura pensada para posicionar.
 
-### Más de 15.000 € — plataforma
+### Más de 15.000 €: plataforma
 
 Cuando la web es una herramienta de negocio y no un escaparate: portales con lógica compleja, catálogos grandes, integraciones críticas, requisitos de rendimiento o de accesibilidad certificada.
 

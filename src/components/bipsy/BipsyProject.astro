@@ -4,7 +4,10 @@ import { getLocalizedPath } from '../../lib/paths';
 import BipsyPilotModal from './BipsyPilotModal.astro';
 
 // Bip (mascot) renders
+// Hero scene in two layers on the same canvas: the full picture, and Bip cut
+// out of it so he can breathe and blink on his own over the still shop
 import bipBooking from '../../assets/bipsy/bip_assets/bip_booking.webp';
+import bipBookingCutout from '../../assets/bipsy/derived/bip_booking_bip.webp';
 import bipSupport from '../../assets/bipsy/bip_assets/bip_support.webp';
 import bipHello from '../../assets/bipsy/bip_assets/bip_hello.webp';
 import bipRecool from '../../assets/bipsy/bip_assets/bip_recool.webp';
@@ -20,6 +23,8 @@ import bipsyBusinessApp from '../../assets/bipsy/assets_apps/bipsy_business_ligh
 // Brand lockups
 import bipsyMark from '../../assets/bipsy/lockups/bipsy_lockup.webp';
 import bipsyBusinessMark from '../../assets/bipsy/lockups/bipsy_business_lockup.webp';
+// Symbol + name, with the master's empty margins trimmed off
+import bipsyWordmark from '../../assets/bipsy/derived/bipsy_combination_horizontal_cropped.webp';
 
 interface Props {
   lang?: string;
@@ -32,13 +37,17 @@ const isEs = lang !== 'en';
 const localizedPath = (path: string) => getLocalizedPath(path, lang);
 
 // ---- Optimized assets -------------------------------------------------------
-const [heroVisual, supportVisual, appClient, appBusiness, markClient, markBusiness] = await Promise.all([
+const [heroVisual, supportVisual, appClient, appBusiness, markClient, markBusiness, heroWordmark, heroBip] = await Promise.all([
   getImage({ src: bipBooking, format: 'webp', width: 900 }),
   getImage({ src: bipSupport, format: 'webp', width: 620 }),
   getImage({ src: bipsyApp, format: 'webp', width: 900 }),
   getImage({ src: bipsyBusinessApp, format: 'webp', width: 900 }),
   getImage({ src: bipsyMark, format: 'webp', width: 560 }),
   getImage({ src: bipsyBusinessMark, format: 'webp', width: 560 }),
+  // Painted at most 320px wide; 640 covers 2x screens
+  getImage({ src: bipsyWordmark, format: 'webp', width: 640 }),
+  // Same width as the base so the two layers stay pixel-aligned
+  getImage({ src: bipBookingCutout, format: 'webp', width: 900 }),
 ]);
 
 const poseSources = [bipHello, bipRecool, bipPockets, bipLaughing];
@@ -57,10 +66,10 @@ const copy = {
     breadcrumbProjects: 'Proyectos',
     back: 'Todos los proyectos',
     status: 'En desarrollo',
-    heroEyebrow: 'PRODUCTO PROPIO DE GIRALABS',
+    heroEyebrow: 'Una app de Giralabs',
     heroLead: 'Reservar en tu barbería, peluquería o centro de estética debería costar dos toques. Gestionarlo, ninguno más.',
     heroDesc:
-      'Bipsy es el ecosistema de reservas que estamos construyendo puertas adentro: dos aplicaciones móviles unidas por el mismo motor, una para quien reserva y otra para quien gestiona. Todavía no está publicada — está en pleno desarrollo, y lo contamos en abierto.',
+      'Bipsy son dos apps que funcionan juntas: una para que tus clientes reserven cita y otra para que tú lleves la agenda del negocio. Todavía no está publicada, la estamos terminando.',
     storesLabel: 'Próximamente en',
     storeApple: 'App Store',
     storeGoogle: 'Google Play',
@@ -75,7 +84,7 @@ const copy = {
     solutionBody:
       'Un único ecosistema y cero fricción: el cliente descubre, reserva y recuerda su cita desde el móvil; el negocio ve el día entero en una pantalla y confirma con un gesto. Sin panel de escritorio, sin manual de instrucciones y sin cambiar cómo trabaja.',
 
-    ecoEyebrow: 'EL ECOSISTEMA',
+    ecoEyebrow: 'El ecosistema',
     ecoTitle: 'Dos aplicaciones, un mismo motor.',
     ecoSub: 'Cada lado del mostrador tiene su app. Comparten catálogo, disponibilidad y estado de la cita en tiempo real.',
     apps: [
@@ -111,7 +120,7 @@ const copy = {
       },
     ],
 
-    flowEyebrow: 'CÓMO FUNCIONA',
+    flowEyebrow: 'Cómo funciona',
     flowTitle: 'Del alta a la silla, en cuatro pasos.',
     flow: [
       { title: 'El negocio se da de alta', body: 'Desde Bipsy Business, en el móvil: datos del salón, equipo y zona horaria.' },
@@ -120,7 +129,7 @@ const copy = {
       { title: 'Ambos ven lo mismo', body: 'La cita aparece en la agenda del negocio y en el móvil del cliente, sincronizada.' },
     ],
 
-    bipEyebrow: 'IDENTIDAD',
+    bipEyebrow: 'Identidad',
     bipTitle: 'Conoce a Bip.',
     bipBody:
       'Bip es la cara de Bipsy. Aparece cuando la pantalla está vacía, cuando algo se rompe y cuando hay algo que celebrar. No es un adorno: es el tono de voz del producto convertido en personaje, y el motivo por el que una app de reservas puede caer bien.',
@@ -132,23 +141,23 @@ const copy = {
       { title: 'Coherente en las dos apps', body: 'El mismo personaje, distinto vestuario: sudadera en Bipsy, traje en Business.' },
     ],
 
-    roadmapEyebrow: 'ESTADO DEL DESARROLLO',
+    roadmapEyebrow: 'Cómo vamos',
     roadmapTitle: '¿Por dónde va Bipsy?',
     roadmapSub: 'Actualizamos esta sección conforme avanzamos. Ahora mismo estamos aquí:',
     roadmap: [
       { phase: 'Descubrimiento y validación', state: 'done', stateLabel: 'Completado', body: 'Entrevistas con barberías y peluquerías para entender cómo gestionan hoy su agenda.' },
       { phase: 'Identidad y sistema de diseño', state: 'done', stateLabel: 'Completado', body: 'Marca, Bip, paleta y librería de componentes compartida por las dos apps.' },
       { phase: 'Desarrollo de las dos apps', state: 'active', stateLabel: 'En curso', body: 'Motor de reservas, agenda en tiempo real y las dos aplicaciones en Flutter.' },
-      { phase: 'Beta cerrada con negocios piloto', state: 'next', stateLabel: 'Siguiente', body: 'Un grupo reducido de salones usando Bipsy en su día a día real.' },
+      { phase: 'Prueba gratuita con los primeros salones', state: 'next', stateLabel: 'Siguiente', body: 'Unos pocos salones usando Bipsy en su día a día real antes del lanzamiento.' },
       { phase: 'Publicación en App Store y Google Play', state: 'planned', stateLabel: 'Planificado', body: 'Lanzamiento público de Bipsy y Bipsy Business.' },
     ],
 
-    stackEyebrow: 'TECNOLOGÍA',
+    stackEyebrow: 'Tecnología',
     stackTitle: 'Stack técnico',
     stackSub: 'Elegido para que dos apps compartan motor sin duplicar equipo ni deuda técnica.',
     stack: ['Flutter', 'Dart', 'Go', 'Supabase', 'PostgreSQL', 'Firebase', 'Realtime', 'Figma'],
 
-    brandEyebrow: 'SISTEMA DE MARCA',
+    brandEyebrow: 'Marca',
     brandTitle: 'Una identidad, dos aplicaciones.',
     brandSub: 'Bipsy habla en menta; Bipsy Business, en grafito. Mismo símbolo, misma tipografía, distinta temperatura.',
     brandColorsLabel: 'Paleta',
@@ -163,14 +172,14 @@ const copy = {
       { label: 'Aplicación de negocio', caption: 'Bipsy Business' },
     ],
 
-    pilotEyebrow: 'BUSCAMOS PILOTOS',
-    pilotTitle: '¿Tienes un salón y te apetece probarlo antes que nadie?',
+    pilotEyebrow: 'Pruébalo gratis',
+    pilotTitle: '¿Tienes un salón y quieres probar Bipsy antes que nadie?',
     pilotBody:
-      'Estamos cerrando el grupo de negocios que estrenarán Bipsy Business en la beta. Sin coste, con acompañamiento nuestro y con tu opinión metida directamente en el producto.',
-    pilotCta: 'Quiero ser piloto',
+      'Buscamos unos pocos negocios que usen Bipsy Business gratis antes de que salga al público. Te ayudamos a ponerlo en marcha y lo mejoramos con lo que nos cuentes.',
+    pilotCta: 'Quiero probarlo gratis',
     pilotSecondary: 'Hablar con el equipo',
 
-    serviceEyebrow: 'SERVICIO RELACIONADO',
+    serviceEyebrow: 'Servicio relacionado',
     serviceIntro: 'Desarrollado bajo el servicio:',
     serviceName: 'Creación de aplicaciones móviles',
     serviceCta: 'Ver detalles del servicio',
@@ -181,10 +190,10 @@ const copy = {
     breadcrumbProjects: 'Projects',
     back: 'All projects',
     status: 'In development',
-    heroEyebrow: 'AN IN-HOUSE GIRALABS PRODUCT',
+    heroEyebrow: 'A Giralabs app',
     heroLead: 'Booking at your barbershop, hair salon or beauty studio should take two taps. Running it, none at all.',
     heroDesc:
-      'Bipsy is the booking ecosystem we are building in-house: two mobile apps sharing one engine, one for the person booking and one for the person running the place. It is not published yet — it is in active development, and we are building it out in the open.',
+      'Bipsy is two apps that work together: one for your clients to book an appointment, and one for you to run your business diary. It is not out yet, we are finishing it.',
     storesLabel: 'Coming soon on',
     storeApple: 'App Store',
     storeGoogle: 'Google Play',
@@ -199,7 +208,7 @@ const copy = {
     solutionBody:
       'One ecosystem and zero friction: the client discovers, books and remembers the appointment from the phone; the venue sees the whole day on one screen and confirms with a single gesture. No desktop panel, no manual, no change in how they already work.',
 
-    ecoEyebrow: 'THE ECOSYSTEM',
+    ecoEyebrow: 'The ecosystem',
     ecoTitle: 'Two apps, one engine.',
     ecoSub: 'Each side of the counter gets its own app. They share catalogue, availability and appointment state in real time.',
     apps: [
@@ -235,7 +244,7 @@ const copy = {
       },
     ],
 
-    flowEyebrow: 'HOW IT WORKS',
+    flowEyebrow: 'How it works',
     flowTitle: 'From sign-up to the chair, in four steps.',
     flow: [
       { title: 'The venue signs up', body: 'Straight from Bipsy Business on the phone: venue details, team and time zone.' },
@@ -244,7 +253,7 @@ const copy = {
       { title: 'Both see the same thing', body: 'The appointment lands on the venue agenda and on the client phone, in sync.' },
     ],
 
-    bipEyebrow: 'IDENTITY',
+    bipEyebrow: 'Identity',
     bipTitle: 'Meet Bip.',
     bipBody:
       'Bip is the face of Bipsy. It shows up when a screen is empty, when something breaks and when there is something to celebrate. Not decoration: it is the product tone of voice turned into a character, and the reason a booking app can actually be likeable.',
@@ -256,23 +265,23 @@ const copy = {
       { title: 'Consistent across both apps', body: 'Same character, different wardrobe: hoodie on Bipsy, suit on Business.' },
     ],
 
-    roadmapEyebrow: 'DEVELOPMENT STATUS',
+    roadmapEyebrow: 'Where we are',
     roadmapTitle: 'Where is Bipsy right now?',
     roadmapSub: 'We update this section as we move forward. Right now we are here:',
     roadmap: [
       { phase: 'Discovery and validation', state: 'done', stateLabel: 'Done', body: 'Interviews with barbershops and hair salons to understand how they run their calendar today.' },
       { phase: 'Identity and design system', state: 'done', stateLabel: 'Done', body: 'Brand, Bip, palette and a component library shared by both apps.' },
       { phase: 'Building both apps', state: 'active', stateLabel: 'In progress', body: 'Booking engine, real-time agenda and the two Flutter applications.' },
-      { phase: 'Closed beta with pilot venues', state: 'next', stateLabel: 'Next', body: 'A small group of salons running Bipsy on their real working day.' },
+      { phase: 'Free trial with the first salons', state: 'next', stateLabel: 'Next', body: 'A few salons using Bipsy on their real working day before launch.' },
       { phase: 'App Store and Google Play release', state: 'planned', stateLabel: 'Planned', body: 'Public launch of Bipsy and Bipsy Business.' },
     ],
 
-    stackEyebrow: 'TECHNOLOGY',
+    stackEyebrow: 'Technology',
     stackTitle: 'Tech stack',
     stackSub: 'Chosen so two apps can share one engine without duplicating team or technical debt.',
     stack: ['Flutter', 'Dart', 'Go', 'Supabase', 'PostgreSQL', 'Firebase', 'Realtime', 'Figma'],
 
-    brandEyebrow: 'BRAND SYSTEM',
+    brandEyebrow: 'Brand',
     brandTitle: 'One identity, two applications.',
     brandSub: 'Bipsy speaks in mint; Bipsy Business, in graphite. Same symbol, same typeface, different temperature.',
     brandColorsLabel: 'Palette',
@@ -287,14 +296,14 @@ const copy = {
       { label: 'Business application', caption: 'Bipsy Business' },
     ],
 
-    pilotEyebrow: 'LOOKING FOR PILOTS',
-    pilotTitle: 'Run a salon and want to try it before anyone else?',
+    pilotEyebrow: 'Try it free',
+    pilotTitle: 'Run a salon and want to try Bipsy before anyone else?',
     pilotBody:
-      'We are closing the group of venues that will run Bipsy Business during the beta. No cost, hands-on support from us, and your feedback going straight into the product.',
-    pilotCta: 'I want to be a pilot',
+      'We are looking for a few businesses to use Bipsy Business for free before it launches. We help you set it up and improve it based on what you tell us.',
+    pilotCta: 'Try it for free',
     pilotSecondary: 'Talk to the team',
 
-    serviceEyebrow: 'RELATED SERVICE',
+    serviceEyebrow: 'Related service',
     serviceIntro: 'Developed under our service:',
     serviceName: 'Mobile App Development',
     serviceCta: 'View service details',
@@ -337,10 +346,20 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
 
       <div class="bp-hero-content">
         <p class="bp-hero-eyebrow">
-          {c.heroEyebrow}<span class="bp-hero-status"> — {c.status}</span>
+          {c.heroEyebrow}, <span class="bp-hero-status">{c.status.toLowerCase()}</span>
         </p>
 
-        <h1 class="bp-hero-title">Bipsy</h1>
+        <h1 class="bp-hero-title">
+          <img
+            src={heroWordmark.src}
+            alt="Bipsy"
+            class="bp-hero-wordmark"
+            width="640"
+            height="180"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </h1>
 
         <p class="bp-hero-lead">{c.heroLead}</p>
         <p class="bp-hero-desc">{c.heroDesc}</p>
@@ -369,14 +388,21 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
 
       <div class="bp-hero-visual">
         <div class="bp-hero-visual-glow" aria-hidden="true"></div>
-        <img
-          src={heroVisual.src}
-          alt={c.heroImgAlt}
-          class="bp-hero-img"
-          width="900"
-          height="900"
-          loading="eager"
-        />
+        <div class="bp-hero-scene" role="img" aria-label={c.heroImgAlt}>
+          <img
+            src={heroVisual.src}
+            alt=""
+            class="bp-hero-img"
+            width="900"
+            height="900"
+            loading="eager"
+          />
+          <div class="bp-hero-bip" aria-hidden="true">
+            <img src={heroBip.src} alt="" width="900" height="900" loading="eager" decoding="async" />
+            <span class="bp-hero-lid bp-hero-lid--left"></span>
+            <span class="bp-hero-lid bp-hero-lid--right"></span>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -799,11 +825,10 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-eyebrow {
-    font-size: 0.68rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 0.7rem;
   }
 
@@ -874,15 +899,14 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-hero-status {
-    color: #3f8c66;
+    color: #2f7552;
   }
 
   .bp-hero-eyebrow {
-    font-size: 0.66rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0.4rem 0 0;
   }
 
@@ -893,6 +917,13 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
     line-height: 1;
     color: #000;
     margin: 0;
+  }
+
+  .bp-hero-wordmark {
+    display: block;
+    width: clamp(200px, 28vw, 320px);
+    height: auto;
+    margin: 0.5rem 0 0.25rem;
   }
 
   .bp-hero-lead {
@@ -919,11 +950,10 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-stores-label {
-    font-size: 0.68rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 0.75rem;
   }
 
@@ -1002,18 +1032,59 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
     pointer-events: none;
   }
 
-  .bp-hero-img {
+  /* The scene no longer floats as a whole: the shop stays put and Bip lives on
+     top of it. The cut-out Bip shares the photo's canvas, so both layers line
+     up at any size. */
+  .bp-hero-scene {
     position: relative;
     width: 100%;
     max-width: 420px;
-    height: auto;
     filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.16));
-    animation: bpFloat 7s ease-in-out 0.6s infinite;
   }
 
-  @keyframes bpFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-14px) rotate(0.8deg); }
+  .bp-hero-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Breathing: only ever scales up from his feet, so the moving Bip always
+     covers the still one painted in the photo underneath */
+  .bp-hero-bip {
+    position: absolute;
+    inset: 0;
+    transform-origin: 28.5% 96.5%;
+    animation: bpBreathe 3.4s ease-in-out infinite;
+  }
+
+  .bp-hero-bip img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @keyframes bpBreathe {
+    0%, 100% { transform: scale(1, 1); }
+    45% { transform: scale(1.012, 1.028); }
+  }
+
+  /* Eyelids in his skin tone, closing over each eye for a quick blink */
+  .bp-hero-lid {
+    position: absolute;
+    top: 51.6%;
+    height: 8%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgb(170, 206, 173), rgb(150, 190, 152));
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: bpBlink 4.6s ease-in-out 1.2s infinite;
+  }
+  .bp-hero-lid--left { left: 16.8%; width: 5.6%; }
+  .bp-hero-lid--right { left: 29.6%; width: 7%; }
+
+  @keyframes bpBlink {
+    0%, 92%, 100% { transform: scaleY(0); }
+    95% { transform: scaleY(1); }
   }
 
   /* =============================================
@@ -1035,11 +1106,10 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-context-label {
-    font-size: 0.68rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 1.1rem;
   }
 
@@ -1119,10 +1189,9 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-app-audience {
-    font-size: 0.63rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
     white-space: nowrap;
   }
 
@@ -1543,11 +1612,10 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-step-state {
-    font-size: 0.6rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 0.45rem;
   }
 
@@ -1656,21 +1724,19 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
 
   .bp-lockup-label {
     position: relative;
-    font-size: 0.72rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.38);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
   }
 
   .bp-palette { padding: 2rem 2.2rem; }
 
   .bp-palette-label {
-    font-size: 0.68rem;
+    font-size: 0.86rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 1.4rem;
   }
 
@@ -1840,11 +1906,10 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   .bp-service-intro {
-    font-size: 0.78rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.01em;
+    color: var(--ink-subtle);
     margin: 0 0 0.4rem;
   }
 
@@ -1917,7 +1982,7 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
       gap: 2rem;
     }
     .bp-hero-visual { order: -1; }
-    .bp-hero-img { max-width: 300px; }
+    .bp-hero-scene { max-width: 300px; }
     .bp-apps,
     .bp-brand { grid-template-columns: 1fr; }
     .bp-bip {
@@ -1955,7 +2020,8 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .bp-hero-img,
-    .bp-bip-hero-img { animation: none; }
+    .bp-bip-hero-img,
+    .bp-hero-bip,
+    .bp-hero-lid { animation: none; }
   }
 </style>
