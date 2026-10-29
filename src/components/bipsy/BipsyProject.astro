@@ -76,7 +76,6 @@ const copy = {
     poseViewerClose: 'Cerrar la imagen',
     poseViewerOpen: 'Ver la ilustración de Bip a tamaño grande',
     heroImgAlt: 'Bip, la mascota de Bipsy, con el móvil frente a una barbería',
-    heroNotes: ['Nueva cita a las 10:30', 'Corte confirmado', 'Hueco libre a las 17:00'],
 
     challengeLabel: 'El punto de partida',
     challengeBody:
@@ -201,7 +200,6 @@ const copy = {
     poseViewerClose: 'Close the image',
     poseViewerOpen: 'View the Bip illustration at full size',
     heroImgAlt: 'Bip, the Bipsy mascot, holding a phone in front of a barbershop',
-    heroNotes: ['New booking at 10:30', 'Haircut confirmed', 'Free slot at 17:00'],
 
     challengeLabel: 'The starting point',
     challengeBody:
@@ -403,13 +401,6 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
             <img src={heroBip.src} alt="" width="900" height="900" loading="eager" decoding="async" />
             <span class="bp-hero-lid bp-hero-lid--left"></span>
             <span class="bp-hero-lid bp-hero-lid--right"></span>
-          </div>
-          <div class="bp-hero-notes" aria-hidden="true">
-            {c.heroNotes.map((note) => (
-              <span class="bp-hero-note lg">
-                <span class="bp-hero-note-dot"></span>{note}
-              </span>
-            ))}
           </div>
         </div>
       </div>
@@ -1094,51 +1085,6 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
   @keyframes bpBlink {
     0%, 92%, 100% { transform: scaleY(0); }
     95% { transform: scaleY(1); }
-  }
-
-  /* Bookings arriving on his phone: small glass notifications that rise from
-     it one after another */
-  .bp-hero-notes {
-    position: absolute;
-    right: 88%;
-    top: 66%;
-    pointer-events: none;
-  }
-
-  .bp-hero-note {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.85rem;
-    border-radius: 14px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #1f2a24;
-    white-space: nowrap;
-    --lg-tint-top: rgba(255, 255, 255, 0.82);
-    --lg-tint-bottom: rgba(255, 255, 255, 0.6);
-    opacity: 0;
-    animation: bpNote 9s var(--ease-out) infinite;
-  }
-  .bp-hero-note:nth-child(2) { animation-delay: 3s; }
-  .bp-hero-note:nth-child(3) { animation-delay: 6s; }
-
-  .bp-hero-note-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #3f8c66;
-    flex-shrink: 0;
-  }
-
-  @keyframes bpNote {
-    0% { opacity: 0; transform: translateY(16px) scale(0.92); }
-    6% { opacity: 1; transform: translateY(0) scale(1); }
-    26% { opacity: 1; transform: translateY(-34px) scale(1); }
-    33%, 100% { opacity: 0; transform: translateY(-48px) scale(0.98); }
   }
 
   /* =============================================
@@ -2037,9 +1983,6 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
     }
     .bp-hero-visual { order: -1; }
     .bp-hero-scene { max-width: 300px; }
-    /* No room beside him on a narrow screen: the notes rise above the roof */
-    .bp-hero-notes { right: auto; left: 50%; top: 8%; }
-    .bp-hero-note { right: auto; left: 0; translate: -50% 0; }
     .bp-apps,
     .bp-brand { grid-template-columns: 1fr; }
     .bp-bip {
@@ -2080,6 +2023,5 @@ const activeIndex = c.roadmap.findIndex((phase) => phase.state === 'active');
     .bp-bip-hero-img,
     .bp-hero-bip,
     .bp-hero-lid { animation: none; }
-    .bp-hero-notes { display: none; }
   }
 </style>
