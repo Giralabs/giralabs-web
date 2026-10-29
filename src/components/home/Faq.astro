@@ -143,14 +143,14 @@ const schemaData = {
 <script>
   function initFaq() {
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
     faqItems.forEach(item => {
       const trigger = item.querySelector('.faq-trigger');
       const panel = item.querySelector('.faq-answer-panel') as HTMLElement;
-      
+
       trigger?.addEventListener('click', () => {
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-        
+
         // Close other items
         faqItems.forEach(otherItem => {
           if (otherItem !== item) {
@@ -212,11 +212,10 @@ const schemaData = {
   }
 
   .faq-eyebrow {
-    font-size: 0.72rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: -0.005em;
     color: var(--ink-subtle);
-    text-transform: uppercase;
     display: inline-block;
     margin-bottom: 0.8rem;
   }

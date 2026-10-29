@@ -25,12 +25,7 @@ const localizedPath = (path: string) => {
   description={T.error_404_meta_description}
   lang={lang}
 >
-  <!-- Global dot-grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  
-  <!-- Ambient glowing blobs -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
 
   <!-- Navbar -->
   <Navbar lang={lang} />
@@ -58,7 +53,7 @@ const localizedPath = (path: string) => {
 
           <h1 class="error-subtitle" data-i18n="error_404_subtitle">{T.error_404_subtitle}</h1>
           <p class="error-desc" data-i18n="error_404_desc">{T.error_404_desc}</p>
-          
+
           <div class="error-actions">
             <a href={localizedPath("/")} class="cta-primary home-btn" data-i18n="error_404_btn">
               {T.error_404_btn}
@@ -102,42 +97,6 @@ const localizedPath = (path: string) => {
   /* ========================================
      GLOBAL STYLES & ACCENTS
      ======================================== */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  /* Ambient glowing blobs */
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.06;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
-  }
 
   /* ========================================
      CONTAINER LAYOUT

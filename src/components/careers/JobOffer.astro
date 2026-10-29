@@ -119,9 +119,6 @@ const clientCopy = {
 const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
 ---
 
-<div class="grid-bg" aria-hidden="true"></div>
-<div class="ambient-glow glow-top" aria-hidden="true"></div>
-<div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
 <script type="application/ld+json" set:html={JSON.stringify(jobPostingSchema)} />
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -853,37 +850,6 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
 </script>
 
 <style>
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.07;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
-  }
 
   [hidden] {
     display: none !important;
@@ -1027,10 +993,9 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
 
   .job-eyebrow {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(0,0,0,0.6);
     margin-bottom: 1rem;
   }
@@ -1279,10 +1244,9 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
   .meta-row dt,
   .small-title {
     display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(0,0,0,0.58);
     margin-bottom: 0.2rem;
   }
@@ -1443,10 +1407,9 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
 
   .dialog-eyebrow {
     display: block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(0,0,0,0.58);
     margin-bottom: 0.3rem;
   }

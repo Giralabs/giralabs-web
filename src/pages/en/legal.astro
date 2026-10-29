@@ -14,12 +14,7 @@ const T = translations[lang];
   description={T.legal_meta_description}
   lang={lang}
 >
-  <!-- Global dot-grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  
-  <!-- Ambient glowing blobs -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
 
   <!-- Navbar -->
   <Navbar lang={lang} />
@@ -40,7 +35,7 @@ const T = translations[lang];
       <div class="card-effects">
         <div class="card-spotlight"></div>
       </div>
-      
+
       <div class="card-inner">
         <section class="legal-section">
           <h2 class="section-title" data-i18n="legal_intro_title">{T.legal_intro_title}</h2>
@@ -95,42 +90,6 @@ const T = translations[lang];
   /* ========================================
      GLOBAL VARIABLES & ACCENTS
      ======================================== */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  /* Ambient glowing blobs */
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.05;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
-  }
 
   /* ========================================
      HERO SEGMENT
@@ -148,11 +107,10 @@ const T = translations[lang];
   }
 
   .hero-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.4);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink-subtle);
     display: inline-block;
     margin-bottom: 1rem;
   }

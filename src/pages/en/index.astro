@@ -22,9 +22,6 @@ const T = translations[lang];
   description={T.meta_description}
   lang={lang}
 >
-  <!-- Global dot-grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  <!-- Ambient glows -->
   <div class="ambient-top" aria-hidden="true"></div>
   <div class="ambient-bottom" aria-hidden="true"></div>
 
@@ -73,15 +70,6 @@ const T = translations[lang];
   /* ========================================
      GLOBAL
   ======================================== */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
 
   .ambient-top {
     position: fixed;

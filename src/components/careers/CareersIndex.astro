@@ -12,9 +12,6 @@ const C = careersCopy[lang];
 const listed = [...jobs].sort((a, b) => Number(b.open) - Number(a.open));
 ---
 
-<div class="grid-bg" aria-hidden="true"></div>
-<div class="ambient-glow glow-top" aria-hidden="true"></div>
-<div class="ambient-glow glow-bottom" aria-hidden="true"></div>
 
 <header class="careers-hero reveal">
   <div class="hero-inner">
@@ -107,37 +104,6 @@ const listed = [...jobs].sort((a, b) => Number(b.open) - Number(a.open));
 </script>
 
 <style>
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.07;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
-  }
 
   /* ---------- Hero ---------- */
   .careers-hero {
@@ -155,10 +121,9 @@ const listed = [...jobs].sort((a, b) => Number(b.open) - Number(a.open));
   .hero-eyebrow,
   .section-eyebrow {
     display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(0,0,0,0.6);
     margin-bottom: 1rem;
   }
@@ -316,10 +281,9 @@ const listed = [...jobs].sort((a, b) => Number(b.open) - Number(a.open));
   }
 
   .job-department {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     color: rgba(0,0,0,0.58);
   }
 
