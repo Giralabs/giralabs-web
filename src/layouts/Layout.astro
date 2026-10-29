@@ -32,6 +32,11 @@ const xDefaultHref = esHref;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- The site is light-only: tell the UA so form controls and scrollbars
+		     never render dark on a dark-mode OS, and tint the mobile browser chrome
+		     to match the page instead of flashing white around it. -->
+		<meta name="color-scheme" content="light" />
+		<meta name="theme-color" content="#F0EFEA" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
@@ -129,12 +134,29 @@ const xDefaultHref = esHref;
 		</script>
 	</head>
 	<body>
+		<a class="skip-link" href="#main-content">{lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}</a>
 		<slot />
 		<script>
 			import { idleOffscreenAnimations } from '../lib/idle-offscreen';
+			import { liquidGlassLight } from '../lib/liquid-glass';
 
+			// Every page has its own <main>, but only some carry an id. The skip link
+			// needs one target on all of them, and it must take focus so the next Tab
+			// continues from the content rather than from the top of the page.
+			function wireSkipTarget() {
+				const main = document.getElementById('main-content') ?? document.querySelector('main');
+				if (!main) return;
+				if (!main.id) main.id = 'main-content';
+				if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+			}
+
+			wireSkipTarget();
 			idleOffscreenAnimations();
-			document.addEventListener('astro:page-load', () => idleOffscreenAnimations());
+			liquidGlassLight();
+			document.addEventListener('astro:page-load', () => {
+				wireSkipTarget();
+				idleOffscreenAnimations();
+			});
 		</script>
 	</body>
 </html>
@@ -190,9 +212,231 @@ const xDefaultHref = esHref;
 		box-sizing: border-box;
 	}
 
+	/* =============================================
+	   DESIGN TOKENS
+	   Monochrome palette on the warm paper background. The muted greys are
+	   picked to clear WCAG AA (4.5:1) against #F0EFEA — the old #777/#888/#bbb
+	   text sat between 1.7:1 and 3.9:1.
+	============================================= */
+	:root {
+		--paper: #F0EFEA;
+		--ink: #000;
+		--ink-2: #2b2b2b;
+		--ink-muted: #565656;   /* 6.3:1 on paper */
+		--ink-subtle: #6a6a6a;  /* 4.7:1 on paper */
+		--hairline: rgba(0, 0, 0, 0.08);
+
+		--ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+		--ease-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+
+		--focus-ring: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
+
+		/* Liquid Glass material (light) */
+		--lg-tint-top: rgba(255, 255, 255, 0.58);
+		--lg-tint-bottom: rgba(255, 255, 255, 0.26);
+		--lg-blur: 22px;
+		--lg-saturate: 190%;
+		--lg-rim: rgba(255, 255, 255, 0.95);
+		--lg-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.05),
+			0 8px 20px -6px rgba(0, 0, 0, 0.12),
+			0 24px 48px -16px rgba(0, 0, 0, 0.18);
+		/* Glass thickness: a bright top bevel, a darker lower lip, a bounce
+		   light along the bottom and an inner glow — together they read as a
+		   rounded slab of glass bending the light at its edge */
+		--lg-bevel:
+			inset 0 1.5px 0.5px rgba(255, 255, 255, 1),
+			inset 0 -1.5px 1px rgba(0, 0, 0, 0.06),
+			inset 0 -6px 10px -6px rgba(255, 255, 255, 0.7),
+			inset 2px 2px 2px -1px rgba(255, 255, 255, 0.85),
+			inset -2px -2px 2px -1px rgba(255, 255, 255, 0.5),
+			inset 0 0 24px rgba(255, 255, 255, 0.35),
+			inset 0 0 0 0.5px rgba(0, 0, 0, 0.07);
+	}
+
+	/* =============================================
+	   LIQUID GLASS
+	   One reusable material for every floating surface: tinted, blurred and
+	   over-saturated backdrop; a specular rim that is brightest on the lit
+	   corners; a bevel that gives the pane thickness; and a soft highlight that
+	   follows the pointer (driven by lib/liquid-glass.ts through --lg-x/--lg-y).
+	   Both pseudo-elements sit at z-index -1 inside an isolated stacking context,
+	   so they paint above the pane's own background but under its content.
+	   Components that already use ::before/::after must not take this class.
+	============================================= */
+	/* Registered so the pointer light can fade in and out instead of popping */
+	@property --lg-light {
+		syntax: '<number>';
+		inherits: true;
+		initial-value: 0;
+	}
+
+	.lg {
+		transition: --lg-light 0.35s ease;
+		position: relative;
+		isolation: isolate;
+		background: linear-gradient(180deg, var(--lg-tint-top), var(--lg-tint-bottom));
+		-webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(1.03);
+		backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) brightness(1.03);
+		box-shadow: var(--lg-bevel), var(--lg-shadow);
+		border: none;
+	}
+
+	/* Refraction rim: a 1.5px ring cut out with a mask. White specular on the
+	   lit corners, plus a faint prismatic split along the edges — the same
+	   iridescence as the glass capsule in the Giralabs mark. */
+	.lg::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		padding: 1.5px;
+		background:
+			linear-gradient(
+				135deg,
+				var(--lg-rim) 0%,
+				rgba(255, 255, 255, 0.35) 22%,
+				rgba(255, 255, 255, 0) 48%,
+				rgba(255, 255, 255, 0.4) 76%,
+				rgba(255, 255, 255, 0.95) 100%
+			),
+			conic-gradient(
+				from 200deg,
+				rgba(255, 170, 200, 0.55),
+				rgba(170, 210, 255, 0.55),
+				rgba(180, 255, 220, 0.5),
+				rgba(255, 235, 170, 0.55),
+				rgba(255, 170, 200, 0.55)
+			);
+		-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+		pointer-events: none;
+	}
+
+	/* Gloss + pointer light. The upper sheen is always there (the curved top
+	   of the pane catching the light); the radial spot follows the pointer and
+	   fades in through --lg-light. */
+	.lg::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		background:
+			radial-gradient(
+				var(--lg-light-size, 180px) circle at var(--lg-x, 50%) var(--lg-y, -20%),
+				rgba(255, 255, 255, calc(0.75 * var(--lg-light, 0))),
+				rgba(255, 255, 255, 0) 70%
+			),
+			linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.55) 0%,
+				rgba(255, 255, 255, 0.12) 38%,
+				rgba(255, 255, 255, 0) 52%
+			);
+		pointer-events: none;
+	}
+
+	/* Interactive glass squishes under the finger like the iOS controls do */
+	.lg-press {
+		transition: transform 0.45s var(--ease-spring), box-shadow 0.3s ease, background 0.3s ease;
+	}
+	.lg-press:active {
+		transform: scale(0.965);
+		transition-duration: 0.12s;
+	}
+
+	/* Accessibility settings: no translucency, or more contrast */
+	@media (prefers-reduced-transparency: reduce) {
+		.lg {
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+			background: #FAFAF7;
+		}
+		.lg::after { display: none; }
+	}
+	@media (prefers-contrast: more) {
+		.lg {
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+			background: #fff;
+			box-shadow: inset 0 0 0 1.5px #000;
+		}
+		.lg::before,
+		.lg::after { display: none; }
+	}
+	@media (forced-colors: active) {
+		.lg { border: 1px solid CanvasText; }
+	}
+
+	/* =============================================
+	   FOCUS + SKIP LINK
+	   Several components removed the outline with nothing in its place, which
+	   left keyboard users with no idea where they were. One visible ring for
+	   keyboard focus only; mouse clicks don't show it.
+	============================================= */
+	:focus-visible {
+		outline: 2px solid var(--ink);
+		outline-offset: 3px;
+	}
+	button:focus-visible,
+	a:focus-visible,
+	[role="button"]:focus-visible,
+	summary:focus-visible {
+		outline: 2px solid var(--ink) !important;
+		outline-offset: 3px;
+	}
+	main:focus,
+	main:focus-visible {
+		outline: none;
+	}
+
+	.skip-link {
+		position: fixed;
+		top: 12px;
+		left: 12px;
+		z-index: 10000;
+		padding: 0.7rem 1.2rem;
+		border-radius: 100px;
+		background: var(--ink);
+		color: var(--paper);
+		font-size: 0.85rem;
+		font-weight: 600;
+		text-decoration: none;
+		transform: translateY(-150%);
+		transition: transform 0.3s var(--ease-out);
+	}
+	.skip-link:focus,
+	.skip-link:focus-visible {
+		transform: translateY(0);
+	}
+
+	.sr-only {
+		position: absolute !important;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	::selection {
+		background: #000;
+		color: var(--paper);
+	}
+
 	html {
 		scroll-behavior: smooth;
 		overflow-x: clip;
+		/* Anchor jumps land below the fixed navbar instead of under it */
+		scroll-padding-top: 88px;
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
 	}
 
 	html,
