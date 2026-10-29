@@ -28,7 +28,7 @@ const copy = {
       <div>
         <span class="hiring-badge"><span class="hiring-dot" aria-hidden="true"></span>{copy.badge}</span>
         <p class="hiring-title">{copy.title}</p>
-        <p class="hiring-roles">{openJobs.map((job) => job[lang].title).join(' · ')}</p>
+        <p class="hiring-roles">{openJobs.map((job) => job[lang].title).join(', ')}</p>
       </div>
       <a href={careersBasePath[lang]} class="hiring-cta">
         {copy.cta}

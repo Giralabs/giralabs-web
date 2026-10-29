@@ -629,7 +629,7 @@ const arrowIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" s
     const dropzone = document.getElementById('app-cv-dropzone');
     const updateCvName = () => {
       const file = cvInput.files?.[0];
-      if (cvName) cvName.textContent = file ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB` : copy.cvNone;
+      if (cvName) cvName.textContent = file ? `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)` : copy.cvNone;
       dropzone?.classList.toggle('has-file', Boolean(file));
     };
     cvInput.addEventListener('change', () => {
