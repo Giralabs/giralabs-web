@@ -18,14 +18,14 @@ const T = translations[lang];
 const localizedPath = (path: string) => getLocalizedPath(path, lang);
 ---
 
-<footer class="site-footer" id="footer" aria-label="Site footer">
+<footer class="site-footer" id="footer">
   <div class="footer-inner">
     <div class="footer-brand">
       <!-- height matches the real 1849x1384 aspect ratio: the old 38 reserved the
            wrong box and shifted the footer once the image decoded -->
       <img
         src={footerMark.src}
-        alt="Identidad visual y logotipo oficial de Giralabs"
+        alt="Giralabs"
         class="footer-logo"
         width="110"
         height="82"
@@ -33,7 +33,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
         decoding="async"
       />
     </div>
-    <nav aria-label="Footer navigation">
+    <nav aria-label={lang === 'en' ? 'Footer' : 'Pie de página'}>
       <ul class="footer-links" role="list">
         <li>
           <a
@@ -76,9 +76,9 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       >
       <div class="footer-bottom-links">
         <a href={localizedPath("/legal")} class="footer-sublink" data-i18n="footer_legal">{T.footer_legal}</a>
-        <span class="footer-sublink-sep">•</span>
+        <span class="footer-sublink-sep" aria-hidden="true">•</span>
         <a href={localizedPath("/privacidad")} class="footer-sublink" data-i18n="footer_privacy">{T.footer_privacy}</a>
-        <span class="footer-sublink-sep">•</span>
+        <span class="footer-sublink-sep" aria-hidden="true">•</span>
         <a href={localizedPath("/accesibilidad")} class="footer-sublink" data-i18n="footer_accessibility">{T.footer_accessibility}</a>
       </div>
       <span class="footer-rights" data-i18n="footer_rights"
@@ -126,12 +126,16 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
     flex-wrap: wrap;
   }
 
+  /* Footer greys were #888 / #bbb on the paper background (3.1:1 and 1.7:1);
+     these clear WCAG AA while staying visibly quieter than body text */
   .footer-link {
     font-size: 0.82rem;
     font-weight: 400;
-    color: #888;
+    color: var(--ink-muted);
     text-decoration: none;
     transition: color 0.2s ease;
+    display: inline-block;
+    padding: 0.3rem 0;
   }
 
   .footer-link:hover {
@@ -151,7 +155,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   .footer-tagline,
   .footer-rights {
     font-size: 0.78rem;
-    color: #bbb;
+    color: var(--ink-subtle);
     font-weight: 400;
   }
 
@@ -165,7 +169,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
 
   .footer-sublink {
     font-size: 0.76rem;
-    color: #bbb;
+    color: var(--ink-subtle);
     text-decoration: none;
     transition: color 0.2s ease;
   }
@@ -176,7 +180,7 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
 
   .footer-sublink-sep {
     font-size: 0.7rem;
-    color: #ddd;
+    color: #b5b5b5;
     user-select: none;
   }
 

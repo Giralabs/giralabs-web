@@ -7,14 +7,22 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
+
+// The typewriter below builds the sentence one letter at a time, so assistive
+// tech would read an empty or half-typed paragraph. The full sentence is
+// rendered here for it, and the animated copy is hidden from it.
+const manifestoSentence = lang === 'en'
+  ? 'We build the product your clients will use when it matters most.'
+  : 'Construimos el producto que tus clientes usarán cuando más importa.';
 ---
 
 <!-- ==================== MANIFESTO (word stagger animation / Edge) ==================== -->
-<section class="manifesto-section" id="how" aria-label="Nuestra ventaja">
+<section class="manifesto-section" id="how" aria-labelledby="manifesto-label">
   <div class="manifesto-inner">
-    <span class="manifesto-label" data-i18n="manifesto_label">{T.manifesto_label}</span>
+    <span class="manifesto-label" id="manifesto-label" data-i18n="manifesto_label">{T.manifesto_label}</span>
+    <p class="sr-only">{manifestoSentence}</p>
     <!-- Words injected by JS -->
-    <p class="manifesto-text" id="manifesto-container"></p>
+    <p class="manifesto-text" id="manifesto-container" aria-hidden="true"></p>
   </div>
 </section>
 
@@ -136,8 +144,16 @@ const T = translations[lang];
   // same crossing off the main thread and detaches itself once it has fired.
   let viewportObserver: IntersectionObserver | null = null;
 
+  // With reduced motion the sentence is simply there, no typing
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function checkViewport() {
     if (fired) return;
+    if (reduceMotion) {
+      fired = true;
+      wordSpans.forEach((span) => { span.textContent = span.dataset.full ?? ''; });
+      return;
+    }
     const section = document.querySelector<HTMLElement>('.manifesto-section');
     if (!section) return;
 
@@ -204,7 +220,7 @@ const T = translations[lang];
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #bbb;
+    color: var(--ink-subtle);
     margin-bottom: 2.5rem;
     text-align: left;
   }

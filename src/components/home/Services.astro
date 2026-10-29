@@ -561,7 +561,13 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
       box-shadow 0.4s ease;
     display: flex;
     text-decoration: none; /* Prevent underlines inside links */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Dark glass edge: a lit top bevel, a faint full rim and a lower lip, the
+       smoked counterpart of the clear Liquid Glass used on the light surfaces */
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.14),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.08),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.6),
+      0 10px 30px rgba(0, 0, 0, 0.5);
     --accent-color-1: #F0EFEA;
     --accent-rgb-1: 240, 239, 234;
     --accent-color-2: #8e8e93;
@@ -571,7 +577,11 @@ const localizedPath = (path: string) => getLocalizedPath(path, lang);
   .sd-card.is-active:hover {
     transform: translateY(-2px);
     background-color: #121215;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    box-shadow:
+      inset 0 1px 0.5px rgba(255, 255, 255, 0.22),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.12),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.6),
+      0 15px 35px rgba(0, 0, 0, 0.6);
   }
 
   /* Minimalist Link Arrow */
