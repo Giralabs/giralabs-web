@@ -1062,6 +1062,9 @@ const current = (path: string) => {
       const contactPath = isEn ? '/contact' : '/contacto';
       document.querySelectorAll('a[href^="#"]:not([href="#"]):not(.skip-link)').forEach(link => {
         const href = link.getAttribute('href');
+        // Anchors that point at something on this page (an article's contents
+        // list, for one) are real in-page links and must stay as they are
+        if (href && document.getElementById(decodeURIComponent(href.slice(1)))) return;
         if (href) {
           if (href === '#services') {
             link.setAttribute('href', servicesPath);
