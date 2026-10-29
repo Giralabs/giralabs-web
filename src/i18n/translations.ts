@@ -5,26 +5,26 @@ export const translations = {
     // Meta
     meta_title: "Giralabs | Empresa de Desarrollo de Software y Apps Móviles",
     meta_description:
-      "Empresa de desarrollo de software a medida y creación de aplicaciones móviles. Diseñamos y desarrollamos apps nativas, páginas web y sistemas digitales premium.",
+      "Empresa de desarrollo de software a medida y apps móviles en Sevilla. Hacemos apps para iOS y Android, páginas web y herramientas para empresas.",
 
     // Page-specific Meta
-    services_meta_title: "Nuestros Servicios de Software y Apps",
+    services_meta_title: "Nuestros servicios de software y apps",
     services_meta_description: "Descubre nuestros servicios de desarrollo de software a medida: creación de aplicaciones móviles nativas (Flutter), páginas web, digitalización, e-commerce e IA.",
     projects_meta_title: "Bipsy | El producto que estamos construyendo",
     projects_meta_description: "Bipsy es la plataforma de reservas para belleza y bienestar que desarrollamos en Giralabs: una app para clientes y Bipsy Business para los negocios. Producto propio en desarrollo.",
     projects_sub: "No coleccionamos escaparates. Ahora mismo todo nuestro producto propio se llama Bipsy, y lo estamos construyendo a la vista de todos.",
     visit_project: "Visitar sitio web",
-    about_meta_title: "Sobre Giralabs | Empresa de Desarrollo de Software",
-    about_meta_description: "Conoce al equipo de Giralabs, empresa de desarrollo de software y creación de aplicaciones móviles. Nuestra historia, valores de ingeniería y diseño premium.",
-    contact_meta_title: "Contacta con Giralabs | Solicita Presupuesto de Software",
+    about_meta_title: "Sobre Giralabs | Empresa de desarrollo de software",
+    about_meta_description: "Conoce a Giralabs, empresa de desarrollo de software y apps móviles en Sevilla: quiénes somos, cómo trabajamos y con qué tecnologías.",
+    contact_meta_title: "Contacta con Giralabs | Solicita presupuesto de software",
     contact_meta_description: "Contacta con Giralabs para tu próximo proyecto de desarrollo de software a medida o creación de apps. Solicita un presupuesto o agenda una cita con nuestro equipo.",
-    blog_meta_title: "Blog de Giralabs | Ideas de Tecnología y Desarrollo",
+    blog_meta_title: "Blog de Giralabs | Ideas de tecnología y desarrollo",
     blog_meta_description: "El blog de Giralabs. Ideas, tutoriales y guías sobre desarrollo de aplicaciones móviles, diseño de experiencia de usuario (UX/UI) y tecnología cloud.",
-    accessibility_meta_title: "Declaración de Accesibilidad",
+    accessibility_meta_title: "Declaración de accesibilidad",
     accessibility_meta_description: "Compromiso de Giralabs con la accesibilidad web y la usabilidad para todos según las pautas WCAG 2.1 AA.",
-    legal_meta_title: "Aviso Legal",
+    legal_meta_title: "Aviso legal",
     legal_meta_description: "Términos, condiciones y aspectos legales de Giralabs Estudio de Software S.L.",
-    privacy_meta_title: "Política de Privacidad",
+    privacy_meta_title: "Política de privacidad",
     privacy_meta_description: "Cómo protegemos y tratamos tus datos personales en Giralabs. Cumplimiento estricto con el RGPD.",
     error_404_meta_title: "Página no encontrada (404)",
     error_404_meta_description: "Lo sentimos, la página que buscas no existe en el sitio de Giralabs.",
@@ -41,10 +41,10 @@ export const translations = {
     nav_cta: "Hablemos",
 
     // Hero
-    hero_label: "Desarrollo de Software y Apps Móviles",
-    hero_tagline: "Desarrollo de software a medida y <span class='gradient-text'>apps móviles</span> que las personas aman usar.",
+    hero_label: "Desarrollo de software y apps móviles",
+    hero_tagline: "Desarrollo de software a medida y <span class='gradient-text'>apps móviles</span> que la gente usa de verdad.",
     hero_sub:
-      "Como empresa de desarrollo de software de servicio completo, creamos aplicaciones móviles nativas, páginas web de alto rendimiento y soluciones digitales a medida de tus objetivos.",
+      "Hacemos apps para iOS y Android, páginas web rápidas y software a medida para que tu negocio funcione mejor.",
     hero_cta_primary: "Ver proyectos",
     hero_cta_secondary: "Conocer servicios",
 
@@ -55,23 +55,23 @@ export const translations = {
     stats_countries: "Países",
 
     // Services dark section header
-    sd_eyebrow: "LO QUE HACEMOS",
-    sd_title: "Construimos producto digital premium.\nIntegramos tecnología que acelera tu negocio.",
+    sd_eyebrow: "Lo que hacemos",
+    sd_title: "Hacemos apps y webs que funcionan.\nY software que te ahorra trabajo.",
 
     // Service cards (6 total)
     service_1_title: "Creación de aplicaciones móviles",
     service_1_tag: "Móvil y Flutter",
-    service_1_desc: "Diseñamos y desarrollamos aplicaciones móviles nativas y multiplataforma premium. Creamos experiencias intuitivas que a tus usuarios les encantará usar cada día.",
-    service_1_details: "Construimos aplicaciones móviles excepcionales con un rendimiento impecable y una interfaz sumamente cuidada. Guiamos todo el proyecto a través de nuestras fases de descubrimiento, diseño UX/UI y desarrollo con Flutter para clientes de toda España, desde nuestra base en Sevilla.",
+    service_1_desc: "Diseñamos y programamos apps para iOS y Android, pensadas para que la gente las use a diario sin complicarse.",
+    service_1_details: "Hacemos apps rápidas y bien cuidadas de principio a fin: entender qué necesitas, diseñar las pantallas y programarlas con Flutter. Trabajamos desde Sevilla con clientes de toda España.",
     service_1_feature_1: "Desarrollo nativo e híbrido (Flutter).",
     service_1_feature_2: "Diseño UX/UI optimizado para móviles.",
     service_1_feature_3: "Publicación y soporte en App Store y Google Play.",
 
     service_2_title: "Creación de páginas web",
-    service_2_tag: "Web y React",
-    service_2_desc: "Creamos sitios web de alto rendimiento y portales web interactivos a medida. Combinamos diseño vanguardista, velocidad de carga óptima y optimización SEO.",
-    service_2_details: "Creamos portales y páginas web que combinan una estética premium con una velocidad y accesibilidad insuperables. Usamos tecnologías modernas de frontend para asegurar que tu sitio web sea responsivo, interactivo y esté diseñado para convertir visitas en clientes potenciales desde el primer día.",
-    service_2_feature_1: "Sitios corporativos y landing pages premium.",
+    service_2_tag: "Web y Angular",
+    service_2_desc: "Hacemos webs a medida que cargan rápido, se ven bien en cualquier pantalla y aparecen en Google.",
+    service_2_details: "Hacemos webs y portales cuidados, rápidos y accesibles. Usamos tecnologías actuales para que tu web se adapte a cualquier pantalla y convierta visitas en contactos desde el primer día.",
+    service_2_feature_1: "Webs corporativas y landing pages.",
     service_2_feature_2: "Velocidad de carga y rendimiento óptimos.",
     service_2_feature_3: "SEO técnico y adaptabilidad en pantallas.",
 
@@ -85,7 +85,7 @@ export const translations = {
 
     service_4_title: "Creación de tiendas online",
     service_4_tag: "E-Commerce",
-    service_4_desc: "Desarrollamos tiendas online optimizadas para la conversión. Pasarelas de pago seguras, gestión de inventario ágil y flujos de compra sin fricciones.",
+    service_4_desc: "Hacemos tiendas online con pagos seguros, control de stock y un proceso de compra corto y claro.",
     service_4_details: "Diseñamos y optimizamos tiendas en línea pensadas para escalar tus ventas. Desarrollamos flujos de compra sumamente rápidos e intuitivos, configuramos integraciones completas con transportistas y pasarelas de pago, y te dotamos de las herramientas de gestión necesarias para operar con facilidad.",
     service_4_feature_1: "Integraciones avanzadas de pago y envío.",
     service_4_feature_2: "Embudo de ventas diseñado para convertir.",
@@ -102,14 +102,14 @@ export const translations = {
     service_6_title: "Implementación de IA en las aplicaciones",
     service_6_tag: "IA e innovación",
     service_6_desc: "Integramos modelos de lenguaje natural (LLMs), agentes autónomos y sistemas de recuperación inteligente RAG en tus sistemas y apps existentes.",
-    service_6_details: "Añadimos superpoderes cognitivos a tus aplicaciones mediante la integración de Inteligencia Artificial de vanguardia. Diseñamos chatbots con contexto empresarial, agentes que ejecutan acciones autónomas y sistemas inteligentes de análisis y procesamiento de documentos para catapultar la productividad de tu equipo.",
+    service_6_details: "Integramos inteligencia artificial donde de verdad ahorra tiempo: asistentes que conocen tu negocio, agentes que hacen tareas por ti y sistemas que leen y ordenan documentos.",
     service_6_feature_1: "Integración de LLMs (GPT-4, Claude, etc.).",
     service_6_feature_2: "Agentes autónomos de soporte y flujos.",
     service_6_feature_3: "Búsqueda contextual inteligente (RAG).",
 
     // Services page translations
-    services_page_title: "Nuestros Servicios",
-    services_page_subtitle: "Construimos software a medida con precisión de ingeniería y diseño excepcional.",
+    services_page_title: "Servicios",
+    services_page_subtitle: "Software a medida, bien hecho y explicado sin tecnicismos.",
     services_page_cta: "Cuéntanos tu proyecto",
     services_included: "Qué incluye:",
     service_details_title: "Detalles del servicio",
@@ -117,7 +117,7 @@ export const translations = {
     service_back_list: "Volver a todos los servicios",
 
     // Service 1 Phases (Creación de aplicaciones móviles)
-    service_1_phase_1_title: "Descubrimiento de Producto",
+    service_1_phase_1_title: "Descubrimiento de producto",
     service_1_phase_1_tag: "Estrategia",
     service_1_phase_1_desc: "Definimos tu MVP en 2 semanas. Validamos la idea, diseñamos el alcance técnico y cerramos un precio fijo. Cero código hasta estar seguros.",
     service_1_phase_1_details: "Analizamos tu idea a fondo antes de tirar una sola línea de código. Definimos los requerimientos y el alcance funcional, creamos los wireframes interactivos y diseñamos una hoja de ruta con un presupuesto de desarrollo cerrado para mitigar cualquier riesgo técnico.",
@@ -125,7 +125,7 @@ export const translations = {
     service_1_phase_1_feature_2: "Prototipo interactivo (Wireframes).",
     service_1_phase_1_feature_3: "Presupuesto cerrado de desarrollo.",
 
-    service_1_phase_2_title: "Diseño de Experiencia (UX/UI)",
+    service_1_phase_2_title: "Diseño de experiencia (UX/UI)",
     service_1_phase_2_tag: "Diseño",
     service_1_phase_2_desc: "Interfaces limpias que convierten. Sistemas de diseño escalables, prototipos interactivos y pruebas reales con usuarios antes del desarrollo.",
     service_1_phase_2_details: "Diseñamos interfaces que cautivan y convierten. Creamos flujos limpios y sistemas de diseño consistentes para asegurar que la experiencia sea intuitiva en cualquier pantalla, validando las decisiones con pruebas de usabilidad reales.",
@@ -133,7 +133,7 @@ export const translations = {
     service_1_phase_2_feature_2: "Sistemas de diseño escalables.",
     service_1_phase_2_feature_3: "Pruebas de usabilidad reales.",
 
-    service_1_phase_3_title: "Ingeniería Móvil & Backend",
+    service_1_phase_3_title: "Ingeniería móvil y backend",
     service_1_phase_3_tag: "Desarrollo",
     service_1_phase_3_desc: "De Figma a producción en 16 semanas. Flutter Partner oficial en frontend, y backend robusto en Go. Arquitecturas preparadas para millones de peticiones.",
     service_1_phase_3_details: "Desarrollamos aplicaciones robustas con rendimiento nativo utilizando Flutter, combinadas con arquitecturas de backend altamente escalables en Go y desplegadas en la nube de Kubernetes para garantizar alta disponibilidad.",
@@ -141,7 +141,7 @@ export const translations = {
     service_1_phase_3_feature_2: "Backend escalable y seguro en Go.",
     service_1_phase_3_feature_3: "Despliegue y nube en Kubernetes (GKE).",
 
-    service_1_phase_4_title: "Crecimiento Continuo",
+    service_1_phase_4_title: "Crecimiento continuo",
     service_1_phase_4_tag: "Evolución",
     service_1_phase_4_desc: "El lanzamiento es solo el primer paso. Escalamos tu producto con sprints basados en métricas reales de usuario, no en opiniones.",
     service_1_phase_4_details: "El lanzamiento es solo el punto de partida. Implementamos analítica avanzada, monitorizamos el comportamiento del usuario y ejecutamos sprints ágiles de mejora continua basados en datos reales para maximizar el engagement.",
@@ -149,7 +149,7 @@ export const translations = {
     service_1_phase_4_feature_2: "Optimización continua y A/B testing.",
     service_1_phase_4_feature_3: "Sprints ágiles de evolución mensual.",
 
-    service_1_phase_5_title: "Inteligencia Artificial Aplicada",
+    service_1_phase_5_title: "Inteligencia artificial aplicada",
     service_1_phase_5_tag: "Integración con IA",
     service_1_phase_5_desc: "Modelos de lenguaje, agentes autónomos y RAG empresarial integrados en tu núcleo de negocio. Resultados medibles sin rodeos técnicos.",
     service_1_phase_5_details: "Integramos de manera práctica modelos de lenguaje natural (LLMs), agentes autónomos y sistemas de recuperación RAG en la estructura de tu negocio para automatizar tareas complejas y habilitar nuevas capacidades inteligentes.",
@@ -158,7 +158,7 @@ export const translations = {
     service_1_phase_5_feature_3: "Sistemas de recuperación de información (RAG).",
 
     // Service 2 Phases (Creación de páginas web)
-    service_2_phase_1_title: "Planificación & Estrategia SEO",
+    service_2_phase_1_title: "Planificación y estrategia SEO",
     service_2_phase_1_tag: "Planificación",
     service_2_phase_1_desc: "Definimos los objetivos comerciales de la web, la estructura del sitio y realizamos un estudio de palabras clave para asegurar un posicionamiento SEO óptimo desde el inicio.",
     service_2_phase_1_details: "Realizamos una auditoría inicial de competidores, analizamos las intenciones de búsqueda de tu cliente ideal y trazamos el mapa del sitio para garantizar que la arquitectura de la información sea intuitiva y esté preparada para buscadores.",
@@ -166,7 +166,7 @@ export const translations = {
     service_2_phase_1_feature_2: "Definición del mapa del sitio web.",
     service_2_phase_1_feature_3: "Estrategia de conversión (CRO) inicial.",
 
-    service_2_phase_2_title: "Bocetos & Prototipo UX/UI",
+    service_2_phase_2_title: "Bocetos y prototipo UX/UI",
     service_2_phase_2_tag: "Diseño",
     service_2_phase_2_desc: "Diseñamos wireframes de baja fidelidad y prototipos interactivos en Figma. Estilo visual alineado con tu marca y optimizado para la usabilidad.",
     service_2_phase_2_details: "Convertimos la estructura en diseños visuales atractivos. Trabajamos el branding, la tipografía y los flujos de interacción de la página para que la navegación sea fluida y estéticamente sorprendente.",
@@ -174,7 +174,7 @@ export const translations = {
     service_2_phase_2_feature_2: "Diseño visual de alta fidelidad en Figma.",
     service_2_phase_2_feature_3: "Definición del sistema de diseño web.",
 
-    service_2_phase_3_title: "Maquetación & Código Limpio",
+    service_2_phase_3_title: "Maquetación y código limpio",
     service_2_phase_3_tag: "Código",
     service_2_phase_3_desc: "Escribimos código frontend moderno, semántico y responsive. Aseguramos que la página se visualice a la perfección en móviles, tablets y ordenadores.",
     service_2_phase_3_details: "Implementamos el diseño pixel-perfect utilizando tecnologías veloces y estándares modernos. Priorizamos la limpieza del código fuente para facilitar futuras ampliaciones y mejorar la indexación en buscadores.",
@@ -182,7 +182,7 @@ export const translations = {
     service_2_phase_3_feature_2: "Efectos visuales y micro-interacciones.",
     service_2_phase_3_feature_3: "Código optimizado sin scripts innecesarios.",
 
-    service_2_phase_4_title: "Optimización de Carga",
+    service_2_phase_4_title: "Optimización de carga",
     service_2_phase_4_tag: "Rendimiento",
     service_2_phase_4_desc: "Maximizamos la velocidad de carga de la web para obtener una puntuación excelente en PageSpeed Insights. Compresión de imágenes y optimización de recursos.",
     service_2_phase_4_details: "Una web rápida retiene más usuarios. Optimizamos la carga diferida (lazy loading), minimizamos los archivos JS/CSS y configuramos el almacenamiento en caché para lograr una velocidad de carga instantánea.",
@@ -190,7 +190,7 @@ export const translations = {
     service_2_phase_4_feature_2: "Minificación de recursos estáticos.",
     service_2_phase_4_feature_3: "Configuración y auditoría PageSpeed Lighthouse.",
 
-    service_2_phase_5_title: "Despliegue & Indexación",
+    service_2_phase_5_title: "Despliegue y indexación",
     service_2_phase_5_tag: "Lanzamiento",
     service_2_phase_5_desc: "Lanzamos la web en un servidor seguro y la damos de alta en Google Search Console para una indexación inmediata y monitorización del tráfico.",
     service_2_phase_5_details: "Realizamos las pruebas de control de calidad finales, configuramos el dominio SSL y subimos la web. Conectamos herramientas de analítica y configuramos el mapa del sitio XML para que Google empiece a indexar tus páginas.",
@@ -199,7 +199,7 @@ export const translations = {
     service_2_phase_5_feature_3: "Alta y envío del Sitemap a Google.",
 
     // Service 3 Phases (Digitalización de empresas y software a medida)
-    service_3_phase_1_title: "Auditoría de Procesos",
+    service_3_phase_1_title: "Auditoría de procesos",
     service_3_phase_1_tag: "Auditoría",
     service_3_phase_1_desc: "Analizamos en detalle tus flujos de trabajo actuales para identificar ineficiencias, cuellos de botella y oportunidades de automatización.",
     service_3_phase_1_details: "Nos reunimos con tus equipos para mapear paso a paso cómo gestionan la información, las tareas y la comunicación, detectando dónde se pierde tiempo en tareas manuales y repetitivas.",
@@ -207,7 +207,7 @@ export const translations = {
     service_3_phase_1_feature_2: "Identificación de tareas redundantes.",
     service_3_phase_1_feature_3: "Definición del plan de retorno de inversión.",
 
-    service_3_phase_2_title: "Diseño de Arquitectura",
+    service_3_phase_2_title: "Diseño de arquitectura",
     service_3_phase_2_tag: "Arquitectura",
     service_3_phase_2_desc: "Diseñamos la solución digital óptima que integrará tus bases de datos, flujos de trabajo y herramientas en una arquitectura robusta y escalable.",
     service_3_phase_2_details: "Definimos la pila tecnológica idónea y diseñamos las bases de datos y la topología de la nube para asegurar que todos los sistemas empresariales se comuniquen de forma segura y veloz.",
@@ -215,7 +215,7 @@ export const translations = {
     service_3_phase_2_feature_2: "Diseño de flujos de integración.",
     service_3_phase_2_feature_3: "Especificación de requerimientos técnicos.",
 
-    service_3_phase_3_title: "Desarrollo & Conexión de APIs",
+    service_3_phase_3_title: "Desarrollo y conexión de APIs",
     service_3_phase_3_tag: "Desarrollo",
     service_3_phase_3_desc: "Programamos las funcionalidades personalizadas de tu nuevo software y creamos las conexiones (APIs) necesarias con tus herramientas existentes.",
     service_3_phase_3_details: "Desarrollamos el núcleo del sistema escribiendo código backend robusto y frontend intuitivo. Conectamos tus herramientas preferidas (como ERPs, CRMs, servicios de email o facturación) para unificar la operación.",
@@ -223,7 +223,7 @@ export const translations = {
     service_3_phase_3_feature_2: "Desarrollo de integraciones a medida.",
     service_3_phase_3_feature_3: "Migración inicial de datos históricos.",
 
-    service_3_phase_4_title: "Periodo Piloto & Formación",
+    service_3_phase_4_title: "Periodo piloto y formación",
     service_3_phase_4_tag: "Formación",
     service_3_phase_4_desc: "Lanzamos una versión piloto controlada y formamos a tu equipo para garantizar una transición suave, sin fricciones y con el mínimo impacto diario.",
     service_3_phase_4_details: "Acompañamos a tus empleados durante sus primeras interacciones con el software. Ajustamos detalles basándonos en su feedback real y proporcionamos documentación clara para su uso.",
@@ -231,7 +231,7 @@ export const translations = {
     service_3_phase_4_feature_2: "Sesiones de capacitación y resolución de dudas.",
     service_3_phase_4_feature_3: "Guías interactivas de uso del software.",
 
-    service_3_phase_5_title: "Soporte & Optimización",
+    service_3_phase_5_title: "Soporte y optimización",
     service_3_phase_5_tag: "Soporte",
     service_3_phase_5_desc: "Monitorizamos el rendimiento del sistema en producción y realizamos mejoras continuas para maximizar la productividad y eficiencia a largo plazo.",
     service_3_phase_5_details: "Mantenemos tu software seguro y actualizado. Realizamos optimizaciones de velocidad y base de datos de manera periódica, adaptando la plataforma a medida que tu negocio evolucione.",
@@ -240,7 +240,7 @@ export const translations = {
     service_3_phase_5_feature_3: "Sprints trimestrales de mejora de procesos.",
 
     // Service 4 Phases (Creación de tiendas online)
-    service_4_phase_1_title: "Arquitectura de Catálogo",
+    service_4_phase_1_title: "Arquitectura de catálogo",
     service_4_phase_1_tag: "Catálogo",
     service_4_phase_1_desc: "Definimos la jerarquía de categorías, los atributos de producto y las variantes. Estructuramos la base del inventario para una navegación óptima.",
     service_4_phase_1_details: "Estructuramos la información de tus productos de manera lógica para buscadores y usuarios. Diseñamos el sistema de filtros y las relaciones entre artículos para fomentar las ventas cruzadas.",
@@ -248,7 +248,7 @@ export const translations = {
     service_4_phase_1_feature_2: "Estructura de variantes de producto.",
     service_4_phase_1_feature_3: "Planificación de filtros y buscadores.",
 
-    service_4_phase_2_title: "Diseño del Embudo & Ficha de Producto",
+    service_4_phase_2_title: "Diseño del embudo y ficha de producto",
     service_4_phase_2_tag: "Embudo",
     service_4_phase_2_desc: "Diseñamos una experiencia de usuario orientada a la venta. Optimizamos la ficha de producto, el carrito y el proceso de checkout.",
     service_4_phase_2_details: "Creamos un diseño atractivo que resalta las virtudes de tus productos. Reducimos el ruido en la página de pago para evitar el abandono del carrito de compra y maximizar el porcentaje de pedidos.",
@@ -256,7 +256,7 @@ export const translations = {
     service_4_phase_2_feature_2: "Carrito flotante e interactivo.",
     service_4_phase_2_feature_3: "Proceso de pago simplificado (One-Page Checkout).",
 
-    service_4_phase_3_title: "Pasarelas de Pago & Envíos",
+    service_4_phase_3_title: "Pasarelas de pago y envíos",
     service_4_phase_3_tag: "Pagos",
     service_4_phase_3_desc: "Configuramos y conectamos pasarelas de pago seguras y automatizamos el cálculo de costes de envío con empresas logísticas en tiempo real.",
     service_4_phase_3_details: "Garantizamos la seguridad de las transacciones implementando pasarelas como Stripe, PayPal o Bizum. Automatizamos las tarifas de envío según el peso, volumen o destino del pedido.",
@@ -264,7 +264,7 @@ export const translations = {
     service_4_phase_3_feature_2: "Integración con agencias de transporte.",
     service_4_phase_3_feature_3: "Cálculo automatizado de impuestos y costes.",
 
-    service_4_phase_4_title: "Pruebas de Checkout & QA",
+    service_4_phase_4_title: "Pruebas de checkout y QA",
     service_4_phase_4_tag: "Testing",
     service_4_phase_4_desc: "Realizamos simulaciones reales de compra en diferentes dispositivos y navegadores para asegurar que no haya fallos al pagar.",
     service_4_phase_4_details: "Probamos cada combinación posible de pago y envío. Validamos que los correos automáticos de confirmación se envíen de inmediato y que el inventario se descuente correctamente en el panel.",
@@ -272,7 +272,7 @@ export const translations = {
     service_4_phase_4_feature_2: "Comprobación de flujos de stock.",
     service_4_phase_4_feature_3: "Validación de notificaciones automáticas.",
 
-    service_4_phase_5_title: "Lanzamiento & Conversión",
+    service_4_phase_5_title: "Lanzamiento y conversión",
     service_4_phase_5_tag: "Conversión",
     service_4_phase_5_desc: "Abrimos la tienda al público y activamos herramientas de analítica avanzada para monitorizar embudos y optimizar continuamente la conversión.",
     service_4_phase_5_details: "Publicamos la tienda online con los dominios oficiales. Configuramos herramientas como Google Analytics E-commerce y mapas de calor para analizar el comportamiento y seguir mejorando el ROI.",
@@ -281,7 +281,7 @@ export const translations = {
     service_4_phase_5_feature_3: "Herramientas de recuperación de carritos vacíos.",
 
     // Service 5 Phases (Creación de software personalizado)
-    service_5_phase_1_title: "Análisis de Requisitos",
+    service_5_phase_1_title: "Análisis de requisitos",
     service_5_phase_1_tag: "Requisitos",
     service_5_phase_1_desc: "Recopilamos y detallamos todas las necesidades técnicas y funcionales para asegurar que el software cumpla exactamente con lo esperado.",
     service_5_phase_1_details: "Traducimos tus necesidades de negocio en requerimientos de software claros. Definimos las funcionalidades prioritarias, la hoja de ruta del proyecto y los criterios de aceptación.",
@@ -289,7 +289,7 @@ export const translations = {
     service_5_phase_1_feature_2: "Definición del alcance técnico.",
     service_5_phase_1_feature_3: "Planificación de hitos y entregas.",
 
-    service_5_phase_2_title: "Diseño de BD & APIs",
+    service_5_phase_2_title: "Diseño de BD y APIs",
     service_5_phase_2_tag: "Arquitectura",
     service_5_phase_2_desc: "Modelamos la estructura de base de datos óptima y definimos el protocolo de comunicación de las APIs que alimentarán el sistema.",
     service_5_phase_2_details: "Aseguramos la integridad de los datos estructurando el modelo relacional o no relacional. Escribimos la documentación de la API (por ejemplo, OpenAPI/Swagger) para estandarizar el desarrollo.",
@@ -297,7 +297,7 @@ export const translations = {
     service_5_phase_2_feature_2: "Diseño de endpoints y contratos API.",
     service_5_phase_2_feature_3: "Definición de políticas de seguridad iniciales.",
 
-    service_5_phase_3_title: "Desarrollo Backend",
+    service_5_phase_3_title: "Desarrollo backend",
     service_5_phase_3_tag: "Backend",
     service_5_phase_3_desc: "Programamos la lógica de negocio del servidor, procesos en segundo plano y gestiones de datos utilizando tecnologías eficientes y seguras.",
     service_5_phase_3_details: "Construimos el motor que hace funcionar la aplicación. Escribimos código backend de alto rendimiento en Go o Node.js, implementando algoritmos eficientes y garantizando tiempos de respuesta ultrarrápidos.",
@@ -305,7 +305,7 @@ export const translations = {
     service_5_phase_3_feature_2: "Procesamiento y tareas en background.",
     service_5_phase_3_feature_3: "Optimización de consultas SQL/NoSQL.",
 
-    service_5_phase_4_title: "Pruebas QA & Auditoría",
+    service_5_phase_4_title: "Pruebas QA y auditoría",
     service_5_phase_4_tag: "QA",
     service_5_phase_4_desc: "Sometemos el código a pruebas rigurosas: unitarias, de integración y auditorías de seguridad, para erradicar errores y posibles vulnerabilidades.",
     service_5_phase_4_details: "Garantizamos la máxima estabilidad del software antes de su entrega. Ejecutamos pruebas automáticas de rendimiento y escaneo de vulnerabilidades para asegurar que el sistema resista picos de carga.",
@@ -313,7 +313,7 @@ export const translations = {
     service_5_phase_4_feature_2: "Pruebas de estrés y carga del sistema.",
     service_5_phase_4_feature_3: "Auditoría de seguridad y parches de código.",
 
-    service_5_phase_5_title: "Despliegue DevOps & Nube",
+    service_5_phase_5_title: "Despliegue DevOps y nube",
     service_5_phase_5_tag: "DevOps",
     service_5_phase_5_desc: "Configuramos pipelines de integración y despliegue continuo (CI/CD) para subir el software a la nube de manera segura y automatizada.",
     service_5_phase_5_details: "Implementamos infraestructuras como código en proveedores cloud premium (AWS/GCP). Automatizamos los despliegues de modo que cada mejora de software se publique de manera invisible y segura.",
@@ -322,7 +322,7 @@ export const translations = {
     service_5_phase_5_feature_3: "Monitoreo y logging centralizado en producción.",
 
     // Service 6 Phases (Implementación de IA en las aplicaciones)
-    service_6_phase_1_title: "Estudio de Viabilidad de IA",
+    service_6_phase_1_title: "Estudio de viabilidad de IA",
     service_6_phase_1_tag: "Viabilidad",
     service_6_phase_1_desc: "Analizamos tu caso de uso empresarial para determinar qué modelos de IA, presupuestos e integraciones aportarán un valor real a tu negocio.",
     service_6_phase_1_details: "No todas las tareas requieren IA. Identificamos las áreas de negocio donde un modelo de lenguaje, un clasificador o un agente autónomo multiplicará la eficiencia, estimando los costes de tokens y rendimiento.",
@@ -330,7 +330,7 @@ export const translations = {
     service_6_phase_1_feature_2: "Definición del caso de uso estratégico.",
     service_6_phase_1_feature_3: "Selección preliminar del modelo (Open vs Close Source).",
 
-    service_6_phase_2_title: "Procesado & Vectorización de Datos",
+    service_6_phase_2_title: "Procesado y vectorización de datos",
     service_6_phase_2_tag: "Vectorización",
     service_6_phase_2_desc: "Estructuramos, limpiamos y convertimos tus documentos e información de negocio en vectores para alimentar el motor de búsqueda inteligente.",
     service_6_phase_2_details: "Preparamos la base de conocimiento de tu empresa. Limpiamos el texto de tus manuales, bases de datos o PDFs y los indexamos en bases de datos vectoriales para una recuperación de contexto ultrarrápida.",
@@ -338,7 +338,7 @@ export const translations = {
     service_6_phase_2_feature_2: "Generación de Embeddings contextuales.",
     service_6_phase_2_feature_3: "Carga en bases de datos vectoriales (como Pinecone o pgvector).",
 
-    service_6_phase_3_title: "Ingeniería de Prompts & Ajuste",
+    service_6_phase_3_title: "Ingeniería de prompts y ajuste",
     service_6_phase_3_tag: "Prompts",
     service_6_phase_3_desc: "Diseñamos y perfeccionamos las instrucciones y el comportamiento del modelo de IA para asegurar respuestas precisas, profesionales y alineadas con tu marca.",
     service_6_phase_3_details: "Programamos las directrices operativas de la IA. Evaluamos de manera rigurosa las respuestas con diferentes enfoques de prompt (Few-shot, Chain-of-thought) para minimizar la variabilidad del output.",
@@ -346,7 +346,7 @@ export const translations = {
     service_6_phase_3_feature_2: "Estrategias de control y formateo de JSON.",
     service_6_phase_3_feature_3: "Reducción activa de alucinaciones del modelo.",
 
-    service_6_phase_4_title: "Integración RAG & Agentes",
+    service_6_phase_4_title: "Integración RAG y agentes",
     service_6_phase_4_tag: "RAG",
     service_6_phase_4_desc: "Conectamos el motor de IA con las bases de datos de la empresa, habilitando que la IA consulte información en tiempo real y ejecute tareas automatizadas.",
     service_6_phase_4_details: "Conectamos la IA a la acción. Mediante técnicas RAG, la IA responderá siempre con información veraz de tu negocio. Desarrollamos agentes autónomos capaces de invocar APIs externas para completar tareas complejas.",
@@ -354,7 +354,7 @@ export const translations = {
     service_6_phase_4_feature_2: "Agentes inteligentes con capacidad de invocar APIs (Function Calling).",
     service_6_phase_4_feature_3: "Flujos híbridos con intervención humana de respaldo.",
 
-    service_6_phase_5_title: "Monitorización de Alucinaciones",
+    service_6_phase_5_title: "Monitorización de alucinaciones",
     service_6_phase_5_tag: "Guardrails",
     service_6_phase_5_desc: "Implementamos sistemas de auditoría en tiempo real para verificar la precisión del modelo, prevenir alucinaciones y proteger los datos confidenciales.",
     service_6_phase_5_details: "Garantizamos que la IA opere de forma segura. Implementamos capas de control (Guardrails) que validan tanto las entradas del usuario como las respuestas generadas, filtrando datos sensibles o respuestas fuera de tono.",
@@ -387,20 +387,20 @@ export const translations = {
       "Sin saber qué construir ni para quién. Sin el equipo adecuado ni estrategia detrás.",
     statement_sub2:
       "En Giralabs unimos estrategia de producto, diseño e ingeniería. Para convertir <strong>ideas con potencial</strong> en apps que la gente elige usar.",
-    statement_cta: "HABLEMOS ANTES DEL PRIMER COMMIT",
+    statement_cta: "Hablemos antes de escribir código",
 
     // Manifesto
-    manifesto_label: "NUESTRA VENTAJA",
+    manifesto_label: "Nuestra ventaja",
 
     // Pioneers section (Flutter)
-    pioneers_eyebrow: "TECNOLOGÍA DE VANGUARDIA",
-    pioneers_title: "Rendimiento nativo. Stack moderno. Cero deuda técnica.",
-    pioneers_p1: "Seleccionamos las herramientas más avanzadas para darte una <strong>ventaja competitiva real</strong>. Desarrollamos con tecnologías robustas que garantizan escalabilidad y velocidad.",
-    pioneers_p2: "Desde desarrollo móvil y multiplataforma hasta infraestructuras cloud integradas de alta disponibilidad. Sin fricciones, solo resultados excepcionales.",
-    pioneers_button: "CONOCE NUESTRO STACK",
+    pioneers_eyebrow: "Tecnología",
+    pioneers_title: "Apps rápidas, hechas con herramientas actuales y fáciles de mantener.",
+    pioneers_p1: "Elegimos herramientas probadas y actuales para que tu producto sea <strong>rápido hoy y fácil de ampliar mañana</strong>.",
+    pioneers_p2: "Desde la app que tienes en el móvil hasta los servidores que la sostienen.",
+    pioneers_button: "Conoce nuestro stack",
 
     // Projects summary section
-    projects_eyebrow: "EN EL LABORATORIO",
+    projects_eyebrow: "En el laboratorio",
     projects_title: "Lo que estamos construyendo ahora.",
     projects_home_sub: "Un único producto propio, con todo el foco puesto encima. Así trabajamos también los proyectos de nuestros clientes.",
     project_bipsy_tag: "Reservas para belleza y bienestar",
@@ -423,11 +423,11 @@ export const translations = {
     bipsy_announce_close: "Cerrar aviso",
 
     // FAQ
-    faq_label: "PREGUNTAS FRECUENTES",
-    faq_title: "Preguntas Frecuentes",
+    faq_label: "Preguntas frecuentes",
+    faq_title: "Preguntas frecuentes",
     faq_sub: "Todo lo que necesitas saber sobre nuestros servicios de desarrollo de software y aplicaciones móviles.",
     faq_q1: "¿Qué tipos de aplicaciones desarrolláis?",
-    faq_a1: "Desarrollamos aplicaciones móviles nativas y multiplataforma de alto rendimiento (iOS y Android) utilizando Flutter, páginas web rápidas y adaptables con tecnologías modernas (como Astro y React), y software a medida para digitalizar y automatizar los procesos de tu negocio.",
+    faq_a1: "Desarrollamos aplicaciones móviles nativas y multiplataforma de alto rendimiento (iOS y Android) utilizando Flutter, páginas web rápidas y adaptables con tecnologías modernas (como Astro y Angular), y software a medida para digitalizar y automatizar los procesos de tu negocio.",
     faq_q2: "¿Cuánto tiempo se tarda en crear una app móvil?",
     faq_a2: "Un Producto Mínimo Viable (MVP) suele estar listo para producción en unas 16 semanas. El proceso completo abarca desde la fase de descubrimiento (2 semanas), diseño de UX/UI (3-4 semanas), desarrollo e integración (8-10 semanas) hasta las pruebas finales y publicación en las tiendas (App Store y Google Play).",
     faq_q3: "¿Cómo se calcula el coste de mi proyecto?",
@@ -439,50 +439,49 @@ export const translations = {
     faq_q6: "¿Es lo mismo Giralabs, Giralab o Girlabs?",
     faq_a6: "Sí, son erratas frecuentes para referirse a nosotros. El nombre oficial y correcto de nuestra empresa es Giralabs.",
     faq_q7: "¿Qué ventajas ofrece el desarrollo web a medida frente a plantillas genéricas?",
-    faq_a7: "El desarrollo web a medida (usando Astro, React o Next.js) garantiza una velocidad de carga óptima, un SEO técnico impecable y una total libertad de diseño. Esto se traduce en una mejor conversión de clientes y la eliminación de limitaciones técnicas asociadas a plataformas rígidas.",
+    faq_a7: "El desarrollo web a medida (usando Astro o Angular) garantiza una velocidad de carga óptima, un SEO técnico impecable y una total libertad de diseño. Esto se traduce en una mejor conversión de clientes y la eliminación de limitaciones técnicas asociadas a plataformas rígidas.",
     faq_q8: "¿Cuándo es recomendable desarrollar un software a medida para mi empresa?",
     faq_a8: "Es ideal cuando tus procesos operativos son únicos y las herramientas comerciales genéricas te obligan a cambiar tu forma de trabajar, o cuando los costes recurrentes por licencias de usuario penalizan el crecimiento de tu negocio.",
 
     // Footer
-    footer_tagline: "Hecho con precisión en España.",
+    footer_tagline: "Hecho en Sevilla.",
     footer_contact: "Contacto",
     footer_rights: "© 2026 Giralabs. Todos los derechos reservados.",
     footer_email: "soporte@giralabs.es",
 
     // About Page
     about_page_title: "Nosotros",
-    about_page_subtitle: "Diseñamos y desarrollamos soluciones digitales premium con pasión por el detalle.",
-    about_hero_eyebrow: "NUESTRA HISTORIA",
-    about_intro_p1: "En Giralabs creemos que el software excelente no surge por accidente. Nace de la combinación perfecta entre estrategia de negocio, diseño intuitivo e ingeniería de alto rendimiento.",
-    about_intro_p2: "No somos una consultora masiva. Somos un equipo boutique enfocado en la calidad, la transparencia y el impacto real. Trabajamos codo con codo con fundadores y líderes de producto para convertir visiones ambiciosas en aplicaciones memorables.",
+    about_page_subtitle: "Un estudio pequeño de Sevilla que diseña y programa apps, webs y software a medida.",
+    about_hero_eyebrow: "Quiénes somos",
+    about_intro_p1: "El buen software no sale por casualidad. Sale de entender bien el negocio, diseñar con cabeza y programar con cuidado.",
+    about_intro_p2: "Somos un equipo pequeño, y lo preferimos así. Trabajamos directamente con quien nos encarga el proyecto, sin intermediarios, y te contamos en todo momento cómo va.",
     about_intro_p3: "Trabajamos desde Sevilla y colaboramos estrechamente con clientes y empresas de toda España, ofreciendo un servicio de proximidad y alta calidad.",
-    about_values_eyebrow: "CÓMO PENSAMOS",
-    about_values_heading: "Nuestros pilares fundamentales",
-    about_value_1_title: "Precisión de Ingeniería",
-    about_value_1_desc: "Escribimos código limpio, robusto y escalable. Optimizamos el rendimiento al milisegundo y tratamos la seguridad como una prioridad absoluta.",
-    about_value_2_title: "Diseño de Vanguardia",
-    about_value_2_desc: "Creemos en la simplicidad y en interfaces que guíen al usuario sin fricciones. Cada píxel, animación y transición está diseñado con un propósito.",
-    about_value_3_title: "Transparencia Total",
-    about_value_3_desc: "Sin sorpresas ni rodeos. Compartimos nuestro progreso en tiempo real y nos comprometemos con presupuestos y plazos de entrega realistas.",
-    about_team_title: "El Equipo Detrás del Código",
-    about_team_subtitle: "Un grupo de apasionados por la tecnología comprometidos con crear experiencias memorables.",
+    about_values_eyebrow: "Cómo trabajamos",
+    about_values_heading: "Lo que nos importa",
+    about_value_1_title: "Código bien hecho",
+    about_value_1_desc: "Código limpio y fácil de mantener. Cuidamos que todo vaya rápido y nos tomamos la seguridad en serio desde el primer día.",
+    about_value_2_title: "Diseño sencillo",
+    about_value_2_desc: "Pantallas claras que se entienden a la primera. Cada animación tiene un motivo, no está de adorno.",
+    about_value_3_title: "Sin sorpresas",
+    about_value_3_desc: "Ves el avance mientras trabajamos, y los precios y plazos que te damos son realistas.",
+    about_team_title: "El equipo",
+    about_team_subtitle: "Las personas que diseñan y programan tus proyectos.",
     team_member_1_name: "Jose M.",
     team_member_1_role: "Co-Founder & Lead Engineer",
     team_member_1_bio: "Especialista en arquitecturas de alta disponibilidad, Flutter y sistemas en la nube. Obsesionado con el rendimiento del frontend y la robustez del backend.",
     team_member_2_name: "Laura G.",
     team_member_2_role: "Lead UX/UI Designer",
     team_member_2_bio: "Creadora de experiencias interactivas y sistemas de diseño escalables. Combina psicología y estética para diseñar productos que enamoran.",
-    about_stats_title: "Nuestras Métricas de Calidad",
-    about_stats_1: "Líneas de Código Limpias",
-    about_stats_2: "Tasa de Disponibilidad",
-    about_stats_3: "Horas de QA y Pruebas",
-    about_stats_4: "Proyectos de Impacto",
-    about_tech_eyebrow: "TECNOLOGÍAS",
+    about_stats_title: "Nuestras métricas de calidad",
+    about_stats_1: "Líneas de código limpias",
+    about_stats_2: "Tasa de disponibilidad",
+    about_stats_3: "Horas de QA y pruebas",
+    about_stats_4: "Proyectos de impacto",
+    about_tech_eyebrow: "Tecnologías",
     about_tech_heading: "Tecnologías con las que creamos",
     tech_flutter_desc: "Desarrollo móvil multiplataforma con rendimiento nativo.",
     tech_swift_desc: "Aplicaciones nativas de iOS eficientes y fluidas.",
     tech_kotlin_desc: "Desarrollo nativo moderno y seguro para Android.",
-    tech_react_desc: "Interfaces de usuario interactivas y componentes modulares.",
     tech_angular_desc: "Aplicaciones web robustas y estructuradas para empresas.",
     tech_astro_desc: "Sitios web estáticos ultrarápidos optimizados para SEO.",
     tech_java_desc: "Sistemas backend empresariales fiables y escalables.",
@@ -495,7 +494,7 @@ export const translations = {
     // Blog Page
     blog_page_title: "Blog",
     blog_page_subtitle: "Compartimos nuestras ideas sobre desarrollo de apps móviles, diseño de experiencia y tecnología.",
-    blog_hero_eyebrow: "NUESTRAS IDEAS",
+    blog_hero_eyebrow: "Nuestras ideas",
     blog_empty_title: "Próximamente",
     blog_empty_desc: "Estamos preparando artículos sobre Flutter, desarrollo nativo, Kubernetes e Inteligencia Artificial aplicada.",
     blog_subscribe_title: "Suscríbete a nuestra newsletter",
@@ -561,7 +560,7 @@ export const translations = {
 
     // Service 2
     service_2_faq_q1: "¿Qué tecnologías utilizáis para el desarrollo de páginas web?",
-    service_2_faq_a1: "Utilizamos frameworks modernos como React, Next.js y Astro para garantizar que la página web sea rápida, segura y altamente optimizada para buscadores (SEO). Evitamos el uso de maquetadores visuales pesados que ralentizan la carga y penalizan el posicionamiento técnico.",
+    service_2_faq_a1: "Utilizamos frameworks modernos como Angular y Astro para garantizar que la página web sea rápida, segura y altamente optimizada para buscadores (SEO). Evitamos el uso de maquetadores visuales pesados que ralentizan la carga y penalizan el posicionamiento técnico.",
     service_2_faq_q2: "¿Cuánto tiempo tarda el desarrollo de una web corporativa o portal web?",
     service_2_faq_a2: "El plazo habitual para una web corporativa premium oscila entre 4 y 8 semanas. Si se trata de un portal web interactivo más complejo o con áreas privadas para clientes, el plazo puede extenderse a entre 10 y 14 semanas, dependiendo de los requisitos funcionales.",
     service_2_faq_q3: "¿Qué incluye el servicio de diseño y desarrollo web?",
@@ -599,7 +598,7 @@ export const translations = {
     service_5_faq_q1: "¿Cuándo es necesario desarrollar un software a medida en lugar de usar uno ya de mercado?",
     service_5_faq_a1: "Cuando las soluciones estándar no se adaptan a tus reglas de negocio y te obligan a cambiar tu forma de operar, o cuando las licencias de usuarios de programas ya existentes suponen un coste recurrente insostenible a medida que tu empresa crece.",
     service_5_faq_q2: "¿Qué tecnologías utilizáis para desarrollar software personalizado?",
-    service_5_faq_a2: "Para el backend, utilizamos lenguajes robustos y eficientes como Go o Spring Boot, junto con bases de datos como PostgreSQL o MongoDB. Para el frontend, desarrollamos paneles intuitivos en React. Desplegamos todo en infraestructuras cloud escalables y seguras.",
+    service_5_faq_a2: "Para el backend, utilizamos lenguajes robustos y eficientes como Go o Spring Boot, junto con bases de datos como PostgreSQL o MongoDB. Para el frontend, desarrollamos paneles intuitivos en Angular. Desplegamos todo en infraestructuras cloud escalables y seguras.",
     service_5_faq_q3: "¿Cómo garantizáis la seguridad del software a medida y de los datos?",
     service_5_faq_a3: "Aplicamos el principio de 'secure by design'. Utilizamos protocolos estándar de autenticación (OAuth2, JWT), ciframos los datos sensibles en reposo y en tránsito, realizamos validaciones estrictas en el servidor y configuramos firewalls específicos en la nube.",
     service_5_faq_q4: "¿Cuál es el proceso habitual de desarrollo y en qué momentos participo?",
@@ -627,7 +626,7 @@ export const translations = {
     // Meta
     meta_title: "Giralabs | Custom Software & Mobile App Development Company",
     meta_description:
-      "Custom software and mobile app development company. We design and build native applications, high-performance websites, and premium digital solutions.",
+      "Custom software and mobile app development company in Seville, Spain. We build iOS and Android apps, websites and business tools.",
 
     // Page-specific Meta
     services_meta_title: "Our Software & Mobile App Services",
@@ -637,7 +636,7 @@ export const translations = {
     projects_sub: "We do not collect shop windows. Right now our entire in-house product is called Bipsy, and we are building it out in the open.",
     visit_project: "Visit website",
     about_meta_title: "About Giralabs | Custom Software Development Team",
-    about_meta_description: "Meet the Giralabs team, a custom software and mobile app development company. Learn about our history, engineering values, and premium design principles.",
+    about_meta_description: "Meet Giralabs, a custom software and mobile app studio in Seville: who we are, how we work and the tools we use.",
     contact_meta_title: "Contact Giralabs | Request a Software Quote",
     contact_meta_description: "Contact Giralabs for your next custom software or mobile app development project. Request a quote or book an introductory meeting with our team.",
     blog_meta_title: "Giralabs Blog | Technology & Development Insights",
@@ -663,10 +662,10 @@ export const translations = {
     nav_cta: "Let's talk",
 
     // Hero
-    hero_label: "Software & Mobile App Development",
-    hero_tagline: "Custom software and <span class='gradient-text'>mobile apps</span> designed and built for impact.",
+    hero_label: "Software and mobile app development",
+    hero_tagline: "Custom software and <span class='gradient-text'>mobile apps</span> that people actually use.",
     hero_sub:
-      "As a full-service software development company, we build native mobile applications, high-performance web systems, and custom digital products tailored to your goals.",
+      "We build iOS and Android apps, fast websites and custom software that helps your business run better.",
     hero_cta_primary: "View projects",
     hero_cta_secondary: "Explore services",
 
@@ -677,23 +676,23 @@ export const translations = {
     stats_countries: "Countries",
 
     // Services dark section header
-    sd_eyebrow: "WHAT WE DO",
-    sd_title: "We build premium digital products.\nWe integrate technology that accelerates your business.",
+    sd_eyebrow: "What we do",
+    sd_title: "We build apps and websites that work.\nAnd software that saves you time.",
 
     // Service cards (6 total)
     service_1_title: "Mobile app creation",
     service_1_tag: "Mobile and Flutter",
-    service_1_desc: "We design and develop premium native and cross-platform mobile applications. We build intuitive experiences that your users will love using every day.",
-    service_1_details: "We build exceptional mobile applications with flawless performance and a highly polished interface. We guide the entire project through our phases of discovery, UX/UI design, robust Flutter development, continuous growth, and AI integration to deliver a market-leading mobile experience.",
+    service_1_desc: "We design and build iOS and Android apps that people can use every day without thinking twice.",
+    service_1_details: "We build fast, carefully made apps from start to finish: understanding what you need, designing the screens and building them with Flutter. We work from Seville with clients across Spain.",
     service_1_feature_1: "Native and cross-platform development (Flutter).",
     service_1_feature_2: "Mobile-optimized UX/UI design.",
     service_1_feature_3: "App Store and Google Play publication & support.",
 
     service_2_title: "Web page creation",
-    service_2_tag: "Web y React",
-    service_2_desc: "We build high-performance websites and custom interactive portals. Combining cutting-edge design, optimal page load speed, and SEO search optimization.",
-    service_2_details: "We create websites and portals that combine premium aesthetics with unmatched speed and accessibility. We use modern frontend technologies to ensure your website is responsive, interactive, and designed to convert visitors into leads from day one.",
-    service_2_feature_1: "Premium corporate websites and landing pages.",
+    service_2_tag: "Web and Angular",
+    service_2_desc: "Custom websites that load fast, look right on any screen and show up on Google.",
+    service_2_details: "We build careful, fast and accessible websites and portals. We use current frontend tools so your site adapts to any screen and turns visits into enquiries from day one.",
+    service_2_feature_1: "Company websites and landing pages.",
     service_2_feature_2: "Optimal loading speed and performance.",
     service_2_feature_3: "Technical SEO and screen responsiveness.",
 
@@ -707,7 +706,7 @@ export const translations = {
 
     service_4_title: "Online store creation",
     service_4_tag: "E-Commerce",
-    service_4_desc: "We build conversion-optimized online stores. Secure payment gateways, agile inventory management, and zero-friction checkout flows.",
+    service_4_desc: "Online stores with secure payments, stock control and a short, clear checkout.",
     service_4_details: "We design and optimize online stores built to scale your sales. We develop lightning-fast and intuitive checkout flows, configure full integrations with shipping carriers and payment gateways, and equip you with the management tools needed to operate with ease.",
     service_4_feature_1: "Advanced payment and shipping integrations.",
     service_4_feature_2: "Conversion-optimized sales funnel design.",
@@ -724,14 +723,14 @@ export const translations = {
     service_6_title: "AI implementation in applications",
     service_6_tag: "AI and innovation",
     service_6_desc: "We integrate natural language models (LLMs), autonomous agents, and RAG search pipelines into your existing systems and applications.",
-    service_6_details: "We add cognitive superpowers to your applications by integrating cutting-edge Artificial Intelligence. We design chatbots with business context, agents that execute autonomous actions, and intelligent document processing systems to skyrocket your team's productivity.",
+    service_6_details: "We add AI where it actually saves time: assistants that know your business, agents that handle tasks for you and systems that read and sort documents.",
     service_6_feature_1: "LLM integration (GPT-4, Claude, etc.).",
     service_6_feature_2: "Autonomous agents for support and workflows.",
     service_6_feature_3: "Contextual intelligent search architectures (RAG).",
 
     // Services page translations
-    services_page_title: "Our Services",
-    services_page_subtitle: "We build custom software with engineering precision and exceptional design.",
+    services_page_title: "Services",
+    services_page_subtitle: "Custom software, built properly and explained without jargon.",
     services_page_cta: "Tell us about your project",
     services_included: "What's included:",
     service_details_title: "Service details",
@@ -1010,20 +1009,20 @@ export const translations = {
       "Without knowing what to build or for whom. Without the right team or strategy behind.",
     statement_sub2:
       "At Giralabs we combine product strategy, design and engineering. To turn <strong>ideas with potential</strong> into apps people choose to use.",
-    statement_cta: "LET'S TALK BEFORE THE FIRST COMMIT",
+    statement_cta: "Let's talk before writing any code",
 
     // Manifesto
-    manifesto_label: "OUR EDGE",
+    manifesto_label: "Our edge",
 
     // Pioneers section (Flutter)
-    pioneers_eyebrow: "VANGUARD TECH STACK",
-    pioneers_title: "Native performance. Modern stack. Zero technical debt.",
-    pioneers_p1: "We select the most advanced tools to give you a <strong>real competitive advantage</strong>. We develop with robust technologies that guarantee scalability and speed.",
-    pioneers_p2: "From mobile and cross-platform development to highly available integrated cloud infrastructures. Zero friction, only exceptional results.",
-    pioneers_button: "EXPLORE OUR TECH STACK",
+    pioneers_eyebrow: "Technology",
+    pioneers_title: "Fast apps, built with current tools and easy to maintain.",
+    pioneers_p1: "We pick proven, current tools so your product is <strong>fast today and easy to extend tomorrow</strong>.",
+    pioneers_p2: "From the app on your phone to the servers behind it.",
+    pioneers_button: "See our stack",
 
     // Projects summary section
-    projects_eyebrow: "IN THE LAB",
+    projects_eyebrow: "In the lab",
     projects_title: "What we are building right now.",
     projects_home_sub: "A single in-house product with all of our focus on it. This is exactly how we work on our clients' projects too.",
     project_bipsy_tag: "Booking for beauty & wellness",
@@ -1046,11 +1045,11 @@ export const translations = {
     bipsy_announce_close: "Close notice",
 
     // FAQ
-    faq_label: "FREQUENTLY ASKED QUESTIONS",
-    faq_title: "Frequently Asked Questions",
+    faq_label: "Frequently asked questions",
+    faq_title: "Frequently asked questions",
     faq_sub: "Everything you need to know about our software and mobile app development services.",
     faq_q1: "What types of applications do you develop?",
-    faq_a1: "We develop high-performance native and cross-platform mobile apps (iOS & Android) using Flutter, fast and responsive websites with modern stacks (like Astro and React), and custom software to digitize and automate your business operations.",
+    faq_a1: "We develop high-performance native and cross-platform mobile apps (iOS & Android) using Flutter, fast and responsive websites with modern stacks (like Astro and Angular), and custom software to digitize and automate your business operations.",
     faq_q2: "How long does it take to build a mobile app?",
     faq_a2: "A Minimum Viable Product (MVP) is typically ready for production in about 16 weeks. The full timeline spans from product discovery (2 weeks), UX/UI design (3-4 weeks), development & integrations (8-10 weeks), to final QA and store submission (App Store & Google Play).",
     faq_q3: "How do you calculate the cost of my project?",
@@ -1062,33 +1061,33 @@ export const translations = {
     faq_q6: "What is the difference between Giralabs, Giralab, or Girlabs?",
     faq_a6: "Yes, those are common misspellings of our brand name. The correct and official name of our company is Giralabs.",
     faq_q7: "What are the benefits of custom web development over templates?",
-    faq_a7: "Custom web development (using Astro, React, or Next.js) guarantees optimal loading speeds, flawless technical SEO, and complete design freedom. This translates to better conversion rates and the elimination of constraints imposed by rigid platforms.",
+    faq_a7: "Custom web development (using Astro or Angular) guarantees optimal loading speeds, flawless technical SEO, and complete design freedom. This translates to better conversion rates and the elimination of constraints imposed by rigid platforms.",
     faq_q8: "When is it recommended to build custom software for my business?",
     faq_a8: "It is ideal when your operational workflows are unique and generic SaaS tools force you to alter your operations, or when recurring user licensing fees become a bottleneck to your growth.",
 
     // Footer
-    footer_tagline: "Crafted with precision in Spain.",
+    footer_tagline: "Made in Seville.",
     footer_contact: "Contact",
     footer_rights: "© 2026 Giralabs. All rights reserved.",
     footer_email: "soporte@giralabs.es",
 
     // About Page
     about_page_title: "About Us",
-    about_page_subtitle: "We design and build premium digital solutions with passion for detail.",
-    about_hero_eyebrow: "OUR STORY",
-    about_intro_p1: "At Giralabs, we believe excellent software doesn't happen by accident. It is born from the perfect blend of business strategy, intuitive design, and high-performance engineering.",
-    about_intro_p2: "We are not a mass-market consultancy. We are a boutique team focused on quality, transparency, and real impact. We work hand-in-hand with founders and product leaders to turn ambitious visions into memorable applications.",
+    about_page_subtitle: "A small studio in Seville that designs and builds apps, websites and custom software.",
+    about_hero_eyebrow: "Who we are",
+    about_intro_p1: "Good software doesn't happen by chance. It comes from understanding the business, designing with care and writing code properly.",
+    about_intro_p2: "We're a small team, and we like it that way. We work directly with whoever hires us, with no middlemen, and keep you posted on how it's going.",
     about_intro_p3: "We work out of Seville and collaborate closely with clients and companies across Spain, offering high-quality, local service.",
-    about_values_eyebrow: "HOW WE THINK",
-    about_values_heading: "Our founding pillars",
-    about_value_1_title: "Engineering Precision",
-    about_value_1_desc: "We write clean, robust, and scalable code. We optimize performance to the millisecond and treat security as an absolute priority.",
-    about_value_2_title: "Vanguard Design",
-    about_value_2_desc: "We believe in simplicity and in interfaces that guide the user without friction. Every pixel, animation, and transition is crafted with purpose.",
-    about_value_3_title: "Total Transparency",
-    about_value_3_desc: "No surprises, no runarounds. We share our progress in real-time and commit to realistic budgets and delivery deadlines.",
-    about_team_title: "The Team Behind the Code",
-    about_team_subtitle: "A group of tech enthusiasts committed to building memorable experiences.",
+    about_values_eyebrow: "How we work",
+    about_values_heading: "What matters to us",
+    about_value_1_title: "Well-made code",
+    about_value_1_desc: "Clean code that is easy to maintain. We make sure everything runs fast and take security seriously from day one.",
+    about_value_2_title: "Simple design",
+    about_value_2_desc: "Clear screens you understand at first glance. Every animation is there for a reason, not for decoration.",
+    about_value_3_title: "No surprises",
+    about_value_3_desc: "You see progress as we work, and the prices and deadlines we give you are realistic.",
+    about_team_title: "The team",
+    about_team_subtitle: "The people who design and build your projects.",
     team_member_1_name: "Jose M.",
     team_member_1_role: "Co-Founder & Lead Engineer",
     team_member_1_bio: "Specialist in high-availability architectures, Flutter, and cloud systems. Obsessed with frontend performance and backend robustness.",
@@ -1100,12 +1099,11 @@ export const translations = {
     about_stats_2: "Uptime Rate",
     about_stats_3: "QA & Testing Hours",
     about_stats_4: "High-Impact Projects",
-    about_tech_eyebrow: "TECHNOLOGIES",
+    about_tech_eyebrow: "Technologies",
     about_tech_heading: "Technologies we build with",
     tech_flutter_desc: "Cross-platform mobile development with native performance.",
     tech_swift_desc: "Efficient and smooth native iOS applications.",
     tech_kotlin_desc: "Modern and secure native development for Android.",
-    tech_react_desc: "Interactive user interfaces and modular components.",
     tech_angular_desc: "Robust and structured web applications for enterprises.",
     tech_astro_desc: "Ultra-fast static websites optimized for SEO.",
     tech_java_desc: "Reliable and scalable enterprise backend systems.",
@@ -1118,7 +1116,7 @@ export const translations = {
     // Blog Page
     blog_page_title: "Blog",
     blog_page_subtitle: "We share our thoughts on mobile app development, experience design, and technology.",
-    blog_hero_eyebrow: "OUR THOUGHTS",
+    blog_hero_eyebrow: "Our thinking",
     blog_empty_title: "Coming Soon",
     blog_empty_desc: "We are preparing insightful articles about Flutter, native development, Kubernetes, and applied AI.",
     blog_subscribe_title: "Subscribe to our newsletter",
@@ -1184,7 +1182,7 @@ export const translations = {
 
     // Service 2
     service_2_faq_q1: "What technologies do you use for web development?",
-    service_2_faq_a1: "We build high-performance websites using React, Next.js, and Astro. We focus on clean code and static compilation to ensure lightning-fast page speed and search engine crawl optimization (SEO). We avoid bulky builders.",
+    service_2_faq_a1: "We build high-performance websites using Angular and Astro. We focus on clean code and static compilation to ensure lightning-fast page speed and search engine crawl optimization (SEO). We avoid bulky builders.",
     service_2_faq_q2: "How long does a corporate website or web portal take?",
     service_2_faq_a2: "A premium corporate website usually takes between 4 and 8 weeks. More complex portals with private client areas or internal custom integrations can take from 10 to 14 weeks.",
     service_2_faq_q3: "What does the web design and development service include?",
@@ -1222,7 +1220,7 @@ export const translations = {
     service_5_faq_q1: "When should I choose custom software over off-the-shelf options?",
     service_5_faq_a1: "When off-the-shelf software forces you to change how you work, or when recurring licensing fees become prohibitive as your user count grows.",
     service_5_faq_q2: "What technologies do you use to build custom software?",
-    service_5_faq_a2: "For backend, we use robust languages like Go or Spring Boot alongside databases like PostgreSQL or MongoDB. Frontends are built in React, all hosted on secure cloud providers.",
+    service_5_faq_a2: "For backend, we use robust languages like Go or Spring Boot alongside databases like PostgreSQL or MongoDB. Frontends are built in Angular, all hosted on secure cloud providers.",
     service_5_faq_q3: "How do you guarantee custom software and database security?",
     service_5_faq_a3: "We follow secure-by-design principles: data authentication (OAuth2, JWT), database encryption (at rest and transit), strict backend validation, and cloud firewalls.",
     service_5_faq_q4: "What is the development process like and how do I participate?",

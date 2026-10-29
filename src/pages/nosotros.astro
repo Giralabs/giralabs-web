@@ -17,7 +17,6 @@ import swiftLogo from '../assets/tech_stack/swift.webp';
 import xcodeLogo from '../assets/tech_stack/xcode.webp';
 import springLogo from '../assets/tech_stack/spring.webp';
 import angularLogo from '../assets/tech_stack/angular.webp';
-import reactLogo from '../assets/tech_stack/react.webp';
 import astroLogo from '../assets/tech_stack/astro.webp';
 
 export const prerender = true;
@@ -28,7 +27,6 @@ const technologies = [
   { id: "flutter", name: "Flutter", logo: flutterLogo.src, url: "https://flutter.dev/" },
   { id: "swift", name: "Swift", logo: swiftLogo.src, url: "https://www.apple.com/la/swift/" },
   { id: "kotlin", name: "Kotlin", logo: kotlinLogo.src, url: "https://kotlinlang.org/" },
-  { id: "react", name: "React", logo: reactLogo.src, url: "https://react.dev/" },
   { id: "angular", name: "Angular", logo: angularLogo.src, url: "https://angular.dev/" },
   { id: "astro", name: "Astro", logo: astroLogo.src, url: "https://astro.build/" },
   { id: "java", name: "Java", logo: javaLogo.src, url: "https://www.java.com/es/" },
@@ -45,12 +43,7 @@ const technologies = [
   description={T.about_meta_description}
   lang={lang}
 >
-  <!-- Global dot-grid background -->
-  <div class="grid-bg" aria-hidden="true"></div>
-  
-  <!-- Ambient glowing blobs -->
-  <div class="ambient-glow glow-top" aria-hidden="true"></div>
-  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
 
   <!-- Navbar -->
   <Navbar lang={lang} />
@@ -90,7 +83,7 @@ const technologies = [
         <span class="section-eyebrow" data-i18n="about_values_eyebrow">{T.about_values_eyebrow}</span>
         <h2 class="section-heading" data-i18n="about_values_heading">{T.about_values_heading}</h2>
       </div>
-      
+
       <div class="values-grid reveal-stagger">
         <!-- VALUE 1: Engineering -->
         <div class="value-card" id="value-card-1">
@@ -102,12 +95,9 @@ const technologies = [
           <div class="card-info">
             <div class="card-visual">
               <div class="value-widget engineering-widget">
-                <div class="widget-terminal">
-                  <div class="term-line">> giralabs build --prod</div>
-                  <div class="term-line success">> optimized (99.9% performance)</div>
-                  <div class="term-line success">> zero debt. code clean</div>
-                </div>
-              </div>
+                <pre class="widget-code" aria-hidden="true"><code><span class="k">fun</span> <span class="f">reservar</span>(cita: <span class="t">Cita</span>) =
+    agenda.add(cita)
+        .also &#123; <span class="f">avisar</span>(it) &#125;</code></pre>              </div>
             </div>
             <h3 class="value-title" data-i18n="about_value_1_title">{T.about_value_1_title}</h3>
             <p class="value-desc" data-i18n="about_value_1_desc">{T.about_value_1_desc}</p>
@@ -236,43 +226,6 @@ const technologies = [
     --accent-rgb-2: 136, 136, 136;
   }
 
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(0,0,0,0.05) 1.2px, transparent 1.2px);
-    background-size: 32px 32px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.65;
-  }
-
-  /* Ambient glowing blobs */
-  .ambient-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    /* No filter: blur() here. The background is already a soft radial
-       gradient, so the blur was costing a full-size gaussian every frame
-       for a difference measured at 0.5/255 — and WebKit pays that on the
-       CPU, which put mobile Safari at roughly one frame per second. */
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.07;
-  }
-
-  .glow-top {
-    top: -200px;
-    right: -100px;
-    background: radial-gradient(circle, rgba(255, 180, 100, 0.15) 0%, transparent 65%);
-  }
-
-  .glow-bottom {
-    bottom: -250px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
-  }
-
   /* ========================================
      HERO SEGMENT
      ======================================== */
@@ -289,11 +242,10 @@ const technologies = [
   }
 
   .hero-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.4);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink-subtle);
     display: inline-block;
     margin-bottom: 1rem;
   }
@@ -405,11 +357,10 @@ const technologies = [
   }
 
   .section-eyebrow {
-    font-size: 0.68rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
-    color: rgba(0,0,0,0.4);
-    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    color: var(--ink-subtle);
     display: inline-block;
     margin-bottom: 0.6rem;
   }
@@ -552,20 +503,20 @@ const technologies = [
   }
 
   /* Engineering Mini-Terminal */
-  .engineering-widget .widget-terminal {
-    font-family: monospace;
-    font-size: 0.65rem;
-    color: rgba(0,0,0,0.5);
+  .engineering-widget .widget-code {
+    margin: 0;
     width: 85%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.62);
     text-align: left;
+    white-space: pre;
   }
 
-  .widget-terminal .success {
-    color: #2b7a4b;
-  }
+  .widget-code .k { color: #7f52ff; }
+  .widget-code .f { color: #0a0a0a; font-weight: 600; }
+  .widget-code .t { color: #2b7a4b; }
 
   /* Design Canvas Mockup */
   .design-widget .design-canvas {
@@ -723,9 +674,8 @@ const technologies = [
   .team-role {
     font-size: 0.82rem;
     font-weight: 600;
-    color: rgba(0, 0, 0, 0.4);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    color: var(--ink-subtle);
+    letter-spacing: -0.005em;
   }
 
   .team-bio {
@@ -804,11 +754,10 @@ const technologies = [
   }
 
   .stat-label {
-    font-size: 0.76rem;
+    font-size: 0.86rem;
     font-weight: 600;
-    color: rgba(0,0,0,0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    letter-spacing: -0.005em;
   }
 
   /* ========================================
