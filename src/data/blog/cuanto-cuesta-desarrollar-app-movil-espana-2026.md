@@ -86,6 +86,6 @@ En [Giralabs](/servicios) hacemos primero una fase corta de descubrimiento y sol
 
 Preferimos la conversación incómoda del principio a la sorpresa del final.
 
-Si estás valorando desarrollar una aplicación y quieres una estimación con los pies en el suelo, [cuéntanos qué tienes en mente](/contacto). Y si quieres ver cómo aplicamos esto a nuestro propio producto, estamos construyendo [Bipsy](/proyecto/bipsy) en abierto: qué decidimos, por qué y en qué orden.
+Si estás valorando desarrollar una aplicación y quieres una estimación con los pies en el suelo, [cuéntanos qué tienes en mente](/contacto). Y si quieres ver cómo aplicamos esto a nuestro propio producto, hemos construido [Bipsy](/proyecto/bipsy) en abierto, ya disponible en el App Store: qué decidimos, por qué y en qué orden.
 
 Puedes profundizar también en cómo abordamos la [creación de aplicaciones móviles](/servicio/aplicaciones-moviles) y qué incluye cada fase.

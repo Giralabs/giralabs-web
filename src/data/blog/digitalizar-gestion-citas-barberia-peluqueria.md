@@ -82,8 +82,8 @@ Y avisa a tu clientela habitual con un cartel y un mensaje. La gente no adopta l
 
 ## En qué estamos trabajando nosotros
 
-Todo esto no lo escribimos desde fuera. Estamos construyendo **[Bipsy](/proyecto/bipsy)**, un ecosistema de reservas pensado exactamente para este tipo de negocio: una app para que el cliente encuentre el salón y reserve en dos toques, y **Bipsy Business** para que tú veas la agenda del día entera en el móvil y confirmes con un gesto.
+Todo esto no lo escribimos desde fuera. Hemos creado **[Bipsy](/proyecto/bipsy)**, un ecosistema de reservas pensado exactamente para este tipo de negocio: una app para que el cliente encuentre el salón y reserve en dos toques, y **Bipsy Business** para que tú veas la agenda del día entera en el móvil y confirmes con un gesto.
 
-Está **en desarrollo** y todavía no se puede descargar, así que esto no es un anuncio de producto. Lo contamos porque las decisiones que estamos tomando salen de conversaciones con barberías y peluquerías reales sobre cómo gestionan hoy su día a día.
+Las dos apps **ya están en el App Store**, y la versión de Android llega en unas semanas. Cada decisión que tomamos salió de conversaciones con barberías y peluquerías reales sobre cómo gestionan hoy su día a día.
 
-Si tienes un salón y te apetece probarlo antes que nadie, estamos cerrando el grupo de negocios piloto para la beta. Puedes apuntarte desde la [página de Bipsy](/proyecto/bipsy) o [escribirnos directamente](/contacto). Sin coste y sin compromiso: lo que buscamos es que nos digas qué falla.
+Si tienes un salón, el primer mes de Bipsy Business es gratis. Tienes todos los detalles en la [página de Bipsy](/proyecto/bipsy), y si prefieres hablarlo antes, [escríbenos directamente](/contacto).

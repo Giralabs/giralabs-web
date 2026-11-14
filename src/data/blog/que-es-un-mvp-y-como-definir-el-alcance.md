@@ -88,4 +88,4 @@ La fase de descubrimiento existe exactamente para esto. Antes de dar un precio, 
 
 Con frecuencia el resultado es un proyecto más pequeño —y por tanto más barato— que el que venía a pedir el cliente. No es generosidad: es que los proyectos pequeños se terminan y los grandes se atascan.
 
-Estamos aplicando exactamente esto en [Bipsy](/proyecto/bipsy), nuestro producto propio, y lo contamos en abierto. Si estás definiendo el alcance de algo, [escríbenos](/contacto) y lo miramos juntos.
+Aplicamos exactamente esto en [Bipsy](/proyecto/bipsy), nuestro producto propio, ya publicado en el App Store, y lo contamos en abierto. Si estás definiendo el alcance de algo, [escríbenos](/contacto) y lo miramos juntos.
