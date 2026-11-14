@@ -94,6 +94,6 @@ Conclusión práctica: no anuncies fecha de lanzamiento hasta que la app esté a
 
 Publicar no es el final. Toca vigilar los informes de fallos, responder reseñas —que influyen en la posición dentro de la tienda— y, sobre todo, mantener el ritmo de actualizaciones: una app que no se actualiza pierde posiciones y termina incumpliendo requisitos nuevos.
 
-Nosotros pasamos por esto con cada proyecto, y ahora mismo también con [Bipsy](/proyecto/bipsy), nuestro producto propio, que todavía está en desarrollo y aún no ha llegado a las tiendas.
+Nosotros pasamos por esto con cada proyecto, y también con [Bipsy](/proyecto/bipsy), nuestro producto propio: sus dos apps ya están publicadas en el App Store y la versión de Android llega a Google Play en unas semanas.
 
 Si estás cerca de publicar y quieres que alguien revise que no te falta nada, [escríbenos](/contacto). Y si quieres ver cómo estructuramos un proyecto de principio a fin, está en [creación de aplicaciones móviles](/servicio/aplicaciones-moviles).
