@@ -1,11 +1,9 @@
 ---
 import { Picture, getImage } from "astro:assets";
 import { translations } from "../../i18n/translations";
-// The combination mark is rebuilt from its parts so each one can move on its
-// own: the capsule cut at its seam into two halves, plus the wordmark on top.
+// The combination mark is rebuilt from its parts: the whole capsule (it stays
+// in one piece) with a glint running over the glass, plus the wordmark on top.
 // Layout percentages below were measured against the original artwork.
-import capsuleTop from "../../assets/brand_marks/derived/capsule_half_top.webp";
-import capsuleBottom from "../../assets/brand_marks/derived/capsule_half_bottom.webp";
 import capsuleWhole from "../../assets/brand_marks/derived/capsule.webp";
 import wordmark from "../../assets/brand_marks/derived/wordmark_black.webp";
 import { getLocalizedPath } from "../../lib/paths";
@@ -40,8 +38,7 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
           aria-label="Giralabs - Estudio de desarrollo de aplicaciones móviles y desarrollo de software a medida"
         >
           <div class="hm-capsule" style={`--hm-mask: url(${capsuleMask.src})`}>
-            <Picture src={capsuleTop} formats={["avif", "webp"]} fallbackFormat="webp" widths={[200, 315, 630]} sizes={capsuleSizes} alt="" class="hm-half hm-half--top" loading="eager" fetchpriority="high" />
-            <Picture src={capsuleBottom} formats={["avif", "webp"]} fallbackFormat="webp" widths={[200, 315, 630]} sizes={capsuleSizes} alt="" class="hm-half hm-half--bottom" loading="eager" fetchpriority="high" />
+            <Picture src={capsuleWhole} formats={["avif", "webp"]} fallbackFormat="webp" widths={[200, 315, 630]} sizes={capsuleSizes} alt="" class="hm-half" loading="eager" fetchpriority="high" />
             <span class="hm-glint" aria-hidden="true"><i></i></span>
           </div>
           <Picture
@@ -58,9 +55,6 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
         </div>
       </div>
     </div>
-
-    <!-- Divider line -->
-    <div class="hero-line" aria-hidden="true"></div>
 
     <!-- Tagline -->
     <h1
@@ -143,13 +137,11 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     z-index: 1;
     opacity: 0.8;
     mix-blend-mode: plus-lighter;
-    animation: liquidGlow 12s ease-in-out infinite alternate;
     pointer-events: none;
-    /* Runs forever: keep the blurred gradient cached as a compositor texture
-       instead of re-rasterising it each frame */
-    will-change: transform;
   }
 
+  /* Comes in once with a flash of light on load; after that the only motion
+     on the mark is the glint */
   .hero-mark-entrance {
     opacity: 0;
     animation: markEntrance 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
@@ -187,15 +179,10 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     width: 100%;
     height: 100%;
     mix-blend-mode: multiply;
-    animation: hmTop 7s cubic-bezier(0.45, 0, 0.25, 1) 2.2s infinite;
   }
 
-  .hero-mark :global(.hm-half--bottom) {
-    animation-name: hmBottom;
-  }
-
-  /* A beam of light runs across the glass when the halves click shut. The mask
-     is the capsule's own silhouette, so the light never spills onto the page */
+  /* A beam of light runs across the glass every few seconds. The mask is the
+     capsule's own silhouette, so the light never spills onto the page */
   .hm-glint {
     position: absolute;
     inset: 0;
@@ -214,7 +201,7 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     width: 28%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
     transform: translateX(-130%) rotate(18deg);
-    animation: hmGlint 7s ease-in-out 2.2s infinite;
+    animation: hmGlint 6s ease-in-out 1s infinite;
   }
 
   .hero-mark :global(.hm-word) {
@@ -225,29 +212,12 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     height: auto;
   }
 
-  /* The halves part along the capsule's axis (48 degrees in its own frame),
-     hold for a beat, then snap back together with a small overshoot */
-  @keyframes hmTop {
-    0%, 52% { transform: none; }
-    62%, 70% { transform: translate(-4.7px, -5.2px); }
-    75% { transform: translate(0.8px, 0.9px); }
-    80%, 100% { transform: none; }
-  }
-
-  @keyframes hmBottom {
-    0%, 52% { transform: none; }
-    62%, 70% { transform: translate(4.7px, 5.2px); }
-    75% { transform: translate(-0.8px, -0.9px); }
-    80%, 100% { transform: none; }
-  }
-
   @keyframes hmGlint {
-    0%, 74% { transform: translateX(-130%) rotate(18deg); }
-    92%, 100% { transform: translateX(420%) rotate(18deg); }
+    0%, 60% { transform: translateX(-130%) rotate(18deg); }
+    85%, 100% { transform: translateX(420%) rotate(18deg); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-mark :global(.hm-half),
     .hm-glint i {
       animation: none;
     }
@@ -261,23 +231,6 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     margin-bottom: 3rem;
     transform-style: preserve-3d;
     perspective: 1000px;
-  }
-
-  /* Hero line */
-  .hero-line {
-    position: relative;
-    width: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 0, 0, 0.12) 20%,
-      rgba(0, 0, 0, 0.12) 80%,
-      transparent
-    );
-    margin-bottom: 2.2rem;
-    animation: expandLine 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.7s forwards;
-    overflow: hidden;
   }
 
   /* Tagline */
@@ -384,34 +337,6 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     }
   }
 
-  @keyframes markBreath {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.009);
-    }
-  }
-
-  @keyframes markGlowPulse {
-    0%,
-    100% {
-      opacity: 0.55;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.85;
-      transform: scale(1.08);
-    }
-  }
-
-  @keyframes expandLine {
-    to {
-      width: 160px;
-    }
-  }
-
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -453,56 +378,4 @@ const capsuleSizes = "(max-width: 580px) 200px, (max-width: 920px) 34vw, 315px";
     font-weight: 700;
   }
 
-  /* Laser line shimmer */
-  .hero-line::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    /* Anchored at 0 so the keyframes below can express the whole travel as a
-       transform; the offset now lives in translateX percentages of this box */
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 138, 101, 0.5),
-      transparent
-    );
-    animation: lineShimmer 3s ease-in-out infinite;
-    animation-delay: 2s;
-  }
-
-  /* Driven by transform rather than `left`. Animating an offset property runs
-     layout on every frame for as long as the animation lives, and this one never
-     ends, so the main thread never went idle on the homepage. The travel is the
-     same: the element starts at left:0 and moves across its own 50%-wide box. */
-  @keyframes lineShimmer {
-    0% {
-      transform: translateX(-200%);
-    }
-    100% {
-      transform: translateX(300%);
-    }
-  }
-
-  /* The blur radius used to be keyframed 40 -> 45 -> 35 -> 40px, which forced a
-     fresh gaussian pass over the whole 620x420 glow on every frame, forever,
-     right where the hero paints. The radius now stays at the 40px set on the
-     element and only the transform animates, so the same motion runs entirely on
-     the compositor. Under a gradient this soft the 5px wobble was not visible. */
-  @keyframes liquidGlow {
-    0% {
-      transform: translate(0, 0) scale(1) rotate(0deg);
-    }
-    33% {
-      transform: translate(15px, -10px) scale(1.05) rotate(120deg);
-    }
-    66% {
-      transform: translate(-10px, 15px) scale(0.95) rotate(240deg);
-    }
-    100% {
-      transform: translate(0, 0) scale(1) rotate(360deg);
-    }
-  }
 </style>
