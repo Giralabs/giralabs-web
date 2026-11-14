@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { SITE_ORIGIN } from '../../../lib/site';
+import { BIPSY_STORE, BIPSY_WEB } from '../../../lib/bipsy-links';
 import Navbar from '../../../components/Navbar.astro';
 import BipsyProject from '../../../components/bipsy/BipsyProject.astro';
 import CTAContact from '../../../components/CTAContact.astro';
@@ -13,7 +14,7 @@ const siteUrl = SITE_ORIGIN;
 
 const metaTitle = 'Bipsy | Booking app for barbershops, hair salons and beauty studios | Giralabs';
 const metaDescription =
-  'Bipsy is the booking ecosystem we are building at Giralabs: an app for clients and Bipsy Business for beauty and wellness venues. Our own product, currently in development.';
+  'Bipsy is the booking ecosystem built at Giralabs: an app for clients and Bipsy Business for barbershops, hair salons and beauty studios. On the App Store now; Android in a few weeks.';
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -25,7 +26,8 @@ const breadcrumbSchema = {
   ],
 };
 
-// Two unreleased apps: declared without offers or ratings on purpose
+// Both apps are live on the App Store (Android in a few weeks). Declared
+// without offers or ratings: we do not publish figures we cannot back up.
 const appsSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -34,7 +36,9 @@ const appsSchema = {
       '@id': `${siteUrl}/en/project/bipsy#bipsy`,
       name: 'Bipsy',
       applicationCategory: 'LifestyleApplication',
-      operatingSystem: 'iOS, Android',
+      operatingSystem: 'iOS, iPadOS',
+      downloadUrl: BIPSY_STORE.client.appStore,
+      sameAs: [BIPSY_STORE.client.appStore, BIPSY_WEB.client],
       inLanguage: 'en',
       description:
         'Booking app for clients of barbershops, hair salons and beauty studios: discovery by category, real availability, reminders and appointment history.',
@@ -46,7 +50,9 @@ const appsSchema = {
       '@id': `${siteUrl}/en/project/bipsy#bipsy-business`,
       name: 'Bipsy Business',
       applicationCategory: 'BusinessApplication',
-      operatingSystem: 'iOS, Android',
+      operatingSystem: 'iOS, iPadOS',
+      downloadUrl: BIPSY_STORE.business.appStore,
+      sameAs: [BIPSY_STORE.business.appStore, BIPSY_WEB.business],
       inLanguage: 'en',
       description:
         'Management app for barbershops, hair salons and beauty studios: daily agenda, appointment confirmation, services, team and client profiles.',
