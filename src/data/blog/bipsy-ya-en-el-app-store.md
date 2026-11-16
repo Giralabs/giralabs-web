@@ -7,7 +7,7 @@ tags: ["Bipsy", "Lanzamiento", "Apps móviles"]
 readingTime: "4 min"
 image: "../../assets/blog/bipsy-en-el-app-store.webp"
 carousel: "bipsy-launch"
-carouselCaption: "El carrusel con el que lo anunciamos en Instagram (@bipsy_es). Toca a los lados o desliza para pasar de lámina."
+carouselCaption: "El carrusel con el que lo anunciamos en Instagram (@bipsy_es). Usa las flechas o desliza para pasar de lámina."
 ---
 
 Llevábamos meses contándolo a la vista de todos y por fin podemos decirlo: **Bipsy y Bipsy Business ya están en el App Store**. Las dos apps se pueden descargar hoy en iPhone y iPad, y la versión de Android llega a Google Play en unas semanas.

@@ -1,7 +1,9 @@
 ---
 import { getImage } from 'astro:assets';
 // The five slides of the App Store launch carousel posted on @bipsy_es
-// (renders/lanzamiento_ios_v1 in the bipsy repo), 1080x1350.
+// (renders/lanzamiento_ios_v1 in the bipsy repo), 1080x1350. These are the web
+// cut: the same slides without the page dots drawn into them, because here the
+// carousel draws its own under the picture.
 import slide1 from '../../assets/bipsy/launch/carrusel-1.webp';
 import slide2 from '../../assets/bipsy/launch/carrusel-2.webp';
 import slide3 from '../../assets/bipsy/launch/carrusel-3.webp';
@@ -13,13 +15,13 @@ import avatarSrc from '../../assets/bipsy/icons/bipsy-icon.webp';
 
 interface Props {
   lang?: string;
-  /** Eager in the launch notice, lazy inside an article. */
+  /** Eager at the top of an article, lazy further down a page. */
   eager?: boolean;
-  /** Framed as the Instagram post it is, with the profile on top linking to it. */
+  /** Kept for the callers; the carousel is always framed as the Instagram post it is. */
   instagram?: boolean;
 }
 
-const { lang = 'es', eager = false, instagram = false } = Astro.props;
+const { lang = 'es', eager = false } = Astro.props;
 
 const INSTAGRAM_URL = 'https://www.instagram.com/bipsy_es/';
 const avatar = await getImage({ src: avatarSrc, width: 96, format: 'webp' });
@@ -42,8 +44,8 @@ const alts = isEs
     ];
 
 const labels = isEs
-  ? { prev: 'Lámina anterior', next: 'Lámina siguiente', region: 'Carrusel del lanzamiento de Bipsy', of: 'de', igOpen: 'Ver en Instagram', igAria: 'Abrir @bipsy_es en Instagram' }
-  : { prev: 'Previous slide', next: 'Next slide', region: 'Bipsy launch carousel', of: 'of', igOpen: 'View on Instagram', igAria: 'Open @bipsy_es on Instagram' };
+  ? { prev: 'Lámina anterior', next: 'Lámina siguiente', go: 'Ir a la lámina', region: 'Carrusel del lanzamiento de Bipsy', of: 'de', igOpen: 'Ver en Instagram', igAria: 'Abrir @bipsy_es en Instagram', caption: 'Bipsy y Bipsy Business ya están en el App Store. La versión de Android llega en unas semanas.' }
+  : { prev: 'Previous slide', next: 'Next slide', go: 'Go to slide', region: 'Bipsy launch carousel', of: 'of', igOpen: 'View on Instagram', igAria: 'Open @bipsy_es on Instagram', caption: 'Bipsy and Bipsy Business are now on the App Store. Android lands in a few weeks.' };
 
 const slides = await Promise.all(
   [slide1, slide2, slide3, slide4, slide5].map(async (src) => {
@@ -57,38 +59,37 @@ const slides = await Promise.all(
 ---
 
 <!--
-  Story-style carousel: one bar per slide on top, the active one fills while it
-  is shown and its animationend moves on, so pausing the bar pauses the
-  carousel with no second clock. Tap the left or right half, swipe, or use the
-  arrow keys. It only runs while [data-playing="true"]: the launch notice turns
-  it on when it opens, an article when it scrolls into view.
+  The launch carousel as the Instagram post it is: profile on top, the slide,
+  and the page dots under it. Arrows on the sides (on hover with a mouse,
+  always on touch screens), swipe, the dots, or the arrow keys. It moves on by
+  itself every few seconds while [data-playing="true"] (the page sets it when
+  the post is on screen) and stops for good once someone drives it by hand.
 -->
-<div class:list={['lc', { 'lc--ig': instagram }]} data-launch-carousel data-index="0" data-playing="false" role="region" aria-roledescription="carousel" aria-label={labels.region} tabindex="0">
-  {instagram && (
-    <a class="lc-ig" href={INSTAGRAM_URL} target="_blank" rel="noopener" aria-label={labels.igAria}>
-      <img src={avatar.src} alt="" class="lc-ig-avatar" width="36" height="36" loading="lazy" decoding="async" />
-      <span class="lc-ig-who">
-        <b>bipsy_es</b>
-        <small>Bipsy</small>
-      </span>
-      <span class="lc-ig-open">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-          <circle cx="12" cy="12" r="4.2"></circle>
-          <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle>
-        </svg>
-        {labels.igOpen}
-      </span>
-    </a>
-  )}
+<div class="lc" data-launch-carousel data-playing="false" role="region" aria-roledescription="carousel" aria-label={labels.region} tabindex="0">
+  <a class="lc-ig" href={INSTAGRAM_URL} target="_blank" rel="noopener" aria-label={labels.igAria}>
+    <img src={avatar.src} alt="" class="lc-ig-avatar" width="36" height="36" loading="lazy" decoding="async" />
+    <span class="lc-ig-who">
+      <b>bipsy_es</b>
+      <small>Bipsy</small>
+    </span>
+    <span class="lc-ig-open">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle>
+      </svg>
+      {labels.igOpen}
+    </span>
+  </a>
+
   <div class="lc-viewport">
     <div class="lc-track">
       {slides.map((s, i) => (
-        <figure class="lc-slide" aria-roledescription="slide" aria-label={`${i + 1} ${labels.of} ${slides.length}`}>
+        <figure class="lc-slide" aria-roledescription="slide" aria-label={`${i + 1} ${labels.of} ${slides.length}`} aria-hidden={i === 0 ? undefined : 'true'}>
           <img
             src={s.small}
             srcset={`${s.small} 480w, ${s.large} 900w`}
-            sizes="(max-width: 720px) 90vw, 420px"
+            sizes="(max-width: 720px) 90vw, 430px"
             alt={alts[i]}
             width="1080"
             height="1350"
@@ -100,75 +101,95 @@ const slides = await Promise.all(
       ))}
     </div>
 
-    <div class="lc-progress" aria-hidden="true">
-      {slides.map(() => <span class="lc-bar"><i></i></span>)}
-    </div>
+    <span class="lc-count" aria-hidden="true"><b data-lc-current>1</b>/{slides.length}</span>
 
-    <button type="button" class="lc-hit lc-hit--prev" data-lc-prev aria-label={labels.prev}></button>
-    <button type="button" class="lc-hit lc-hit--next" data-lc-next aria-label={labels.next}></button>
+    <button type="button" class="lc-arrow lc-arrow--prev" data-lc-prev aria-label={labels.prev}>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 5 8 12 15 19"></polyline></svg>
+    </button>
+    <button type="button" class="lc-arrow lc-arrow--next" data-lc-next aria-label={labels.next}>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"></polyline></svg>
+    </button>
+  </div>
+
+  <div class="lc-foot">
+    <div class="lc-dots">
+      {slides.map((_, i) => (
+        <button type="button" class="lc-dot" data-lc-go={i} aria-label={`${labels.go} ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}></button>
+      ))}
+    </div>
+    <p class="lc-caption"><b>bipsy_es</b> {labels.caption}</p>
   </div>
 </div>
 
 <script>
   const SWIPE = 40;
+  const SLIDE_MS = 5200;
 
   function initLaunchCarousels() {
     document.querySelectorAll<HTMLElement>('[data-launch-carousel]').forEach((root) => {
       if (root.dataset.lcReady === 'true') return;
       root.dataset.lcReady = 'true';
 
-      const bars = Array.from(root.querySelectorAll<HTMLElement>('.lc-bar'));
-      const count = bars.length;
+      const slides = Array.from(root.querySelectorAll<HTMLElement>('.lc-slide'));
+      const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-lc-go]'));
+      const current = root.querySelector<HTMLElement>('[data-lc-current]');
+      const viewport = root.querySelector<HTMLElement>('.lc-viewport')!;
+      const count = slides.length;
+      const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let index = 0;
+      let timer: number | undefined;
+      // Once someone moves it by hand, it stays where they left it
+      let manual = false;
+      let hovering = false;
 
       const show = (next: number) => {
         index = (next + count) % count;
-        root.dataset.index = String(index);
         root.style.setProperty('--lc-index', String(index));
-        bars.forEach((bar, i) => {
-          bar.classList.toggle('is-done', i < index);
-          bar.classList.toggle('is-active', i === index);
-          // Restart the fill of the active bar
-          const fill = bar.firstElementChild as HTMLElement | null;
-          if (fill && i === index) {
-            fill.style.animation = 'none';
-            void fill.offsetWidth;
-            fill.style.animation = '';
-          }
-        });
+        slides.forEach((s, i) => s.toggleAttribute('aria-hidden', i !== index));
+        dots.forEach((d, i) => (i === index ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+        if (current) current.textContent = String(index + 1);
+        schedule();
       };
 
-      // A swipe ends on one of the halves: that click must not move again
-      let swiped = false;
-      const tap = (step: number) => () => {
-        if (swiped) { swiped = false; return; }
-        show(index + step);
+      const schedule = () => {
+        window.clearTimeout(timer);
+        const playing = root.dataset.playing === 'true' && !manual && !hovering && !still;
+        if (playing) timer = window.setTimeout(() => show(index + 1), SLIDE_MS);
       };
 
-      bars.forEach((bar) => bar.firstElementChild?.addEventListener('animationend', () => show(index + 1)));
-      root.querySelector('[data-lc-prev]')?.addEventListener('click', tap(-1));
-      root.querySelector('[data-lc-next]')?.addEventListener('click', tap(1));
+      const byHand = (next: number) => {
+        manual = true;
+        show(next);
+      };
+
+      root.querySelector('[data-lc-prev]')?.addEventListener('click', () => byHand(index - 1));
+      root.querySelector('[data-lc-next]')?.addEventListener('click', () => byHand(index + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => byHand(i)));
       root.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') show(index + 1);
-        if (e.key === 'ArrowLeft') show(index - 1);
+        if (e.key === 'ArrowRight') { e.preventDefault(); byHand(index + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); byHand(index - 1); }
       });
 
-      // Swipe
+      root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; schedule(); } });
+      root.addEventListener('pointerleave', () => { hovering = false; schedule(); });
+
+      // Swipe on the picture
       let startX: number | null = null;
-      root.addEventListener('pointerdown', (e) => { startX = e.clientX; });
-      root.addEventListener('pointerup', (e) => {
+      viewport.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+      viewport.addEventListener('pointerup', (e) => {
         if (startX === null) return;
         const dx = e.clientX - startX;
         startX = null;
-        if (Math.abs(dx) > SWIPE) {
-          swiped = true;
-          show(index + (dx < 0 ? 1 : -1));
-        }
+        if (Math.abs(dx) > SWIPE) byHand(index + (dx < 0 ? 1 : -1));
       });
+      viewport.addEventListener('pointercancel', () => { startX = null; });
 
-      // Inside an article: play only while on screen. The launch notice
-      // drives data-playing itself.
-      if (!root.closest('[data-bipsy-announce]') && 'IntersectionObserver' in window) {
+      // The page decides when it plays (on screen); the attribute is watched,
+      // so whoever sets it does not need to know about the timer.
+      new MutationObserver(schedule).observe(root, { attributes: true, attributeFilter: ['data-playing'] });
+
+      // Nobody set it from outside: play while it is on screen
+      if (!root.closest('[data-bipsy-launch]') && 'IntersectionObserver' in window) {
         new IntersectionObserver(([entry]) => {
           root.dataset.playing = entry.isIntersecting ? 'true' : 'false';
         }, { threshold: 0.4 }).observe(root);
@@ -184,29 +205,20 @@ const slides = await Promise.all(
 
 <style>
   .lc {
-    --lc-slide-ms: 5200ms;
     position: relative;
     width: 100%;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
     outline: none;
     user-select: none;
     -webkit-user-select: none;
   }
 
-  .lc:focus-visible .lc-viewport { box-shadow: 0 0 0 3px rgba(63, 140, 102, 0.6); }
+  .lc:focus-visible { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), 0 0 0 3px #8fdcb2; }
 
-  /* ---------- As an Instagram post: white card, profile on top ---------- */
-  .lc--ig {
-    padding: 0 0 6px;
-    border-radius: 24px;
-    background: #fff;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-  }
-
-  .lc--ig .lc-viewport {
-    border-radius: 0;
-    box-shadow: none;
-  }
-
+  /* ---------- Profile row ---------- */
   .lc-ig {
     display: flex;
     align-items: center;
@@ -250,14 +262,14 @@ const slides = await Promise.all(
   }
 
   .lc-ig:hover .lc-ig-open { background: #3f8c66; }
+  .lc-ig:focus-visible { outline-offset: -4px !important; border-radius: 20px; }
 
+  /* ---------- The picture ---------- */
   .lc-viewport {
     position: relative;
     overflow: hidden;
     aspect-ratio: 4 / 5;
-    border-radius: 22px;
     background: #2e343b;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
     touch-action: pan-y;
   }
 
@@ -265,7 +277,7 @@ const slides = await Promise.all(
     display: flex;
     height: 100%;
     transform: translateX(calc(var(--lc-index, 0) * -100%));
-    transition: transform 0.7s cubic-bezier(0.65, 0, 0.25, 1);
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.25, 1);
   }
 
   .lc-slide {
@@ -282,67 +294,98 @@ const slides = await Promise.all(
     pointer-events: none;
   }
 
-  /* Story bars over the top edge of the slide */
-  .lc-progress {
+  /* «2/5» in the top right corner, as Instagram shows it */
+  .lc-count {
     position: absolute;
     top: 12px;
-    left: 14px;
-    right: 14px;
-    display: flex;
-    gap: 5px;
+    right: 12px;
+    padding: 4px 9px;
+    border-radius: 100px;
+    background: rgba(13, 13, 15, 0.62);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
     pointer-events: none;
   }
 
-  .lc-bar {
-    flex: 1;
-    height: 3px;
-    border-radius: 2px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.28);
-  }
+  .lc-count b { font-weight: 600; }
 
-  .lc-bar i {
-    display: block;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  .lc-bar.is-done i { transform: none; }
-
-  .lc-bar.is-active i {
-    animation: lcFill var(--lc-slide-ms) linear forwards;
-    animation-play-state: paused;
-  }
-
-  .lc[data-playing='true'] .lc-bar.is-active i { animation-play-state: running; }
-  .lc[data-playing='true']:hover .lc-bar.is-active i { animation-play-state: paused; }
-
-  @keyframes lcFill {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-
-  /* The two halves of the slide are the controls, like a story */
-  .lc-hit {
+  /* ---------- Arrows ---------- */
+  .lc-arrow {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
+    top: 50%;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0d0d0f;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lc-arrow--prev { left: 10px; }
+  .lc-arrow--next { right: 10px; }
+  .lc-arrow:hover { background: #fff; }
+  .lc-arrow:active { transform: translateY(-50%) scale(0.92); }
+  .lc-arrow:focus-visible { outline: 2px solid #fff !important; outline-offset: 2px; }
+
+  /* With a mouse they show while you are on the post; on touch, always */
+  @media (hover: hover) and (pointer: fine) {
+    .lc-arrow { opacity: 0; }
+    .lc:hover .lc-arrow,
+    .lc:focus-within .lc-arrow { opacity: 1; }
+  }
+
+  /* ---------- Dots under the picture ---------- */
+  .lc-foot { padding: 10px 16px 16px; }
+
+  .lc-dots { display: flex; justify-content: center; gap: 2px; }
+
+  .lc-caption {
+    margin: 6px 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #2e343b;
+    text-align: left;
+  }
+
+  .lc-caption b { font-weight: 700; color: #0d0d0f; margin-right: 4px; }
+
+  /* 20px to hit, 6px to see */
+  .lc-dot {
+    width: 20px;
+    height: 20px;
     padding: 0;
     border: 0;
     background: transparent;
     cursor: pointer;
+    display: grid;
+    place-items: center;
   }
 
-  .lc-hit--prev { left: 0; cursor: w-resize; }
-  .lc-hit--next { right: 0; cursor: e-resize; }
-  .lc-hit:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.8); outline-offset: -6px; border-radius: 18px; }
+  .lc-dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c9cdd1;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .lc-dot[aria-current='true']::before { background: #3f8c66; transform: scale(1.15); }
+  .lc-dot:hover::before { background: #8e959c; }
+  .lc-dot[aria-current='true']:hover::before { background: #3f8c66; }
+  .lc-dot:focus-visible { outline-offset: -2px !important; border-radius: 50%; }
 
   @media (prefers-reduced-motion: reduce) {
     .lc-track { transition: none; }
-    /* No autoplay: the bars only mark where you are */
-    .lc-bar.is-active i { animation: none; transform: none; }
   }
 </style>
