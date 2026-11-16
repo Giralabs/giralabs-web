@@ -4,6 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../Navbar.astro';
 import Footer from '../Footer.astro';
 import CTAContact from '../CTAContact.astro';
+// An article can show the Bipsy launch carousel instead of its cover photo
+// (frontmatter `carousel: "bipsy-launch"`)
+import LaunchCarousel from '../bipsy/LaunchCarousel.astro';
 
 interface Props {
   post: any;
@@ -13,7 +16,7 @@ interface Props {
 
 const { post, posts, lang } = Astro.props;
 const { Content } = post;
-const { title, description, date, tags = [], readingTime, image, slug } = post.frontmatter;
+const { title, description, date, tags = [], readingTime, image, slug, carousel, carouselCaption } = post.frontmatter;
 const headings = (post.getHeadings ? post.getHeadings() : []).filter((h: any) => h.depth === 2);
 
 const L = {
@@ -126,7 +129,14 @@ const breadcrumbSchema = {
       </p>
     </header>
 
-    {cover && (
+    {carousel === 'bipsy-launch' ? (
+      <figure class="bp-carousel">
+        <div class="bp-carousel-frame">
+          <LaunchCarousel lang={lang} eager />
+        </div>
+        {carouselCaption && <figcaption>{carouselCaption}</figcaption>}
+      </figure>
+    ) : cover && (
       <figure class="bp-cover">
         <Image
           src={cover}
@@ -350,6 +360,28 @@ const breadcrumbSchema = {
     object-fit: cover;
     border-radius: 28px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 24px 60px -24px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ---------- Carousel instead of the cover ---------- */
+  .bp-carousel {
+    max-width: 1040px;
+    margin: 3rem auto 0;
+    padding: 2.6rem 1.5rem 1.8rem;
+    border-radius: 28px;
+    background: linear-gradient(155deg, #eef5f1 0%, #dcefe4 100%);
+    text-align: center;
+  }
+  .bp-carousel-frame {
+    width: min(100%, 420px);
+    margin: 0 auto;
+    text-align: left;
+  }
+  .bp-carousel figcaption {
+    margin: 1.2rem auto 0;
+    max-width: 52ch;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink-subtle);
   }
 
   /* ---------- Body + contents ---------- */
