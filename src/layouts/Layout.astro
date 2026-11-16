@@ -1,18 +1,33 @@
 ---
 import { getSwitchLanguagePath, hasEnglishAlternate } from '../lib/paths';
-import { absoluteUrl, canonicalPath } from '../lib/site';
+import { absoluteUrl, canonicalPath, clipDescription } from '../lib/site';
 
 interface Props {
 	title?: string;
 	description?: string;
 	lang?: string;
+	/** Pages that must not show up in search (the 404) */
+	noindex?: boolean;
+	/** Share image for this page (absolute or site-relative URL, 1200x630 ideally) */
+	image?: string;
+	imageAlt?: string;
+	/** 'article' for blog posts, 'website' for the rest */
+	ogType?: 'website' | 'article';
 }
 
 const {
 	title = "Giralabs — Estudio de Apps Móviles",
-	description = "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
-	lang = "es"
+	description: rawDescription = "Giralabs es un estudio especializado en desarrollo de apps móviles, digitalización de empresas y experiencias digitales premium.",
+	lang = "es",
+	noindex = false,
+	image = '/og-image.png',
+	imageAlt = 'Giralabs',
+	ogType = 'website',
 } = Astro.props;
+
+const description = clipDescription(rawDescription);
+const imageUrl = image.startsWith('http') ? image : absoluteUrl(image);
+const isDefaultImage = image === '/og-image.png';
 
 // Dynamically compute canonical and hreflang URLs without query parameters
 const pathname = Astro.url.pathname;
@@ -44,7 +59,7 @@ const xDefaultHref = esHref;
 		<meta name="description" content={description} />
 		<!-- Both languages are indexable. The hreflang block below is what keeps a
 		     Spanish searcher on the Spanish URL and an English one on /en/ -->
-		<meta name="robots" content="index, follow" />
+		<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
 		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Alternate hreflang configurations for multilingual search indexing.
@@ -59,22 +74,22 @@ const xDefaultHref = esHref;
 		     which left every shared link without a preview image -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content="Giralabs" />
 		<meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'es_ES'} />
-		<meta property="og:image" content="https://www.giralabs.es/og-image.png" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:type" content="image/png" />
-		<meta property="og:image:alt" content="Giralabs" />
+		<meta property="og:image" content={imageUrl} />
+		{isDefaultImage && <meta property="og:image:width" content="1200" />}
+		{isDefaultImage && <meta property="og:image:height" content="630" />}
+		{isDefaultImage && <meta property="og:image:type" content="image/png" />}
+		<meta property="og:image:alt" content={imageAlt} />
 
 		<!-- Twitter Cards -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://www.giralabs.es/og-image.png" />
-		<meta name="twitter:image:alt" content="Giralabs" />
+		<meta name="twitter:image" content={imageUrl} />
+		<meta name="twitter:image:alt" content={imageAlt} />
 
 		<!-- Outfit is the fallback for locally installed Gilroy, which almost no
 		     visitor has, so in practice it is the font that renders. Self-hosted as a
@@ -110,9 +125,26 @@ const xDefaultHref = esHref;
 						{ "@type": "Country", "name": "España" }
 					],
 					"priceRange": "$$$",
+					"brand": { "@id": "https://www.giralabs.es/#bipsy" },
+					"knowsAbout": lang === 'en'
+						? ["Mobile app development", "Flutter", "iOS apps", "Android apps", "Web development", "Custom software", "Business digitalization", "E-commerce", "AI integration"]
+						: ["Desarrollo de aplicaciones móviles", "Flutter", "Apps para iOS", "Apps para Android", "Desarrollo web", "Software a medida", "Digitalización de empresas", "Tiendas online", "Integración de inteligencia artificial"],
 					"sameAs": [
 						"https://github.com/giralabs",
-						"https://linkedin.com/company/giralabs"
+						"https://www.linkedin.com/company/giralabs"
+					]
+				},
+				{
+					// The studio's own product, so searches for Bipsy can tie it back to Giralabs
+					"@type": "Brand",
+					"@id": "https://www.giralabs.es/#bipsy",
+					"name": "Bipsy",
+					"url": "https://bipsy.es",
+					"sameAs": [
+						"https://apps.apple.com/es/app/bipsy/id6828380156",
+						"https://apps.apple.com/es/app/bipsy-business/id6828380398",
+						"https://business.bipsy.es",
+						"https://www.instagram.com/bipsy_es/"
 					]
 				},
 				{
