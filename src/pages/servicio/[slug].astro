@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { SITE_ORIGIN } from '../../lib/site';
+import { SITE_ORIGIN, SERVICE_SEO_TITLES } from '../../lib/site';
 import Navbar from '../../components/Navbar.astro';
 import { translations } from '../../i18n/translations';
 import Footer from '../../components/Footer.astro';
@@ -129,8 +129,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title={`${T.meta_title} | ${T[titleKey]}`}
-  description={T.meta_description}
+  title={`${SERVICE_SEO_TITLES[slug as string] ?? serviceName} | Giralabs`}
+  description={serviceDesc}
   lang={defaultLang}
 >
 

@@ -69,7 +69,7 @@ export const jobs: Job[] = [
     es: {
       title: 'Full Stack Developer (Flutter, Angular y Spring Boot)',
       shortTitle: 'Full Stack Developer',
-      metaTitle: 'Oferta de empleo: Full Stack Developer Flutter, Angular y Spring en Bipsy',
+      metaTitle: 'Empleo: Full Stack Flutter, Angular y Spring',
       metaDescription:
         'Buscamos Full Stack Developer con 1 año de experiencia en Flutter, Angular y Spring Boot para construir Bipsy, la plataforma de reservas de Giralabs. Envía tu CV.',
       summary:
@@ -138,7 +138,7 @@ export const jobs: Job[] = [
     en: {
       title: 'Full Stack Developer (Flutter, Angular and Spring Boot)',
       shortTitle: 'Full Stack Developer',
-      metaTitle: 'Job opening: Full Stack Developer Flutter, Angular & Spring at Bipsy',
+      metaTitle: 'Job: Full Stack Flutter, Angular & Spring',
       metaDescription:
         'We are hiring a Full Stack Developer with 1 year of experience in Flutter, Angular and Spring Boot to build Bipsy, the booking platform by Giralabs. Send your CV.',
       summary:

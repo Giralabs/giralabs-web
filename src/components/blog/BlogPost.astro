@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../Navbar.astro';
 import Footer from '../Footer.astro';
@@ -64,6 +64,11 @@ const imageFor = (p: string | undefined) => {
   return blogImages[key]?.default ?? null;
 };
 const cover = imageFor(image);
+// Share and search image: a 1200px JPEG of the cover. WebP/AVIF previews still
+// fail on some crawlers (LinkedIn, older WhatsApp), JPEG works everywhere.
+const shareImage = cover
+  ? (await getImage({ src: cover, format: 'jpg', width: 1200, quality: 82 })).src
+  : '/og-image.png';
 
 const url = `https://www.giralabs.es${L.postHref(slug)}`;
 
@@ -84,13 +89,14 @@ const schema = {
   datePublished: date,
   dateModified: date,
   inLanguage: lang,
-  author: { '@type': 'Organization', name: 'Giralabs', url: 'https://www.giralabs.es' },
+  author: { '@type': 'Organization', '@id': 'https://www.giralabs.es/#organization', name: 'Giralabs', url: 'https://www.giralabs.es' },
   publisher: {
     '@type': 'Organization',
+    '@id': 'https://www.giralabs.es/#organization',
     name: 'Giralabs',
-    logo: { '@type': 'ImageObject', url: 'https://www.giralabs.es/favicon.svg' },
+    logo: { '@type': 'ImageObject', url: 'https://www.giralabs.es/logo.png' },
   },
-  image: cover ? `https://www.giralabs.es${cover.src}` : 'https://www.giralabs.es/logo-email.avif',
+  image: `https://www.giralabs.es${shareImage}`,
   mainEntityOfPage: url,
 };
 
@@ -105,7 +111,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={`${title.length > 48 ? title.slice(0, 47).trimEnd() + '…' : title} | Giralabs`} description={description} lang={lang}>
+<Layout title={`${title.length > 48 ? title.slice(0, 47).trimEnd() + '…' : title} | Giralabs`} description={description} lang={lang} image={shareImage} imageAlt={title} ogType="article">
   <Navbar lang={lang} />
 
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />

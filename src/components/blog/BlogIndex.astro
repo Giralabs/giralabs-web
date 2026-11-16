@@ -52,7 +52,7 @@ const imageFor = (p: string | undefined) =>
   p ? blogImages['../../assets/blog/' + p.split('/').pop()]?.default ?? null : null;
 ---
 
-<Layout title={`${T.meta_title} | ${T.blog_meta_title}`} description={T.blog_meta_description} lang={lang}>
+<Layout title={`${T.blog_meta_title} | Giralabs`} description={T.blog_meta_description} lang={lang}>
   <Navbar lang={lang} />
 
   <main id="main-content" tabindex="-1" class="bi">
