@@ -8,13 +8,21 @@ import slide3 from '../../assets/bipsy/launch/carrusel-3.webp';
 import slide4 from '../../assets/bipsy/launch/carrusel-4.webp';
 import slide5 from '../../assets/bipsy/launch/carrusel-5.webp';
 
+// The profile avatar on Instagram is the app icon
+import avatarSrc from '../../assets/bipsy/icons/bipsy-icon.webp';
+
 interface Props {
   lang?: string;
   /** Eager in the launch notice, lazy inside an article. */
   eager?: boolean;
+  /** Framed as the Instagram post it is, with the profile on top linking to it. */
+  instagram?: boolean;
 }
 
-const { lang = 'es', eager = false } = Astro.props;
+const { lang = 'es', eager = false, instagram = false } = Astro.props;
+
+const INSTAGRAM_URL = 'https://www.instagram.com/bipsy_es/';
+const avatar = await getImage({ src: avatarSrc, width: 96, format: 'webp' });
 const isEs = lang !== 'en';
 
 const alts = isEs
@@ -34,8 +42,8 @@ const alts = isEs
     ];
 
 const labels = isEs
-  ? { prev: 'Lámina anterior', next: 'Lámina siguiente', region: 'Carrusel del lanzamiento de Bipsy', of: 'de' }
-  : { prev: 'Previous slide', next: 'Next slide', region: 'Bipsy launch carousel', of: 'of' };
+  ? { prev: 'Lámina anterior', next: 'Lámina siguiente', region: 'Carrusel del lanzamiento de Bipsy', of: 'de', igOpen: 'Ver en Instagram', igAria: 'Abrir @bipsy_es en Instagram' }
+  : { prev: 'Previous slide', next: 'Next slide', region: 'Bipsy launch carousel', of: 'of', igOpen: 'View on Instagram', igAria: 'Open @bipsy_es on Instagram' };
 
 const slides = await Promise.all(
   [slide1, slide2, slide3, slide4, slide5].map(async (src) => {
@@ -55,7 +63,24 @@ const slides = await Promise.all(
   arrow keys. It only runs while [data-playing="true"]: the launch notice turns
   it on when it opens, an article when it scrolls into view.
 -->
-<div class="lc" data-launch-carousel data-index="0" data-playing="false" role="region" aria-roledescription="carousel" aria-label={labels.region} tabindex="0">
+<div class:list={['lc', { 'lc--ig': instagram }]} data-launch-carousel data-index="0" data-playing="false" role="region" aria-roledescription="carousel" aria-label={labels.region} tabindex="0">
+  {instagram && (
+    <a class="lc-ig" href={INSTAGRAM_URL} target="_blank" rel="noopener" aria-label={labels.igAria}>
+      <img src={avatar.src} alt="" class="lc-ig-avatar" width="36" height="36" loading="lazy" decoding="async" />
+      <span class="lc-ig-who">
+        <b>bipsy_es</b>
+        <small>Bipsy</small>
+      </span>
+      <span class="lc-ig-open">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4.2"></circle>
+          <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle>
+        </svg>
+        {labels.igOpen}
+      </span>
+    </a>
+  )}
   <div class="lc-viewport">
     <div class="lc-track">
       {slides.map((s, i) => (
@@ -168,6 +193,63 @@ const slides = await Promise.all(
   }
 
   .lc:focus-visible .lc-viewport { box-shadow: 0 0 0 3px rgba(63, 140, 102, 0.6); }
+
+  /* ---------- As an Instagram post: white card, profile on top ---------- */
+  .lc--ig {
+    padding: 0 0 6px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .lc--ig .lc-viewport {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .lc-ig {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    color: #0d0d0f;
+    text-decoration: none;
+  }
+
+  .lc-ig-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    /* Instagram's story ring, in Bipsy's mint */
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #8fdcb2;
+  }
+
+  .lc-ig-who {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-left: 4px;
+  }
+
+  .lc-ig-who b { font-size: 0.86rem; font-weight: 700; letter-spacing: -0.01em; }
+  .lc-ig-who small { font-size: 0.74rem; color: rgba(0, 0, 0, 0.5); }
+
+  .lc-ig-open {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 100px;
+    background: #0d0d0f;
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+
+  .lc-ig:hover .lc-ig-open { background: #3f8c66; }
 
   .lc-viewport {
     position: relative;
