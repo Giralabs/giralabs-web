@@ -16,7 +16,9 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
 
-const projectHref = getLocalizedPath('/proyecto/bipsy', lang);
+// «Descubrir Bipsy» opens the Bip experience (Spanish only for now); in
+// English it is still the project page.
+const projectHref = lang === 'es' ? '/descubre-bipsy' : getLocalizedPath('/proyecto/bipsy', lang);
 // The animated WebP is used raw (no getImage) so the frames survive the build
 const bipSrc = bipHello.src;
 const storeBadge = await getImage({ src: appStoreBadge, width: 405, format: 'webp' });

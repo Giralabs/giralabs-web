@@ -15,7 +15,8 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 const T = translations[lang];
 
-const href = getLocalizedPath('/proyecto/bipsy', lang);
+// «Descubrir Bipsy» opens the Bip experience (Spanish only for now)
+const href = lang === 'es' ? '/descubre-bipsy' : getLocalizedPath('/proyecto/bipsy', lang);
 
 const [clientShot, businessShot, mark] = await Promise.all([
   getImage({ src: bipsyApp, format: 'webp', width: 820 }),

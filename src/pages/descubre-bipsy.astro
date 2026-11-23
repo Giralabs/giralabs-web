@@ -1,0 +1,910 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getImage } from 'astro:assets';
+import { BIPSY_STORE } from '../lib/bipsy-links';
+
+// The symbol twice: its outline (the logo as drawn) and its filled silhouette,
+// which is the window the camera flies through. Both cropped to the same box
+// from the brand master (derived/, built from mint_symbol_nobackground).
+import symbolOutline from '../assets/bipsy/derived/bipsy_symbol_outline_cropped.webp';
+import symbolFilled from '../assets/bipsy/derived/bipsy_symbol_filled.png';
+import wordmarkMint from '../assets/bipsy/bipsy_brand/Resized/1024px/Wordmarks/mint_wordmark_nobackground.webp';
+import bipFront from '../assets/bipsy/bip_assets/bip_front.webp';
+import bipLaughing from '../assets/bipsy/bip_assets/bip_laughing.webp';
+import bipHello from '../assets/bipsy/bip_assets/bip_hello_animated.webp';
+import screenClient from '../assets/bipsy/screens/pagina-principal-cliente.webp';
+import screenBusiness from '../assets/bipsy/screens/business-agenda-hoy.webp';
+import iconBusiness from '../assets/bipsy/icons/bipsy-business-icon.webp';
+import appStoreBadge from '../assets/bipsy/badges/app-store-badge.webp';
+
+export const prerender = true;
+
+const [outline, filled, wordmark, front, laughing, client, business, bizIcon, badge] = await Promise.all([
+  getImage({ src: symbolOutline, width: 1400, format: 'webp' }),
+  // Big on purpose: it is the window's edge while the camera zooms in
+  getImage({ src: symbolFilled, width: 2086, format: 'png' }),
+  getImage({ src: wordmarkMint, width: 640, format: 'webp' }),
+  getImage({ src: bipFront, width: 1200, format: 'webp' }),
+  getImage({ src: bipLaughing, width: 1200, format: 'webp' }),
+  getImage({ src: screenClient, width: 600, format: 'webp' }),
+  getImage({ src: screenBusiness, width: 600, format: 'webp' }),
+  getImage({ src: iconBusiness, width: 96, format: 'webp' }),
+  getImage({ src: appStoreBadge, width: 405, format: 'webp' }),
+]);
+// Animated WebP used raw so its frames survive the build
+const hello = bipHello.src;
+---
+
+<Layout
+  title="Descubre Bipsy | Giralabs"
+  description="Bipsy por dentro: la app para reservar en barberías, peluquerías y centros de estética, y Bipsy Business para gestionarlos. Un producto de Giralabs."
+  lang="es"
+  noindex
+>
+  <div class="xb" data-xb>
+    <header class="xb-top">
+      <a href="/" class="xb-chip">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 5 8 12 15 19"></polyline></svg>
+        Giralabs
+      </a>
+      <a href="#xb-final" class="xb-chip">Saltar</a>
+    </header>
+
+    <h1 class="sr-only">Descubre Bipsy</h1>
+
+    <!--
+      One long stage with a screen pinned inside it. Scrolling through the
+      stage moves a single progress value from 0 to 1, and every layer reads
+      its own stretch of it (see the script): the logo opens like a window,
+      the camera flies through it into Bip's world, then the two apps.
+    -->
+    <section class="xb-stage" data-stage aria-label="Bipsy, paso a paso">
+      <div class="xb-screen" data-screen>
+
+        <!-- Bip's world, seen through the logo -->
+        <div class="xb-window" data-window style={`--mask: url(${filled.src})`}>
+          <div class="xb-world" data-world>
+            <div class="xb-sky" aria-hidden="true"></div>
+            <div class="xb-night" aria-hidden="true"></div>
+            <div class="xb-halo" aria-hidden="true"></div>
+
+            <figure class="xb-phone xb-phone--client" aria-hidden="true">
+              <img src={client.src} alt="" width="900" height="1950" decoding="async" />
+            </figure>
+            <figure class="xb-phone xb-phone--biz" aria-hidden="true">
+              <img src={business.src} alt="" width="900" height="1950" loading="lazy" decoding="async" />
+            </figure>
+
+            <div class="xb-bip">
+              <img src={front.src} alt="Bip, la mascota de Bipsy" class="xb-bip-img xb-bip-img--front" width="2000" height="2000" decoding="async" fetchpriority="high" />
+              <img src={laughing.src} alt="" class="xb-bip-img xb-bip-img--laugh" width="2000" height="2000" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="xb-toast" aria-hidden="true">
+              <img src={bizIcon.src} alt="" width="40" height="40" />
+              <span class="xb-toast-text">
+                <b>Nueva cita</b>
+                <span>Marina Alcaide, tratamiento facial, hoy a las 09:00</span>
+              </span>
+              <small>ahora</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- The logo itself: three leaves that fly in and lock together -->
+        <div class="xb-frame" data-frame aria-hidden="true">
+          <!-- The whole mark settles under the pieces, so their joints leave no seam -->
+          <img src={outline.src} alt="" class="xb-leaf xb-leaf--whole" width="2086" height="2065" />
+          <img src={outline.src} alt="" class="xb-leaf xb-leaf--left" width="2086" height="2065" />
+          <img src={outline.src} alt="" class="xb-leaf xb-leaf--center" width="2086" height="2065" />
+          <img src={outline.src} alt="" class="xb-leaf xb-leaf--right" width="2086" height="2065" />
+          <span class="xb-shine" style={`--outline: url(${outline.src})`}></span>
+        </div>
+
+        <div class="xb-intro" aria-hidden="true">
+          <img src={wordmark.src} alt="" class="xb-wordmark" width="640" height="640" />
+          <p class="xb-hint"><span>Desliza para entrar</span><i></i></p>
+        </div>
+
+        <!-- Copy, layered over the world -->
+        <div class="xb-hello">
+          <p class="xb-hello-title" aria-label="Hola, soy Bip.">
+            <span class="xb-hello-side"><span class="xb-w" style="--i:0">Hola,</span></span>
+            <span class="xb-hello-side"><span class="xb-w" style="--i:1">soy</span> <span class="xb-w" style="--i:2">Bip.</span></span>
+          </p>
+          <p class="xb-hello-sub">Te enseño Bipsy en un momento.</p>
+        </div>
+
+        <div class="xb-copy xb-copy--client">
+          <p class="xb-kicker" style="--k: var(--c1)">Para quien reserva</p>
+          <p class="xb-line xb-line--big" style="--k: var(--c1)">Encuentra tu barbería, peluquería o centro de estética.</p>
+          <p class="xb-line" style="--k: var(--c2)">Mira las horas libres de verdad.</p>
+          <p class="xb-line" style="--k: var(--c3)">Y reserva sin llamar a nadie.</p>
+        </div>
+
+        <div class="xb-copy xb-copy--biz">
+          <p class="xb-kicker" style="--k: var(--b1)">Para quien atiende</p>
+          <p class="xb-line xb-line--big" style="--k: var(--b1)">Bipsy Business.</p>
+          <p class="xb-line" style="--k: var(--b2)">Tu agenda, tus clientes y tu equipo, en el móvil.</p>
+          <p class="xb-line" style="--k: var(--b3)">Cada cita nueva te llega al momento.</p>
+        </div>
+
+        <div class="xb-end">
+          <p class="xb-end-title">Ya en el App Store.</p>
+          <p class="xb-end-sub">Bipsy y Bipsy Business, para iPhone y iPad. Android llega en unas semanas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="xb-final" id="xb-final">
+      <img src={hello} alt="Bip saludando" class="xb-final-bip" width="400" height="711" loading="lazy" decoding="async" />
+      <h2 class="xb-final-title">Pruébala hoy.</h2>
+      <div class="xb-final-apps">
+        <a href={BIPSY_STORE.client.appStore} class="xb-app" target="_blank" rel="noopener">
+          <span class="xb-app-name">Bipsy</span>
+          <span class="xb-app-for">Para reservar cita</span>
+          <img src={badge.src} alt="Descárgalo en el App Store: Bipsy" width="135" height="40" loading="lazy" decoding="async" />
+        </a>
+        <a href={BIPSY_STORE.business.appStore} class="xb-app" target="_blank" rel="noopener">
+          <span class="xb-app-name">Bipsy Business</span>
+          <span class="xb-app-for">Para gestionar tu negocio</span>
+          <img src={badge.src} alt="Descárgalo en el App Store: Bipsy Business" width="135" height="40" loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <div class="xb-final-links">
+        <a href="/proyecto/bipsy" class="xb-btn xb-btn--mint">Cómo lo hicimos</a>
+        <a href="/" class="xb-btn">Volver a Giralabs</a>
+      </div>
+      <p class="xb-final-note">Bipsy es un producto de Giralabs, de la primera entrevista con un negocio a la publicación en la tienda.</p>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  /**
+   * The whole experience is one number, the progress through the stage
+   * (0 at its top, 1 when its last screen leaves). It is eased towards the
+   * scroll position every frame, so a flick of the wheel glides instead of
+   * jumping, and each layer reads its own stretch of it as a CSS variable.
+   * The logo window is the only part done here in pixels: its mask has to be
+   * sized and placed so the camera dives into one fixed point of the symbol.
+   */
+  const SYMBOL_RATIO = 2065 / 2086;
+  // Where the camera enters: the heart of the bowl, under the middle leaf
+  const DIVE = { x: 0.5, y: 0.66 };
+  const MAX_ZOOM = 70;
+  const ZOOM_END = 0.3;
+
+  const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const smooth = (t: number) => t * t * (3 - 2 * t);
+  /** 0 before [a], 1 after [b], eased in between. */
+  const seg = (p: number, a: number, b: number) => smooth(clamp((p - a) / (b - a)));
+
+  const TRACKS: Record<string, [number, number]> = {
+    intro: [0.0, 0.05],
+    hello: [0.26, 0.33],
+    helloOut: [0.38, 0.42],
+    a1: [0.39, 0.5],
+    phone1: [0.42, 0.53],
+    c1: [0.46, 0.5],
+    c2: [0.5, 0.54],
+    c3: [0.54, 0.58],
+    cOut: [0.61, 0.65],
+    phone1Out: [0.62, 0.69],
+    night: [0.62, 0.7],
+    a2: [0.64, 0.75],
+    swap: [0.67, 0.72],
+    phone2: [0.68, 0.78],
+    b1: [0.71, 0.75],
+    b2: [0.75, 0.79],
+    b3: [0.79, 0.83],
+    toast: [0.76, 0.8],
+    bOut: [0.87, 0.9],
+    phone2Out: [0.87, 0.93],
+    a3: [0.88, 0.96],
+    end: [0.91, 0.97],
+  };
+
+  function init() {
+    const root = document.querySelector<HTMLElement>('[data-xb]');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const screen = root.querySelector<HTMLElement>('[data-screen]')!;
+    const win = root.querySelector<HTMLElement>('[data-window]')!;
+    const frame = root.querySelector<HTMLElement>('[data-frame]')!;
+    const world = root.querySelector<HTMLElement>('[data-world]')!;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let target = 0;
+    let current = 0;
+    let raf = 0;
+    let masked = true;
+
+    const measure = () => {
+      const total = stage.offsetHeight - window.innerHeight;
+      target = clamp(-stage.getBoundingClientRect().top / Math.max(1, total));
+    };
+
+    const render = (p: number) => {
+      const w = screen.clientWidth;
+      const h = screen.clientHeight;
+      const base = Math.min(w < 720 ? Math.min(w, h) * 0.64 : Math.min(w, h) * 0.44, 440);
+
+      // The dive: slow at first, then rushing in, like a camera committing
+      const t = clamp(p / ZOOM_END);
+      const zoom = Math.exp(Math.log(MAX_ZOOM) * Math.pow(t, 2.3));
+      const size = base * zoom;
+      const anchorX = w / 2 - base / 2 + DIVE.x * base;
+      const anchorY = h / 2 - (base * SYMBOL_RATIO) / 2 + DIVE.y * base * SYMBOL_RATIO;
+      const x = anchorX - DIVE.x * size;
+      const y = anchorY - DIVE.y * size * SYMBOL_RATIO;
+
+      if (t < 0.985) {
+        if (!masked) { win.classList.remove('is-open'); masked = true; }
+        win.style.setProperty('--mask-size', `${size}px ${size * SYMBOL_RATIO}px`);
+        win.style.setProperty('--mask-pos', `${x}px ${y}px`);
+      } else if (masked) {
+        // Past the logo: no mask at all, nothing left to paint around it
+        win.classList.add('is-open');
+        masked = false;
+      }
+      const frameVisible = t < 0.62;
+      frame.style.visibility = frameVisible ? 'visible' : 'hidden';
+      if (frameVisible) {
+        frame.style.width = `${size}px`;
+        frame.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        frame.style.opacity = String(1 - seg(t, 0.25, 0.6));
+      }
+      // The world inside settles as you fall into it
+      world.style.transform = `scale(${1.28 - 0.28 * smooth(t)})`;
+
+      for (const [name, [a, b]] of Object.entries(TRACKS)) {
+        root.style.setProperty(`--${name}`, seg(p, a, b).toFixed(4));
+      }
+    };
+
+    const tick = () => {
+      current += (target - current) * (still ? 1 : 0.11);
+      if (Math.abs(target - current) < 0.0003) current = target;
+      render(current);
+      raf = current === target ? 0 : requestAnimationFrame(tick);
+    };
+
+    const onScroll = () => {
+      measure();
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { measure(); render(current); });
+    measure();
+    current = target;
+    render(current);
+
+    // The intro plays once the pieces it needs are in
+    const pieces = Array.from(root.querySelectorAll<HTMLImageElement>('.xb-leaf, .xb-bip-img--front, .xb-wordmark'));
+    Promise.all(pieces.map((img) => img.decode().catch(() => undefined))).then(() => {
+      root.classList.add('is-in');
+    });
+    // Whatever happens, never leave the screen black
+    window.setTimeout(() => root.classList.add('is-in'), 2500);
+  }
+
+  init();
+  document.addEventListener('astro:after-swap', init);
+</script>
+
+<style>
+  /* ---------- Page ---------- */
+  :global(html:has(.xb)),
+  :global(body:has(.xb)) {
+    background: #0b0e10;
+  }
+
+  .xb {
+    --ink: #0b0e10;
+    --carbon: #23282e;
+    --mint: #c0ebd1;
+    --mint-2: #8fdcb2;
+    --mint-deep: #2f7552;
+
+    /* Where things go. Desktop: copy on one side, phone on the other, Bip
+       stepping aside to the corner. */
+    --bip-h: 84svh;
+    --bip-lx: -31vw; --bip-ly: 2vh;  --bip-ls: 0.62;
+    --bip-rx: 31vw;  --bip-ry: 2vh;  --bip-rs: 0.62;
+    --bip-ex: 0vw;   --bip-ey: 6vh;  --bip-es: 0.72;
+    --phone-h: 74svh;
+    --ph1-x: 15vw; --ph1-y: 3vh;
+    --ph2-x: -15vw; --ph2-y: 3vh;
+
+    /* Every track starts at 0 */
+    --intro: 0; --hello: 0; --helloOut: 0; --a1: 0; --a2: 0; --a3: 0;
+    --phone1: 0; --phone1Out: 0; --phone2: 0; --phone2Out: 0;
+    --c1: 0; --c2: 0; --c3: 0; --cOut: 0; --b1: 0; --b2: 0; --b3: 0; --bOut: 0;
+    --night: 0; --swap: 0; --toast: 0; --end: 0;
+
+    position: relative;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Gilroy', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+
+  /* ---------- Top bar ---------- */
+  .xb-top {
+    position: fixed;
+    inset: 16px 16px auto;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .xb-chip {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 15px;
+    border-radius: 100px;
+    background: rgba(11, 14, 16, 0.55);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .xb-chip:hover { background: rgba(11, 14, 16, 0.8); }
+
+  /* ---------- Stage ---------- */
+  .xb-stage { position: relative; height: 900svh; }
+
+  .xb-screen {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    background:
+      radial-gradient(60vmax 60vmax at 50% 55%, rgba(143, 220, 178, 0.08), transparent 60%),
+      var(--ink);
+  }
+
+  /* ---------- The window ---------- */
+  .xb-window {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    -webkit-mask-image: var(--mask);
+    mask-image: var(--mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: var(--mask-size, 40vmin auto);
+    mask-size: var(--mask-size, 40vmin auto);
+    -webkit-mask-position: var(--mask-pos, center);
+    mask-position: var(--mask-pos, center);
+  }
+
+  .xb-window.is-open { -webkit-mask-image: none; mask-image: none; }
+  .xb.is-in .xb-window { animation: xbFade 1.1s ease 1.35s both; }
+
+  .xb-world {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 62%;
+    will-change: transform;
+  }
+
+  .xb-sky {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(70vmax 55vmax at 50% 78%, #f1fbf5 0%, rgba(241, 251, 245, 0) 60%),
+      radial-gradient(120vmax 90vmax at 50% 100%, #c0ebd1 0%, #8fdcb2 45%, #3f8c66 85%, #2f7552 100%);
+  }
+
+  .xb-night {
+    position: absolute;
+    inset: 0;
+    opacity: var(--night);
+    background:
+      radial-gradient(60vmax 50vmax at 50% 85%, rgba(143, 220, 178, 0.22), rgba(143, 220, 178, 0) 60%),
+      linear-gradient(180deg, #171b1f 0%, #23282e 60%, #2b3238 100%);
+  }
+
+  /* The light Bip stands in */
+  .xb-halo {
+    position: absolute;
+    left: 50%;
+    bottom: -18vh;
+    width: 90vmin;
+    height: 90vmin;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 65%);
+    opacity: calc(1 - var(--night) * 0.6);
+  }
+
+  /* ---------- Bip ---------- */
+  .xb-bip {
+    position: absolute;
+    left: 50%;
+    bottom: -4svh;
+    height: var(--bip-h);
+    aspect-ratio: 1;
+    transform-origin: 50% 100%;
+    transform:
+      translateX(-50%)
+      translate(
+        calc(var(--bip-lx) * var(--a1) + (var(--bip-rx) - var(--bip-lx)) * var(--a2) + (var(--bip-ex) - var(--bip-rx)) * var(--a3)),
+        calc(var(--bip-ly) * var(--a1) + (var(--bip-ry) - var(--bip-ly)) * var(--a2) + (var(--bip-ey) - var(--bip-ry)) * var(--a3))
+      )
+      scale(calc(1 + (var(--bip-ls) - 1) * var(--a1) + (var(--bip-rs) - var(--bip-ls)) * var(--a2) + (var(--bip-es) - var(--bip-rs)) * var(--a3)));
+    z-index: 3;
+    filter: drop-shadow(0 40px 60px rgba(10, 40, 25, 0.28));
+  }
+
+  .xb-bip-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .xb-bip-img--laugh { opacity: var(--swap); }
+  .xb-bip-img--front { opacity: calc(1 - var(--swap)); }
+
+  /* ---------- Phones ---------- */
+  .xb-phone {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    height: var(--phone-h);
+    aspect-ratio: 900 / 1950;
+    padding: 1.1svh;
+    border-radius: 5.6svh;
+    background: #0d1012;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 50px 120px -30px rgba(0, 0, 0, 0.55);
+    z-index: 2;
+  }
+
+  .xb-phone img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4.6svh;
+  }
+
+  .xb-phone--client {
+    opacity: calc(var(--phone1) - var(--phone1Out));
+    transform:
+      translate(-50%, -50%)
+      translate(var(--ph1-x), calc(var(--ph1-y) + (1 - var(--phone1)) * 95svh - var(--phone1Out) * 110svh))
+      rotate(calc(-14deg + 10deg * var(--phone1) - 12deg * var(--phone1Out)))
+      scale(calc(0.86 + 0.14 * var(--phone1)));
+  }
+
+  .xb-phone--biz {
+    opacity: calc(var(--phone2) - var(--phone2Out));
+    transform:
+      translate(-50%, -50%)
+      translate(var(--ph2-x), calc(var(--ph2-y) + (1 - var(--phone2)) * 95svh + var(--phone2Out) * 30svh))
+      rotate(calc(14deg - 10deg * var(--phone2)))
+      scale(calc(0.86 + 0.14 * var(--phone2) - 0.2 * var(--phone2Out)));
+  }
+
+  /* The notification drops onto the business phone */
+  .xb-toast {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 4;
+    width: min(380px, 84vw);
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #0d0d0f;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
+    opacity: calc(var(--toast) - var(--phone2Out));
+    transform:
+      translate(-50%, -50%)
+      translate(var(--ph2-x), calc(-22svh - (1 - var(--toast)) * 60svh))
+      rotate(calc(-6deg * (1 - var(--toast))));
+  }
+
+  .xb-toast img { width: 40px; height: 40px; border-radius: 10px; }
+  .xb-toast-text { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+  .xb-toast-text b { font-size: 0.95rem; font-weight: 800; }
+  .xb-toast-text span { font-size: 0.82rem; color: rgba(0, 0, 0, 0.6); }
+  .xb-toast small { align-self: start; font-size: 0.72rem; color: rgba(0, 0, 0, 0.45); }
+
+  /* ---------- The logo, in three pieces ---------- */
+  .xb-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40vmin;
+    aspect-ratio: 2086 / 2065;
+    transform-origin: 0 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .xb-leaf {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  /* Cut along the joints of the mark, so the pieces close without a seam */
+  .xb-leaf--center { clip-path: polygon(50% 0, 74% 28%, 74% 52%, 50% 62%, 26% 52%, 26% 28%); --sx: 0vw; --sy: -70vh; --sr: 30deg; }
+  .xb-leaf--left { clip-path: polygon(0 26%, 26% 28%, 26% 52%, 50% 62%, 50% 100%, 0 100%); --sx: -70vw; --sy: 30vh; --sr: -55deg; }
+  .xb-leaf--right { clip-path: polygon(100% 26%, 74% 28%, 74% 52%, 50% 62%, 50% 100%, 100% 100%); --sx: 70vw; --sy: 25vh; --sr: 50deg; }
+
+  .xb.is-in .xb-leaf { animation: xbLeaf 1.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .xb.is-in .xb-leaf--center { animation-delay: 0.1s; }
+  .xb.is-in .xb-leaf--left { animation-delay: 0.28s; }
+  .xb.is-in .xb-leaf--right { animation-delay: 0.42s; }
+  .xb.is-in .xb-leaf--whole { animation: xbFade 0.01s linear 1.75s both; }
+  /* Once the world shows through, the mint lines turn white over it. On the
+     container: the leaves' own animation holds their filter at the end. */
+  .xb.is-in .xb-frame { animation: xbWhite 1s ease 1.35s both; }
+
+  @keyframes xbWhite {
+    from { filter: brightness(1) invert(0); }
+    to { filter: brightness(0) invert(1); }
+  }
+
+  @keyframes xbLeaf {
+    from { opacity: 0; transform: translate(var(--sx), var(--sy)) rotate(var(--sr)) scale(0.55); filter: blur(16px); }
+    55% { opacity: 1; }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+
+  /* One sweep of light across the mark when it locks */
+  .xb-shine {
+    position: absolute;
+    inset: 0;
+    -webkit-mask: var(--outline) center / 100% 100% no-repeat;
+    mask: var(--outline) center / 100% 100% no-repeat;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.95) 50%, transparent 65%) 150% 0 / 250% 100% no-repeat;
+  }
+
+  .xb.is-in .xb-shine { animation: xbShine 1.1s ease-in-out 1.25s both; }
+
+  @keyframes xbShine {
+    from { background-position: 150% 0; }
+    to { background-position: -60% 0; }
+  }
+
+  /* ---------- Intro type ---------- */
+  .xb-intro {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    opacity: calc(1 - var(--intro));
+  }
+
+  .xb-wordmark {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + min(26vmin, 230px));
+    width: min(34vmin, 300px);
+    height: auto;
+    transform: translate(-50%, -38%);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .xb.is-in .xb-wordmark { animation: xbWipe 1s cubic-bezier(0.65, 0, 0.35, 1) 1.55s both; }
+
+  @keyframes xbWipe {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  .xb-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 5svh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(-50%);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+  }
+
+  .xb-hint i {
+    position: relative;
+    width: 1px;
+    height: 46px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .xb-hint i::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -50%;
+    width: 1px;
+    height: 50%;
+    background: #fff;
+    animation: xbDrop 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .xb.is-in .xb-hint { animation: xbFade 0.8s ease 2.4s both; }
+
+  @keyframes xbDrop {
+    from { top: -50%; }
+    to { top: 100%; }
+  }
+
+  @keyframes xbFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ---------- «Hola, soy Bip.» ---------- */
+  /* Either side of Bip, who stands in the middle */
+  .xb-hello {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 34svh;
+    z-index: 4;
+    padding: 0 4vw;
+    pointer-events: none;
+    color: #0b0e10;
+    opacity: calc(1 - var(--helloOut));
+    transform: translateY(calc(var(--helloOut) * -6svh));
+  }
+
+  .xb-hello-title {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(3rem, 8.6vw, 9.5rem);
+    font-weight: 800;
+    letter-spacing: -0.065em;
+    line-height: 0.9;
+  }
+
+  /* Word by word, each one on its own third of the track */
+  .xb-w {
+    display: inline-block;
+    opacity: clamp(0, calc(var(--hello) * 3 - var(--i)), 1);
+    transform: translateY(calc((1 - clamp(0, calc(var(--hello) * 3 - var(--i)), 1)) * 0.45em));
+  }
+
+  .xb-hello-sub {
+    margin: 1.2rem 0 0;
+    text-align: right;
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    font-weight: 600;
+    color: rgba(11, 14, 16, 0.7);
+    opacity: clamp(0, calc(var(--hello) * 2 - 1), 1);
+  }
+
+  /* ---------- Copy blocks ---------- */
+  .xb-copy {
+    position: absolute;
+    top: 15svh;
+    z-index: 4;
+    width: min(36vw, 520px);
+    pointer-events: none;
+  }
+
+  .xb-copy--client { left: 7vw; color: #0b0e10; opacity: calc(1 - var(--cOut)); }
+  .xb-copy--biz { right: 7vw; text-align: right; color: #fff; opacity: calc(1 - var(--bOut)); }
+
+  .xb-kicker,
+  .xb-line {
+    margin: 0;
+    opacity: var(--k);
+    transform: translateY(calc((1 - var(--k)) * 34px));
+    filter: blur(calc((1 - var(--k)) * 8px));
+  }
+
+  .xb-kicker {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mint-deep);
+    margin-bottom: 1rem;
+  }
+
+  .xb-copy--biz .xb-kicker { color: var(--mint-2); }
+
+  .xb-line {
+    font-size: clamp(1.15rem, 1.9vw, 1.6rem);
+    font-weight: 600;
+    line-height: 1.35;
+    margin-top: 0.7rem;
+  }
+
+  .xb-line--big {
+    font-size: clamp(2rem, 4.2vw, 3.9rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+  }
+
+  /* ---------- End of the stage ---------- */
+  .xb-end {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10svh;
+    z-index: 4;
+    text-align: center;
+    padding: 0 6vw;
+    opacity: var(--end);
+    transform: translateY(calc((1 - var(--end)) * 40px)) scale(calc(1.08 - 0.08 * var(--end)));
+    pointer-events: none;
+  }
+
+  .xb-end-title {
+    margin: 0;
+    font-size: clamp(2.8rem, 8.5vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    color: var(--mint);
+  }
+
+  .xb-end-sub {
+    margin: 1.1rem auto 0;
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* ---------- After the stage ---------- */
+  .xb-final {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 1.5rem 7rem;
+    text-align: center;
+    background: linear-gradient(180deg, #2b3238 0%, #23282e 40%, #1a1e22 100%);
+  }
+
+  .xb-final-bip { width: 170px; height: auto; margin-bottom: 0.5rem; }
+
+  .xb-final-title {
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    color: #fff;
+  }
+
+  .xb-final-apps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 2.2rem;
+  }
+
+  .xb-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 230px;
+    padding: 20px 22px 18px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .xb-app:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+  .xb-app-name { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; }
+  .xb-app-for { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 12px; }
+  .xb-app img { height: 40px; width: auto; }
+
+  .xb-final-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2.4rem;
+  }
+
+  .xb-btn {
+    padding: 0.85rem 1.5rem;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    transition: background 0.2s ease;
+  }
+
+  .xb-btn:hover { background: rgba(255, 255, 255, 0.08); }
+  .xb-btn--mint { background: var(--mint); color: #14231b; box-shadow: none; }
+  .xb-btn--mint:hover { background: #d6f2e2; }
+
+  .xb-final-note {
+    max-width: 44ch;
+    margin: 2.4rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ---------- Phones (portrait) ---------- */
+  @media (max-width: 760px) {
+    .xb {
+      --bip-h: 60svh;
+      --bip-lx: -24vw; --bip-ly: 4svh; --bip-ls: 0.5;
+      --bip-rx: 24vw;  --bip-ry: 4svh; --bip-rs: 0.5;
+      --bip-ex: 0vw;   --bip-ey: 4svh; --bip-es: 1.05;
+      --phone-h: 50svh;
+      --ph1-x: 8vw; --ph1-y: 16svh;
+      --ph2-x: -8vw; --ph2-y: 16svh;
+    }
+    /* The symbol is bigger on a phone (64% of the width), so the name goes lower */
+    .xb-wordmark { top: calc(50% + 42vmin); width: 46vmin; }
+    .xb-hello { top: 9svh; text-align: center; }
+    .xb-hello-title { display: block; font-size: 3.4rem; }
+    .xb-hello-sub { text-align: center; margin-top: 0.8rem; }
+    .xb-copy { top: 11svh; width: auto; left: 6vw; right: 6vw; }
+    .xb-copy--biz { left: 6vw; right: 6vw; text-align: left; }
+    .xb-line { font-size: 1.05rem; margin-top: 0.4rem; }
+    .xb-line--big { font-size: 1.9rem; }
+    .xb-kicker { margin-bottom: 0.6rem; }
+    .xb-toast { transform: translate(-50%, -50%) translate(var(--ph2-x), calc(-4svh - (1 - var(--toast)) * 60svh)) rotate(calc(-6deg * (1 - var(--toast)))); }
+  }
+
+  /* ---------- Less motion: everything simply in place ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .xb.is-in .xb-leaf,
+    .xb.is-in .xb-window,
+    .xb.is-in .xb-wordmark,
+    .xb.is-in .xb-hint,
+    .xb.is-in .xb-shine,
+    .xb.is-in .xb-frame { animation: none; }
+    .xb-leaf, .xb-window, .xb-hint { opacity: 1; }
+    .xb-frame { filter: brightness(0) invert(1); }
+    .xb-wordmark { clip-path: none; }
+    .xb-hint i::after { animation: none; }
+  }
+</style>
