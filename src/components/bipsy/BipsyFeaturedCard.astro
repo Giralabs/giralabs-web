@@ -7,7 +7,7 @@ import { getLocalizedPath } from '../../lib/paths';
 import bipsyApp from '../../assets/bipsy/keyvisuals/bipsy-app-2026-11.webp';
 import bipsyBusinessApp from '../../assets/bipsy/keyvisuals/bipsy-business-app-2026-11.webp';
 import bipsyMark from '../../assets/bipsy/lockups/bipsy_lockup.webp';
-// The bare symbol, for the animated «Descubre Bipsy» button
+// The bare symbol, for the «Descubre Bipsy» button (always shown whole)
 import bipsySymbol from '../../assets/bipsy/derived/bipsy_symbol_outline_cropped.webp';
 
 interface Props {
@@ -55,11 +55,10 @@ const [clientShot, businessShot, mark, symbol] = await Promise.all([
     <div class="bf-actions">
       {discoverHref && (
         <a href={discoverHref} class="bf-btn bf-btn--discover">
-          <!-- The symbol's three leaves open like a flower every few seconds -->
-          <span class="bf-bloom" aria-hidden="true">
-            <img src={symbol.src} alt="" class="bf-leaf bf-leaf--left" width="160" height="158" />
-            <img src={symbol.src} alt="" class="bf-leaf bf-leaf--right" width="160" height="158" />
-            <img src={symbol.src} alt="" class="bf-leaf bf-leaf--center" width="160" height="158" />
+          <!-- The symbol, always whole: a sweep of light crosses it now and then -->
+          <span class="bf-bloom" aria-hidden="true" style={`--symbol: url(${symbol.src})`}>
+            <img src={symbol.src} alt="" class="bf-symbol" width="160" height="158" />
+            <span class="bf-symbol-light"></span>
           </span>
           <span class="bf-btn-text">
             <b>{labels.discover}</b>
@@ -305,49 +304,42 @@ const [clientShot, businessShot, mark, symbol] = await Promise.all([
     height: 44px;
   }
 
-  /* The same symbol three times, each cut to one leaf, so each can move */
-  .bf-leaf {
+  /* The mark is never cut or bent: it only catches the light and lifts */
+  .bf-symbol {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    transform-origin: 50% 64%;
-    animation: 3.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  .bf-leaf--center { clip-path: polygon(50% 0, 74% 28%, 74% 52%, 50% 62%, 26% 52%, 26% 28%); animation-name: bfCenter; }
-  .bf-leaf--left { clip-path: polygon(0 26%, 26% 28%, 26% 52%, 50% 62%, 50% 100%, 0 100%); animation-name: bfLeft; }
-  .bf-leaf--right { clip-path: polygon(100% 26%, 74% 28%, 74% 52%, 50% 62%, 50% 100%, 100% 100%); animation-name: bfRight; }
-
-  @keyframes bfLeft {
-    0%, 55%, 100% { transform: none; }
-    18% { transform: rotate(-16deg) translate(-4%, -2%); }
-    32% { transform: rotate(4deg); }
-    42% { transform: rotate(-2deg); }
+  /* A band of light running across the symbol, clipped to its exact shape */
+  .bf-symbol-light {
+    position: absolute;
+    inset: 0;
+    -webkit-mask: var(--symbol) center / 100% 100% no-repeat;
+    mask: var(--symbol) center / 100% 100% no-repeat;
+    background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.95) 50%, transparent 62%) 160% 0 / 260% 100% no-repeat;
+    animation: bfSweep 3.4s ease-in-out infinite;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  @keyframes bfRight {
-    0%, 55%, 100% { transform: none; }
-    18% { transform: rotate(16deg) translate(4%, -2%); }
-    32% { transform: rotate(-4deg); }
-    42% { transform: rotate(2deg); }
-  }
-
-  @keyframes bfCenter {
-    0%, 55%, 100% { transform: none; }
-    18% { transform: translateY(-12%) scale(1.08); }
-    32% { transform: translateY(3%) scale(0.98); }
-    42% { transform: translateY(-1%); }
+  @keyframes bfSweep {
+    0%, 45% { background-position: 160% 0; }
+    75%, 100% { background-position: -70% 0; }
   }
 
   @keyframes bfGlow {
-    0%, 55%, 100% { opacity: 0.35; transform: scale(0.85); }
-    20% { opacity: 1; transform: scale(1.1); }
+    0%, 45%, 100% { opacity: 0.35; }
+    62% { opacity: 0.9; }
   }
 
-  /* Hovered, it blooms faster */
-  .bf-btn--discover:hover .bf-leaf,
-  .bf-btn--discover:hover::before { animation-duration: 1.6s; }
+  .bf-btn--discover:hover .bf-symbol,
+  .bf-btn--discover:hover .bf-symbol-light { transform: translateY(-3px); }
+
+  /* Hovered, the light comes round more often */
+  .bf-btn--discover:hover .bf-symbol-light,
+  .bf-btn--discover:hover::before { animation-duration: 1.8s; }
 
   /* Ver el proyecto: plain and quiet */
   .bf-btn--project {
@@ -437,7 +429,7 @@ const [clientShot, businessShot, mark, symbol] = await Promise.all([
 
   @media (prefers-reduced-motion: reduce) {
     .bf-shine::after,
-    .bf-leaf,
+    .bf-symbol-light,
     .bf-btn--discover::before { animation: none; }
   }
 </style>
